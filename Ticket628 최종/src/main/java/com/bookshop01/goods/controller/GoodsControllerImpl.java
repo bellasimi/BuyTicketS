@@ -29,7 +29,7 @@ import net.sf.json.JSONObject;
 public class GoodsControllerImpl extends BaseController   implements GoodsController {
 	@Autowired
 	private GoodsService goodsService;
-	
+	//이거 매핑,뷰, sql 하나로 가능하지 않나? mapping 에 필요 값만 @requestparam해서 받아오면 될거같은데.
 
 	//sort별로 분류 박물관, 어트랙션, 전망대....
 	//자연동물/전망대
@@ -128,7 +128,9 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		 */
 		return mav;
 	}
-	//place별로 
+	
+//place별로  이거 작동 안하는 거 같은데?? 
+	
 	//서울 seoul
 	@RequestMapping(value="/seoul.do", method= {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView seoul(HttpServletRequest rq,HttpServletResponse rs) throws Exception
