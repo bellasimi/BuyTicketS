@@ -24,7 +24,7 @@
 		<result property="goods_usage" column="goods_usage"/>
 		<result property="goods_location" column="goods_location" />
 		<result property="goods_lastsale_date" column="goods_lastsale_date"/>
-		
+		<result property="goods_fileName" column="fileName" />
 	</resultMap>	
 
 	<resultMap id="imageResult" type="ImageFileVO">
