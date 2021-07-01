@@ -38,4 +38,7 @@ public class DTO {
 		this.withdraw = withdraw;
 	}
 	
+	public void sdasdad() {
+		
+	}
 }

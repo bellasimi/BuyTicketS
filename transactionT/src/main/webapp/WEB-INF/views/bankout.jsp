@@ -15,5 +15,9 @@
 </c:forEach>
 </table>
 <a href="${path}/hsy/form"><button>입출금</button></a>
+
+<!-- 추가 -->
+<input type="text" name="name">
+
 </body>
 </html>
