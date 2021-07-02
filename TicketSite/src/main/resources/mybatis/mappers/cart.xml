@@ -65,6 +65,7 @@
 	</select>
 
 
+	<!-- 장바구니에 이미 들어있는 상품이 있나 확인 false, true 반환  -->
 	<select id="selectCountInCart" resultType="String" parameterType="cartVO">
 	    <![CDATA[
 		    select decode(count(*), 0, 'false', 'true') from ticket_cart

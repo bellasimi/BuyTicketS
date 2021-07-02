@@ -55,18 +55,22 @@ public class CartControllerImpl extends BaseController implements CartController
 		//mav.addObject("cartMap", cartMap);
 		return mav;
 	}
+	
+	//goodsdetail에서 장바구니 버튼 누르면 이어지는거 
+	//ajax 로 goods_id랑 goods_ticket_date 넘어옴 
 	@RequestMapping(value="/addGoodsInCart.do" ,method = RequestMethod.POST,produces = "application/text; charset=utf8")
 	public  @ResponseBody String addGoodsInCart(@RequestParam("goods_id") int goods_id,
 			                    HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		System.out.println("카트컨트롤러 접근");
 		HttpSession session=request.getSession();
 		memberVO=(MemberVO)session.getAttribute("memberInfo");
+		//세션영역의 정보 이용 id 가져온다  
 		String member_id=memberVO.getMember_id();
-		
-		cartVO.setMember_id(member_id);
+	
+		cartVO.setMember_id(member_id); //장바구니에 회원id, 상품id 저장 
 		cartVO.setGoods_id(goods_id);
-		cartVO.setMember_id(member_id);
-		boolean isAreadyExisted=cartService.findCartGoods(cartVO);
+		//cartVO.setMember_id(member_id);
+		boolean isAreadyExisted=cartService.findCartGoods(cartVO); //장바구니가 이미 존재하는지 확인 
 		System.out.println("isAreadyExisted:"+isAreadyExisted);
 		if(isAreadyExisted==true){
 			return "already_existed";
