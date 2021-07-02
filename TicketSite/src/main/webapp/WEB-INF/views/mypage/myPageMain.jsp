@@ -4,6 +4,66 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	 
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <!DOCTYPE html>
+<style>
+/* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
+}
+.accordion:after {
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: #777;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+</style>
+
+
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    /* Toggle between adding and removing the "active" class,
+    to highlight the button that controls the panel */
+    this.classList.toggle("active");
+
+    /* Toggle between hiding and showing the active panel */
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+</script>
 <html>
 <head>
 <meta charset="utf-8">
@@ -128,35 +188,11 @@ function fn_cancel_order(order_id){
 </table>
 
 <br><br><br>	
-<h1>계좌내역
-    <a href="#"> <img  src="${contextPath}/resources/image/btn_more_see.jpg" />  </a>
-</h1>
-<table border=0 width=100%  cellpadding=10 cellspacing=10>
-  <tr>
-    <td>
-	   예치금 &nbsp;&nbsp;  <strong>10000원</strong>
-   </td>
-    <td>
-	   쇼핑머니 &nbsp;&nbsp; <strong>9000원</strong>
-   </td>
-   </tr>
-   <tr>
-    <td>
-	   쿠폰 &nbsp;&nbsp;  <strong>6000원</strong>
-   </td>
-    <td>
-	   포인트 &nbsp;&nbsp; <strong>2000원</strong>
-   </td>
-   </tr>
-   <tr>
-    <td>
-	   상품권 &nbsp;&nbsp;  <strong>4000원</strong>
-   </td>
-    <td>
-		디지털머니 &nbsp;&nbsp; <strong>9000원</strong>
-   </td>
-   </tr>
-</table>
+
+<button class="accordion">포인트 : member_point</button>
+	<div class="panel">
+		<p>내역내역내역</p>
+	</div>
 
 <br><br><br>	
 <h1>나의 정보

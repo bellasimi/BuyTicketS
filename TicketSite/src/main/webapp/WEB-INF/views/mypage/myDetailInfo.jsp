@@ -38,22 +38,22 @@
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('zipcode').value = data.zonecode; //5자리 새우편번호 사용
-                document.getElementById('roadAddress').value = fullRoadAddr;
-                document.getElementById('jibunAddress').value = data.jibunAddress;
+                document.gehpementById('zipcode').value = data.zonecode; //5자리 새우편번호 사용
+                document.gehpementById('roadAddress').value = fullRoadAddr;
+                document.gehpementById('jibunAddress').value = data.jibunAddress;
 
                 // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
                 if(data.autoRoadAddress) {
                     //예상되는 도로명 주소에 조합형 주소를 추가한다.
                     var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                    document.getElementById('guide').innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    document.gehpementById('guide').innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
 
                 } else if(data.autoJibunAddress) {
                     var expJibunAddr = data.autoJibunAddress;
-                    document.getElementById('guide').innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                    document.gehpementById('guide').innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
 
                 } else {
-                    document.getElementById('guide').innerHTML = '';
+                    document.gehpementById('guide').innerHTML = '';
                 }
             }
         }).open();
@@ -67,17 +67,17 @@
 
     function selectBoxInit(){
     
-     var tel1='${memberInfo.tel1 }';
+     var hp1='${memberInfo.hp1 }';
      var hp1='${memberInfo.hp1}';
-     var selTel1 = document.getElementById('tel1');
-     var selHp1 = document.getElementById('hp1');
-     var optionTel1 = selTel1.options;
+     var selhp1 = document.gehpementById('hp1');
+     var selHp1 = document.gehpementById('hp1');
+     var optionhp1 = selhp1.options;
      var optionHp1 = selHp1.options;
      var val;
-     for(var i=0; i<optionTel1.length;i++){
-       val = optionTel1[i].value;
-       if(tel1 == val){
-    	   optionTel1[i].selected= true;
+     for(var i=0; i<optionhp1.length;i++){
+       val = optionhp1[i].value;
+       if(hp1 == val){
+    	   optionhp1[i].selected= true;
         break;
        }
      }  
@@ -145,20 +145,20 @@ function fn_modify_member_info(attribute){
 			}
 			//alert("생년 양음년 "+value_gn);
 			value=+value_y+","+value_m+","+value_d+","+value_gn;
-		}else if(attribute=='tel'){
-			var tel1=frm_mod_member.tel1;
-			var tel2=frm_mod_member.tel2;
-			var tel3=frm_mod_member.tel3;
+		}else if(attribute=='hp'){
+			var hp1=frm_mod_member.hp1;
+			var hp2=frm_mod_member.hp2;
+			var hp3=frm_mod_member.hp3;
 			
-			for(var i=0; tel1.length;i++){
-			 	if(tel1[i].selected){
-					value_tel1=tel1[i].value;
+			for(var i=0; hp1.length;i++){
+			 	if(hp1[i].selected){
+					value_hp1=hp1[i].value;
 					break;
 				} 
 			}
-			value_tel2=tel2.value;
-			value_tel3=tel3.value;
-			value=value_tel1+","+value_tel2+", "+value_tel3;
+			value_hp2=hp2.value;
+			value_hp3=hp3.value;
+			value=value_hp1+","+value_hp2+", "+value_hp3;
 		}else if(attribute=='hp'){
 			var hp1=frm_mod_member.hp1;
 			var hp2=frm_mod_member.hp2;
@@ -337,7 +337,7 @@ function fn_modify_member_info(attribute){
 				<tr class="dot_line">
 					<td class="fixed_join">전화번호</td>
 					<td>
-					    <select  name="tel1" id="tel1"  >
+					    <select  name="hp1" id="hp1"  >
 							<option value="00">없음</option>
 							<option value="02">02</option>
 							<option value="031">031</option>
@@ -356,19 +356,13 @@ function fn_modify_member_info(attribute){
 							<option value="062">062</option>
 							<option value="063">063</option>
 							<option value="064">064</option>
-							<option value="0502">0502</option>
-							<option value="0503">0503</option>
-							<option value="0505">0505</option>
-							<option value="0506">0506</option>
-							<option value="0507">0507</option>
-							<option value="0508">0508</option>
 							<option value="070">070</option>
 					</select> 
-					    - <input type="text" size=4  name="tel2" value="${memberInfo.tel2 }"> 
-					    - <input type="text" size=4  name="tel3" value="${memberInfo.tel3 }">
+					    - <input type="text" size=4  name="hp2" value="${memberInfo.hp2 }"> 
+					    - <input type="text" size=4  name="hp3" value="${memberInfo.hp3 }">
 					</td>
 					<td>
-					  <input type="button" value="수정하기" onClick="fn_modify_member_info('tel')" />
+					  <input type="button" value="수정하기" onClick="fn_modify_member_info('hp')" />
 					</td>
 				</tr>
 				<tr class="dot_line">
@@ -458,7 +452,7 @@ function fn_modify_member_info(attribute){
 		</tr>
 	</table>
 	</div>
-	<input  type="hidden" name="h_tel1" value="${memberInfo.tel1}" />
+	<input  type="hidden" name="h_hp1" value="${memberInfo.hp1}" />
 	<input  type="hidden" name="h_hp1" value="${memberInfo.hp1}" />		
 </form>	
 </body>
