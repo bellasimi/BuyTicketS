@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"
     isELIgnored="false"
@@ -43,35 +44,47 @@
 </c:when>
 <c:otherwise>
 	<li>
-		<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;place지역분류</h3>
+		
 		<ul>
-			<li><a href="${contextPath}/goods/sort.do?goods_sort=nature">자연동물/전망대</a></li>
-			<li><a href="${contextPath}/goods/sort.do?goods_sort=museum">박물관/전시</a></li>
-			<li><a href="${contextPath}/goods/sort.do?goods_sort=themepark">테마파크</a></li>
-			<li><a href="${contextPath}/goods/sort.do?goods_sort=history">역사문화명소</a></li>
-			<li><a href="${contextPath}/goods/sort.do?goods_sort=attraction">어틀랙션패스/기타대회</a></li>
+			<li><a href="${contextPath}/goods/sort.do?goods_sort=nature"><!-- 자연 -->
+				<img src ="${contextPath}/resources/icon/nature.png"></a>
+			
+				<a href="${contextPath}/goods/sort.do?goods_sort=museum"><!-- 박물관 -->
+				<img src ="${contextPath}/resources/icon/museum.png"></a>
+		
+				<a href="${contextPath}/goods/sort.do?goods_sort=themepark">
+				<img src ="${contextPath}/resources/icon/themepark.png"></a><!-- 테마파크 -->
+				<a href="${contextPath}/goods/sort.do?goods_sort=history">
+				<img src ="${contextPath}/resources/icon/history.png"></a><!-- 역사문화 -->
+				<a href="${contextPath}/goods/sort.do?goods_sort=attraction">
+				<img src ="${contextPath}/resources/icon/attraction.png"></a><!-- 어트랙션 -->
+			</li>
 		</ul>
 	</li>
 	
 	<li>
 		<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;place지역분류</h3>
 		<ul>
-			<li><a href="${contextPath}/goods/place.do?goods_place=seoul">서울</a></li>
-			<li><a href="${contextPath}/goods/place.do?goods_place=ggi">경기도</a></li>
-			<li><a href="${contextPath}/goods/place.do?goods_place=gang">강원도</a></li>
-			<li><a href="${contextPath}/goods/place.do?goods_place=chung">충청도</a></li>
-			<li><a href="${contextPath}/goods/place.do?goods_place=jeolla">전라도</a></li>
-			<li><a href="${contextPath}/goods/place.do?goods_place=sang">경상도</a></li>
-			<li><a href="${contextPath}/goods/place.do?goods_place=jeju">제주도</a></li>
+			<li><a href="${contextPath}/goods/place.do?goods_place=seoul">서울</a>
+			<a href="${contextPath}/goods/place.do?goods_place=ggi">경기도</a>
+			<a href="${contextPath}/goods/place.do?goods_place=gang">강원도</a>
+			<a href="${contextPath}/goods/place.do?goods_place=chung">충청도</a>
+			<a href="${contextPath}/goods/place.do?goods_place=jeolla">전라도</a>
+			<a href="${contextPath}/goods/place.do?goods_place=sang">경상도</a>
+			<a href="${contextPath}/goods/place.do?goods_place=jeju">제주도</a>
+			
+			</li>
 		</ul>
 	</li>
  </c:otherwise>
 </c:choose>	
 </ul>
 </nav>
+<!-- 
 <div class="clear"></div>
 <div id="banner">
 	<a href="#"><img width="190" height="163" src="${contextPath}/resources/image/n-pay.jpg"> </a>
+	
 </div>
 <DIV id="notice">
 	<H2>공지사항</H2>
@@ -93,4 +106,4 @@
 <div id="banner">
 	<a href="#"><img width="190" height="69" src="${contextPath}/resources/image/QnA_logo.jpg"></a>
 </div>
-</html>
+ -->
