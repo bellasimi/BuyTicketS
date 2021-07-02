@@ -7,8 +7,8 @@
 <!-- 리절트 맵 정의 -->	
 	<resultMap id="orderGoodsResult" type="OrderVO">
 	    <result property="order_seq_num" column="order_seq_num" />
-		<result property="order_id" column="order_id" />
 		<result property="member_id" column="member_id" />
+		<result property="order_id" column="order_id" />
 		<result property="goods_id" column="goods_id" />
 		<result property="goods_title" column="goods_title" />
 		<result property="goods_sales_price" column="goods_sales_price" />
