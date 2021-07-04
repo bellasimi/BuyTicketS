@@ -68,9 +68,14 @@ function goodsDetail(){
 	
 	
 }
+function goup(){
+	window.scrollBy(0, 0);
+	window.scrollTo(0, 0);
+}
 </script>  
  
-<body>    
+<body>
+<!-- 봤던 상품 목록 sns 기능 잠시 보류
     <div id="sticky" >
 	<ul>
 		<li><a href="#">
@@ -89,7 +94,7 @@ function goodsDetail(){
 	<div class="recent">
 		<h3>최근 본 상품</h3>
 		  <ul>
-		<!--   상품이 없습니다. -->
+		 상품이 없습니다. 
 		 <c:choose>
 			<c:when test="${ empty quickGoodsList }">
 				     <strong>상품이 없습니다.</strong>
@@ -130,6 +135,13 @@ function goodsDetail(){
        </c:choose>
     </div>
 </div>
+ --> 
+ 
+ <!-- 위로 가기 버튼 -->
+  <div id="sticky" >
+	<a  href='javascript:goup();'><img src="${contextPath}/resources/icon/up.png"></a>
+
+ </div>
 </body>
 </html>
  

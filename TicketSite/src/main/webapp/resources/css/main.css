@@ -239,9 +239,9 @@ nav ul {
 }
 nav ul li {
 	padding: 5px 10px; text-transform: uppercase;
-}
+}/*nav ul li a에서 아래 내용 삭제, 이거 있으면 줄바꿈된다
+	display: block;  */
 nav ul li a {
-	display: block;
 }
 nav ul li h3 {
 
@@ -251,7 +251,7 @@ nav ul li ul {
 	margin: 10px 0px 0px;
 }
 nav ul li ul li {height: 200px;
-	padding: 0px 0px 0px 20px; line-height: 2em; background-color: red;
+	padding: 0px 0px 0px 20px; line-height: 2em; 
 }
 aside #banner {
 	margin: 10px 15px;
@@ -576,9 +576,13 @@ footer img {
 	margin: 10px 0px 0px 40px; width: 150px; float: left;
 }
 #sticky {
-	/* padding: 10px 5px; border-radius: 10px; top: 115px; width: 82px; font-size: 0.75em; float: right; position: relative; background-color: rgb(153, 153, 153); */
-	padding: 10px 5px; border-radius: 10px; top: 115px; width: 82px; font-size: 0.75em; float: right; position: relative; background-color:#66cc00;
-	
+	/* padding: 10px 5px;top: 115px; border-radius: 10px; top: 115px; width: 82px; position: relative; font-size: 0.75em; float: right; position: relative; background-color: rgb(153, 153, 153); background-color:#66cc00;*/
+	padding: 10px 5px; border-radius: 10px;  width:82px; font-size: 0.75em; 
+	float: right; position:relative; 
+	top:400px;
+}
+#sticky img{
+	position:fixed; bottom: 100px; right:70px;
 }
 #sticky ul {
 	list-style: none;

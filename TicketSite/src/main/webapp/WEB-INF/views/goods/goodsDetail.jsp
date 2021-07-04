@@ -45,13 +45,15 @@
 <script type="text/javascript">
 	function add_cart(goods_id) {
 		var goods_ticket_date=document.getElementById("goods_ticket_date").value;
+		var order_goods_qty =document.getElementById("order_goods_qty").value;//구매 수량
 		$.ajax({
 			type : "post",
 			async : false, //false인 경우 동기식으로 처리한다.
 			url : "${contextPath}/cart/addGoodsInCart.do",
 			data : {
-				goods_ticket_date:goods_ticket_date, //이게 되나? 
-				goods_id:goods_id
+				goods_ticket_date:goods_ticket_date, 
+				goods_id:goods_id,
+				cart_goods_qty:order_goods_qty //구매수량 cart_goods_qty라는 변수명으로 전달
 				
 			},
 			success : function(data, textStatus) {

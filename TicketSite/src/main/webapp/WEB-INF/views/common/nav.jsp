@@ -50,8 +50,7 @@
 				<img src ="${contextPath}/resources/icon/nature.png"></a>
 			
 				<a href="${contextPath}/goods/sort.do?goods_sort=museum"><!-- 박물관 -->
-				<img src ="${contextPath}/resources/icon/museum.png"></a>
-		
+				<img src ="${contextPath}/resources/icon/museum.png"></a>			
 				<a href="${contextPath}/goods/sort.do?goods_sort=themepark">
 				<img src ="${contextPath}/resources/icon/themepark.png"></a><!-- 테마파크 -->
 				<a href="${contextPath}/goods/sort.do?goods_sort=history">
@@ -65,7 +64,8 @@
 	<li>
 		<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;place지역분류</h3>
 		<ul>
-			<li><a href="${contextPath}/goods/place.do?goods_place=seoul">서울</a>
+			<li>
+			<a href="${contextPath}/goods/place.do?goods_place=seoul">서울</a>
 			<a href="${contextPath}/goods/place.do?goods_place=ggi">경기도</a>
 			<a href="${contextPath}/goods/place.do?goods_place=gang">강원도</a>
 			<a href="${contextPath}/goods/place.do?goods_place=chung">충청도</a>
