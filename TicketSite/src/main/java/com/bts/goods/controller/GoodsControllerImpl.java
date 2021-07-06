@@ -29,8 +29,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 	@Autowired
 	private GoodsService goodsService;
 	
-
-
+//이렇게 두면 db에 값 없을 때 페이지 안뜸.
 //sort별로 분류 
 	//자연동물,박물관, ... nature,museum,themepark,history,attraction
 		@RequestMapping(value= "/sort.do" ,method={RequestMethod.POST,RequestMethod.GET})
