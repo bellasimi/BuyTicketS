@@ -13,11 +13,11 @@
 <c:set var="totalSalesPrice" value="0"/> <!-- 할인가*수량 총합 -->
 <c:set var="totalDiscount" value="0"/> <!-- 할인된 금액 총합  -->
 
-
 <head>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 <script type="text/javascript">
 
+/*
 //체크박스 관련 처리부분-하단 금액테이블 계산 + 전체선택/해제 +부분선택/해제 + 
 $(document).ready(function(){
 $("input[type=checkbox]").change(function() {
@@ -95,15 +95,16 @@ $("input[type=checkbox]").change(function() {
 						
 		}
 	
+		//체크박스중에 checked된 것들 개수
 		checkedGoods = $("input[class=checked_goods]:checked").length;
 		document.getElementById("checkedGoods").innerHTML=checkedGoods;
 		
 	});
  
-}); 
+}); //체크박스 관련 처리 끝 
 
 
-	
+	*/
 
 /*되는 코드 -> 개수 넘겨주는 거까지 
 var checkedGoods;
@@ -143,20 +144,73 @@ $(document).ready(function(){
 
 
 
-function modify_cart_qty(goods_id,bookPrice,index){
-	//alert(index);
-   var length=document.frm_order_all_cart.cart_goods_qty.length;
 
-   var _cart_goods_qty=0;
-	if(length>1){ //카트에 제품이 한개인 경우와 여러개인 경우 나누어서 처리한다.
-		_cart_goods_qty=document.frm_order_all_cart.cart_goods_qty[index].value;		
-	}else{
-		_cart_goods_qty=document.frm_order_all_cart.cart_goods_qty.value;
-	}
+
+
+
+//이부분은 일단 죽이고 + - 버튼 테스트해보기
+/*
+function modify_cart_qty(goods_id,salesPrice,beforeQTY) {
+	
+	
+	//체크박스에서 가져온거 
+	var checked_goods=document.frm_order_all_cart.checked_goods; //체크박스 받아옴
+	var goods_price= document.frm_order_all_cart.h_goods_price; //정가 
+	var goods_sales_price=document.frm_order_all_cart.h_goods_sales_price; //판매가 
+	var cart_goods_qty=document.frm_order_all_cart.cart_goods_qty; //수량 
+	//html에서 받아온 객체는 변수이름 그대로 써준다 
+		//./////////////////////////////////////////////
+		///////이부분 다른데랑 변수 통일시켜야 된다ㅠㅠㅠㅠ checked_goods 도 바꿀까봐 check_goods나 goods_box 이런거로 
+	console.log("원래값"+beforeQTY);//제대로 넘어옴ㅇㅇ두번은 안통하는데ㅠㅠㅠㅠ 
 		
-	var cart_goods_qty=Number(_cart_goods_qty);
-	//alert("cart_goods_qty:"+cart_goods_qty);
-	//console.log(cart_goods_qty);
+	var cartqty=cart_goods_qty.value;
+	console.log("수정된값"+cartqty);
+	var priceXqty=parseInt(cartqty)*salesPrice;
+	/////ajax 다음에 html넣어도되는지 확인좀  다 돌아가고 나서여야 하니까 나중에 넣어야할까????
+	console.log("가격*수량" + priceXqty);
+	priceXqty=Intl.NumberFormat().format(priceXqty);
+	document.getElementById("p_priceXqty").innerHTML=priceXqty+"원";//개별상품총금액	
+	//console.log(checked_goods.length)	//자체가 안넘어옴 
+		
+		
+	var goodsPrice; //자바스크립트내에서 통용되는 변수
+	var salesPrice;
+	var goodsQty;
+
+	var totalGoodsPrice=0; //총합(정가*수량) 
+	var totalSalesPrice=0; //총합(판매가*수량)  --결제금액 
+	var totalDiscount=0; //총할인되는 금액
+	
+	//원래 있던거랑 가격을 비교해서 빼는 방식으로 해볼까ㅠㅠ 
+	//이방식으로는 checked_goods 자체가 안넘어온다 
+	 for(var i=0; i<checked_goods.length;i++){
+		if(checked_goods[i].checked==true){
+			
+			goodsPrice=goods_price[i].value;
+			salesPrice=goods_sales_price[i].value; //위에서 정의된거랑은 쓰임이 좀 달라야 되니까ㅇㅇ 변수명 같은거 반복하니까 꼬임 
+			goodsQty=cart_goods_qty[i].value; 
+			console.log("goods_price"+salesPrice+"typeof"+typeof salesPrice);
+			console.log("cart_goods_qty"+goodsQty+"typeof"+typeof goodsQty);
+			totalGoodsPrice=totalGoodsPrice+parseInt(goodsPrice)*parseInt(goodsQty);
+			totalSalesPrice=totalSalesPrice+parseInt(salesPrice)*parseInt(goodsQty);
+			totalDiscount=totalGoodsPrice-totalSalesPrice; //총 할인금액 구하는 건데 직접 계산해서 구해줘야하는지 생각해보기 
+			console.log(totalGoodsPrice);
+		
+		} 
+	}
+	totalGoodsPrice=Intl.NumberFormat().format(totalGoodsPrice);
+	totalSalesPrice=Intl.NumberFormat().format(totalSalesPrice);
+	totalDiscount=Intl.NumberFormat().format(totalDiscount);
+	
+	
+	document.getElementById("p_totalGoodsPrice").innerHTML=totalGoodsPrice+"원";
+	document.getElementById("p_totalSalesPrice").innerHTML=totalSalesPrice+"원";
+	document.getElementById("p_totalDiscount").innerHTML=totalDiscount+"원";
+	//체크박스에서 가져온거 
+	
+	//console.log(cart_goods_qty); //여기서 오류뜸 이건 그냥 값이 없는거지 문제아님 
+		 
+	
 	$.ajax({
 		type : "post",
 		async : false, //false인 경우 동기식으로 처리한다.
@@ -184,7 +238,54 @@ function modify_cart_qty(goods_id,bookPrice,index){
 		}
 	}); //end ajax	
 }
+*/
 
+//수량변경까지 됨 일단 위에서 + - 버튼으로 바꿔보고 
+/* function modify_cart_qty(goods_id,bookPrice,index){
+	//alert(index);
+   var length=document.frm_order_all_cart.cart_goods_qty.length;
+
+   var _cart_goods_qty=0;
+	if(length>1){ //카트에 제품이 한개인 경우와 여러개인 경우 나누어서 처리한다. 
+		//이게필요가있을까 어차피 한번에 하나만 변경하는건데...????
+		_cart_goods_qty=document.frm_order_all_cart.cart_goods_qty[index].value;	
+		console.log("1보다 크면")
+	}else{
+		_cart_goods_qty=document.frm_order_all_cart.cart_goods_qty.value;
+		console.log("1이면 아니면 더작은거 "); //이거 실행됨 어차피 지워도될듯
+	}
+		
+	var cart_goods_qty=parseInt(_cart_goods_qty);
+	//alert("cart_goods_qty:"+cart_goods_qty);
+	console.log(cart_goods_qty);
+	$.ajax({
+		type : "post",
+		async : false, //false인 경우 동기식으로 처리한다.
+		url : "${contextPath}/cart/modifyCartQty.do",
+		data : {
+			goods_id:goods_id,
+			cart_goods_qty:cart_goods_qty
+		},
+		
+		success : function(data, textStatus) {
+			//alert(data);
+			if(data.trim()=='modify_success'){
+				alert("수량을 변경했습니다!!");	
+			}else{
+				alert("다시 시도해 주세요!!");	
+			}
+			
+		},
+		error : function(data, textStatus) {
+			alert("에러가 발생했습니다."+data);
+		},
+		complete : function(data, textStatus) {
+			//alert("작업을완료 했습니다");
+			
+		}
+	}); //end ajax	
+}
+ */
 function delete_cart_goods(cart_id){
 	var cart_id=Number(cart_id);
 	var formObj=document.createElement("form");
@@ -332,6 +433,7 @@ function fn_order_all_cart_goods(){
 	<tr style="background:#33ff00" >
 		<td class="fixed" ><input type="checkbox" id="checkall" checked></td>
 		<td colspan=2 class="fixed">상품명</td>
+		<td>예약일</td>
 		<td>정가</td>
 		<td>판매가</td>
 		<td>수량</td>
@@ -353,6 +455,7 @@ function fn_order_all_cart_goods(){
 	 <tr>
 		<c:set var="cart_goods_qty" value="${myCartList[idx.index].cart_goods_qty}" />
 		<c:set var="cart_id" value="${myCartList[idx.index].cart_id}" />
+		<c:set var="goods_ticket_date" value="${myCartList[idx.index].goods_ticket_date }"/>
 		<!-- 할인율 -->
 
 		<!-- 할인가  --> 
@@ -365,7 +468,7 @@ function fn_order_all_cart_goods(){
 		<td><input type="checkbox" class="checked_goods" name="checked_goods" checked  value="${item.goods_id}" ></td>
 				<!--  onClick="calGoodsPrice()"-->
 					<!-- 상품명 이미지 -->
-					<td class="goods_image">
+			<td class="goods_image">
 					<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">
 						<img width="75" alt="" src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"  />
 					</a>
@@ -379,6 +482,13 @@ function fn_order_all_cart_goods(){
 						${item.goods_id }
 					
 				</td>
+		<!-- /////////////////////////예매날짜 input 필요한지 생각해보기  -->		
+				<td>   
+				 ${goods_ticket_date }	
+				</td>
+				
+				
+				
 		<td class="price">
 				<input type="hidden" id="h_goods_price" value="${item.goods_price}">
 				<fmt:formatNumber value="${item.goods_price}" var="goodsprice" pattern="#,###"/>
@@ -387,6 +497,7 @@ function fn_order_all_cart_goods(){
 		<!-- 정가-->	<span>${goodsprice}원</span>
 		
 		</td>	
+	
 					
 		<!-- 판매가 -->		
 		<td class="price">
@@ -398,15 +509,15 @@ function fn_order_all_cart_goods(){
 					</td>
   <!-- 수량 -->		<td>  
 					   <input type="text" name="cart_goods_qty" size="3" value="${cart_goods_qty}"><br>
-						<a href="javascript:modify_cart_qty(${item.goods_id},${item.goods_sales_price},${idx.index });" >
+						<a href="javascript:modify_cart_qty(${item.goods_id},${item.goods_sales_price},${cart_goods_qty});" >
 						    <img width=25 alt=""  src="${contextPath}/resources/image/btn_modify_qty.jpg">
 						</a>
 						<input type="hidden" id="h_cart_goods_qty" value="${cart_goods_qty}">
 					</td>
 					<td>
 					   <strong>
-		<!-- 합계 -->			    <fmt:formatNumber  value="${item.goods_sales_price*cart_goods_qty}" type="number" var="total_sales_price" pattern="#,###"/>
-				         <p id=""> ${total_sales_price}원</p>
+		<!-- 합계 -->			    <fmt:formatNumber  value="${item.goods_sales_price*cart_goods_qty}" type="number" var="priceXqty" pattern="#,###"/>
+				         <p id="p_priceXqty"> ${priceXqty}원</p>
 					</strong> </td>
 					<td>
 		<!-- 각각구매 -->	 <a href="javascript:fn_order_each_goods('${item.goods_id }','${item.goods_title }','${item.goods_sales_price}','${item.goods_fileName}');">
@@ -524,7 +635,7 @@ function fn_order_all_cart_goods(){
        <a href="javascript:fn_order_all_cart_goods()">
           <img width="75" alt="" src="${contextPath}/resources/image/btn_order_final.jpg">
        </a>
-       <a href="#">
+       <a href="#"> <!-- 쇼핑계속하기 goodsDetail로 돌아가면 되겠는데 아니면......  -->
           <img width="75" alt="" src="${contextPath}/resources/image/btn_shoping_continue.jpg">
        </a>
    <center>

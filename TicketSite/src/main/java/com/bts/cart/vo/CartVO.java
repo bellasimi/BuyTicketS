@@ -1,5 +1,7 @@
 package com.bts.cart.vo;
 
+import java.sql.Date;
+
 import org.springframework.stereotype.Component;
 
 @Component("cartVO")
@@ -8,6 +10,7 @@ public class CartVO {
 	private int goods_id;//
 	private String member_id;//
 	private int cart_goods_qty;//
+	private Date goods_ticket_date; //db에도 필드 있음
 	private String creDate;//
 	
 	
@@ -44,6 +47,12 @@ public class CartVO {
 	}
 	public void setCreDate(String creDate) {
 		this.creDate = creDate;
+	}
+	public Date getGoods_ticket_date() {
+		return goods_ticket_date;
+	}
+	public void setGoods_ticket_date(Date goods_ticket_date) {
+		this.goods_ticket_date = goods_ticket_date;
 	}
 	
 	

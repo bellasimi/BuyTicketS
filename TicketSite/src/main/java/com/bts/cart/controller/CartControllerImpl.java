@@ -1,8 +1,6 @@
 package com.bts.cart.controller;
 
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bts.cart.service.CartService;
 import com.bts.cart.vo.CartVO;
 import com.bts.common.base.BaseController;
-import com.bts.goods.vo.GoodsVO;
+
 import com.bts.member.vo.MemberVO;
 
 @Controller("cartController")
@@ -56,11 +54,14 @@ public class CartControllerImpl extends BaseController implements CartController
 		return mav;
 	}
 	
-	//goodsdetail에서 장바구니 버튼 누르면 이어지는거 
+	//goodsdetail에서 장바구니 버튼 누르면 이어지는거 하나의상품을 장바구니에 추가
 	//ajax 로 goods_id랑 goods_ticket_date 넘어옴 
 	@RequestMapping(value="/addGoodsInCart.do" ,method = RequestMethod.POST,produces = "application/text; charset=utf8")
-	public  @ResponseBody String addGoodsInCart(@RequestParam("goods_id") int goods_id,
+	public  @ResponseBody String addGoodsInCart(@RequestParam("goods_id") int goods_id, 
+								//@RequestParam("goods_ticket_date") Date goods_ticket_date,
+								//@RequestParam("cart_goods_qty") int cart_goods_qty,
 			                    HttpServletRequest request, HttpServletResponse response)  throws Exception{
+		//수량 배열로 받지않아도 되겠지 하나씩 저장되니까??????
 		System.out.println("카트컨트롤러 접근");
 		HttpSession session=request.getSession();
 		memberVO=(MemberVO)session.getAttribute("memberInfo");
@@ -69,12 +70,15 @@ public class CartControllerImpl extends BaseController implements CartController
 	
 		cartVO.setMember_id(member_id); //장바구니에 회원id, 상품id 저장 
 		cartVO.setGoods_id(goods_id);
+		//cartVO.setGoods_ticket_date(goods_ticket_date); //수량, 예약일 추가 
+		//cartVO.setCart_goods_qty(cart_goods_qty);
 		//cartVO.setMember_id(member_id);
-		boolean isAreadyExisted=cartService.findCartGoods(cartVO); //장바구니가 이미 존재하는지 확인 
+		boolean isAreadyExisted=cartService.findCartGoods(cartVO); //장바구니에 이미 상품이 존재하는지 확인 
 		System.out.println("isAreadyExisted:"+isAreadyExisted);
 		if(isAreadyExisted==true){
-			return "already_existed";
-		}else{
+			return "already_existed";       ///String 넘긴다 goodsdetail.jsp에서 경고메시지 띄워줌 
+			//ata.trim()=='already_existed' 이런식으로 처리됨 자바스크립트에서 
+		}else{ //장바구니에 없으면 추가시킨다 
 			cartService.addGoodsInCart(cartVO);
 			return "add_success";
 		}
