@@ -225,20 +225,26 @@ form.example::after {
 
 /* 검색창 */
 /*-----------------------------------------------------------------------------------  */
+section{
+	width:1100px; text-align: center; 
+}
+section ul{
+	list-style: none; 
+}
 aside {
 
 	width: 1100px; float: left;
 }
 nav {
-	width: 1100px;
+	width: 1100px; 
 	margin: 25px 0px 0px 10px; font-family: "NanumGothic", Serif; font-size: 0.8em;
 }
 nav ul {
 	
-	list-style: none;
+	list-style: none; 
 }
-nav ul li {
-	padding: 5px 10px; text-transform: uppercase;
+nav ul li { text-align: center;
+	padding: 5px 10px; text-transform: uppercase; 
 }/*nav ul li a에서 아래 내용 삭제, 이거 있으면 줄바꿈된다
 	display: block;  */
 nav ul li a {
@@ -248,9 +254,9 @@ nav ul li h3 {
 	background-position: top; padding: 5px 20px; border-radius: 20px; border: 1px solid rgb(204, 204, 204); border-image: none; text-transform: capitalize; font-size: 14px; background-image: url("../imgs/nav_back.jpg"); background-repeat: repeat-x; background-color: rgb(229, 229, 229);
 }
 nav ul li ul {
-	margin: 10px 0px 0px;
+	margin: 10px 0px 0px; 
 }
-nav ul li ul li {height: 200px;
+nav ul li ul li {
 	padding: 0px 0px 0px 20px; line-height: 2em; 
 }
 aside #banner {

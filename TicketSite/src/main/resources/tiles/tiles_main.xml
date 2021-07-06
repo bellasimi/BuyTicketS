@@ -8,6 +8,7 @@
 		<put-attribute name="title" value="레이아웃 페이지" />
 		<put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
 		<put-attribute name="nav" value="/WEB-INF/views/common/nav.jsp" /><!-- sort,place -->
+		<put-attribute name="section" value="" /><!-- sort,place,main에만 존재하는 메뉴 -->
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
 		<put-attribute name="quickMenu" value="/WEB-INF/views/common/quickMenu.jsp" />
@@ -15,6 +16,7 @@
 
 	<definition name="/main/main" extends="baseLayout">
 		<put-attribute name="title" value="메인페이지" />
+		<put-attribute name="section" value="/WEB-INF/views/common/goodsmenu.jsp" />
 		<put-attribute name="body" value="/WEB-INF/views/main/main.jsp" />
 	</definition>
 	<definition name="/main/address" extends="baseLayout">
@@ -30,5 +32,3 @@
 		<put-attribute name="body" value="/WEB-INF/views/main/terms.jsp" />
 	</definition>
 </tiles-definitions>
-
-

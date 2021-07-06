@@ -7,11 +7,13 @@
     <!-- sort별 페이지 뷰하나 -->  
 	<definition name="/goods/sort" extends="baseLayout">
          <put-attribute name="title" value="sort별리스트" />
+		<put-attribute name="section" value="/WEB-INF/views/common/goodsmenu.jsp" />
          <put-attribute name="body" value="/WEB-INF/views/goods/SortList.jsp" />            
     </definition>  
     <!-- place별 페이지 뷰하나 -->  
 	<definition name="/goods/place" extends="baseLayout">
          <put-attribute name="title" value="지역별리스트" />
+		<put-attribute name="section" value="/WEB-INF/views/common/goodsmenu.jsp" />
          <put-attribute name="body" value="/WEB-INF/views/goods/PlaceList.jsp" />            
     </definition>  
     
@@ -27,5 +29,3 @@
       </definition>
   
 </tiles-definitions>
-
-

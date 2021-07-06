@@ -52,6 +52,7 @@
 			<div class="clear"></div>
 		
 				 <tiles:insertAttribute name="nav" />
+				 <tiles:insertAttribute name="section" />
 		
 			<article>
 			 	<tiles:insertAttribute name="body" />
