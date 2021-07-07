@@ -117,6 +117,14 @@
      
 		]]>
 </select>	
-
+<!-- 키워드로 검색 자동완성-->
+ <select id="selectKeywordSearch" resultType="String"  parameterType="String"  >
+     <![CDATA[
+   		    select goods_title from ticket_goods 
+		    where goods_title like '%'|| #{keyword} || '%'		   
+		    order by goods_lastsale_date
+     
+		]]>
+</select>	
 
 </mapper>

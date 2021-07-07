@@ -17,9 +17,9 @@
 			async : true, //false인 경우 동기식으로 처리한다.
 			url : "${contextPath}/goods/keywordSearch.do",
 			data : {keyword:value},
-			success : function(data, textStatus) {
-			    var jsonInfo = JSON.parse(data);
-				displayResult(jsonInfo);
+			success : function(data, textStatus) {// 해당 매핑에서 return해준 jsonInfo 값인가?
+			    var jsonInfo = JSON.parse(data);//전송된 데이터를 json형식으로 파싱
+				displayResult(jsonInfo);//{"keyword":["평창 비엔나 인형박물관 입장권"]}이런식으로 들어있음
 			},
 			error : function(data, textStatus) {
 				alert("에러가 발생했습니다."+data);
@@ -32,7 +32,8 @@
 	}
 	
 	function displayResult(jsonInfo){
-		var count = jsonInfo.keyword.length;
+		
+		var count = jsonInfo.keyword.length; //{"keyword":["평창 비엔나 인형박물관 입장권","비...","비.."]}키워드 개수만큼 
 		if(count > 0) {
 		    var html = '';
 		    for(var i in jsonInfo.keyword){
@@ -100,9 +101,11 @@
 			<input name="searchWord" class="main_input" type="text"  onKeyUp="keywordSearch()"> 
 			<input type="submit" name="search" class="btn1"  value="검 색" >
 		</form>
+		
 	</div>
+
    <div id="suggest">
-        <div id="suggestList"></div>
+       	 <div id="suggestList"></div>
    </div>
 </body>
 </html>
