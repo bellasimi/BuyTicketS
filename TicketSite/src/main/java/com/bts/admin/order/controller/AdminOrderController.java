@@ -9,7 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-public interface AdminOrderController {
+public interface AdminOrderController
+{
 	public ModelAndView adminOrderMain(@RequestParam Map<String, String> dateMap,
             HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ResponseEntity modifyDeliveryState(@RequestParam Map<String, String> deliveryMap, 

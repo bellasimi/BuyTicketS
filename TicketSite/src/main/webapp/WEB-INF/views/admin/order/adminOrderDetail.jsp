@@ -6,7 +6,7 @@
 <c:set var="orderList"  value="${orderMap.orderList}"  />
 <c:set var="deliveryInfo"  value="${orderMap.deliveryInfo}"  />
 <c:set var="orderer"  value="${orderMap.orderer}"  />
-
+ 
 <script  type="text/javascript">
 function fn_modify_order_state(order_id){
 	var s_delivery_state=document.getElementById("s_delivery_state");
@@ -107,11 +107,11 @@ function fn_modify_order_state(order_id){
 					<td>
 					  ${deliveryInfo.receiver_hp1}-${deliveryInfo.receiver_hp2}-${deliveryInfo.receiver_hp3}</td>
 				  </tr>
-				<tr class="dot_line">
-					<td class="fixed_join">유선전화(선택)</td>
-					<td>
-					   ${deliveryInfo.receiver_tel1}-${deliveryInfo.receiver_tel2}-${deliveryInfo.receiver_tel3}</td>
-				</tr>
+<!-- 				<tr class="dot_line"> -->
+<!-- 					<td class="fixed_join">유선전화(선택)</td> -->
+<!-- 					<td> -->
+<%-- 					   ${deliveryInfo.receiver_tel1}-${deliveryInfo.receiver_tel2}-${deliveryInfo.receiver_tel3}</td> --%>
+<!-- 				</tr> -->
 
 
 				<tr class="dot_line">

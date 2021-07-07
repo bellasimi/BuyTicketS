@@ -3,7 +3,7 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="mapper.admin.order">
+<mapper namespace="mapper.admin.order" >
 <resultMap id="orderResult" type="OrderVO">
 		<result property="order_id" column="order_id" />
 		<result property="member_id" column="member_id" />
@@ -18,10 +18,10 @@
 		<result property="receiver_hp1" column="receiver_hp1" />
 		<result property="receiver_hp2" column="receiver_hp2" />
 		<result property="receiver_hp3" column="receiver_hp3" />
-		
-		<result property="receiver_tel1" column="receiver_tel1" />
-		<result property="receiver_tel2" column="receiver_tel2" />
-		<result property="receiver_tel3" column="receiver_tel3" />
+		<!--  -->
+<!-- 		<result property="receiver_tel1" column="receiver_tel1" /> -->
+<!-- 		<result property="receiver_tel2" column="receiver_tel2" /> -->
+<!-- 		<result property="receiver_tel3" column="receiver_tel3" /> -->
 		<result property="delivery_address" column="delivery_address" />
 		<result property="delivery_message" column="delivery_message" />
 		
@@ -61,18 +61,13 @@
 		<result property="email1" column="email1" />
 		<result property="email2" column="email2" />
 		<result property="emailsts_yn" column="emailsts_yn" />
-		
-		<result property="zipcode" column="zipcode" />
-		<result property="roadAddress" column="roadAddress" />
-		<result property="jibunAddress" column="jibunAddress" />
-		<result property="namujiAddress" column="namujiAddress" />
 		<result property="joinDate" column="joinDate" />
 	</resultMap>
 <select id="selectNewOrderList" resultMap="orderResult"   parameterType="java.util.HashMap"  >
 		  select * from (
 			    select rowNum as recNum,t.*
 			       from (
-			              select  *  from t_shopping_order 
+			              select  *  from TICKET_ORDER 
 			              where to_char(pay_order_time,'yyyy-mm-dd')  between #{beginDate} and #{endDate}
 			                <if test="search_type=='orderer_id'">
 			                  AND orderer_id=#{search_word}
@@ -91,7 +86,7 @@
 	</select>
 	
 <update id="updateDeliveryState" parameterType="java.util.Map" >
-	   update t_shopping_order
+	   update TICKET_ORDER
 	    <set> 
 	      <if test=" delivery_state!='' and delivery_state!=null">
 	        delivery_state=#{delivery_state}
@@ -103,14 +98,14 @@
 	
     <select id="selectOrderDetail" resultMap="orderResult"   parameterType="int"  >
 	    <![CDATA[
-		    select * from t_shopping_order
+		    select * from TICKET_ORDER
             where order_id=#{order_id}
     	]]>
 	</select>	
 	
    <select id="selectOrderer" resultMap="memberResult"  parameterType="String"  >
 	    <![CDATA[
-			select * from t_shopping_member 
+			select * from TICKET_MEMBER 
 			where member_id=#{member_id}
 		]]>
 	</select>	

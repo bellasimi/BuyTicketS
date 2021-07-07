@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <!DOCTYPE html >
-<html>
+<html> 
 <head>
 <meta charset="utf-8">
 <script>
@@ -91,7 +91,7 @@ function  calcPeriod(search_period){
 <body>
 	<H3>상품 조회</H3>
 	<form  method="post">	
-		<TABLE cellpadding="10" cellspacing="10"  >
+		<TABLE style="cellpadding:10; cellspacing:10"  >
 			<TBODY>
 				<TR >
 					<TD>
@@ -194,12 +194,15 @@ function  calcPeriod(search_period){
 		<TBODY align=center >
 			<tr style="background:#33ff00" >
 				<td>상품번호</td>
+				<td>분류</td>
+				<td>지역</td>
 				<td>상품이름</td>
-				<td>저자</td>
-				<td>출판사</td>
-				<td>상품가격</td>
-				<td>입고일자</td>
-				<td>출판일</td>
+				<td>주최사</td>
+				<td>가격</td>
+				<td>판매가격</td>
+				<td>포인트</td>
+				<td>유효기간</td>
+				<td>판매상태</td>
 				<td>삭제</td>
 			</tr>
    <c:choose>
@@ -216,30 +219,42 @@ function  calcPeriod(search_period){
 				<TD>
 				  <strong>${item.goods_id }</strong>
 				</TD>
+				<TD>
+				  <strong>${item.goods_sort }</strong>
+				</TD>
+				<TD>
+				  <strong>${item.goods_place }</strong>
+				</TD>
 				<TD >
 				 <a href="${pageContext.request.contextPath}/admin/goods/modifyGoodsForm.do?goods_id=${item.goods_id}">
 				    <strong>${item.goods_title } </strong>
 				 </a> 
 				</TD>
 				<TD>
-				<strong>${item.goods_writer }</strong> 
+				<strong>${item.goods_publisher }</strong> 
 				</TD>
-				<TD >
-				   <strong>${item.goods_publisher }</strong> 
+				<TD>
+				  <strong>${item.goods_price }</strong>
 				</TD>
 				<td>
 				  <strong>${item.goods_sales_price }</strong>
 				</td>
+				<TD>
+				  <strong>${item.goods_point }</strong>
+				</TD>
+<!-- 				<td> -->
+<%-- 				 <strong>${item.goods_credate }</strong>  --%>
+<!-- 				</td> -->
 				<td>
-				 <strong>${item.goods_credate }</strong> 
-				</td>
-				<td>
-				    <c:set var="pub_date" value="${item.goods_published_date}" />
+				    <c:set var="pub_date" value="${item.goods_expired_date}" />
 					   <c:set var="arr" value="${fn:split(pub_date,' ')}" />
 					<strong>
 					   <c:out value="${arr[0]}" />
 					</strong>
 				</td>
+				<TD>
+				  <strong>${item.goods_status }</strong>
+				</TD>
 				<td>
 				<a href="${contextPath}/admin/goods/iddelete.do?goods_id=${item.goods_id}"><button>삭제</button></a>
 				</td>

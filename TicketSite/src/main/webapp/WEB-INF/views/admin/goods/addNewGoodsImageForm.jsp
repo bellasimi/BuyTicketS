@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"
 	isELIgnored="false" %>
-
+ 
 
 <body>
 	<h1>새제품 이미지 등록창</h1>

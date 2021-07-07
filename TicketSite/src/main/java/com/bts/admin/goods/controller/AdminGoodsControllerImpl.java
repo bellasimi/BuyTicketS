@@ -33,8 +33,9 @@ import com.bts.member.vo.MemberVO;
 
 @Controller("adminGoodsController")
 @RequestMapping(value="/admin/goods")
-public class AdminGoodsControllerImpl extends BaseController  implements AdminGoodsController{
-	private static final String CURR_IMAGE_REPO_PATH = "C:\\web\\bookShop01\\src\\main\\webapp\\resources\\shopping\\file_repo";
+public class AdminGoodsControllerImpl extends BaseController  implements AdminGoodsController
+{
+	private static final String CURR_IMAGE_REPO_PATH = "C:\\web\\bts\\src\\main\\webapp\\resources\\shopping\\file_repo";
 	//private static final String CURR_IMAGE_REPO_PATH = "C:\\shopping\\file_repo";
 	@Autowired
 	private AdminGoodsService adminGoodsService;
@@ -130,7 +131,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 				}
 			}
 			message= "<script>";
-			message += " alert('����ǰ�� �߰��߽��ϴ�.');";
+			message += " alert('새 상품을 등록했습니다.');";
 			message +=" location.href='"+multipartRequest.getContextPath()+"/admin/goods/addNewGoodsForm.do';";
 			message +=("</script>");
 		}catch(Exception e) {
@@ -143,7 +144,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 			}
 			
 			message= "<script>";
-			message += " alert('������ �߻��߽��ϴ�. �ٽ� �õ��� �ּ���');";
+			message += " alert('메인 이미지를 등록해주세요');";
 			message +=" location.href='"+multipartRequest.getContextPath()+"/admin/goods/addNewGoodsForm.do';";
 			message +=("</script>");
 			e.printStackTrace();

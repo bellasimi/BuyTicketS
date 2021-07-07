@@ -14,7 +14,8 @@ import com.bts.goods.vo.ImageFileVO;
 import com.bts.order.vo.OrderVO;
 
 @Repository("adminGoodsDAO")
-public class AdminGoodsDAOImpl  implements AdminGoodsDAO{
+public class AdminGoodsDAOImpl  implements AdminGoodsDAO
+{
 	@Autowired
 	private SqlSession sqlSession;
 	

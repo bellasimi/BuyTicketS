@@ -22,7 +22,8 @@ import com.bts.order.vo.OrderVO;
 
 @Service("adminGoodsService")
 @Transactional(propagation=Propagation.REQUIRED)
-public class AdminGoodsServiceImpl implements AdminGoodsService {
+public class AdminGoodsServiceImpl implements AdminGoodsService 
+{
 	@Autowired
 	private AdminGoodsDAO adminGoodsDAO;
 	

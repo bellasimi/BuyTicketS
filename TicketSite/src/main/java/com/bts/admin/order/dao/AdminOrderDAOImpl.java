@@ -12,7 +12,8 @@ import com.bts.member.vo.MemberVO;
 import com.bts.order.vo.OrderVO;
 
 @Repository("adminOrderDAO")
-public class AdminOrderDAOImpl  implements AdminOrderDAO{
+public class AdminOrderDAOImpl  implements AdminOrderDAO
+{
 	@Autowired
 	private SqlSession sqlSession;
 	

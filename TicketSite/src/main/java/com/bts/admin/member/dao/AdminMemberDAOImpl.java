@@ -11,7 +11,8 @@ import org.springframework.stereotype.Repository;
 import com.bts.member.vo.MemberVO;
 
 @Repository("adminMemberDao")
-public class AdminMemberDAOImpl  implements AdminMemberDAO{
+public class AdminMemberDAOImpl  implements AdminMemberDAO
+{
 	@Autowired
 	private SqlSession sqlSession;
 	
