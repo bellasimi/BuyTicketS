@@ -10,8 +10,6 @@
 		<result property="goods_title" column="goods_title" />
 		<result property="goods_publisher" column="goods_publisher" />
 		<result property="goods_price" column="goods_price" />
-
-		
 		<result property="goods_status" column="goods_status" />
 		<result property="goods_sales_price" column="goods_sales_price" />
 		<result property="goods_expired_date" column="goods_expired_date" />

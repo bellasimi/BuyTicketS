@@ -30,7 +30,8 @@ import com.bts.order.vo.OrderVO;
 
 @Service("adminOrderService")
 @Transactional(propagation=Propagation.REQUIRED)
-public class AdminOrderServiceImpl implements AdminOrderService {
+public class AdminOrderServiceImpl implements AdminOrderService 
+{
 	@Autowired
 	private AdminOrderDAO adminOrderDAO;
 	

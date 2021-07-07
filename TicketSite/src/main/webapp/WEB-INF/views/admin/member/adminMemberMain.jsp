@@ -131,7 +131,6 @@ function fn_member_detail(order_id){
     formObj.method="post";
     formObj.action="/bts/admin/member/memberDetail.do";
     formObj.submit();
-	
 }
 
 
@@ -453,11 +452,7 @@ function fn_detail_search(){
 					<td width=10% >
 					  <strong>${item.hp1}-${item.hp2}-${item.hp3}</strong><br>
 					</td>
-					<td width=50%>
-					  <strong>${item.roadAddress}</strong><br>
-					  <strong>${item.jibunAddress}</strong><br>
-					  <strong>${item.namujiAddress}</strong><br>
-					</td>
+
 					<td width=10%>
 					   <c:set var="join_date" value="${item.joinDate}" />
 					   <c:set var="arr" value="${fn:split(join_date,' ')}" />

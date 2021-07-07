@@ -53,7 +53,7 @@
 		 </td>
 		</tr>
 		
-		<tr colspan=2 >
+		<tr style="colspan:2" >
 			<td >
 			  <br>
 			   <input	type="submit" value="제품 이미지 등록하기">

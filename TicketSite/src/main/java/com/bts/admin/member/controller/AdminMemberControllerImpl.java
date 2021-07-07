@@ -22,7 +22,8 @@ import com.bts.member.vo.MemberVO;
 
 @Controller("adminMemberController")
 @RequestMapping(value="/admin/member")
-public class AdminMemberControllerImpl extends BaseController  implements AdminMemberController{
+public class AdminMemberControllerImpl extends BaseController  implements AdminMemberController
+{
 	@Autowired
 	private AdminMemberService adminMemberService;
 	
@@ -115,13 +116,8 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 			memberMap.put("email1",val[0]);
 			memberMap.put("email2",val[1]);
 			memberMap.put("emailsts_yn", val[2]);
-		}else if(mod_type.equals("address")){
-			val=value.split(",");
-			memberMap.put("zipcode",val[0]);
-			memberMap.put("roadAddress",val[1]);
-			memberMap.put("jibunAddress", val[2]);
-			memberMap.put("namujiAddress", val[3]);
 		}
+
 		
 		memberMap.put("member_id", member_id);
 		

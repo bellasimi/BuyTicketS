@@ -94,7 +94,7 @@ public class AdminGoodsDAOImpl  implements AdminGoodsDAO{
 		}
 		
 	}
-	//id�� ���� 
+	//id�� �����
 
 	@Override
 	public void iddeletei(int id) {

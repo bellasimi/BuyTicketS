@@ -9,7 +9,8 @@ import com.bts.goods.vo.GoodsVO;
 import com.bts.goods.vo.ImageFileVO;
 import com.bts.order.vo.OrderVO;
 
-public interface AdminGoodsDAO {
+public interface AdminGoodsDAO 
+{
 	public int insertNewGoods(Map newGoodsMap) throws DataAccessException;
 	public List<GoodsVO>selectNewGoodsList(Map condMap) throws DataAccessException;
 	public GoodsVO selectGoodsDetail(int goods_id) throws DataAccessException;

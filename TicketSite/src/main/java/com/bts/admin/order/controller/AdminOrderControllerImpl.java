@@ -37,7 +37,8 @@ import com.bts.order.vo.OrderVO;
 
 @Controller("adminOrderController")
 @RequestMapping(value="/admin/order")
-public class AdminOrderControllerImpl extends BaseController  implements AdminOrderController{
+public class AdminOrderControllerImpl extends BaseController  implements AdminOrderController
+{
 	@Autowired
 	private AdminOrderService adminOrderService;
 	

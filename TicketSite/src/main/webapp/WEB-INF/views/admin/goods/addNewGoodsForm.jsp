@@ -200,7 +200,6 @@
 <!-- final. 상품 등록하기 -->	
 			<div class="clear"></div>
 				<input type="button" value="상품 등록하기"  onClick="fn_add_new_goods(this.form)">
-	
 		</div>
 	</form>
 </BODY> 

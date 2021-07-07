@@ -143,7 +143,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 			}
 			
 			message= "<script>";
-			message += " alert('메인 이미지를 등록해주세요');";
+			message += " alert('메인 이미지를 등록해주세요..');";
 			message +=" location.href='"+multipartRequest.getContextPath()+"/admin/goods/addNewGoodsForm.do';";
 			message +=("</script>");
 			e.printStackTrace();

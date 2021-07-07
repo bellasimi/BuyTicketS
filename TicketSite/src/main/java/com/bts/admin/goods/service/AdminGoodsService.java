@@ -11,7 +11,8 @@ import com.bts.goods.vo.GoodsVO;
 import com.bts.goods.vo.ImageFileVO;
 import com.bts.order.vo.OrderVO;
 
-public interface AdminGoodsService {
+public interface AdminGoodsService 
+{
 	public int  addNewGoods(Map newGoodsMap) throws Exception;
 	public List<GoodsVO> listNewGoods(Map condMap) throws Exception;
 	public Map goodsDetail(int goods_id) throws Exception;
