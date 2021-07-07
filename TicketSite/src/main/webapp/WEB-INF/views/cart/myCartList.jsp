@@ -39,8 +39,9 @@ $("input[type=checkbox]").change(function() {
 	var totalSalesPrice=0; //총합(판매가*수량)  --결제금액 
 	var totalDiscount=0; //총할인되는 금액
 
+	var plusButton = document.getElementsByName("plus");
+	var minusButton = document.getElementsByName("minus");
 	
-
 //장바구니안에 상품이 여러개일때고 하나일때랑 나눠야 한다ㅠㅠ 근데 어케해 
 		for(var i=0; i<checked_goods.length;i++){ //한개만 체크됐을때랑 나눠서 해줘야함 		
 			if(checked_goods[i].checked==true){
@@ -54,9 +55,17 @@ $("input[type=checkbox]").change(function() {
 				totalSalesPrice=totalSalesPrice+parseInt(salesPrice)*parseInt(goodsQty);
 				totalDiscount=totalGoodsPrice-totalSalesPrice; //총 할인금액 구하는 건데 직접 계산해서 구해줘야하는지 생각해보기 
 				console.log(totalGoodsPrice);
-				}
+				console.log("체크됨"+checked_goods[i].checked+i);
+				plusButton[i].disabled=false;
+				minusButton[i].disabled=false;
+				} else {
+				console.log("체크안됨"+checked_goods[i].checked+i);
+				plusButton[i].disabled=true;
+				minusButton[i].disabled=true;
+				
+			}
 		
-			} 
+		} 
 
 	
 	
@@ -123,20 +132,28 @@ $("input[type=checkbox]").change(function() {
 function plusone(goods_id,goods_price,goods_sales_price,index) { 
 	
 	console.log(index + typeof index);
-	var checked_goods=document.frm_order_all_cart.checked_goods;
-	console.log(checked_goods[index].checked==true);
+	//var checked_goods=document.frm_order_all_cart.checked_goods;
+	//console.log(checked_goods[index].checked==true);
 	
 	var length=document.frm_order_all_cart.cart_goods_qty.length;
 	var cart_goods_qty;
-	if(length>1 && checked_goods[index].checked==true){ //제품이 여러개 이고 박스체크되어있을때
+	var priceXqty;
+	//&& checked_goods[index].checked==true
+	if(length>1 ){ //제품이 여러개 이고 박스체크되어있을때 박슻테크 여기서 말고 아예 버튼이 안눌리게 하고싶은데
 		console.log("여러개");
 		cart_goods_qty=document.frm_order_all_cart.cart_goods_qty[index];
-		console.log("인데스값 :" + cart_goods_qty.value);
 		cart_goods_qty.value++;
-		console.log("1보다 크면 +");
+		
+		priceXqty=document.frm_order_all_cart.priceXqty[index];
+		priceXqty.value=goods_sales_price*cart_goods_qty.value;
+		console.log("인데스값 :" + cart_goods_qty.value);
+
 	}else{
 		cart_goods_qty=document.frm_order_all_cart.cart_goods_qty;
 		cart_goods_qty.value++;
+		
+		priceXqty=document.frm_order_all_cart.priceXqty;
+		priceXqty.value=goods_sales_price*cart_goods_qty.value;
 		console.log("1이면 아니면 더작은거 +"); 
 	}
 	//합계, 총상품금액, 총할인금액, 최종결제금액 
@@ -145,12 +162,13 @@ function plusone(goods_id,goods_price,goods_sales_price,index) {
 	var totalSalesPrice=document.frm_order_all_cart.h_totalSalesPrice; //총 구매금액(판매가)
 		
 	cart_goods_qty=parseInt(cart_goods_qty.value); //수량 숫자로 변환
-	var priceXqty=goods_sales_price*cart_goods_qty; //합계는 판매가*수량
+	
 	totalGoodsPrice.value=parseInt(totalGoodsPrice.value)+goods_price;
 	totalSalesPrice.value=parseInt(totalSalesPrice.value)+goods_sales_price;
 	
 	console.log("총 상품금액"+totalGoodsPrice.value);
 	//document.getElementById("p_priceXqty").innerHTML=priceXqty;
+	priceXqty.value=goods_sales_price*cart_goods_qty; //합계는 판매가*수량
 	document.getElementById("p_totalGoodsPrice").innerHTML=totalGoodsPrice.value;
 	document.getElementById("p_totalSalesPrice").innerHTML=totalSalesPrice.value;
 	document.getElementById("p_totalDiscount").innerHTML=totalGoodsPrice.value-totalSalesPrice.value;
@@ -162,18 +180,24 @@ function plusone(goods_id,goods_price,goods_sales_price,index) {
 function minusone(goods_id,goods_price,goods_sales_price,index) { 
 	var length=document.frm_order_all_cart.cart_goods_qty.length;
 	var cart_goods_qty=0;
-	if(length>1){ //제품이 여러개일때 
+	var checked_goods=document.frm_order_all_cart.checked_goods;
+	//&& checked_goods[index].checked==true
+	if(length>1 ){ //제품이 여러개일때 
 		console.log("여러개");
 		cart_goods_qty=document.frm_order_all_cart.cart_goods_qty[index];
 		if(cart_goods_qty.value>1) {  //1보다 작아질순 없다 
 			cart_goods_qty.value--;
 			}
 			console.log("1보다 크면 +");
+			priceXqty=document.frm_order_all_cart.priceXqty[index];
+			priceXqty.value=goods_sales_price*cart_goods_qty.value;
 	}else{
 		cart_goods_qty=document.frm_order_all_cart.cart_goods_qty;
 		if(cart_goods_qty.value>1) {
 			cart_goods_qty.value--;	
 			}
+		priceXqty=document.frm_order_all_cart.priceXqty[index];
+		priceXqty.value=goods_sales_price*cart_goods_qty.value;
 		console.log("1이면 아니면 더작은거 +"); 
 	}
 	//합계, 총상품금액, 총할인금액, 최종결제금액 
@@ -182,12 +206,12 @@ function minusone(goods_id,goods_price,goods_sales_price,index) {
 	var totalSalesPrice=document.frm_order_all_cart.h_totalSalesPrice; //총 구매금액(판매가)
 	
 	cart_goods_qty=parseInt(cart_goods_qty.value); //수량 숫자로 변환
-	var priceXqty=goods_sales_price*cart_goods_qty; //합계는 판매가*수량
+	
 	totalGoodsPrice.value=parseInt(totalGoodsPrice.value)-goods_price;
 	totalSalesPrice.value=parseInt(totalSalesPrice.value)-goods_sales_price;
 	
 	console.log("총 상품금액"+totalGoodsPrice.value);
-	document.getElementById("p_priceXqty").innerHTML=priceXqty;
+
 	document.getElementById("p_totalGoodsPrice").innerHTML=totalGoodsPrice.value;
 	document.getElementById("p_totalSalesPrice").innerHTML=totalSalesPrice.value;
 	document.getElementById("p_totalDiscount").innerHTML=totalGoodsPrice.value-totalSalesPrice.value;
@@ -755,9 +779,9 @@ function fn_order_all_cart_goods(){
 					</td>
   <!-- 수량 -->		
  		<td>
- 			<input type="button" value=" - " name="minus" onclick="javascript:minusone(${item.goods_id},${item.goods_price},${item.goods_sales_price},${idx.index});">
+ 			<input type="button" value=" - " name="minus" class="minus" onclick="javascript:minusone(${item.goods_id},${item.goods_price},${item.goods_sales_price},${idx.index});">
  			<input type="text" name="cart_goods_qty" id="cart_goods_qty" readonly size="1" value="${cart_goods_qty}" >
- 			<input type="button" value=" + " name="plus" onclick="javascript:plusone(${item.goods_id},${item.goods_price},${item.goods_sales_price},${idx.index});">
+ 			<input type="button" value=" + " name="plus" class="plus" onclick="javascript:plusone(${item.goods_id},${item.goods_price},${item.goods_sales_price},${idx.index});">
  		<!--   
  		onchange="javascript:change(${item.goods_id},${item.goods_price},${item.goods_sales_price},${idx.index})"-->
  		
