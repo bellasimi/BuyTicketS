@@ -21,13 +21,13 @@
 
 
 //체크박스 관련 처리부분-하단 금액테이블 계산 + 전체선택/해제 +부분선택/해제 + 여기도 하나만일때랑 나눠져야 한다 
-//1개일때랑 나눠서 처리 - 안되는거 뭔지 점검 다시 해보기 dadsadsadㅇㄴㅁㅇㄴㅇㅁㅇㄴdadsasdsd
+//1개일때랑 나눠서 처리 
 $(document).ready(function(){
 $("input[type=checkbox]").change(function() {
 	var checked_goods=document.frm_order_all_cart.checked_goods; //체크박스 받아옴
 	var goods_price= document.frm_order_all_cart.h_goods_price; //정가 
 	var goods_sales_price=document.frm_order_all_cart.h_goods_sales_price; //판매가 
-	var cart_goods_qty=document.frm_order_all_cart.cart_goods_qty; //수량 
+	var cart_goods_qty=document.frm_order_all_cart.cart_goods_qty; //수량
 	//html에서 받아온 객체는 변수이름 그대로 써준다 
 		//./////////////////////////////////////////////
 		///////이부분 다른데랑 변수 통일시켜야 된다ㅠㅠㅠㅠ checked_goods 도 바꿀까봐 check_goods나 goods_box 이런거로 
@@ -102,12 +102,15 @@ $("input[type=checkbox]").change(function() {
 			
 		} else {			
 			$("#checkall").prop("checked",false);
+		
 			
 		}
-	
+
+		
 		//체크박스중에 checked된 것들 개수
 		checkedGoods = $("input[class=checked_goods]:checked").length;
 		document.getElementById("checkedGoods").innerHTML=checkedGoods;
+		
 		
 	});
 	
@@ -115,20 +118,17 @@ $("input[type=checkbox]").change(function() {
  
 }); //체크박스 관련 처리 끝 
 
-//plus(${item.goods_id},${cart_goods_qty},${idx.index})
-
-//	var goods_price= document.frm_order_all_cart.h_goods_price; //정가 
-//	var goods_sales_price=document.frm_order_all_cart.h_goods_sales_price; //판매가 
-	//var cart_goods_qty=document.frm_order_all_cart.cart_goods_qty; //수량
 	
 
 function plusone(goods_id,goods_price,goods_sales_price,index) { 
-	//var goods_id = document.frm_order_all_cart.h_goods_id; //이거 말고 그냥 수량개수로 하자 
+	
 	console.log(index + typeof index);
+	var checked_goods=document.frm_order_all_cart.checked_goods;
+	console.log(checked_goods[index].checked==true);
 	
 	var length=document.frm_order_all_cart.cart_goods_qty.length;
 	var cart_goods_qty;
-	if(length>1){ //제품이 여러개일때 
+	if(length>1 && checked_goods[index].checked==true){ //제품이 여러개 이고 박스체크되어있을때
 		console.log("여러개");
 		cart_goods_qty=document.frm_order_all_cart.cart_goods_qty[index];
 		console.log("인데스값 :" + cart_goods_qty.value);
@@ -143,14 +143,14 @@ function plusone(goods_id,goods_price,goods_sales_price,index) {
 
 	var totalGoodsPrice=document.frm_order_all_cart.h_totalGoodsPrice; //총상품금액 (정가)
 	var totalSalesPrice=document.frm_order_all_cart.h_totalSalesPrice; //총 구매금액(판매가)
-	
+		
 	cart_goods_qty=parseInt(cart_goods_qty.value); //수량 숫자로 변환
 	var priceXqty=goods_sales_price*cart_goods_qty; //합계는 판매가*수량
 	totalGoodsPrice.value=parseInt(totalGoodsPrice.value)+goods_price;
 	totalSalesPrice.value=parseInt(totalSalesPrice.value)+goods_sales_price;
 	
 	console.log("총 상품금액"+totalGoodsPrice.value);
-	document.getElementById("p_priceXqty").innerHTML=priceXqty;
+	//document.getElementById("p_priceXqty").innerHTML=priceXqty;
 	document.getElementById("p_totalGoodsPrice").innerHTML=totalGoodsPrice.value;
 	document.getElementById("p_totalSalesPrice").innerHTML=totalSalesPrice.value;
 	document.getElementById("p_totalDiscount").innerHTML=totalGoodsPrice.value-totalSalesPrice.value;
@@ -756,7 +756,7 @@ function fn_order_all_cart_goods(){
   <!-- 수량 -->		
  		<td>
  			<input type="button" value=" - " name="minus" onclick="javascript:minusone(${item.goods_id},${item.goods_price},${item.goods_sales_price},${idx.index});">
- 			<input type="text" name="cart_goods_qty" id="cart_goods_qty" size="1" value="${cart_goods_qty}" >
+ 			<input type="text" name="cart_goods_qty" id="cart_goods_qty" readonly size="1" value="${cart_goods_qty}" >
  			<input type="button" value=" + " name="plus" onclick="javascript:plusone(${item.goods_id},${item.goods_price},${item.goods_sales_price},${idx.index});">
  		<!--   
  		onchange="javascript:change(${item.goods_id},${item.goods_price},${item.goods_sales_price},${idx.index})"-->
@@ -773,12 +773,21 @@ function fn_order_all_cart_goods(){
 						<input type="hidden" id="h_cart_goods_qty" value="${cart_goods_qty}">
 					</td>
 					-->
+				
 		<td>
-					   <strong><!-- 이거 여러번 해도 안꼬이는지 확인해야함  -->
+			<fmt:formatNumber  value="${item.goods_sales_price*cart_goods_qty}" var="priceXqty" pattern="#,###"/>
+			<input type="text" name="priceXqty" size=5 value="${priceXqty}" readonly style="border:0px none"><br>
+		</td>			
+				
+	
+	
+	<!-- 합계보이는 부분을 input으로 넣으면 될듯 -->
+	<!--  	<td>이거 여러번 해도 안꼬이는지 확인해야함
+					   <strong> 
 					   			<input type="hidden" name="h_priceXqty" value="${item.goods_sales_price*cart_goods_qty}">
-		<!-- 합계 -->			    <fmt:formatNumber  value="${item.goods_sales_price*cart_goods_qty}" type="number" var="priceXqty" pattern="#,###"/>
+			    <fmt:formatNumber  value="${item.goods_sales_price*cart_goods_qty}" type="number" var="priceXqty" pattern="#,###"/>
 				         <p id="p_priceXqty"> ${priceXqty}원</p>	</strong> 
-		</td>
+		</td>-->
 					<td>
 		<!-- 각각구매 -->	 <a href="javascript:fn_order_each_goods('${item.goods_id }','${item.goods_title }','${item.goods_sales_price}','${item.goods_fileName}');">
 					       	<img width="75" alt=""  src="${contextPath}/resources/image/btn_order.jpg">
