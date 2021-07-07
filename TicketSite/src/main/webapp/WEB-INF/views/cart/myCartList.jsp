@@ -38,10 +38,12 @@ $("input[type=checkbox]").change(function() {
 	var totalSalesPrice=0; //총합(판매가*수량)  --결제금액 
 	var totalDiscount=0; //총할인되는 금액
 
-//장바구니안에 상품이 여러개일때
+	
+
+//장바구니안에 상품이 여러개일때고 하나일때랑 나눠야 한다ㅠㅠ 근데 어케해 
 		for(var i=0; i<checked_goods.length;i++){ //한개만 체크됐을때랑 나눠서 해줘야함 		
 			if(checked_goods[i].checked==true){
-			
+		
 				goodsPrice=goods_price[i].value;
 				salesPrice=goods_sales_price[i].value; //위에서 정의된거랑은 쓰임이 좀 달라야 되니까ㅇㅇ 변수명 같은거 반복하니까 꼬임 
 				goodsQty=cart_goods_qty[i].value; 
@@ -51,9 +53,10 @@ $("input[type=checkbox]").change(function() {
 				totalSalesPrice=totalSalesPrice+parseInt(salesPrice)*parseInt(goodsQty);
 				totalDiscount=totalGoodsPrice-totalSalesPrice; //총 할인금액 구하는 건데 직접 계산해서 구해줘야하는지 생각해보기 
 				console.log(totalGoodsPrice);
-			}
+				}
 		
-		} 
+			} 
+
 	
 	
 	totalGoodsPrice=Intl.NumberFormat().format(totalGoodsPrice);
@@ -98,7 +101,7 @@ $("input[type=checkbox]").change(function() {
 			
 		} else {			
 			$("#checkall").prop("checked",false);
-						
+			
 		}
 	
 		//체크박스중에 checked된 것들 개수
@@ -106,6 +109,8 @@ $("input[type=checkbox]").change(function() {
 		document.getElementById("checkedGoods").innerHTML=checkedGoods;
 		
 	});
+	
+
  
 }); //체크박스 관련 처리 끝 
 
@@ -119,6 +124,7 @@ $("input[type=checkbox]").change(function() {
 function plusone(goods_id,goods_price,goods_sales_price,index) { 
 	//var goods_id = document.frm_order_all_cart.h_goods_id; //이거 말고 그냥 수량개수로 하자 
 	console.log(index + typeof index);
+	
 	var length=document.frm_order_all_cart.cart_goods_qty.length;
 	var cart_goods_qty;
 	if(length>1){ //제품이 여러개일때 
