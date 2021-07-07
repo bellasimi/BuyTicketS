@@ -224,7 +224,7 @@ function  calcPeriod(search_period){
 				</TD>
 				<TD>
 				  <strong>${item.goods_place }</strong>
-				</TD>
+				</TD> 
 				<TD >
 				 <a href="${pageContext.request.contextPath}/admin/goods/modifyGoodsForm.do?goods_id=${item.goods_id}">
 				    <strong>${item.goods_title } </strong>

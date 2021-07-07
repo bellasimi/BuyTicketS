@@ -61,7 +61,7 @@
 	
 
 	<update id="modifyMemberInfo" parameterType="java.util.HashMap">
-	   update TICKET_GOODS
+	   update TICKET_MEMBER
 			   <set>
 			      <if test=" member_pw!='' and member_pw!=null"> member_pw=#{member_pw}, </if>
 			      <if test=" member_gender!='' and member_gender!=null"> member_gender=#{member_gender}, </if>
