@@ -1,6 +1,7 @@
 package com.bts.cart.controller;
 
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +35,7 @@ public class CartControllerImpl extends BaseController implements CartController
 	private MemberVO memberVO;
 	
 	//다른 애들은 mapping이랑 컨트롤러 함수명이랑 일치함 일치시켜서 돌아가나 확인할것 
+	
 	@RequestMapping(value="/myCartList.do" ,method = RequestMethod.GET)
 	public ModelAndView myCartMain(HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		System.out.println("카트컨트롤러");
@@ -56,10 +58,12 @@ public class CartControllerImpl extends BaseController implements CartController
 	
 	//goodsdetail에서 장바구니 버튼 누르면 이어지는거 하나의상품을 장바구니에 추가
 	//ajax 로 goods_id랑 goods_ticket_date 넘어옴 
+	//sql 의 DATE 를 가져왔는데 이게 나중에 혹시 오류나나 확인할것 
+	@Override
 	@RequestMapping(value="/addGoodsInCart.do" ,method = RequestMethod.POST,produces = "application/text; charset=utf8")
 	public  @ResponseBody String addGoodsInCart(@RequestParam("goods_id") int goods_id, 
-								//@RequestParam("goods_ticket_date") Date goods_ticket_date,
-								//@RequestParam("cart_goods_qty") int cart_goods_qty,
+								@RequestParam("goods_ticket_date") Date goods_ticket_date,
+								@RequestParam("cart_goods_qty") int cart_goods_qty,
 			                    HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		//수량 배열로 받지않아도 되겠지 하나씩 저장되니까??????
 		System.out.println("카트컨트롤러 접근");
@@ -70,9 +74,10 @@ public class CartControllerImpl extends BaseController implements CartController
 	
 		cartVO.setMember_id(member_id); //장바구니에 회원id, 상품id 저장 
 		cartVO.setGoods_id(goods_id);
-		//cartVO.setGoods_ticket_date(goods_ticket_date); //수량, 예약일 추가 
-		//cartVO.setCart_goods_qty(cart_goods_qty);
-		//cartVO.setMember_id(member_id);
+		cartVO.setGoods_ticket_date(goods_ticket_date); //수량, 예약일 추가 
+		cartVO.setCart_goods_qty(cart_goods_qty);
+		cartVO.setMember_id(member_id);
+		System.out.println(member_id+goods_id+"날짜"+goods_ticket_date+"수량"+cart_goods_qty);
 		boolean isAreadyExisted=cartService.findCartGoods(cartVO); //장바구니에 이미 상품이 존재하는지 확인 
 		System.out.println("isAreadyExisted:"+isAreadyExisted);
 		if(isAreadyExisted==true){
@@ -118,4 +123,7 @@ public class CartControllerImpl extends BaseController implements CartController
 		mav.setViewName("redirect:/cart/myCartList.do"); //다시 연결되게 하려면 이거 사용하면되나봄 
 		return mav;
 	}
+
+	
+
 }

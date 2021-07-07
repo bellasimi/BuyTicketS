@@ -10,6 +10,7 @@
 		<result property="goods_id" column="goods_id" />
 		<result property="member_id" column="member_id" />
 		<result property="cart_goods_qty" column="cart_goods_qty" />
+		<result property="goods_ticket_date" column="goods_ticket_date" />
 		<result property="creDate" column="creDate" />
 	</resultMap>
 	
@@ -41,7 +42,7 @@
 
 	<select id="selectCartList"  parameterType="cartVO"  resultMap="cartResult"   >
 	    <![CDATA[
-		select cart_id, goods_id, member_id, cart_goods_qty, creDate 
+		select cart_id, goods_id, member_id, cart_goods_qty, creDate, goods_ticket_date
 		from ticket_cart 
 		where member_id=#{member_id} 
 		order by goods_id desc
@@ -79,10 +80,14 @@
 	    <![CDATA[
 		    	insert into ticket_cart(cart_id,
 		    	                           goods_id,
-		    	                           member_id)
+		    	                           member_id,
+		    	                           cart_goods_qty,
+		    	                           goods_ticket_date)
 		        				 values(#{cart_id},
     							        #{goods_id},
-    							        #{member_id})
+    							        #{member_id},
+    							        #{cart_goods_qty},
+    							        #{goods_ticket_date})
     	]]>
 	</insert>
 
