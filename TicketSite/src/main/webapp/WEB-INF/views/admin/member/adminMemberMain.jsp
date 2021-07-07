@@ -34,7 +34,7 @@ function search_member(search_period){
     formObj.appendChild(i_endDate);
     document.body.appendChild(formObj); 
     formObj.method="get";
-    formObj.action="/bookshop01/admin/member/adminMemberMain.do";
+    formObj.action="/bts/admin/member/adminMemberMain.do";
     formObj.submit();
 }
 
@@ -129,7 +129,7 @@ function fn_member_detail(order_id){
     formObj.appendChild(i_order_id);
     document.body.appendChild(formObj); 
     formObj.method="post";
-    formObj.action="/bookshop01/admin/member/memberDetail.do";
+    formObj.action="/bts/admin/member/memberDetail.do";
     formObj.submit();
 	
 }
@@ -214,7 +214,7 @@ function fn_detail_search(){
     formObj.appendChild(i_search_word);
     document.body.appendChild(formObj); 
     formObj.method="post";
-    formObj.action="/bookshop01/admin/member/memberDetail.do";
+    formObj.action="/bts/admin/member/memberDetail.do";
     formObj.submit();
 	
 }
@@ -223,7 +223,7 @@ function fn_detail_search(){
 <body>
 	<H3>회원 조회</H3>
 	<form name="frm_delivery_list" >	
-		<table cellpadding="10" cellspacing="10"  >
+		<table style="cellpadding:10; cellspacing:10"  >
 			<tbody>
 				<tr>
 					<td>

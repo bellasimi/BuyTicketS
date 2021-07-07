@@ -537,11 +537,7 @@ function fn_order_all_cart_goods(){
 					   </a>
 					</td>
 			</tr>
-			<!--  
-			<c:if test="${item.goods_delivery_price>0}">
-				<c:set var="totalDeliveryPrice" value="2500"/>
-			</c:if>
-			-->
+
 				<c:set var="totalGoodsPrice" value="${totalGoodsPrice+item.goods_price*cart_goods_qty }" />
 				<c:set var="totalGoodsNum" value="${totalGoodsNum+1}" />
 				<c:set var="totalSalesPrice" value="${totalSalesPrice+item.goods_sales_price*cart_goods_qty}" />

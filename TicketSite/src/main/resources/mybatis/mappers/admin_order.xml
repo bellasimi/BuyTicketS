@@ -18,10 +18,10 @@
 		<result property="receiver_hp1" column="receiver_hp1" />
 		<result property="receiver_hp2" column="receiver_hp2" />
 		<result property="receiver_hp3" column="receiver_hp3" />
-		
-		<result property="receiver_tel1" column="receiver_tel1" />
-		<result property="receiver_tel2" column="receiver_tel2" />
-		<result property="receiver_tel3" column="receiver_tel3" />
+		<!--  -->
+<!-- 		<result property="receiver_tel1" column="receiver_tel1" /> -->
+<!-- 		<result property="receiver_tel2" column="receiver_tel2" /> -->
+<!-- 		<result property="receiver_tel3" column="receiver_tel3" /> -->
 		<result property="delivery_address" column="delivery_address" />
 		<result property="delivery_message" column="delivery_message" />
 		
@@ -72,7 +72,7 @@
 		  select * from (
 			    select rowNum as recNum,t.*
 			       from (
-			              select  *  from t_shopping_order 
+			              select  *  from TICKET_ORDER 
 			              where to_char(pay_order_time,'yyyy-mm-dd')  between #{beginDate} and #{endDate}
 			                <if test="search_type=='orderer_id'">
 			                  AND orderer_id=#{search_word}
@@ -91,7 +91,7 @@
 	</select>
 	
 <update id="updateDeliveryState" parameterType="java.util.Map" >
-	   update t_shopping_order
+	   update TICKET_ORDER
 	    <set> 
 	      <if test=" delivery_state!='' and delivery_state!=null">
 	        delivery_state=#{delivery_state}
@@ -103,14 +103,14 @@
 	
     <select id="selectOrderDetail" resultMap="orderResult"   parameterType="int"  >
 	    <![CDATA[
-		    select * from t_shopping_order
+		    select * from TICKET_ORDER
             where order_id=#{order_id}
     	]]>
 	</select>	
 	
    <select id="selectOrderer" resultMap="memberResult"  parameterType="String"  >
 	    <![CDATA[
-			select * from t_shopping_member 
+			select * from TICKET_MEMBER 
 			where member_id=#{member_id}
 		]]>
 	</select>	

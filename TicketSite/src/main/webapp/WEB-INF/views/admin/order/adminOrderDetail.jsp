@@ -107,11 +107,11 @@ function fn_modify_order_state(order_id){
 					<td>
 					  ${deliveryInfo.receiver_hp1}-${deliveryInfo.receiver_hp2}-${deliveryInfo.receiver_hp3}</td>
 				  </tr>
-				<tr class="dot_line">
-					<td class="fixed_join">유선전화(선택)</td>
-					<td>
-					   ${deliveryInfo.receiver_tel1}-${deliveryInfo.receiver_tel2}-${deliveryInfo.receiver_tel3}</td>
-				</tr>
+<!-- 				<tr class="dot_line"> -->
+<!-- 					<td class="fixed_join">유선전화(선택)</td> -->
+<!-- 					<td> -->
+<%-- 					   ${deliveryInfo.receiver_tel1}-${deliveryInfo.receiver_tel2}-${deliveryInfo.receiver_tel3}</td> --%>
+<!-- 				</tr> -->
 
 
 				<tr class="dot_line">
