@@ -30,7 +30,7 @@ h:hover {
 	margin: 0px auto; padding: 0px; width: 1100px;
 }
 #wrap {
-	margin: 0px auto; padding: 0px; width: 995px; float: left;
+	margin: 0px auto; padding: 0px; width: 1100px; float: left;
 }
 /* 원본 css 위치------------------------------------------------------------------------- */
 /* 배경사진 */
@@ -42,10 +42,43 @@ body {font-family: Verdana, sans-serif; margin:0}
 .mySlides {display: none}
 img {vertical-align: middle;}
 
+
+/* sns 아이콘 스타일 */
+.sns { list-style-type: none; float: right; position: absolute; 
+  padding: 15px;
+  font-size: 30px;
+  width: 30px;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* sns 아이콘 임펙트 */
+.sns:hover {
+  opacity: 0.7;
+}
+
+/* Facebook */
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+/* Twitter */
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+/* instagram */
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+
 .mainlogo {
 
   top:25%;
-  left:38%;
+  left:34%;
   padding: 8px 12px;
   position: absolute;
   bottom: 8px;
@@ -83,7 +116,7 @@ img {vertical-align: middle;}
 
 /* Position the "next button" to the right */
 .next {
-  right: -110;
+  right: 0;
   border-radius: 3px 0 0 3px;
 }
 
@@ -178,7 +211,7 @@ header #search .btn1 {
 /* Style the search field */
 form.example input[type=text] {
     top:55%;
-  left:27%; 
+  left:23%; 
   position: absolute;
   padding: 10px;
   font-size: 17px;
@@ -190,7 +223,7 @@ form.example input[type=text] {
 /* Style the submit button */
 form.example button {
 	 top:55.55%;
-     right:13%;
+     right:22%;
 
 	
   position: absolute;

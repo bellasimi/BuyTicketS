@@ -17,6 +17,16 @@
 </ul>
 </div>
 
+<!-- sns아이콘 -->
+<div id="sns">
+
+<a href="#" class="fa fa-facebook"></a>
+<a href="#" class="fa fa-twitter"></a>
+<a href="#" class="fa fa-instagram"></a>
+
+</div>
+
+
 <div class="clear"></div>
 
 <a href="#"><img alt="Booktopia" src="${contextPath}/resources/image/img/backmain.png" width="147px" height="62px" /></a>
