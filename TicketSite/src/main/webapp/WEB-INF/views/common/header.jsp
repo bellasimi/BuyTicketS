@@ -66,7 +66,7 @@
 		  element.style.display = 'none';
 	   }
 	}
-
+/*예비  */
 </script>
 <body>
 	<div id="logo">
