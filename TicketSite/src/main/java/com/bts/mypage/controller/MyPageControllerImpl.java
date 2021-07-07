@@ -152,12 +152,6 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 			memberMap.put("email1",val[0]);
 			memberMap.put("email2",val[1]);
 			memberMap.put("emailsts_yn", val[2]);
-		}else if(attribute.equals("address")){
-			val=value.split(",");
-			memberMap.put("zipcode",val[0]);
-			memberMap.put("roadAddress",val[1]);
-			memberMap.put("jibunAddress", val[2]);
-			memberMap.put("namujiAddress", val[3]);
 		}else {
 			memberMap.put(attribute,value);	
 		}

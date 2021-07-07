@@ -48,7 +48,7 @@
 							  ${item.goods_title}
 							</a>
 						</div>
-						<div class="writer">${item.goods_writer} | ${item.goods_publisher}</div>
+						<div class="writer">${item.goods_publisher} | ##</div>
 						<div class="price">
 							<span>
 							  <fmt:formatNumber  value="${item.goods_price}" type="number" var="goods_price" />
@@ -95,10 +95,10 @@
 						<h2>
 							<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">${item.goods_title }</a>
 						</h2>
-						<c:set var="goods_pub_date" value="${item.goods_published_date }" />
+						<c:set var="goods_pub_date" value="${item.goods_expired_date }" />
 					   <c:set var="arr" value="${fn:split(goods_pub_date,' ')}" />
-						<div class="writer_press"  >${item.goods_writer }저
-							|${item.goods_publisher }|<c:out value="${arr[0]}" />
+						<div class="writer_press"  >${item.goods_publisher }저
+							|##|<c:out value="${arr[0]}" />
 						</div>
 					</td>
 					<td class="price"><span>${item.goods_price }원</span><br>

@@ -623,13 +623,7 @@ function usepoint(){
 					<fmt:formatNumber value="${item.goods_sales_price*0.9}" var="goodssales_price" pattern="#,###"/>
 					<h2>${goodssales_price}원 (10%추가할인)</h2>
 					</td>
-					
-					
-				<!-- 배송비 -->		
-					<td>
-					<fmt:formatNumber value="${item.goods_delivery_price}" var="deliveryprice" pattern="#,###"/>
-					<h2>${deliveryprice}원</h2>
-					</td>				
+								
 					<fmt:formatNumber value="${item.goods_point}" var="point" pattern="#,###"/>
 					<td><h2>${point}원</h2></td><!-- 포인트-->
 					
@@ -644,16 +638,7 @@ function usepoint(){
 				value="${final_total_order_price+ item.goods_sales_price*0.9* item.order_goods_qty}"/>
 			<c:set var="total_order_price"
 				value="${total_order_price+ item.goods_sales_price*0.9* item.order_goods_qty}"/>
-		<!-- 총배송비 구하기 -->	
-			<c:set var="total_delivery_price" value="${total_delivery_price+item.goods_delivery_price}"/>
-			<c:choose>
-			<c:when test="${total_delivery_price>=2500}">
-				<c:set var="t_deliveryprice" value="2500"/>
-			</c:when>
-			<c:otherwise>
-				<c:set var="t_deliveryprice" value="${total_delivery_price}"/>
-			</c:otherwise>
-			</c:choose>
+
 			<c:set var="total_order_goods_qty"
 				value="${total_order_goods_qty+item.order_goods_qty }" />
 				

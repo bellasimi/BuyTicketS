@@ -20,9 +20,9 @@
 		<result property="receiver_hp2" column="receiver_hp2" />
 		<result property="receiver_hp3" column="receiver_hp3" />
 		
-		<result property="receiver_tel1" column="receiver_tel1" />
-		<result property="receiver_tel2" column="receiver_tel2" />
-		<result property="receiver_tel3" column="receiver_tel3" />
+<!-- 		<result property="receiver_tel1" column="receiver_tel1" /> -->
+<!-- 		<result property="receiver_tel2" column="receiver_tel2" /> -->
+<!-- 		<result property="receiver_tel3" column="receiver_tel3" /> -->
 		<result property="delivery_address" column="delivery_address" />
 		<result property="delivery_message" column="delivery_message" />
 		
@@ -44,7 +44,7 @@
 	
 	 <select id="selectMyOrderGoodsList" resultMap="orderGoodsResult"  parameterType="String"  >
 	    <![CDATA[
-			select * from t_shopping_order
+			select * from TICKET_ORDER
             where member_id=#{member_id}
             order by pay_order_time desc
 		]]>
@@ -53,13 +53,13 @@
 
 	<select id="selectMyOrderInfo" resultMap="orderGoodsResult"   parameterType="String"  >
 	    <![CDATA[
-		    select * from t_shopping_order
+		    select * from TICKET_ORDER
             where order_id=#{order_id}
     	]]>
 	</select>
 		<select id="selectMyOrderHistoryList" resultMap="orderGoodsResult"   parameterType="java.util.Map"  >
 	    <![CDATA[
-		  select * from t_shopping_order
+		  select * from TICKET_ORDER
           where member_id=#{member_id}
           and  to_char(pay_order_time,'yyyy-mm-dd')  between #{beginDate} and #{endDate}
           order by pay_order_time desc
@@ -67,7 +67,7 @@
 	</select>	
 	
 	<update id="updateMyInfo" parameterType="java.util.HashMap">
-	   update t_shopping_member
+	   update TICKET_MEMBER
 			   <set>
 			      <if test=" member_pw!='' and member_pw!=null">
 			        member_pw=#{member_pw},
@@ -114,18 +114,8 @@
 			      <if test=" emailsts_yn!='' and emailsts_yn!=null">
 			         emailsts_yn=#{emailsts_yn},
 			      </if>
-			      <if test=" zipcode!='' and zipcode!=null">
-			         zipcode=#{zipcode},
-			      </if>
-			      <if test=" roadAddress!='' and roadAddress!=null">
-			         roadAddress=#{roadAddress},
-			      </if>			     
-			      <if test=" jibunAddress!='' and jibunAddress!=null">
-			         jibunAddress=#{jibunAddress},
-			      </if>
-			      <if test=" namujiAddress!='' and namujiAddress!=null">
-			         namujiAddress=#{namujiAddress}
-			      </if>
+
+
 			   </set>
 		where 
 		member_id=#{member_id}
@@ -133,13 +123,13 @@
 	
 	<select id="selectMyDetailInfo" resultType="memberVO"   parameterType="String"  >
 	    <![CDATA[
-			select * from t_shopping_member 
+			select * from TICKET_MEMBER 
 			where member_id=#{member_id}
     	]]>
 	</select>	
 	
 	<update id="updateMyOrderCancel" parameterType="String">
-	   update t_shopping_order
+	   update TICKET_ORDER
 	 	  set delivery_state='cancel_order'
 	   where order_id=#{order_id}
 	</update>

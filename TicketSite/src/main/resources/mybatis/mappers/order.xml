@@ -6,7 +6,7 @@
 <mapper namespace="mapper.order">
 <!-- 리절트 맵 정의 -->	
 	<resultMap id="orderGoodsResult" type="OrderVO">
-	    <result property="order_seq_num" column="order_seq_num" />
+	    <result property="TICKET_ORDER_ID_SEQ" column="TICKET_ORDER_ID_SEQ" />
 		<result property="member_id" column="member_id" />
 		<result property="order_id" column="order_id" />
 		<result property="goods_id" column="goods_id" />
@@ -21,9 +21,9 @@
 		<result property="receiver_hp2" column="receiver_hp2" />
 		<result property="receiver_hp3" column="receiver_hp3" />
 		
-		<result property="receiver_tel1" column="receiver_tel1" />
-		<result property="receiver_tel2" column="receiver_tel2" />
-		<result property="receiver_tel3" column="receiver_tel3" />
+<!-- 		<result property="receiver_tel1" column="receiver_tel1" /> -->
+<!-- 		<result property="receiver_tel2" column="receiver_tel2" /> -->
+<!-- 		<result property="receiver_tel3" column="receiver_tel3" /> -->
 		<result property="delivery_address" column="delivery_address" />
 		<result property="delivery_message" column="delivery_message" />
 		
@@ -44,18 +44,18 @@
 	
 	 <select id="selectMyOrderList" resultMap="orderGoodsResult"  parameterType="orderVO"  >
 	    <![CDATA[
-			select * from t_shopping_order
+			select * from TICKET_ORDER
 			where to_char(pay_order_time,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd') 
         	and member_id=#{member_id}
         	order by pay_order_time desc
 		]]>
 	</select>
 	<insert id="insertNewOrder" parameterType="orderVO"  >
-	    <selectKey resultType="int" keyProperty="order_seq_num" order="BEFORE">
-	    	select order_seq_num.nextval from dual
+	    <selectKey resultType="int" keyProperty="TICKET_ORDER_ID_SEQ" order="BEFORE">
+	    	select TICKET_ORDER_ID_SEQ.nextval from dual
 	    </selectKey>
 	    <![CDATA[
-			insert into t_shopping_order(order_seq_num,
+			insert into TICKET_ORDER(TICKET_ORDER_ID_SEQ,
 			                            order_id,
 										member_id,
 									    goods_id,
@@ -68,9 +68,7 @@
 									    receiver_hp1,
 					                    receiver_hp2,
 					                    receiver_hp3,
-					                    receiver_tel1,
-					                    receiver_tel2,
-					                    receiver_tel3,
+
 					                    delivery_address,
 					                    delivery_message,
 						                delivery_method,
@@ -80,7 +78,7 @@
 						                card_pay_month,
 						                orderer_hp,
 						                pay_orderer_hp_num)
-							     values(#{order_seq_num},
+							     values(#{ticket_order_id_seq},
 							            #{order_id},
 									    #{member_id},
 									    #{goods_id},
@@ -93,9 +91,7 @@
 									    #{receiver_hp1},
 					                    #{receiver_hp2},
 					                    #{receiver_hp3},
-					                    #{receiver_tel1},
-					                    #{receiver_tel2},
-					                    #{receiver_tel3},
+
 					                    #{delivery_address},
 					                    #{delivery_message},
 						                #{delivery_method},
@@ -116,7 +112,7 @@
 	
 	<select id="selectMyOrder" resultMap="orderGoodsResult"   parameterType="String"  >
 	    <![CDATA[
-		    select * from t_shopping_order
+		    select * from TICKET_ORDER
             where to_char(pay_order_time,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd') 
             and order_id=#{order_id}
             order by pay_order_time desc
@@ -124,7 +120,7 @@
 	</select>
 	
 	<delete id="deleteGoodsFromCart" parameterType="orderVO">
-	  delete from t_shopping_cart
+	  delete from TICKET_CART
 	  where goods_id=#{goods_id}
 	</delete>
 	

@@ -39,10 +39,8 @@ function execDaumPostcode() {
         fullRoadAddr += extraRoadAddr;
       }
 
-      // 우편번호와 주소 정보를 해당 필드에 넣는다.
-      document.getElementById('zipcode').value = data.zonecode; //5자리 새우편번호 사용
-      document.getElementById('roadAddress').value = fullRoadAddr;
-      document.getElementById('jibunAddress').value = data.jibunAddress;
+    
+
 
       // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
       if(data.autoRoadAddress) {
@@ -50,9 +48,6 @@ function execDaumPostcode() {
         var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
         document.getElementById('guide').innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
 
-      } else if(data.autoJibunAddress) {
-          var expJibunAddr = data.autoJibunAddress;
-          document.getElementById('guide').innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
       } else {
           document.getElementById('guide').innerHTML = '';
       }
@@ -235,12 +230,9 @@ function fn_overlapped(){
 				<tr class="dot_line">
 					<td class="fixed_join">주소</td>
 					<td>
-					   <input type="text" id="zipcode" name="zipcode" size="10" > <a href="javascript:execDaumPostcode()">우편번호검색</a>
 					  <br>
 					  <p> 
-					   지번 주소:<br><input type="text" id="roadAddress"  name="roadAddress" size="50"><br><br>
-					  도로명 주소: <input type="text" id="jibunAddress" name="jibunAddress" size="50"><br><br>
-					  나머지 주소: <input type="text"  name="namujiAddress" size="50" />
+
 					 <!--   <span id="guide" style="color:#999"></span> -->
 					   </p>
 					</td>

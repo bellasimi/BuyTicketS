@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component("orderVO")
 public class OrderVO {
-	private int order_seq_num;//
+	private int TICKET_ORDER_ID_SEQ;//
 	private String member_id;
 	private int order_id;//
 	private int goods_id;
@@ -36,18 +36,17 @@ public class OrderVO {
 	private String orderer_hp;
 
 	private int goods_point;
-	private int goods_delivery_price;
 	
 	//빼놓을 것!
 	private String receiver_hp1;
 	private String receiver_hp2;
 	private String receiver_hp3;
 	
-	public int getOrder_seq_num() {
-		return order_seq_num;
+	public int getTICKET_ORDER_ID_SEQ() {
+		return TICKET_ORDER_ID_SEQ;
 	}
-	public void setOrder_seq_num(int order_seq_num) {
-		this.order_seq_num = order_seq_num;
+	public void setTICKET_ORDER_ID_SEQ(int TICKET_ORDER_ID_SEQ) {
+		this.TICKET_ORDER_ID_SEQ = TICKET_ORDER_ID_SEQ;
 	}
 	public int getOrder_id() {
 		return order_id;
@@ -250,9 +249,7 @@ public class OrderVO {
 	public void setGoods_point(int goods_point) {
 		this.goods_point = goods_point;
 	}
-	public int getGoods_delivery_price() {
-		return goods_delivery_price;
-	}
+
 	
 
 }

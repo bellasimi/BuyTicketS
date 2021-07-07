@@ -19,10 +19,7 @@ public class MemberVO {
 	private String email1;
 	private String email2;
 	private String emailsts_yn;
-	private String zipcode;
-	private String roadAddress;
-	private String jibunAddress;
-	private String namujiAddress;
+
 	private String joinDate;
 	private String del_yn;
 	private int member_point;
@@ -145,34 +142,7 @@ public class MemberVO {
 	public void setEmailsts_yn(String emailsts_yn) {
 		this.emailsts_yn = emailsts_yn;
 	}
-	public String getZipcode() {
-		return zipcode;
-	}
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
-	}
-	
-	
-	public String getRoadAddress() {
-		return roadAddress;
-	}
-	public void setRoadAddress(String roadAddress) {
-		this.roadAddress = roadAddress;
-	}
-	public String getJibunAddress() {
-		return jibunAddress;
-	}
-	public void setJibunAddress(String jibunAddress) {
-		this.jibunAddress = jibunAddress;
-	}
-    
-	
-	public String getNamujiAddress() {
-		return namujiAddress;
-	}
-	public void setNamujiAddress(String namujiAddress) {
-		this.namujiAddress = namujiAddress;
-	}
+
 	public String getJoinDate() {
 		return joinDate;
 	}

@@ -27,11 +27,6 @@
 		<result property="email1" column="email1" />
 		<result property="email2" column="email2" />
 		<result property="emailsts_yn" column="emailsts_yn" />
-		
-		<result property="zipcode" column="zipcode" />
-		<result property="roadAddress" column="roadAddress" />
-		<result property="jibunAddress" column="jibunAddress" />
-		<result property="namujiAddress" column="namujiAddress" />
 		<result property="joinDate" column="joinDate" />
 	</resultMap>	
 
@@ -44,23 +39,23 @@
 		]]>
 	</select>
 	<select id="psi" resultType="memberVO">
-	   SELECT * FROM T_SHOPPING_MEMBER WHERE member_id=#{id}
+	   SELECT * FROM TICKET_MEMBER WHERE member_id=#{id}
 	</select>
 	<select id="ist" resultType="memberVO">
-	   SELECT * FROM T_SHOPPING_MEMBER WHERE tel1=#{tel1} and tel2=#{tel2} and tel3=#{tel3} 
+	   SELECT * FROM TICKET_MEMBER WHERE tel1=#{tel1} and tel2=#{tel2} and tel3=#{tel3} 
 	</select>
 	<select id="isn" resultType="memberVO">
-		SELECT * FROM T_SHOPPING_MEMBER WHERE member_name=#{name}
+		SELECT * FROM TICKET_MEMBER WHERE member_name=#{name}
 	</select>
 	<select id="selectOverlappedID" parameterType="String" resultType="String">
 	   select decode(count(*),1, 'true', 0, 'false')
-	   from t_shopping_member
+	   from TICKET_MEMBER
 	   where member_id = #{id}
 	</select>
 	
   <insert id="insertNewMember"  parameterType="memberVO">
   <![CDATA[
-    	insert into t_shopping_member(member_id,
+    	insert into TICKET_MEMBER(member_id,
 				 					                  member_pw,
                                      member_name,
                                      member_gender,
@@ -77,11 +72,7 @@
                                      smssts_yn,
                                      email1,
                                      email2,
-                                     emailsts_yn,
-                                     zipcode,
-                                     roadAddress,
-                                     jibunAddress,
-                                     namujiAddress)
+                                     emailsts_yn                                     )
 							 values(#{member_id},
 									#{member_pw},
 									#{member_name},
@@ -99,11 +90,7 @@
                                     #{smssts_yn},
                                     #{email1},
                                     #{email2},
-                                    #{emailsts_yn},
-                                    #{zipcode},
-                                    #{roadAddress},
-                                    #{jibunAddress},
-                                    #{namujiAddress})
+                                    #{emailsts_yn})
                                   
                                       
    ]]>      

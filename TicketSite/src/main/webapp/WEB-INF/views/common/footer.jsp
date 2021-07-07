@@ -12,7 +12,7 @@
 	<li><a href="#">제휴/도서홍보</a></li>
 	<li><a href="#">광고센터</a></li>
 	<li><a href="#">고객만족센터</a></li>
-	<li class="no_line"><a href="/bookshop01/main/address.do">찾아오시는길</a></li>
+	<li class="no_line"><a href="/bts/main/address.do">찾아오시는길</a></li>
 </ul>
 <div class="clear"></div>
 <a href="#"><img width="147px"  height="62px" alt="Booktopia" src="${contextPath}/resources/image/Booktopia_Logo2.jpg" /></a>

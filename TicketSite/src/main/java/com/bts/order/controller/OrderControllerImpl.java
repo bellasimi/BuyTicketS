@@ -90,7 +90,6 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 					int goods_sales_price=goodsVO.getGoods_sales_price();
 					String goods_fileName=goodsVO.getGoods_fileName();
 					int    goods_point =goodsVO.getGoods_point();
-					int goods_delivery_price =goodsVO.getGoods_delivery_price();
 					_orderVO.setGoods_id(goods_id);
 					_orderVO.setGoods_title(goods_title);
 					_orderVO.setGoods_sales_price(goods_sales_price);
