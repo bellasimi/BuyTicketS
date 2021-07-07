@@ -78,11 +78,11 @@
 </div>
 
 <div class="mySlides fade">
-  <img src="${contextPath}/resources/image/img/img_snow_wide.jpg" style="width:800px">
+  <img src="${contextPath}/resources/image/img/img_snow_wide.jpg" style="width:1105px">
 </div>
 
 <div class="mySlides fade">
-  <img src="${contextPath}/resources/image/img/img_mountains_wide.jpg" style="width:800px">
+  <img src="${contextPath}/resources/image/img/img_mountains_wide.jpg" style="width:1105px">
 </div>
 
 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
