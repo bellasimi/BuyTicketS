@@ -52,7 +52,7 @@
 			<a href="${contextPath}/goods/place.do?goods_place=chung">
 			<img src ="${contextPath}/resources/icon/place/placechung3.PNG"></a>
 			<a href="${contextPath}/goods/place.do?goods_place=jeolla">
-			<img src ="${contextPath}/resources/icon/place/placejeolla3.PNG"></a>
+			<img src ="${contextPath}/resources/icon/place/placejeolla4.png"></a>
 			<a href="${contextPath}/goods/place.do?goods_place=sang">
 			<img src ="${contextPath}/resources/icon/place/placesang3.PNG"></a>
 			<a href="${contextPath}/goods/place.do?goods_place=jeju">
