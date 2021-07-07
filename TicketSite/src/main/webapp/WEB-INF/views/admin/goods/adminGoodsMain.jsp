@@ -242,9 +242,7 @@ function  calcPeriod(search_period){
 				<TD>
 				  <strong>${item.goods_point }</strong>
 				</TD>
-<!-- 				<td> -->
-<%-- 				 <strong>${item.goods_credate }</strong>  --%>
-<!-- 				</td> -->
+
 				<td>
 				    <c:set var="pub_date" value="${item.goods_expired_date}" />
 					   <c:set var="arr" value="${fn:split(pub_date,' ')}" />

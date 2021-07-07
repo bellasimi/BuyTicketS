@@ -145,11 +145,10 @@
                               goods_price,
                               goods_sales_price,
                               goods_point,
-                              goods_creDate,
                               GOODS_EXPIRED_DATE,
                               goods_status
                        from TICKET_GOODS 
-                        order by goods_creDate desc
+                        order by goods_lastorder desc
                    )
             )                     
          where            
