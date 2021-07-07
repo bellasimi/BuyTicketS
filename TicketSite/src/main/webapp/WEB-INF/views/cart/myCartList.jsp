@@ -28,6 +28,11 @@ $("input[type=checkbox]").change(function() {
 	var goods_price= document.frm_order_all_cart.h_goods_price; //정가 
 	var goods_sales_price=document.frm_order_all_cart.h_goods_sales_price; //판매가 
 	var cart_goods_qty=document.frm_order_all_cart.cart_goods_qty; //수량
+	
+
+	var h_totalGoodsPrice=document.frm_order_all_cart.h_totalGoodsPrice; //총상품금액 (정가)
+	var h_totalSalesPrice=document.frm_order_all_cart.h_totalSalesPrice; //총 구매금액(판매가)
+		
 	//html에서 받아온 객체는 변수이름 그대로 써준다 
 		//./////////////////////////////////////////////
 		///////이부분 다른데랑 변수 통일시켜야 된다ㅠㅠㅠㅠ checked_goods 도 바꿀까봐 check_goods나 goods_box 이런거로 
@@ -60,23 +65,23 @@ $("input[type=checkbox]").change(function() {
 				minusButton[i].disabled=false;
 				} else {
 				console.log("체크안됨"+checked_goods[i].checked+i);
-				plusButton[i].disabled=true;
+				plusButton[i].disabled=true;  //체크박스 해제되면 그제품 수량버튼도 비활성화
 				minusButton[i].disabled=true;
-				
 			}
-		
 		} 
-
-	
 	
 	totalGoodsPrice=Intl.NumberFormat().format(totalGoodsPrice);
 	totalSalesPrice=Intl.NumberFormat().format(totalSalesPrice);
 	totalDiscount=Intl.NumberFormat().format(totalDiscount);
 	
 	
+	
 	document.getElementById("p_totalGoodsPrice").innerHTML=totalGoodsPrice+"원";
 	document.getElementById("p_totalSalesPrice").innerHTML=totalSalesPrice+"원";
 	document.getElementById("p_totalDiscount").innerHTML=totalDiscount+"원";
+	
+	h_totalGoodsPrice.value=totalGoodsPrice //총상품금액 (정가)
+	h_totalSalesPrice.value=totalSalesPrice
 	
 });
 	
@@ -139,7 +144,7 @@ function plusone(goods_id,goods_price,goods_sales_price,index) {
 	var cart_goods_qty;
 	var priceXqty;
 	//&& checked_goods[index].checked==true
-	if(length>1 ){ //제품이 여러개 이고 박스체크되어있을때 박슻테크 여기서 말고 아예 버튼이 안눌리게 하고싶은데
+	if(length>1 ){ //체크_박스도 이용해야 겠네ㅠㅠㅠ 아이고 복잡 
 		console.log("여러개");
 		cart_goods_qty=document.frm_order_all_cart.cart_goods_qty[index];
 		cart_goods_qty.value++;
@@ -779,9 +784,9 @@ function fn_order_all_cart_goods(){
 					</td>
   <!-- 수량 -->		
  		<td>
- 			<input type="button" value=" - " name="minus" class="minus" onclick="javascript:minusone(${item.goods_id},${item.goods_price},${item.goods_sales_price},${idx.index});">
+ 			<input type="button" value=" - " name="minus" onclick="javascript:minusone(${item.goods_id},${item.goods_price},${item.goods_sales_price},${idx.index});">
  			<input type="text" name="cart_goods_qty" id="cart_goods_qty" readonly size="1" value="${cart_goods_qty}" >
- 			<input type="button" value=" + " name="plus" class="plus" onclick="javascript:plusone(${item.goods_id},${item.goods_price},${item.goods_sales_price},${idx.index});">
+ 			<input type="button" value=" + " name="plus" onclick="javascript:plusone(${item.goods_id},${item.goods_price},${item.goods_sales_price},${idx.index});">
  		<!--   
  		onchange="javascript:change(${item.goods_id},${item.goods_price},${item.goods_sales_price},${idx.index})"-->
  		
