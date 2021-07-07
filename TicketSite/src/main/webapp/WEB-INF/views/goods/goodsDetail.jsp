@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8" 	isELIgnored="false"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>    
@@ -105,30 +106,40 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 	 	var total_price,final_total_price;
 		var order_goods_qty=document.getElementById("order_goods_qty"); //251행 order_goods_qty의 값
 		var goods_ticket_date=document.getElementById("goods_ticket_date");//253행 goods_ticket_date의 값
-		var formObj=document.createElement("form");//폼 만들기 
-		var i_goods_id = document.createElement("input"); //input tag 만들기
+	var formObj=document.createElement("form");//폼 만들기 
+	
+	var i_goods_id = document.createElement("input"); //input tag 만들기
     var i_goods_title = document.createElement("input");
     var i_goods_sales_price=document.createElement("input");
     var i_fileName=document.createElement("input");
     var i_order_goods_qty=document.createElement("input");
-    
+    /*
+    var i_goods_ticket_date=document.createElement("input");
+    i_goods_ticket.name ="goods_ticket_date";
+    i_goods_ticket.value=goods_ticket_date;
+    formObj.appendChild(i_goods_ticket_date);
+    */
     i_goods_id.name="goods_id"; 
     i_goods_title.name="goods_title"; 
     i_goods_sales_price.name="goods_sales_price";
     i_fileName.name="goods_fileName";
     i_order_goods_qty.name="order_goods_qty";
+   
     
     i_goods_id.value=goods_id;//'${goods.goods_id }
     i_order_goods_qty.value=order_goods_qty.value;// 100행에서 id로 받은 값
     i_goods_title.value=goods_title;//${goods.goods_title}'
     i_goods_sales_price.value=goods_sales_price;//'${goods.goods_sales_price}'
     i_fileName.value=fileName;//${goods.goods_fileName}
+   
     //폼에 입력
+    
     formObj.appendChild(i_goods_id);
     formObj.appendChild(i_goods_title);
     formObj.appendChild(i_goods_sales_price);
     formObj.appendChild(i_fileName);
     formObj.appendChild(i_order_goods_qty);
+   
 	//폼을 바디에 입력
     document.body.appendChild(formObj);
 	//포스트 형식으로 "${contextPath}/order/orderEachGoods.do" 경로로 전송
@@ -136,7 +147,115 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
     formObj.action="${contextPath}/order/orderEachGoods.do";
     formObj.submit();
 	}	
+	
+
+	function reservation(){
+		var goods_ticket_date = document.getElementById("goods_ticket_date");
+		$.ajax({
+			type : "post",
+			async : false, //false인 경우 동기식으로 처리한다.
+			url : "${contextPath}/goods/reservation.do",
+			data : {
+				goods_ticket_date:goods_ticket_date, 
+				
+				
+			},
+			
+			error : function(data, textStatus) {
+				alert("에러가 발생했습니다."+data);
+			},
+			complete : function(data, textStatus) {
+				//alert("작업을완료 했습니다");
+			}
+		}); //end ajax	
+	}
+	
+	//오늘 이전엔 예매 안되도록 하는 함수!!
+	function ticket_date(){
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1;
+	var yyyy = today.getFullYear();
+	
+	if(dd<10){
+		dd='0'+dd;
+	}
+	if(mm<10){
+		mm='0'+mm;
+	}
+	today = yyyy+'-'+mm+'-'+dd;
+	document.getElementById("goods_ticket_date").setAttribute("min",today);
+	}
+	
+	//탭 메뉴 함수 
+	
+	function openPage(pageName, elmnt, color) {
+  // Hide all elements with class="tabcontent" by default */
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Remove the background color of all tablinks/buttons
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+
+  // Show the specific tab content
+  document.getElementById(pageName).style.display = "block";
+
+  // Add the specific color to the button used to open the tab content
+  elmnt.style.backgroundColor = color;
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+
 </script>
+<style>
+/* Set height of body and the document to 100% to enable "full page tabs" */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
+}
+
+/* Style tab links */
+.tablink {
+  background-color: #555;
+  color: black;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  margin-top:40px;
+  height: auto;
+  width: 20%; //칸 갯수에 따라서 조정
+  
+}
+
+.tablink:hover {
+  background-color: #777; //칸에 마우스올렸을 때 바뀌는 색!
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color: white;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}
+
+#이름1 {background-color: #cccccc;} //각 탭의 바탕색들 
+#이름2 {background-color: #cccccc;}
+#이름3 {background-color: #cccccc;}
+#이름4 {background-color: #cccccc;}
+#이름5 {background-color: #cccccc;}
+</style>
 </head>
 <body>
 <!-- sort 조건으로 c:set -->
@@ -208,6 +327,8 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 				src="${contextPath}/resources/shopping/file_repo/${goods.goods_id}/${goods.goods_fileName}">
 		</figure>
 	</div>
+	
+
 	<div id="detail_table">
 		<table>
 		<!-- 할인율 -->
@@ -221,21 +342,21 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 				<tr>
 					<td class="fixed">정가</td>
 					<td class="active"><span >
-					   <fmt:formatNumber  value="${goods.goods_price}" type="number" var="goods_price" />
-				         ${goods_price}원
+					   <fmt:formatNumber  value="${goods.goods_price}" type="number" pattern="#,###" var="goods_price" />
+				         <span style="text-decoration: line-through;color:black; ">${goods_price}원</span> 
 					</span></td>
 				</tr>
 				<tr class="dot_line">
 					<td class="fixed">판매가</td>
-					   <fmt:formatNumber  value="${goods.goods_sales_price}" type="number" pattern="#,###" var="salesprice"/>
-					<td class="fixed"><span style="text-decoration: line-through; ">${salesprice}</span> 
-					   <fmt:formatNumber  value="${discounted_price}" type="number" pattern="#,###" var="discountedprice"/>
+					   <fmt:formatNumber  value="${goods.goods_sales_price}" type="number" pattern="#,###" var="goods_sales_price"/>
+					<td class="fixed">
 					  
-				        <span style="color:red;"> ${discountedprice}원(${discount}% 추가할인)</span></td>
+					  
+				        <span style="color:red;"> ${goods_sales_price}원(${goods.goods_discount}% 할인)</span></td>
 				</tr>
 				<tr>
 					<td class="fixed">포인트적립</td>
-					<td class="active">${goods.goods_point}P</td>
+					<td class="active" style="color:black;">${goods.goods_point}P</td>
 				</tr>
 				<tr>
 					<td class="fixed">판매 종료일</td>
@@ -256,7 +377,10 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 				<tr>
 					<td class="fixed">예매일</td>
 					<td class="fixed">
-				 	<input type="date" id="goods_ticket_date"/> <!-- 103행,52행에 getelementbyid()하는 값  -->
+			<!-- 오늘~ 티켓 유효기간까지만 예매 가능하게 해둠 -->
+				 	<input type="date" id="goods_ticket_date" max="${goods.goods_expired_date}" onclick="ticket_date()"/> <!-- 103행,52행에 getelementbyid()하는 값  -->
+				 	
+				 	<div id="goods11"></div>	
 					 </td>
 				</tr>
 			
@@ -285,6 +409,45 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 			<li><a class="wish" href="#">위시리스트</a></li>
 		</ul>
 	</div>
+
+	<button class="tablink" onclick="openPage('이름1', this, 'gray')">상세설명</button>
+	<button class="tablink" onclick="openPage('이름2', this, 'gray')">이용약관</button>
+	<button class="tablink" onclick="openPage('이름3', this, 'gray')">사용방법</button>
+	<button class="tablink" onclick="openPage('이름4', this, 'gray')">위치</button>
+	<button class="tablink" onclick="openPage('이름5', this, 'gray')">리뷰</button>
+	
+	<div id="이름1" class="tabcontent">
+				<h4>상세설명</h4>
+				<p>${fn:replace(goods.goods_description,crcn,br)}</p>
+				<c:forEach var="image" items="${imageList }">
+					<img 
+						src="${contextPath}/resources/shopping/file_repo/${goods.goods_id}/${goods.goods_fileName}">
+				</c:forEach>
+	</div>
+
+	<div id="이름2" class="tabcontent">
+				<h4>이용약관</h4>		
+				<div class="writer">주최: ${goods.goods_publisher}</div>
+				 <p>${fn:replace(goods.goods_terms,crcn,br)}</p> 
+	</div>
+
+	<div id="이름3" class="tabcontent">
+				<h4>사용방법</h4>
+				<p>${fn:replace(goods.goods_usage,crcn,br)}</p> 
+	</div>
+
+	<div id="이름4" class="tabcontent">
+				<h4>위치</h4>
+				 <p>${fn:replace(goods.goods_location,crcn,br)}</p> 
+	</div>
+	
+	<div id="이름5" class="tabcontent">
+				<h4>리뷰</h4>
+	</div>
+	
+	
+	<div class="clear"></div>
+	
 	<div class="clear"></div>
 	<!-- 내용 들어 가는 곳 -->
 	<div id="container">
@@ -328,7 +491,6 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 			</div>
 		</div>
 	</div>
-	<div class="clear"></div>
 	<div id="layer" style="visibility: hidden">
 		<!-- visibility:hidden 으로 설정하여 해당 div안의 모든것들을 가려둔다. -->
 		<div id="popup">

@@ -1,5 +1,7 @@
 package com.bts.goods.controller;
 
+import java.io.Console;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -80,6 +82,15 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		addGoodsInQuick(goods_id,goodsVO,session); //이걸 모르겠네 아마 이게 커맨드 방식으로 goodsvo 보내주는 걸까?
 		return mav;
 	}
+	
+	//예매일 제약조건 확인 
+	@RequestMapping(value = "/reservation.do", method=RequestMethod.GET)
+	public ModelAndView reservation(@RequestParam("goods_ticket_date") Date goods_ticket_date) {
+		ModelAndView mav = new ModelAndView();
+		return mav;
+	
+	}
+	
 	//검색어로 찾기 -> 뷰페이지 존재 
 	@RequestMapping(value="/searchGoods.do" ,method = RequestMethod.GET)
 	public ModelAndView searchGoods(@RequestParam("searchWord") String searchWord,
@@ -92,7 +103,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		
 	}
 
-	//키워드로 찾기 -> 뷰페이지가 없음 (타일즈 설정도 없음)
+	//키워드로 찾기 -> 뷰페이지가 없음 (타일즈 설정도 없음), 헤더에 존재, 
 	@RequestMapping(value="/keywordSearch.do",method = RequestMethod.GET,produces = "application/text; charset=utf8")
 	public @ResponseBody String  keywordSearch(@RequestParam("keyword") String keyword,
 			                                  HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -110,7 +121,9 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		jsonObject.put("keyword", keywordList);
 		 		
 	    String jsonInfo = jsonObject.toString();
-	   // System.out.println(jsonInfo);
+	 
+	  //System.out.println(jsonInfo);
+	
 	    return jsonInfo ;
 	}
 	
