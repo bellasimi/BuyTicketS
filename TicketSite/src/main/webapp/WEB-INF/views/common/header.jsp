@@ -4,6 +4,9 @@
     %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <c:set var="contextPath"  value="${pageContext.request.contextPath}" />
 
 <script type="text/javascript">
@@ -17,9 +20,9 @@
 			async : true, //false인 경우 동기식으로 처리한다.
 			url : "${contextPath}/goods/keywordSearch.do",
 			data : {keyword:value},
-			success : function(data, textStatus) {// 해당 매핑에서 return해준 jsonInfo 값인가?
-			    var jsonInfo = JSON.parse(data);//전송된 데이터를 json형식으로 파싱
-				displayResult(jsonInfo);//{"keyword":["평창 비엔나 인형박물관 입장권"]}이런식으로 들어있음
+			success : function(data, textStatus) {
+			    var jsonInfo = JSON.parse(data);
+				displayResult(jsonInfo);
 			},
 			error : function(data, textStatus) {
 				alert("에러가 발생했습니다."+data);
@@ -32,8 +35,7 @@
 	}
 	
 	function displayResult(jsonInfo){
-		
-		var count = jsonInfo.keyword.length; //{"keyword":["평창 비엔나 인형박물관 입장권","비...","비.."]}키워드 개수만큼 
+		var count = jsonInfo.keyword.length;
 		if(count > 0) {
 		    var html = '';
 		    for(var i in jsonInfo.keyword){
@@ -66,14 +68,75 @@
 		  element.style.display = 'none';
 	   }
 	}
-/*예비  */
+
 </script>
 <body>
-	<div id="logo">
-	<a href="${contextPath}/main/main.do">
-		<img width="176" height="80" alt="booktopia" src="${contextPath}/resources/image/Booktopia_Logo.jpg">
-		</a>
-	</div>
+	<div class="slideshow-container">
+
+<div class="mySlides fade">
+  <img src="${contextPath}/resources/image/img/img_nature_wide.jpg" style="width:1105px">
+</div>
+
+<div class="mySlides fade">
+  <img src="${contextPath}/resources/image/img/img_snow_wide.jpg" style="width:800px">
+</div>
+
+<div class="mySlides fade">
+  <img src="${contextPath}/resources/image/img/img_mountains_wide.jpg" style="width:800px">
+</div>
+
+<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+
+<!--aaa-->
+<!-- The form -->
+<div id="search">
+<form name="frmSearch" class="example" action="${contextPath}/goods/searchGoods.do">
+  <input type="text" placeholder="Search.." name="searchWord" class="main_input" onKeyUp="keywordSearch()">
+   <button type="submit"><i class="fa fa-search"></i></button>
+</form>
+</div>
+
+  <div id="suggest">
+        <div id="suggestList"></div>
+   </div>
+
+	
+<a class="next"  onclick="plusSlides(1)">&#10095;</a>
+
+<div class="mainlogo">
+  <a href="${contextPath}/main/main.do"  >
+  <img src="${contextPath}/resources/image/img/mainlogo.png" width="360" height="100"></a>
+</div>
+
+<script>
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+}
+</script>
+
 	<div id="head_link">
 		<ul>
 		   <c:choose>
@@ -89,6 +152,7 @@
 			 </c:otherwise>
 			</c:choose>
 			   <li><a href="${contextPath}/main/customer.do">고객센터</a></li>
+			   
       <c:if test="${isLogOn==true and memberInfo.member_id =='admin' }">  
 	   	   <li class="no_line"><a href="${contextPath}/admin/goods/adminGoodsMain.do">관리자</a></li>
 	    </c:if>
@@ -96,16 +160,9 @@
 		</ul>
 	</div>
 	<br>
-	<div id="search" >
-		<form name="frmSearch" action="${contextPath}/goods/searchGoods.do" >
-			<input name="searchWord" class="main_input" type="text"  onKeyUp="keywordSearch()"> 
-			<input type="submit" name="search" class="btn1"  value="검 색" >
-		</form>
-		
-	</div>
 
    <div id="suggest">
-       	 <div id="suggestList"></div>
+        <div id="suggestList"></div>
    </div>
 </body>
 </html>

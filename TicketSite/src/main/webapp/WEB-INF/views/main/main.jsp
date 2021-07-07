@@ -78,7 +78,6 @@
 	<img width="770" height="117" src="${contextPath}/resources/image/sub_banner02.jpg">
 </div>
 
-<!--semple-->
 <div class="main_book" >
 <c:set  var="goods_count" value="0" />
 	<h3>신규 액티비티</h3><!-- new -->
