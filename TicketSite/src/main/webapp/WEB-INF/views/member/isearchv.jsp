@@ -20,13 +20,17 @@
 				</TR>
 				<TR class="solid_line">
 					<TD>
-					<select name="tel1">
-					<option>010</option><option>011</option>
-					<option>02</option>
-					<option>031</option><option>032</option>
+					<select name="hp1">
+					<option>없음</option>
+							<option selected value="010">010</option>
+							<option value="011">011</option>
+							<option value="016">016</option>
+							<option value="017">017</option>
+							<option value="018">018</option>
+							<option value="019">019</option>
 					</select>&emsp;-&emsp;
-					<input name="tel2" type="text" size="3" />&emsp;-&emsp;
-					<input name="tel3" type="text" size="3" />
+					<input name="hp2" type="text" size="3" />&emsp;-&emsp;
+					<input name="hp3" type="text" size="3" />
 					
 					</TD>
 				</TR>

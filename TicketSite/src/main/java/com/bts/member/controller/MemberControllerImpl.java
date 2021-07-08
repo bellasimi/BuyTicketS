@@ -82,13 +82,13 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		try {
 		    memberService.addMember(_memberVO);
 		    message  = "<script>";
-		    message +=" alert('ȸ�� ������ ���ƽ��ϴ�.�α���â���� �̵��մϴ�.');";
+		    message +=" alert('회원 가입을 마쳤습니다.로그인창으로 이동합니다.');";
 		    message += " location.href='"+request.getContextPath()+"/member/loginForm.do';";
 		    message += " </script>";
 		    
 		}catch(Exception e) {
 			message  = "<script>";
-		    message +=" alert('�۾� �� ������ �߻��߽��ϴ�. �ٽ� �õ��� �ּ���');";
+		    message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');";
 		    message += " location.href='"+request.getContextPath()+"/member/memberForm.do';";
 		    message += " </script>";
 			e.printStackTrace();
@@ -105,7 +105,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		resEntity =new ResponseEntity(result, HttpStatus.OK);
 		return resEntity;
 	}
-	//tel�� ID ã�� ��
+	//hp로 아이디 찾기
 	@RequestMapping(value="/isearchv.do" ,method = RequestMethod.POST)
 	public ModelAndView istv(HttpServletRequest hs){
 		ModelAndView mv = new ModelAndView();
@@ -114,13 +114,13 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		return mv;
 	}
 	
-	//tel�� IDã��
+	//hp로 아이디 찾기 결과
 	@RequestMapping(value="/isearch.do" ,method = RequestMethod.POST)
-	public ModelAndView ist(@RequestParam Map<String,String> tel,HttpServletRequest rq,HttpServletResponse rs) throws Exception{
+	public ModelAndView ist(@RequestParam Map<String,String> hp,HttpServletRequest rq,HttpServletResponse rs) throws Exception{
 
 		ModelAndView mv = new ModelAndView();
 		String view = (String)rq.getAttribute("viewName");
-		MemberVO result = memberService.ist(tel);
+		MemberVO result = memberService.ist(hp);
 		//mv.addObject("member_id", result.getMember_id());
 		//mv.addObject("member_name", result.getMember_name());
 		mv.addObject("member",result);

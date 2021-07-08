@@ -70,12 +70,6 @@
 					<td>
 					  ${myOrderList[0].receiver_hp1}-${myOrderList[0].receiver_hp2}-${myOrderList[0].receiver_hp3}</td>
 				  </tr>
-				<tr class="dot_line">
-					<td class="fixed_join">유선전화(선택)</td>
-					<td>
-					   ${myOrderList[0].receiver_tel1}-${myOrderList[0].receiver_tel2}-${myOrderList[0].receiver_tel3}
-					</td>
-				</tr>
 
 
 				<tr class="dot_line">

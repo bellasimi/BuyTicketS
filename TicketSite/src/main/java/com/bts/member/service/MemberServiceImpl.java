@@ -38,8 +38,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberVO ist(Map tel) throws Exception {
-		return memberDAO.ist(tel);
+	public MemberVO ist(Map hp) throws Exception {
+		return memberDAO.ist(hp);
 	}
 
 	@Override

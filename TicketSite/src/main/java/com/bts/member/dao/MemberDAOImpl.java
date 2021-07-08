@@ -39,8 +39,8 @@ public class MemberDAOImpl  implements MemberDAO{
 	}
 
 	@Override
-	public MemberVO ist(Map tel) {
-		MemberVO result = sqlSession.selectOne("mapper.member.tsi",tel);
+	public MemberVO ist(Map hp) {
+		MemberVO result = sqlSession.selectOne("mapper.member.ist",hp);
 		return result;
 	}
 

@@ -177,7 +177,25 @@ body, html {
 </div>
 
 <div id="Point" class="tabcontent">
-  포인트 : member_point
+포인트
+  <table>
+  <tr>
+  <td>
+  	<strong>사용일자</strong>
+  </td>
+  <td>
+  	<strong>사용내역</strong>
+  </td>
+  <td>
+  	<strong>증감액</strong>
+  </td>
+  <td>
+  	<strong>잔여액</strong>
+  </td>
+  </tr>
+  
+  </table>
+ 포인트 : member_point
 </div>
 
 <div id="MyInform" class="tabcontent">

@@ -98,13 +98,6 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 			memberMap.put("member_birth_d",val[2]);
 			memberMap.put("member_birth_gn",val[3]);
 		}
-		else if(mod_type.equals("tel")){
-			val=value.split(",");
-			memberMap.put("tel1",val[0]);
-			memberMap.put("tel2",val[1]);
-			memberMap.put("tel3",val[2]);
-			
-		}
 		else if(mod_type.equals("hp")){
 			val=value.split(",");
 			memberMap.put("hp1",val[0]);
