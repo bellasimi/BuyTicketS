@@ -149,20 +149,6 @@ function fn_modify_member_info(attribute){
 			var hp1=frm_mod_member.hp1;
 			var hp2=frm_mod_member.hp2;
 			var hp3=frm_mod_member.hp3;
-			
-			for(var i=0; hp1.length;i++){
-			 	if(hp1[i].selected){
-					value_hp1=hp1[i].value;
-					break;
-				} 
-			}
-			value_hp2=hp2.value;
-			value_hp3=hp3.value;
-			value=value_hp1+","+value_hp2+", "+value_hp3;
-		}else if(attribute=='hp'){
-			var hp1=frm_mod_member.hp1;
-			var hp2=frm_mod_member.hp2;
-			var hp3=frm_mod_member.hp3;
 			var smssts_yn=frm_mod_member.smssts_yn;
 			
 			for(var i=0; hp1.length;i++){
