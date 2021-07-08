@@ -597,12 +597,13 @@ function usepoint(){
 				<td>예상적립금</td>
 				<td>주문금액합계</td>
 			</tr>
+			
+			<c:forEach var="item" items="${myOrderList}">
 			<tr>
-<c:forEach var="item" items="${myOrderList}">
-					<td class="goods_image">
-					  <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">
-					    <img width="75" alt=""  src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
-					    <input   type="hidden" id="h_goods_id" name="h_goods_id" value="${item.goods_id }" />
+				<td class="goods_image">
+					<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">
+			        <img width="75" alt=""  src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+					<input   type="hidden" id="h_goods_id" name="h_goods_id" value="${item.goods_id }" />
 					    <input   type="hidden" id="h_goods_fileName" name="h_goods_fileName" value="${item.goods_fileName }" />
 					  </a>
 					</td>
@@ -625,11 +626,11 @@ function usepoint(){
 					</td>
 					
 					
-				<!-- 배송비 -->		
+				<!-- 배송비 	
 					<td>
 					<fmt:formatNumber value="${item.goods_delivery_price}" var="deliveryprice" pattern="#,###"/>
 					<h2>${deliveryprice}원</h2>
-					</td>				
+					</td>		-->			
 					<fmt:formatNumber value="${item.goods_point}" var="point" pattern="#,###"/>
 					<td><h2>${point}원</h2></td><!-- 포인트-->
 					
@@ -644,8 +645,8 @@ function usepoint(){
 				value="${final_total_order_price+ item.goods_sales_price*0.9* item.order_goods_qty}"/>
 			<c:set var="total_order_price"
 				value="${total_order_price+ item.goods_sales_price*0.9* item.order_goods_qty}"/>
-		<!-- 총배송비 구하기 -->	
-			<c:set var="total_delivery_price" value="${total_delivery_price+item.goods_delivery_price}"/>
+		<!-- 총배송비 구하기
+			<c:set var="total_delivery_price" value="${total_delivery_price+item.goods_delivery_price}"/> -->	
 			<c:choose>
 			<c:when test="${total_delivery_price>=2500}">
 				<c:set var="t_deliveryprice" value="2500"/>

@@ -15,8 +15,10 @@
 
 <head>
 <!-- 요 바로 밑에거는 꺼도 작동할거같음  -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <!-- 
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script> 
+  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
 <script type="text/javascript">
 
 
@@ -48,41 +50,40 @@ $("input[type=checkbox]").change(function() {
 	var minusButton = document.getElementsByName("minus");
 	
 //장바구니안에 상품이 여러개일때고 하나일때랑 나눠야 한다ㅠㅠ 근데 어케해 
-		for(var i=0; i<checked_goods.length;i++){ //한개만 체크됐을때랑 나눠서 해줘야함 		
-			if(checked_goods[i].checked==true){
+	for(var i=0; i<checked_goods.length;i++){ //한개만 체크됐을때랑 나눠서 해줘야함 		
+		if(checked_goods[i].checked==true){
 		
-				goodsPrice=goods_price[i].value;
-				salesPrice=goods_sales_price[i].value; //위에서 정의된거랑은 쓰임이 좀 달라야 되니까ㅇㅇ 변수명 같은거 반복하니까 꼬임 
-				goodsQty=cart_goods_qty[i].value; 
-				console.log("goods_price"+salesPrice+"typeof"+typeof salesPrice);
-				console.log("cart_goods_qty"+goodsQty+"typeof"+typeof goodsQty);
-				totalGoodsPrice=totalGoodsPrice+parseInt(goodsPrice)*parseInt(goodsQty);
-				totalSalesPrice=totalSalesPrice+parseInt(salesPrice)*parseInt(goodsQty);
-				totalDiscount=totalGoodsPrice-totalSalesPrice; //총 할인금액 구하는 건데 직접 계산해서 구해줘야하는지 생각해보기 
-				console.log(totalGoodsPrice);
-				console.log("체크됨"+checked_goods[i].checked+i);
-				plusButton[i].disabled=false;
-				minusButton[i].disabled=false;
-				} else {
-				console.log("체크안됨"+checked_goods[i].checked+i);
-				plusButton[i].disabled=true;  //체크박스 해제되면 그제품 수량버튼도 비활성화
-				minusButton[i].disabled=true;
-			}
-		} 
+			goodsPrice=goods_price[i].value;
+			salesPrice=goods_sales_price[i].value; //위에서 정의된거랑은 쓰임이 좀 달라야 되니까ㅇㅇ 변수명 같은거 반복하니까 꼬임 
+			goodsQty=cart_goods_qty[i].value; 
+			console.log("goods_price"+salesPrice+"typeof"+typeof salesPrice);
+			console.log("cart_goods_qty"+goodsQty+"typeof"+typeof goodsQty);
+			totalGoodsPrice=totalGoodsPrice+parseInt(goodsPrice)*parseInt(goodsQty);
+			totalSalesPrice=totalSalesPrice+parseInt(salesPrice)*parseInt(goodsQty);
+			totalDiscount=totalGoodsPrice-totalSalesPrice; //총 할인금액 구하는 건데 직접 계산해서 구해줘야하는지 생각해보기 
+			console.log(totalGoodsPrice);
+			console.log("체크됨"+checked_goods[i].checked+i);
+			plusButton[i].disabled=false;
+			minusButton[i].disabled=false;
+		} else {
+			console.log("체크안됨"+checked_goods[i].checked+i);
+			plusButton[i].disabled=true;  //체크박스 해제되면 그제품 수량버튼도 비활성화
+			minusButton[i].disabled=true;
+		}
+	} 
+		//hidden값도 다시 설정해준다 -> 포맷팅하기전에 넣어야 다른곳에서 불러다가 계산가능
+	h_totalGoodsPrice.value=totalGoodsPrice //총상품금액 (정가)
+	h_totalSalesPrice.value=totalSalesPrice //이게 통할까 내 의도는 hidden값 바꾸는건데 
 	
+	//숫자 #,### 포맷팅
 	totalGoodsPrice=Intl.NumberFormat().format(totalGoodsPrice);
 	totalSalesPrice=Intl.NumberFormat().format(totalSalesPrice);
 	totalDiscount=Intl.NumberFormat().format(totalDiscount);
-	
-	
-	
+		
 	document.getElementById("p_totalGoodsPrice").innerHTML=totalGoodsPrice+"원";
 	document.getElementById("p_totalSalesPrice").innerHTML=totalSalesPrice+"원";
 	document.getElementById("p_totalDiscount").innerHTML=totalDiscount+"원";
-	
-	h_totalGoodsPrice.value=totalGoodsPrice //총상품금액 (정가)
-	h_totalSalesPrice.value=totalSalesPrice
-	
+
 });
 	
 	$("#checkall").click(function(){		
@@ -137,14 +138,12 @@ $("input[type=checkbox]").change(function() {
 function plusone(goods_id,goods_price,goods_sales_price,index) { 
 	
 	console.log(index + typeof index);
-	//var checked_goods=document.frm_order_all_cart.checked_goods;
-	//console.log(checked_goods[index].checked==true);
 	
 	var length=document.frm_order_all_cart.cart_goods_qty.length;
 	var cart_goods_qty;
 	var priceXqty;
-	//&& checked_goods[index].checked==true
-	if(length>1 ){ //체크_박스도 이용해야 겠네ㅠㅠㅠ 아이고 복잡 
+
+	if(length>1 ){ 
 		console.log("여러개");
 		cart_goods_qty=document.frm_order_all_cart.cart_goods_qty[index];
 		cart_goods_qty.value++;
@@ -167,41 +166,81 @@ function plusone(goods_id,goods_price,goods_sales_price,index) {
 	var totalSalesPrice=document.frm_order_all_cart.h_totalSalesPrice; //총 구매금액(판매가)
 		
 	cart_goods_qty=parseInt(cart_goods_qty.value); //수량 숫자로 변환
-	
+	console.log("totalGoodsPrice.value"+totalGoodsPrice.value+typeof totalGoodsPrice.value);
+	console.log(goods_price+typeof goods_price);
 	totalGoodsPrice.value=parseInt(totalGoodsPrice.value)+goods_price;
 	totalSalesPrice.value=parseInt(totalSalesPrice.value)+goods_sales_price;
+	var totalDiscount=totalGoodsPrice.value-totalSalesPrice.value;
 	
-	console.log("총 상품금액"+totalGoodsPrice.value);
+	console.log("총 상품금액"+totalGoodsPrice.value);  //10040
 	//document.getElementById("p_priceXqty").innerHTML=priceXqty;
 	priceXqty.value=goods_sales_price*cart_goods_qty; //합계는 판매가*수량
-	document.getElementById("p_totalGoodsPrice").innerHTML=totalGoodsPrice.value;
-	document.getElementById("p_totalSalesPrice").innerHTML=totalSalesPrice.value;
-	document.getElementById("p_totalDiscount").innerHTML=totalGoodsPrice.value-totalSalesPrice.value;
+	
+	totalGoodsPrice=Intl.NumberFormat().format(totalGoodsPrice.value);
+	totalSalesPrice=Intl.NumberFormat().format(totalSalesPrice.value);
+	totalDiscount=Intl.NumberFormat().format(totalDiscount);
+		
+	
+	document.getElementById("p_totalGoodsPrice").innerHTML=totalGoodsPrice+"원"
+	document.getElementById("p_totalSalesPrice").innerHTML=totalSalesPrice+"원"
+	document.getElementById("p_totalDiscount").innerHTML=totalDiscount+"원"
 
 	console.log("수량"+cart_goods_qty);
 	console.log("더하기");
+	
+	$.ajax({
+		type : "post",
+		async : false, //false인 경우 동기식으로 처리한다.
+		url : "${contextPath}/cart/modifyCartQty.do",
+		data : {
+			goods_id:goods_id,
+			cart_goods_qty:cart_goods_qty
+		},
+		
+		success : function(data, textStatus) {
+			//alert(data);
+			if(data.trim()=='modify_success'){
+				alert("수량을 변경했습니다!!");	
+			}else{
+				alert("다시 시도해 주세요!!");	
+			}
+			
+		},
+		error : function(data, textStatus) {
+			alert("에러가 발생했습니다."+data);
+		},
+		complete : function(data, textStatus) {
+			//alert("작업을완료 했습니다");
+			
+		}
+	}); //end ajax	
 } 
 
 function minusone(goods_id,goods_price,goods_sales_price,index) { 
+		
 	var length=document.frm_order_all_cart.cart_goods_qty.length;
-	var cart_goods_qty=0;
-	var checked_goods=document.frm_order_all_cart.checked_goods;
-	//&& checked_goods[index].checked==true
-	if(length>1 ){ //제품이 여러개일때 
-		console.log("여러개");
+	var cart_goods_qty;
+	var priceXqty;
+	var base = 0;
+	
+	if(length>1){ 
 		cart_goods_qty=document.frm_order_all_cart.cart_goods_qty[index];
-		if(cart_goods_qty.value>1) {  //1보다 작아질순 없다 
-			cart_goods_qty.value--;
+		if(cart_goods_qty.value>1) {
+			cart_goods_qty.value--;	
+			base = 1;
 			}
-			console.log("1보다 크면 +");
-			priceXqty=document.frm_order_all_cart.priceXqty[index];
-			priceXqty.value=goods_sales_price*cart_goods_qty.value;
-	}else{
+		
+		priceXqty=document.frm_order_all_cart.priceXqty[index];
+		priceXqty.value=goods_sales_price*cart_goods_qty.value;
+		console.log("인덱스값 :" + cart_goods_qty.value);
+
+	}else{ //상품이 하나일때 
 		cart_goods_qty=document.frm_order_all_cart.cart_goods_qty;
 		if(cart_goods_qty.value>1) {
 			cart_goods_qty.value--;	
+			base = 1;
 			}
-		priceXqty=document.frm_order_all_cart.priceXqty[index];
+		priceXqty=document.frm_order_all_cart.priceXqty;
 		priceXqty.value=goods_sales_price*cart_goods_qty.value;
 		console.log("1이면 아니면 더작은거 +"); 
 	}
@@ -209,163 +248,74 @@ function minusone(goods_id,goods_price,goods_sales_price,index) {
 
 	var totalGoodsPrice=document.frm_order_all_cart.h_totalGoodsPrice; //총상품금액 (정가)
 	var totalSalesPrice=document.frm_order_all_cart.h_totalSalesPrice; //총 구매금액(판매가)
-	
+		
 	cart_goods_qty=parseInt(cart_goods_qty.value); //수량 숫자로 변환
+	console.log("totalGoodsPrice.value"+totalGoodsPrice.value+typeof totalGoodsPrice.value);
+	console.log(goods_price+typeof goods_price);
+	totalGoodsPrice.value=parseInt(totalGoodsPrice.value)-goods_price*base;
+	totalSalesPrice.value=parseInt(totalSalesPrice.value)-goods_sales_price*base;
+	var totalDiscount=totalGoodsPrice.value-totalSalesPrice.value;
 	
-	totalGoodsPrice.value=parseInt(totalGoodsPrice.value)-goods_price;
-	totalSalesPrice.value=parseInt(totalSalesPrice.value)-goods_sales_price;
+	console.log("총 상품금액"+totalGoodsPrice.value);  //10040
+	//document.getElementById("p_priceXqty").innerHTML=priceXqty;
+	priceXqty.value=goods_sales_price*cart_goods_qty; //합계는 판매가*수량
 	
-	console.log("총 상품금액"+totalGoodsPrice.value);
+	totalGoodsPrice=Intl.NumberFormat().format(totalGoodsPrice.value);
+	totalSalesPrice=Intl.NumberFormat().format(totalSalesPrice.value);
+	totalDiscount=Intl.NumberFormat().format(totalDiscount);
+	
+	
+	
+	document.getElementById("p_totalGoodsPrice").innerHTML=totalGoodsPrice+"원"
+	document.getElementById("p_totalSalesPrice").innerHTML=totalSalesPrice+"원"
+	document.getElementById("p_totalDiscount").innerHTML=totalDiscount+"원"
 
-	document.getElementById("p_totalGoodsPrice").innerHTML=totalGoodsPrice.value;
-	document.getElementById("p_totalSalesPrice").innerHTML=totalSalesPrice.value;
-	document.getElementById("p_totalDiscount").innerHTML=totalGoodsPrice.value-totalSalesPrice.value;
-
+	
 	console.log("수량"+cart_goods_qty);
 	console.log("빼기");
+	
+	$.ajax({
+		type : "post",
+		async : false, //false인 경우 동기식으로 처리한다.
+		url : "${contextPath}/cart/modifyCartQty.do",
+		data : {
+			goods_id:goods_id,
+			cart_goods_qty:cart_goods_qty
+		},
+		
+		success : function(data, textStatus) {
+			//alert(data);
+			if(data.trim()=='modify_success'){
+				alert("수량을 변경했습니다!!");	
+			}else{
+				alert("다시 시도해 주세요!!");	
+			}
+			
+		},
+		error : function(data, textStatus) {
+			alert("에러가 발생했습니다."+data);
+		},
+		complete : function(data, textStatus) {
+			//alert("작업을완료 했습니다");
+			
+		}
+	}); //end ajax	
+
+	
 } 
-//change(${item.goods_id},${item.goods_price},${item.goods_sales_price},${idx.index})	
-function change(goods_id,goods_price,goods_sales_price,index) {
-	var length=document.frm_order_all_cart.cart_goods_qty.length;
-	var cart_goods_qty=0;
-	
-	
-	if(length>1){ //제품이 여러개일때 
-		cart_goods_qty=document.frm_order_all_cart.cart_goods_qty[index];
-		console.log("인데스값 여러개:" + cart_goods_qty.value);
-	}else{
-		cart_goods_qty=document.frm_order_all_cart.cart_goods_qty;
-		console.log("상품하나 "); 
-	}
-	
-	//합계, 총상품금액, 총할인금액, 최종결제금액 
-	//var goods_price=document.frm_order_all_cart.h_goods_price; //정가 
-	//var goods_sales_price=document.frm_order_all_cart.h_goods_sales_price; //판매가 
-	//var cart_goods_qty=document.frm_order_all_cart.cart_goods_qty; //수량 
-	var priceXqty=document.frm_order_all_cart.h_priceXqty;		
-	
-	var totalGoodsPrice=document.frm_order_all_cart.h_totalGoodsPrice; //총상품금액 
-	totalGoodsPrice.value = parseInt(totalGoodsPrice.value)+parseInt(goods_sales_price.value);
-	console.log("총 상품금액"+totalGoodsPrice.value);
-	document.getElementById("p_totalGoodsPrice").innerHTML=totalGoodsPrice.value;
-	
-	cart_goods_qty.value = ++cart_goods_qty.value;
-	priceXqty=parseInt(cart_goods_qty.value)*parseInt(goods_sales_price.value);
-	document.getElementById("p_priceXqty").innerHTML=priceXqty;
-	
-	console.log("수량"+cart_goods_qty.value);
-	console.log("가격"+goods_sales_price.value);
-	 
-	// document.getElementById("p_totalDiscount").innerHTML=0;
-	// document.getElementById("p_totalSalesPrice").innerHTML=0;
-}
 
-
-
-	
-	
-//function minusone(index)
-
-
-
-
-//function plus()
-//function minus()
-//function change()
-//${item.goods_id},${item.goods_sales_price}
 
 //체크박스랑 변수 겹치는거 아예 위칸에 몰아두는게 효율적일까 매번 정의하지말고
-/*
-function plus() {
-	var cart_goods_qty=document.frm_order_all_cart.cart_goods_qty; //수량
-	cart_goods_qty.value++;
-}*/
 
 //change 함수 하나로 두고 그안에서 if button 눌리면 으로 처리가능한가??????
 
 //plus minus 부분 처리  name으로 할지 		
 
-	
+
+
+
+
  
-//	var goods_id = document.frm_order_all_cart.h_goods_id;
-//+ - 버튼은 수량이랑 인덱스만 받고 - change 에서 가격이랑 등등 다 받는게 나을듯, goods_id도 받아야 한다 
-
-
-
-
-
-
-//인수받는게 안되서 취소ㅠㅠ
-/*
-$(document).ready(function(){
-$("input[name=plus]").click(function(){
-    console.log("버튼누름");
-    cart_goods_qty.value = ++cart_goods_qty.value;
-    //일단 수량만 여기서 바꾸고 
-    //change 함수를 만들어서 처리? 
-    console.log("수량"+cart_goods_qty.value);
-    
-    
-   
-    
-  });
-  $("input[name=minus]").click(function(){
-    console.log("-");
-    cart_goods_qty.value = --cart_goods_qty.value;
-    console.log("수량"+cart_goods_qty.value);
-  });
-});*/
-
-
-//함수형태에 1개일때 여러개일때 나눠서 하는거까지 합쳐서 작성해보기 
-
-
-/* 이부분은 1개일때 여러개일때 나눠서 하는 부분, 여기에 수량, 가격, 할인 전부 구해서해준다 
- * 1. 기준점을 수량, 등등 중에 뭐로 할지 뭐뭐 받아야 할지 
- */
- 
-/* 
-var _cart_goods_qty=0;
-if(length>1){ //카트에 제품이 한개인 경우와 여러개인 경우 나누어서 처리한다. 
-	//이게필요가있을까 어차피 한번에 하나만 변경하는건데...????
-	_cart_goods_qty=document.frm_order_all_cart.cart_goods_qty[index].value;	
-	console.log("1보다 크면")
-}else{
-	_cart_goods_qty=document.frm_order_all_cart.cart_goods_qty.value;
-	console.log("1이면 아니면 더작은거 "); //이거 실행됨 어차피 지워도될듯
-}
-	*/	
-		
-		
-// 더하기버튼 누르면 실행되는 함수 작동 잘함 숫자도 바뀜 		
-/* function plusone() {
-	var goods_price=document.frm_order_all_cart.h_goods_price; //정가 
-	var goods_sales_price=document.frm_order_all_cart.h_goods_sales_price; //판매가 
-	var cart_goods_qty=document.frm_order_all_cart.cart_goods_qty; //수량 
-	var priceXqty=document.frm_order_all_cart.h_priceXqty;		
-	
-	//값이 하나일때랑 아닐때랑 나눠야함 
-	
-	//배열처리 해야함 dsdadsdadsasda
-	var totalGoodsPrice=document.frm_order_all_cart.h_totalGoodsPrice;
-	//_totalGoodsPrice = parseInt(totalGoodsPrice.value);
-	totalGoodsPrice.value = parseInt(totalGoodsPrice.value)+parseInt(goods_sales_price.value);
-	console.log("총 상품금액"+totalGoodsPrice.value);
-	document.getElementById("p_totalGoodsPrice").innerHTML=totalGoodsPrice.value;
-	
-	cart_goods_qty.value = ++cart_goods_qty.value;
-	priceXqty=parseInt(cart_goods_qty.value)*parseInt(goods_sales_price.value);
-	document.getElementById("p_priceXqty").innerHTML=priceXqty;
-	
-	console.log("수량"+cart_goods_qty.value);
-	console.log("가격"+goods_sales_price.value);
-	 
-	// document.getElementById("p_totalDiscount").innerHTML=0;
-	// document.getElementById("p_totalSalesPrice").innerHTML=0;
-	
-}
- */
-
 /* 안먹혀 
 $(document).ready(function(){
 	$("input[id=cart_goods_qty]").onchange(function() {
@@ -413,106 +363,7 @@ $(document).ready(function(){
 //////////////////////여기까지 체크박스 되는 거 확인 완료 
 
 
-
-
-
-
-
-
-
-
-//이부분은 일단 죽이고 + - 버튼 테스트해보기
-/*
-function modify_cart_qty(goods_id,salesPrice,beforeQTY) {
-	
-	
-	//체크박스에서 가져온거 
-	var checked_goods=document.frm_order_all_cart.checked_goods; //체크박스 받아옴
-	var goods_price= document.frm_order_all_cart.h_goods_price; //정가 
-	var goods_sales_price=document.frm_order_all_cart.h_goods_sales_price; //판매가 
-	var cart_goods_qty=document.frm_order_all_cart.cart_goods_qty; //수량 
-	//html에서 받아온 객체는 변수이름 그대로 써준다 
-		//./////////////////////////////////////////////
-		///////이부분 다른데랑 변수 통일시켜야 된다ㅠㅠㅠㅠ checked_goods 도 바꿀까봐 check_goods나 goods_box 이런거로 
-	console.log("원래값"+beforeQTY);//제대로 넘어옴ㅇㅇ두번은 안통하는데ㅠㅠㅠㅠ 
-		
-	var cartqty=cart_goods_qty.value;
-	console.log("수정된값"+cartqty);
-	var priceXqty=parseInt(cartqty)*salesPrice;
-	/////ajax 다음에 html넣어도되는지 확인좀  다 돌아가고 나서여야 하니까 나중에 넣어야할까????
-	console.log("가격*수량" + priceXqty);
-	priceXqty=Intl.NumberFormat().format(priceXqty);
-	document.getElementById("p_priceXqty").innerHTML=priceXqty+"원";//개별상품총금액	
-	//console.log(checked_goods.length)	//자체가 안넘어옴 
-		
-		
-	var goodsPrice; //자바스크립트내에서 통용되는 변수
-	var salesPrice;
-	var goodsQty;
-
-	var totalGoodsPrice=0; //총합(정가*수량) 
-	var totalSalesPrice=0; //총합(판매가*수량)  --결제금액 
-	var totalDiscount=0; //총할인되는 금액
-	
-	//원래 있던거랑 가격을 비교해서 빼는 방식으로 해볼까ㅠㅠ 
-	//이방식으로는 checked_goods 자체가 안넘어온다 
-	 for(var i=0; i<checked_goods.length;i++){
-		if(checked_goods[i].checked==true){
-			
-			goodsPrice=goods_price[i].value;
-			salesPrice=goods_sales_price[i].value; //위에서 정의된거랑은 쓰임이 좀 달라야 되니까ㅇㅇ 변수명 같은거 반복하니까 꼬임 
-			goodsQty=cart_goods_qty[i].value; 
-			console.log("goods_price"+salesPrice+"typeof"+typeof salesPrice);
-			console.log("cart_goods_qty"+goodsQty+"typeof"+typeof goodsQty);
-			totalGoodsPrice=totalGoodsPrice+parseInt(goodsPrice)*parseInt(goodsQty);
-			totalSalesPrice=totalSalesPrice+parseInt(salesPrice)*parseInt(goodsQty);
-			totalDiscount=totalGoodsPrice-totalSalesPrice; //총 할인금액 구하는 건데 직접 계산해서 구해줘야하는지 생각해보기 
-			console.log(totalGoodsPrice);
-		
-		} 
-	}
-	totalGoodsPrice=Intl.NumberFormat().format(totalGoodsPrice);
-	totalSalesPrice=Intl.NumberFormat().format(totalSalesPrice);
-	totalDiscount=Intl.NumberFormat().format(totalDiscount);
-	
-	
-	document.getElementById("p_totalGoodsPrice").innerHTML=totalGoodsPrice+"원";
-	document.getElementById("p_totalSalesPrice").innerHTML=totalSalesPrice+"원";
-	document.getElementById("p_totalDiscount").innerHTML=totalDiscount+"원";
-	//체크박스에서 가져온거 
-	
-	//console.log(cart_goods_qty); //여기서 오류뜸 이건 그냥 값이 없는거지 문제아님 
-		 
-	
-	$.ajax({
-		type : "post",
-		async : false, //false인 경우 동기식으로 처리한다.
-		url : "${contextPath}/cart/modifyCartQty.do",
-		data : {
-			goods_id:goods_id,
-			cart_goods_qty:cart_goods_qty
-		},
-		
-		success : function(data, textStatus) {
-			//alert(data);
-			if(data.trim()=='modify_success'){
-				alert("수량을 변경했습니다!!");	
-			}else{
-				alert("다시 시도해 주세요!!");	
-			}
-			
-		},
-		error : function(data, textStatus) {
-			alert("에러가 발생했습니다."+data);
-		},
-		complete : function(data, textStatus) {
-			//alert("작업을완료 했습니다");
-			
-		}
-	}); //end ajax	
-}
-*/
-
+//이부분은 일단 죽이고 + - 버튼 테스트해보기  -----------------이건 원래 있던 코드 
 //수량변경까지 됨 일단 위에서 + - 버튼으로 바꿔보고 
 /* function modify_cart_qty(goods_id,bookPrice,index){
 	//alert(index);
@@ -559,6 +410,7 @@ function modify_cart_qty(goods_id,salesPrice,beforeQTY) {
 	}); //end ajax	
 }
  */
+ 
 function delete_cart_goods(cart_id){
 	var cart_id=Number(cart_id);
 	var formObj=document.createElement("form");
@@ -573,23 +425,70 @@ function delete_cart_goods(cart_id){
     formObj.submit();
 }
 
-function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
-	//goodsDetail 에서 따온거 일단 다른거 하나 여기 다시 하자 
+//function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName) {
 	
-	var objForm=documnet.frm_order_all_cart;
+//}
+
+//인수로 넘어온건 디비에 저장되어있던 goods 정보들이고 / dom객체로 받는건 페이지에서 생성되거나 넘어온것들 
+function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName) {
+	console.log("개별주문 함수 ");
+
+	var cart_goods_qty=document.getElementById("cart_goods_qty").value; //이거 id로 받으면 안될것같..ㅠ 모르겠다 
+	console.log(cart_goods_qty+typeof cart_goods_qty);
+	var goods_ticket_date=document.getElementById("goods_ticket_date").value;
+	console.log(goods_id+goods_title+goods_sales_price+fileName);
+	
+	//jquery 문서 버전 자체를 바꾸는게 나을듯 
+	$.ajax({
+		type : "post",
+		async : false, //false인 경우 동기식으로 처리한다.
+		url : "${contextPath}/order/orderEachGoods.do",
+		data : {
+			goods_id:goods_id,
+			goods_title:goods_title,
+			goods_sales_price:goods_sales_price,
+			order_goods_qty:cart_goods_qty,
+			goods_ticket_date:goods_ticket_date,
+			goods_fileName:fileName
+			
+		},
+		
+		//텍스트는 나중에 modify 참조해서 만들거나...뭐 
+		success : function(data, textStatus) {
+			//alert(data);
+			if(data.trim()=='modify_success'){
+				alert("수량을 변경했습니다!!");	
+			}else{
+				alert("다시 시도해 주세요!!");	
+			}
+			
+		},
+		error : function(data, textStatus) {
+			alert("에러가 발생했습니다."+data);
+		},
+		complete : function(data, textStatus) {
+			//alert("작업을완료 했습니다");
+			
+		}
+	}); //end ajax	*/
+}
+ 
+ 
+ //(${item.goods_id},${item.goods_title},${item.goods_sales_price},${item.goods_fileName}
+/* function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName) {
+	//goodsDetail 에서 따온거 일단 다른거 하나 여기 다시 하자 
+	c
+	
+ var objForm=document.frm_order_all_cart;
 	var cart_goods_qty=objForm.cart_goods_qty;
 	//안되면 hidden으로 넘겨서 해보기 
 	
-	var order_goods_id=goods_id
+	var order_goods_id=goods_id;
 	var order_goods_qty=goods_sales_price;
-	
-	
-	
+		
 	//var total_price,final_total_price; //없어도 실행되얗dsadsadsadsads
 	var order_goods_qty=document.getElementById("cart_goods_qty");
-	
-	
-	
+		
 	var formObj=document.createElement("form");
 	var i_goods_id = document.createElement("input"); 
     var i_goods_title = document.createElement("input");
@@ -618,8 +517,8 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
     document.body.appendChild(formObj); 
     formObj.method="post";
     formObj.action="${contextPath}/order/orderEachGoods.do";
-    formObj.submit();
-	}	
+    formObj.submit(); 
+	}	 */
 
 //'${item.goods_id }','${item.goods_title }','${discounted_price}','${item.goods_fileName}');">
 /*
@@ -759,6 +658,7 @@ function fn_order_all_cart_goods(){
 		</td>
 		<!-- /////////////////////////예매날짜 input 필요한지 생각해보기  -->		
 				<td>   
+				<input type="hidden" id="goods_ticket_date" value="${goods_ticket_date }">
 				 ${goods_ticket_date }	
 				</td>
 				
@@ -817,8 +717,9 @@ function fn_order_all_cart_goods(){
 			    <fmt:formatNumber  value="${item.goods_sales_price*cart_goods_qty}" type="number" var="priceXqty" pattern="#,###"/>
 				         <p id="p_priceXqty"> ${priceXqty}원</p>	</strong> 
 		</td>-->
-					<td>
-		<!-- 각각구매 -->	 <a href="javascript:fn_order_each_goods('${item.goods_id }','${item.goods_title }','${item.goods_sales_price}','${item.goods_fileName}');">
+					<td><!-- javascript:fn_order_each_goods('${item.goods_id}','${item.goods_title}','${item.goods_sales_price}','${item.goods_fileName}'); -->
+		<!-- 각각구매 -->	 <a href="javascript:fn_order_each_goods('${item.goods_id}','${item.goods_title}','${item.goods_sales_price}','${item.goods_fileName}');">
+					       <!-- 왜 '' 붙여야 넘어갈까 이게 기본인가  -->
 					       	<img width="75" alt=""  src="${contextPath}/resources/image/btn_order.jpg">
 							</a><br>
 					 	<a href="#"> 
