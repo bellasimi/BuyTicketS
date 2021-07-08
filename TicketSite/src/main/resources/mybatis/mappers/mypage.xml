@@ -44,7 +44,7 @@
 	
 	 <select id="selectMyOrderGoodsList" resultMap="orderGoodsResult"  parameterType="String"  >
 	    <![CDATA[
-			select * from t_shopping_order
+			select * from ticket_order
             where member_id=#{member_id}
             order by pay_order_time desc
 		]]>
@@ -53,13 +53,13 @@
 
 	<select id="selectMyOrderInfo" resultMap="orderGoodsResult"   parameterType="String"  >
 	    <![CDATA[
-		    select * from t_shopping_order
+		    select * from ticket_order
             where order_id=#{order_id}
     	]]>
 	</select>
 		<select id="selectMyOrderHistoryList" resultMap="orderGoodsResult"   parameterType="java.util.Map"  >
 	    <![CDATA[
-		  select * from t_shopping_order
+		  select * from ticket_order
           where member_id=#{member_id}
           and  to_char(pay_order_time,'yyyy-mm-dd')  between #{beginDate} and #{endDate}
           order by pay_order_time desc
@@ -67,7 +67,7 @@
 	</select>	
 	
 	<update id="updateMyInfo" parameterType="java.util.HashMap">
-	   update t_shopping_member
+	   update ticket_member
 			   <set>
 			      <if test=" member_pw!='' and member_pw!=null">
 			        member_pw=#{member_pw},
@@ -133,13 +133,13 @@
 	
 	<select id="selectMyDetailInfo" resultType="memberVO"   parameterType="String"  >
 	    <![CDATA[
-			select * from t_shopping_member 
+			select * from ticket_member
 			where member_id=#{member_id}
     	]]>
 	</select>	
 	
 	<update id="updateMyOrderCancel" parameterType="String">
-	   update t_shopping_order
+	   update ticket_order
 	 	  set delivery_state='cancel_order'
 	   where order_id=#{order_id}
 	</update>
