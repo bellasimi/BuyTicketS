@@ -15,9 +15,6 @@
 		<result property="member_birth_d" column="member_birth_d" />
 		
 		<result property="member_birth_gn" column="member_birth_gn" />
-		<result property="tel1" column="tel1" />
-		<result property="tel2" column="tel2" />
-		<result property="tel3" column="tel3" />
 		
 		<result property="hp1" column="hp1" />
 		<result property="hp2" column="hp2" />

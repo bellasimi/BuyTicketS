@@ -9,7 +9,7 @@ public interface MemberService {
 	public void addMember(MemberVO memberVO) throws Exception;
 	public String overlapped(String id) throws Exception;
 	public MemberVO  psi(String id) throws Exception;
-	public MemberVO  ist(Map tel) throws Exception;
+	public MemberVO  ist(Map hp) throws Exception;
 	public MemberVO isn(String name) throws Exception;
 	
 }

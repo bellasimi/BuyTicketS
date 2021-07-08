@@ -16,9 +16,6 @@
 		<result property="member_birth_d" column="member_birth_d" />
 		
 		<result property="member_birth_gn" column="member_birth_gn" />
-		<result property="tel1" column="tel1" />
-		<result property="tel2" column="tel2" />
-		<result property="tel3" column="tel3" />
 		
 		<result property="hp1" column="hp1" />
 		<result property="hp2" column="hp2" />
@@ -44,33 +41,26 @@
 		]]>
 	</select>
 	<select id="psi" resultType="memberVO">
-	   SELECT * FROM T_SHOPPING_MEMBER WHERE member_id=#{id}
+	   SELECT * FROM TICKET_MEMBER WHERE member_id=#{id}
 	</select>
 	<select id="ist" resultType="memberVO">
-	   SELECT * FROM T_SHOPPING_MEMBER WHERE tel1=#{tel1} and tel2=#{tel2} and tel3=#{tel3} 
+	   SELECT * FROM TICKET_MEMBER WHERE hp1=#{hp1} and hp2=#{hp2} and hp3=#{hp3} 
 	</select>
 	<select id="isn" resultType="memberVO">
-		SELECT * FROM T_SHOPPING_MEMBER WHERE member_name=#{name}
+		SELECT * FROM TICKET_MEMBER WHERE member_name=#{name}
 	</select>
 	<select id="selectOverlappedID" parameterType="String" resultType="String">
 	   select decode(count(*),1, 'true', 0, 'false')
-	   from t_shopping_member
+	   from TICKET_MEMBER
 	   where member_id = #{id}
 	</select>
 	
   <insert id="insertNewMember"  parameterType="memberVO">
   <![CDATA[
-    	insert into t_shopping_member(member_id,
-				 					                  member_pw,
+    	INSERT INTO TICKET_MEMBER(member_id,
+				 					 member_pw,
                                      member_name,
                                      member_gender,
-                                     member_birth_y,
-                                     member_birth_m,
-                                     member_birth_d,
-                                     member_birth_gn,
-                                     tel1,
-                                     tel2,
-                                     tel3,
                                      hp1,
                                      hp2,
                                      hp3,
@@ -78,21 +68,13 @@
                                      email1,
                                      email2,
                                      emailsts_yn,
-                                     zipcode,
-                                     roadAddress,
-                                     jibunAddress,
-                                     namujiAddress)
+                                     member_birth_y,
+                                     member_birth_m,
+                                     member_birth_d)
 							 values(#{member_id},
 									#{member_pw},
 									#{member_name},
                                  	#{member_gender},
-                                   	#{member_birth_y},
-                                   	#{member_birth_m},
-                                    #{member_birth_d},
-                                    #{member_birth_gn},
-                                    #{tel1},
-                                    #{tel2},
-                                    #{tel3},
                                     #{hp1},
                                     #{hp2},
                                     #{hp3},
@@ -100,12 +82,9 @@
                                     #{email1},
                                     #{email2},
                                     #{emailsts_yn},
-                                    #{zipcode},
-                                    #{roadAddress},
-                                    #{jibunAddress},
-                                    #{namujiAddress})
-                                  
-                                      
+                                   	#{member_birth_y},
+                                   	#{member_birth_m},
+                                    #{member_birth_d})                                                                    
    ]]>      
   </insert>
 </mapper>

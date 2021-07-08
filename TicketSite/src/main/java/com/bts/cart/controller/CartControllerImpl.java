@@ -62,8 +62,8 @@ public class CartControllerImpl extends BaseController implements CartController
 	@Override
 	@RequestMapping(value="/addGoodsInCart.do" ,method = RequestMethod.POST,produces = "application/text; charset=utf8")
 	public  @ResponseBody String addGoodsInCart(@RequestParam("goods_id") int goods_id, 
-								@RequestParam("goods_ticket_date") Date goods_ticket_date,
-								@RequestParam("cart_goods_qty") int cart_goods_qty,
+								@RequestParam("ticket_goods") Date ticket_goods,
+								@RequestParam("ticket_cart") int ticket_cart,
 			                    HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		//수량 배열로 받지않아도 되겠지 하나씩 저장되니까??????
 		System.out.println("카트컨트롤러 접근");
@@ -74,10 +74,10 @@ public class CartControllerImpl extends BaseController implements CartController
 	
 		cartVO.setMember_id(member_id); //장바구니에 회원id, 상품id 저장 
 		cartVO.setGoods_id(goods_id);
-		cartVO.setGoods_ticket_date(goods_ticket_date); //수량, 예약일 추가 
-		cartVO.setCart_goods_qty(cart_goods_qty);
+		cartVO.setGoods_ticket_date(ticket_goods); //수량, 예약일 추가 
+		cartVO.setCart_goods_qty(ticket_cart);
 		cartVO.setMember_id(member_id);
-		System.out.println(member_id+goods_id+"날짜"+goods_ticket_date+"수량"+cart_goods_qty);
+		System.out.println(member_id+goods_id+"날짜"+ticket_goods+"수량"+ticket_cart);
 		boolean isAreadyExisted=cartService.findCartGoods(cartVO); //장바구니에 이미 상품이 존재하는지 확인 
 		System.out.println("isAreadyExisted:"+isAreadyExisted);
 		if(isAreadyExisted==true){
@@ -92,7 +92,7 @@ public class CartControllerImpl extends BaseController implements CartController
 	//장바구니 창에서 수량 개별 수정할때 ajax로 넘어오는 
 	@RequestMapping(value="/modifyCartQty.do" ,method = RequestMethod.POST)
 	public @ResponseBody String  modifyCartQty(@RequestParam("goods_id") int goods_id,
-			                                   @RequestParam("cart_goods_qty") int cart_goods_qty,
+			                                   @RequestParam("ticket_cart") int ticket_cart,
 			                                    HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		System.out.println("cart 수정");
 		HttpSession session=request.getSession();
@@ -101,7 +101,7 @@ public class CartControllerImpl extends BaseController implements CartController
 		// session 자리에 있는 아이디 정보 가져옴 
 		cartVO.setGoods_id(goods_id); 
 		cartVO.setMember_id(member_id);
-		cartVO.setCart_goods_qty(cart_goods_qty);
+		cartVO.setCart_goods_qty(ticket_cart);
 		boolean result=cartService.modifyCartQty(cartVO);
 		
 		if(result==true){

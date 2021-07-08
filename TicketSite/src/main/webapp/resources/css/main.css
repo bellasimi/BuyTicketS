@@ -11,18 +11,19 @@ body {
 img {
 	border: currentColor; border-image: none;
 }
- a {
-	color: #0000ff; text-decoration: none;
+header #head_link a {
+	color: #ffffff; text-decoration: none;
 }
-head_link a {
-	color: #ffffff; text-decoration: none; z-index:1;
+header #head_link a:hover {
+	color: rgb(255, 102, 0); text-decoration: none;
+}
+a {
+	color: rgb(102, 102, 102); text-decoration: none;
 }
 a:hover {
 	color: rgb(255, 102, 0); text-decoration: none; 
 }
-h:hover {
-	color: rgb(255, 102, 0); text-decoration: none;
-}
+
 .clear {
 	clear: both;
 }
@@ -302,6 +303,7 @@ article {
 }
 
 article #ad_main_banner {
+	
 	margin: 10px 0px;
 }
 article #ad_sub_banner {

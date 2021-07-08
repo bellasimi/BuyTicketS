@@ -74,12 +74,6 @@
 					<TD>
 					  ${myOrderInfo.receiver_hp1}-${myOrderInfo.receiver_hp2}-${myOrderInfo.receiver_hp3}</TD>
 				  </TR>
-				<TR class="dot_line">
-					<TD class="fixed_join">유선전화(선택)</TD>
-					<TD>
-					   ${myOrderInfo.receiver_tel1}-${myOrderInfo.receiver_tel2}-${myOrderInfo.receiver_tel3}</TD>
-					</TD>
-				</TR>
 
 
 				<TR class="dot_line">

@@ -11,6 +11,6 @@ public interface MemberDAO {
 	public void insertNewMember(MemberVO memberVO) throws DataAccessException;
 	public String selectOverlappedID(String id) throws DataAccessException;
 	public MemberVO psi(String id);
-	public MemberVO ist(Map tel);
+	public MemberVO ist(Map hp);
 	public MemberVO isn(String name);
 }
