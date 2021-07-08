@@ -41,7 +41,7 @@
 	
 	 <select id="selectMyOrderList" resultMap="orderGoodsResult"  parameterType="orderVO"  >
 	    <![CDATA[
-			select * from tiket_order
+			select * from ticket_order
 			where to_char(pay_order_time,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd') 
         	and member_id=#{member_id}
         	order by pay_order_time desc
@@ -52,7 +52,7 @@
 	    	select order_seq_num.nextval from dual
 	    </selectKey>
 	    <![CDATA[
-			insert into tiket_order(order_seq_num,
+			insert into ticket_order(order_seq_num,
 			                            order_id,
 										member_id,
 									    goods_id,
@@ -107,7 +107,7 @@
 	
 	<select id="selectMyOrder" resultMap="orderGoodsResult"   parameterType="String"  >
 	    <![CDATA[
-		    select * from tiket_order
+		    select * from ticket_order
             where to_char(pay_order_time,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd') 
             and order_id=#{order_id}
             order by pay_order_time desc
@@ -115,7 +115,7 @@
 	</select>
 	
 	<delete id="deleteGoodsFromCart" parameterType="orderVO">
-	  delete from tiket_cart
+	  delete from ticket_cart
 	  where goods_id=#{goods_id}
 	</delete>
 	
