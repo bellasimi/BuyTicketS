@@ -4,66 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	 
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <!DOCTYPE html>
-<style>
-/* Style the buttons that are used to open and close the accordion panel */
-.accordion {
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  text-align: left;
-  border: none;
-  outline: none;
-  transition: 0.4s;
-}
-
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active, .accordion:hover {
-  background-color: #ccc;
-}
-
-/* Style the accordion panel. Note: hidden by default */
-.panel {
-  padding: 0 18px;
-  background-color: white;
-  display: none;
-  overflow: hidden;
-}
-.accordion:after {
-  content: '\02795'; /* Unicode character for "plus" sign (+) */
-  font-size: 13px;
-  color: #777;
-  float: right;
-  margin-left: 5px;
-}
-
-.active:after {
-  content: "\2796"; /* Unicode character for "minus" sign (-) */
-}
-</style>
-
-
-<script>
-var acc = document.getElementsByClassName("accordion");
-var i;
-
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    /* Toggle between adding and removing the "active" class,
-    to highlight the button that controls the panel */
-    this.classList.toggle("active");
-
-    /* Toggle between hiding and showing the active panel */
-    var panel = this.nextElementSibling;
-    if (panel.style.display === "block") {
-      panel.style.display = "none";
-    } else {
-      panel.style.display = "block";
-    }
-  });
-}
-</script>
 <html>
 <head>
 <meta charset="utf-8">
@@ -96,16 +36,64 @@ function fn_cancel_order(order_id){
 	    formObj.submit();	
 	}
 }
-
 </script>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {box-sizing: border-box}
+
+/* Set height of body and the document to 100% */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
+}
+
+/* Style tab links */
+.tablink {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
+}
+
+.tablink:hover {
+  background-color: #777;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color: white;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}
+
+#OrderList {background-color: #cccccc;}
+#Point {background-color: #cccccc;}
+#MyInform {background-color: #cccccc;}
+#WishList {background-color: #cccccc;}
+</style>
 </head>
 <body>
-<h1>최근주문내역
-    <A href="#"> <IMG  src="${contextPath}/resources/image/btn_more_see.jpg">  </A> 
+
+<button class="tablink" onclick="openPage('OrderList', this, 'gray')" id="defaultOpen">주문내역</button>
+<button class="tablink" onclick="openPage('Point', this, 'gray')" >포인트</button>
+<button class="tablink" onclick="openPage('MyInform', this, 'gray')">내정보</button>
+<button class="tablink" onclick="openPage('WishList', this, 'gray')">위시리스트</button>
+
+<div id="OrderList" class="tabcontent">
+  <h1>최근주문내역
+    <A href="listMyOrderHistory.do"> <IMG  src="${contextPath}/resources/image/btn_more_see.jpg">  </A> 
 </h1>
 <table class="list_view">
 		<tbody align=center >
-			<tr style="background:#33ff00" >
+			<tr style="background:gray" >
 				<td>주문번호</td>
 				<td>주문일자</td>
 				<td>주문상품</td>
@@ -186,17 +174,15 @@ function fn_cancel_order(order_id){
     </c:choose> 	    
 </tbody>
 </table>
+</div>
 
-<br><br><br>	
+<div id="Point" class="tabcontent">
+  포인트 : member_point
+</div>
 
-<button class="accordion">포인트 : member_point</button>
-	<div class="panel">
-		<p>내역내역내역</p>
-	</div>
-
-<br><br><br>	
-<h1>나의 정보
-    <a href="#"> <img  src="${contextPath}/resources/image/btn_more_see.jpg" />  </a>
+<div id="MyInform" class="tabcontent">
+  <h1>나의 정보
+    <a href="myDetailInfo.do"> <img  src="${contextPath}/resources/image/btn_more_see.jpg" />  </a>
 </h1>
 <table border=0 width=100% cellpadding=10 cellspacing=10>
   <tr>
@@ -225,5 +211,31 @@ function fn_cancel_order(order_id){
    </td>
    </tr>
 </table>
+</div>
+
+<div id="WishList" class="tabcontent">
+  위시리스트 입니당!
+</div>
+
+<script>
+function openPage(pageName,elmnt,color) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+  document.getElementById(pageName).style.display = "block";
+  elmnt.style.backgroundColor = color;
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+   
 </body>
-</html>
+</html> 
+
