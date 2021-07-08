@@ -335,37 +335,6 @@ function fn_modify_member_info(attribute){
 					</td>
 				</tr>
 				<tr class="dot_line">
-					<td class="fixed_join">전화번호</td>
-					<td>
-					    <select  name="hp1" id="hp1"  >
-							<option value="00">없음</option>
-							<option value="02">02</option>
-							<option value="031">031</option>
-							<option value="032">032</option>
-							<option value="033">033</option>
-							<option value="041">041</option>
-							<option value="042">042</option>
-							<option value="043">043</option>
-							<option value="044">044</option>
-							<option value="051">051</option>
-							<option value="052">052</option>
-							<option value="053">053</option>
-							<option value="054">054</option>
-							<option value="055">055</option>
-							<option value="061">061</option>
-							<option value="062">062</option>
-							<option value="063">063</option>
-							<option value="064">064</option>
-							<option value="070">070</option>
-					</select> 
-					    - <input type="text" size=4  name="hp2" value="${memberInfo.hp2 }"> 
-					    - <input type="text" size=4  name="hp3" value="${memberInfo.hp3 }">
-					</td>
-					<td>
-					  <input type="button" value="수정하기" onClick="fn_modify_member_info('hp')" />
-					</td>
-				</tr>
-				<tr class="dot_line">
 					<td class="fixed_join">휴대폰번호</td>
 					<td>
 					   <select  name="hp1" id="hp1">
