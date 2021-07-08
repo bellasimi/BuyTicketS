@@ -1,5 +1,6 @@
 package com.bts.order.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,11 +33,8 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	private OrderVO orderVO;
 	
 	@RequestMapping(value="/orderEachGoods.do" ,method = RequestMethod.POST)
-//	public ModelAndView orderEachGoods(@ModelAttribute("orderVO") OrderVO _orderVO,
-//			                       HttpServletRequest request, HttpServletResponse response)  throws Exception{
 	public ModelAndView orderEachGoods(@ModelAttribute("orderVO") OrderVO _orderVO,
-            HttpServletRequest request, HttpServletResponse response)  throws Exception{
-	
+			                       HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		
 		System.out.println("개별주문컨트롤러");
 		System.out.println("id"+_orderVO.getGoods_id());
@@ -44,6 +42,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		System.out.println(_orderVO.getGoods_title());
 		System.out.println("날짜"+_orderVO.getGoods_ticket_date());
 		System.out.println("가격"+_orderVO.getGoods_sales_price());
+		System.out.println("수량"+_orderVO.getOrder_goods_qty());
 		
 		request.setCharacterEncoding("utf-8");
 		HttpSession session=request.getSession();
@@ -72,11 +71,10 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		ModelAndView mav = new ModelAndView(viewName); //view에 쏘아줌 
 		System.out.println(viewName);
 		
-		
 		List myOrderList=new ArrayList<OrderVO>();
 		myOrderList.add(orderVO); 
 		
-		System.out.println("myOrderList"+myOrderList.get(1));
+		System.out.println("myOrderList"+myOrderList.get(0));
 
 		MemberVO memberInfo=(MemberVO)session.getAttribute("memberInfo");
 		
@@ -84,9 +82,10 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		session.setAttribute("orderer", memberInfo);  //회원정보 주문자로 뷰페이지에 넘겨줌 
 		return mav;
 	}
-	//���� �ֹ�
+	/*
 	@RequestMapping(value="/orderAllCartGoods.do" ,method = RequestMethod.POST)
 	public ModelAndView orderAllCartGoods( @RequestParam("cart_goods_qty")  String[] cart_goods_qty,
+									@RequestParam("goods_ticket_date") String[] goods_ticket_date,
 			                 HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
@@ -99,6 +98,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		
 		for(int i=0; i<cart_goods_qty.length;i++){
 			String[] cart_goods=cart_goods_qty[i].split(":");
+			String[] goods_date = goods_ticket_date[i].split(":");
 			for(int j = 0; j< myGoodsList.size();j++) {
 				GoodsVO goodsVO = myGoodsList.get(j);
 				int goods_id = goodsVO.getGoods_id();
@@ -115,15 +115,64 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 					_orderVO.setGoods_fileName(goods_fileName);
 					_orderVO.setOrder_goods_qty(Integer.parseInt(cart_goods[1]));//
 					_orderVO.setGoods_point(goods_point);
+					_orderVO.setGoods_ticket_date(Date.valueOf(goods_date[1])); //무슨말인지 이해는 잘..
+					//여기서 예약일도 넣어주는게 좋을듯 
 					myOrderList.add(_orderVO);
 					break;
 				}//if
 			}//j
 		}//i
+		System.out.println("전부결제");
 		session.setAttribute("myOrderList", myOrderList);
 		session.setAttribute("orderer", memberVO);
 		return mav;
+		
+	}	*/
+	
+	@RequestMapping(value="/orderAllCartGoods.do" ,method = RequestMethod.POST)
+	public ModelAndView orderAllCartGoods( @RequestParam("cart_goods_qty")  String[] cart_goods_qty,
+									HttpServletRequest request, HttpServletResponse response)  throws Exception{
+		String viewName=(String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session=request.getSession();
+		Map cartMap=(Map)session.getAttribute("cartMap");
+		List myOrderList=new ArrayList<OrderVO>();
+		
+		List<GoodsVO> myGoodsList=(List<GoodsVO>)cartMap.get("myGoodsList");
+		MemberVO memberVO=(MemberVO)session.getAttribute("memberInfo");
+		
+		for(int i=0; i<cart_goods_qty.length;i++){
+			String[] cart_goods=cart_goods_qty[i].split(":");
+
+			for(int j = 0; j< myGoodsList.size();j++) {
+				GoodsVO goodsVO = myGoodsList.get(j);
+				int goods_id = goodsVO.getGoods_id();
+				if(goods_id==Integer.parseInt(cart_goods[0])) {//īƮ�� ID�� ���� ���
+					OrderVO _orderVO=new OrderVO();
+					String goods_title=goodsVO.getGoods_title();
+					int goods_sales_price=goodsVO.getGoods_sales_price();
+					String goods_fileName=goodsVO.getGoods_fileName();
+					int    goods_point =goodsVO.getGoods_point();
+					//int goods_delivery_price =goodsVO.getGoods_delivery_price();
+					_orderVO.setGoods_id(goods_id);
+					_orderVO.setGoods_title(goods_title);
+					_orderVO.setGoods_sales_price(goods_sales_price);
+					_orderVO.setGoods_fileName(goods_fileName);
+					_orderVO.setOrder_goods_qty(Integer.parseInt(cart_goods[1]));//
+					_orderVO.setGoods_point(goods_point);
+					//여기서 예약일도 넣어주는게 좋을듯 
+					myOrderList.add(_orderVO);
+					break;
+				}//if
+			}//j
+		}//i
+		System.out.println("전부결제");
+		session.setAttribute("myOrderList", myOrderList);
+		session.setAttribute("orderer", memberVO);
+		return mav;
+		
 	}	
+	
 	
 	//결제하기를 눌러야 디비에 저장이 된다 
 	@RequestMapping(value="/payToOrderGoods.do" ,method = RequestMethod.POST)
@@ -143,6 +192,9 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 			OrderVO orderVO=(OrderVO)myOrderList.get(i);
 			orderVO.setMember_id(member_id);
 			orderVO.setOrderer_name(orderer_name);
+			orderVO.setOrderer_hp(orderer_hp);
+					
+			
 			/*
 			 * orderVO.setReceiver_name(receiverMap.get("receiver_name"));
 			 * 
@@ -165,11 +217,15 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 			myOrderList.set(i, orderVO); //�� orderVO�� �ֹ��� ������ ������ �� �ٽ� myOrderList�� �����Ѵ�.
 		}//end for
 		
+		System.out.println("최종결제버튼누르면");
+		
 	    orderService.addNewOrder(myOrderList);
 		mav.addObject("myOrderInfo",receiverMap);//OrderVO�� �ֹ���� ��������  �ֹ��� ������ ǥ���Ѵ�.
 		mav.addObject("myOrderList", myOrderList);
 		return mav;
 	}
+
+
 	
 
 }

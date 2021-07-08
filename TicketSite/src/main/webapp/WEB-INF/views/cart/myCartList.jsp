@@ -14,11 +14,8 @@
 <c:set var="totalDiscount" value="0"/> <!-- 할인된 금액 총합  -->
 
 <head>
-<!-- 요 바로 밑에거는 꺼도 작동할거같음  -->
- <!-- 
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script> 
-  
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 
 
@@ -200,7 +197,7 @@ function plusone(goods_id,goods_price,goods_sales_price,index) {
 		success : function(data, textStatus) {
 			//alert(data);
 			if(data.trim()=='modify_success'){
-				alert("수량을 변경했습니다!!");	
+				//alert("수량을 변경했습니다!!");	
 			}else{
 				alert("다시 시도해 주세요!!");	
 			}
@@ -286,7 +283,7 @@ function minusone(goods_id,goods_price,goods_sales_price,index) {
 		success : function(data, textStatus) {
 			//alert(data);
 			if(data.trim()=='modify_success'){
-				alert("수량을 변경했습니다!!");	
+				//alert("수량을 변경했습니다!!");	
 			}else{
 				alert("다시 시도해 주세요!!");	
 			}
@@ -411,7 +408,7 @@ $(document).ready(function(){
 }
  */
  
-function delete_cart_goods(cart_id){
+function delete_cart_goods(cart_id) {
 	var cart_id=Number(cart_id);
 	var formObj=document.createElement("form");
 	var i_cart = document.createElement("input");
@@ -430,16 +427,67 @@ function delete_cart_goods(cart_id){
 //}
 
 //인수로 넘어온건 디비에 저장되어있던 goods 정보들이고 / dom객체로 받는건 페이지에서 생성되거나 넘어온것들 
-function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName) {
+//fn_order_each_goods('${item.goods_id}','${item.goods_title}','${item.goods_sales_price}','${item.goods_fileName}'
+function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName,goods_point) {
 	console.log("개별주문 함수 ");
 
-	var cart_goods_qty=document.getElementById("cart_goods_qty").value; //이거 id로 받으면 안될것같..ㅠ 모르겠다 
-	console.log(cart_goods_qty+typeof cart_goods_qty);
-	var goods_ticket_date=document.getElementById("goods_ticket_date").value;
-	console.log(goods_id+goods_title+goods_sales_price+fileName);
+ 	 //이거 id로 받으면 안될것같..ㅠ 모르겠다 
+	//console.log(cart_goods_qty+typeof cart_goods_qty);
 	
-	//jquery 문서 버전 자체를 바꾸는게 나을듯 
-	$.ajax({
+	 console.log(goods_id+goods_title+goods_sales_price+fileName+goods_point);
+		
+	//var objForm=document.frm_order_all_cart;
+	
+	//var cart_goods_qty=document.getElementById("cart_goods_qty").value;//
+	//var goods_ticket_date=document.getElementById("goods_ticket_date").value;//
+	
+	//var order_goods_id=goods_id;
+	//var order_goods_qty=goods_sales_price;
+		
+	//var total_price,final_total_price; //없어도 실행되얗dsadsadsadsads
+	//var order_goods_qty=document.getElementById("cart_goods_qty");
+		
+	/* var formObj=document.createElement("form");
+	var i_goods_id = document.createElement("input"); 
+    var i_goods_title = document.createElement("input");
+    var i_goods_sales_price=document.createElement("input");
+    var i_fileName=document.createElement("input");
+    var i_order_goods_qty=document.createElement("input");
+    var i_goods_ticket_date=document.createElement("input");
+    var i_goods_point=document.createElement("input");
+    
+    i_goods_id.name="goods_id";
+    i_goods_title.name="goods_title";
+    i_goods_sales_price.name="goods_sales_price";
+    i_fileName.name="goods_fileName";
+    i_order_goods_qty.name="order_goods_qty";
+    i_goods_ticket_date.name="goods_ticket_date";
+    i_goods_point.name="goods_point";
+    
+    i_goods_id.value=goods_id;
+    i_order_goods_qty.value=parseInt(cart_goods_qty);
+    i_goods_title.value=goods_title;
+    i_goods_sales_price.value=goods_sales_price;
+    i_fileName.value=fileName;
+    i_goods_ticket_date.value=goods_ticket_date;
+    i_goods_point.value=goods_point;
+    
+    formObj.appendChild(i_goods_id);
+    formObj.appendChild(i_goods_title);
+    formObj.appendChild(i_goods_sales_price);
+    formObj.appendChild(i_fileName);
+    formObj.appendChild(i_order_goods_qty);
+    formObj.appendChild(i_goods_ticket_date);
+    formObj.appendChild(i_goods_point);
+    
+    document.body.appendChild(formObj); 
+    formObj.method="post";
+    formObj.action="${contextPath}/order/orderEachGoods.do";
+    formObj.submit();    */
+
+	var cart_goods_qty=document.getElementById("cart_goods_qty").value;
+	var goods_ticket_date=document.getElementById("goods_ticket_date").value;
+    $.ajax({
 		type : "post",
 		async : false, //false인 경우 동기식으로 처리한다.
 		url : "${contextPath}/order/orderEachGoods.do",
@@ -456,11 +504,11 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName) {
 		//텍스트는 나중에 modify 참조해서 만들거나...뭐 
 		success : function(data, textStatus) {
 			//alert(data);
-			if(data.trim()=='modify_success'){
-				alert("수량을 변경했습니다!!");	
-			}else{
-				alert("다시 시도해 주세요!!");	
-			}
+			//if(data.trim()=='modify_success'){
+			//	alert("수량을 변경했습니다!!");	
+			//}else{
+			//	alert("다시 시도해 주세요!!");	
+			//}
 			
 		},
 		error : function(data, textStatus) {
@@ -470,8 +518,14 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName) {
 			//alert("작업을완료 했습니다");
 			
 		}
-	}); //end ajax	*/
-}
+	}); //end ajax	*/ 
+
+}	 
+	
+	
+	/* //jquery 문서 버전 자체를 바꾸는게 나을듯 xxxxxx
+	
+
  
  
  //(${item.goods_id},${item.goods_title},${item.goods_sales_price},${item.goods_fileName}
@@ -560,8 +614,54 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
     formObj.submit();
     
 } */
+function fn_order_all_cart_goods() {
+	console.log("모두주문하기");
+	
+//	alert("모두 주문하기");
+//전부 객체로 폼에서 받아와서 상품이 2개이상일때 배열/ 1개일때 .value처리로 나눠서 처리
+	var order_goods_qty;
+	var order_goods_id;
+	var objForm=document.frm_order_all_cart;
+	var cart_goods_qty=objForm.cart_goods_qty;
+	var h_order_each_goods_qty=objForm.h_order_each_goods_qty;
+	var checked_goods=objForm.checked_goods;
+	var length=checked_goods.length;
+	
+	var goods_ticket_date=objForm.goods_ticket_date;
+	var goods_point=objForm.goods_point;
+	
+	
+    //i_goods_ticket_date.name="goods_ticket_date";
+    //i_goods_point.name="goods_point";
+	
+	
+	//alert(length);
+	if(length>1){
+		for(var i=0; i<length;i++){
+			if(checked_goods[i].checked==true){
+				order_goods_id=checked_goods[i].value;
+				order_goods_qty=cart_goods_qty[i].value;
+				cart_goods_qty[i].value=""; //이거는 왜 이렇게 지정해줘야할까 ??
+				cart_goods_qty[i].value=order_goods_id+":"+order_goods_qty;
+				//alert(select_goods_qty[i].value);
+				console.log("수량"+cart_goods_qty[i].value);
+			}
+		}	
+	}else{
+		order_goods_id=checked_goods.value;
+		order_goods_qty=cart_goods_qty.value;
+		cart_goods_qty.value=order_goods_id+":"+order_goods_qty;
+		//alert(select_goods_qty.value);
+	}
+		
+ 	objForm.method="post";
+ 	objForm.action="${contextPath}/order/orderAllCartGoods.do";
+	objForm.submit();
+}
 
-function fn_order_all_cart_goods(){
+/* function fn_order_all_cart_goods() {
+	console.log("모두주문하기");
+	
 //	alert("모두 주문하기");
 	var order_goods_qty;
 	var order_goods_id;
@@ -570,6 +670,8 @@ function fn_order_all_cart_goods(){
 	var h_order_each_goods_qty=objForm.h_order_each_goods_qty;
 	var checked_goods=objForm.checked_goods;
 	var length=checked_goods.length;
+	
+
 	
 	
 	//alert(length);
@@ -594,7 +696,7 @@ function fn_order_all_cart_goods(){
  	objForm.method="post";
  	objForm.action="${contextPath}/order/orderAllCartGoods.do";
 	objForm.submit();
-}
+} */
 
 </script>
 </head>
@@ -643,7 +745,9 @@ function fn_order_all_cart_goods(){
 				<!--  onClick="calGoodsPrice()"-->
 					<!-- 상품명 이미지 -->
 		<td class="goods_image">
+			
 			<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">
+		
 			<img width="75" alt="" src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"  />
 			</a>
 		</td>
@@ -718,7 +822,7 @@ function fn_order_all_cart_goods(){
 				         <p id="p_priceXqty"> ${priceXqty}원</p>	</strong> 
 		</td>-->
 					<td><!-- javascript:fn_order_each_goods('${item.goods_id}','${item.goods_title}','${item.goods_sales_price}','${item.goods_fileName}'); -->
-		<!-- 각각구매 -->	 <a href="javascript:fn_order_each_goods('${item.goods_id}','${item.goods_title}','${item.goods_sales_price}','${item.goods_fileName}');">
+		<!-- 각각구매 -->	 <a href="javascript:fn_order_each_goods('${item.goods_id}','${item.goods_title}','${item.goods_sales_price}','${item.goods_fileName}','${item.goods_point}');">
 					       <!-- 왜 '' 붙여야 넘어갈까 이게 기본인가  -->
 					       	<img width="75" alt=""  src="${contextPath}/resources/image/btn_order.jpg">
 							</a><br>
