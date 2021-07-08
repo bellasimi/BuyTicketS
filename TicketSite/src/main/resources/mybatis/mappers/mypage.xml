@@ -64,7 +64,7 @@
 	</select>	
 	
 	<update id="updateMyInfo" parameterType="java.util.HashMap">
-	   update tiket_member
+	   update ticket_member
 			   <set>
 			      <if test=" member_pw!='' and member_pw!=null">
 			        member_pw=#{member_pw},
