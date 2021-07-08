@@ -30,7 +30,7 @@ public class OrderVO {
 	
 	private String pay_orderer_hp_num; //폰결제 시 번호
 	private String pay_order_time;  //주문날짜
-	private Date goods_ticket_date; //티켓예약일
+	private String goods_ticket_date; //티켓예약일
 	private int goods_point; //한상품당 적립되는 금액
 	
 	//이 밑에 있는 것들이 주문 한번당 생성되는 값들... 
@@ -196,16 +196,34 @@ public class OrderVO {
 		this.pay_order_time = pay_order_time;
 	}
 
-	public Date getGoods_ticket_date() {
+/*	public Date getGoods_ticket_date() {
 		return goods_ticket_date;
 	}
 
 	public void setGoods_ticket_date(Date goods_ticket_date) {
 		this.goods_ticket_date = goods_ticket_date;
-	}
+	}*/
+	
+	
 
 	public int getGoods_point() {
 		return goods_point;
+	}
+
+	public String getGoods_ticket_date() {
+		return goods_ticket_date;
+	}
+
+	public void setGoods_ticket_date(String goods_ticket_date) {
+		this.goods_ticket_date = goods_ticket_date;
+	}
+
+	public int getPoint_used() {
+		return point_used;
+	}
+
+	public void setPoint_used(int point_used) {
+		this.point_used = point_used;
 	}
 
 	public void setGoods_point(int goods_point) {

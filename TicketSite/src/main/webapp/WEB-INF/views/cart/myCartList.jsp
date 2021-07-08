@@ -302,25 +302,6 @@ function minusone(goods_id,goods_price,goods_sales_price,index) {
 } 
 
 
-//체크박스랑 변수 겹치는거 아예 위칸에 몰아두는게 효율적일까 매번 정의하지말고
-
-//change 함수 하나로 두고 그안에서 if button 눌리면 으로 처리가능한가??????
-
-//plus minus 부분 처리  name으로 할지 		
-
-
-
-
-
- 
-/* 안먹혀 
-$(document).ready(function(){
-	$("input[id=cart_goods_qty]").onchange(function() {
-		console.log("값바뀜");	
-	}
-}
-	*/
-
 	
 
 /*되는 코드 -> 개수 넘겨주는 거까지 
@@ -426,34 +407,40 @@ function delete_cart_goods(cart_id) {
 	
 //}
 
-//인수로 넘어온건 디비에 저장되어있던 goods 정보들이고 / dom객체로 받는건 페이지에서 생성되거나 넘어온것들 
+//페이지에서 계속 수정되는 cart_goods_qty는 직접 받는다 
 //fn_order_each_goods('${item.goods_id}','${item.goods_title}','${item.goods_sales_price}','${item.goods_fileName}'
-function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName,goods_point) {
+function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName,goods_point,goods_ticket_date,index) {
 	console.log("개별주문 함수 ");
+	
+	var length=document.frm_order_all_cart.cart_goods_qty.length;
+	var cart_goods_qty;
 
- 	 //이거 id로 받으면 안될것같..ㅠ 모르겠다 
-	//console.log(cart_goods_qty+typeof cart_goods_qty);
+
+	if(length>1 ){ 
+		console.log("여러개");
+		cart_goods_qty=document.frm_order_all_cart.cart_goods_qty[index];
+
+		console.log("인데스값 :" + cart_goods_qty.value);
+		console.log(typeof cart_goods_qty.value);
+
+	}else{
+		cart_goods_qty=document.frm_order_all_cart.cart_goods_qty;
+
+		console.log("하나"+cart_goods_qty.value);
+		console.log(typeof cart_goods_qty.value);
+	}
+	cart_goods_qty=cart_goods_qty.value;
+	console.log("바깥인데스값 :" + cart_goods_qty);
+	console.log(typeof cart_goods_qty);
 	
-	 console.log(goods_id+goods_title+goods_sales_price+fileName+goods_point);
-		
-	//var objForm=document.frm_order_all_cart;
 	
-	//var cart_goods_qty=document.getElementById("cart_goods_qty").value;//
-	//var goods_ticket_date=document.getElementById("goods_ticket_date").value;//
-	
-	//var order_goods_id=goods_id;
-	//var order_goods_qty=goods_sales_price;
-		
-	//var total_price,final_total_price; //없어도 실행되얗dsadsadsadsads
-	//var order_goods_qty=document.getElementById("cart_goods_qty");
-		
-	/* var formObj=document.createElement("form");
+	 var formObj=document.createElement("form");
 	var i_goods_id = document.createElement("input"); 
     var i_goods_title = document.createElement("input");
     var i_goods_sales_price=document.createElement("input");
     var i_fileName=document.createElement("input");
     var i_order_goods_qty=document.createElement("input");
-    var i_goods_ticket_date=document.createElement("input");
+	var i_goods_ticket_date=document.createElement("input");
     var i_goods_point=document.createElement("input");
     
     i_goods_id.name="goods_id";
@@ -465,7 +452,7 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName,goo
     i_goods_point.name="goods_point";
     
     i_goods_id.value=goods_id;
-    i_order_goods_qty.value=parseInt(cart_goods_qty);
+    i_order_goods_qty.value=cart_goods_qty;
     i_goods_title.value=goods_title;
     i_goods_sales_price.value=goods_sales_price;
     i_fileName.value=fileName;
@@ -483,21 +470,25 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName,goo
     document.body.appendChild(formObj); 
     formObj.method="post";
     formObj.action="${contextPath}/order/orderEachGoods.do";
-    formObj.submit();    */
+    formObj.submit();    
 
-	var cart_goods_qty=document.getElementById("cart_goods_qty").value;
+}	 
+    //페이지 넘어가는거라 ajax 안쓰는게 맞아보임 ㅇㅇ
+/*	var cart_goods_qty=document.getElementById("cart_goods_qty").value;
 	var goods_ticket_date=document.getElementById("goods_ticket_date").value;
+	
+	console.log(cart_goods_qty+goods_ticket_date);
     $.ajax({
 		type : "post",
-		async : false, //false인 경우 동기식으로 처리한다.
 		url : "${contextPath}/order/orderEachGoods.do",
 		data : {
 			goods_id:goods_id,
 			goods_title:goods_title,
-			goods_sales_price:goods_sales_price,
-			order_goods_qty:cart_goods_qty,
+			goods_sales_price:Number(goods_sales_price),
+			order_goods_qty:Number(cart_goods_qty),
 			goods_ticket_date:goods_ticket_date,
-			goods_fileName:fileName
+			goods_fileName:fileName,
+			goods_point:goods_point
 			
 		},
 		
@@ -509,70 +500,25 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName,goo
 			//}else{
 			//	alert("다시 시도해 주세요!!");	
 			//}
+			console.log("완성"+goods_id+goods_title+goods_sales_price+cart_goods_qty+goods_ticket_date);
 			
 		},
 		error : function(data, textStatus) {
 			alert("에러가 발생했습니다."+data);
-		},
-		complete : function(data, textStatus) {
+		} //,
+		//complete : function(data, textStatus) {
 			//alert("작업을완료 했습니다");
 			
-		}
+		//}
 	}); //end ajax	*/ 
 
-}	 
-	
-	
-	/* //jquery 문서 버전 자체를 바꾸는게 나을듯 xxxxxx
+
+
 	
 
  
  
- //(${item.goods_id},${item.goods_title},${item.goods_sales_price},${item.goods_fileName}
-/* function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName) {
-	//goodsDetail 에서 따온거 일단 다른거 하나 여기 다시 하자 
-	c
-	
- var objForm=document.frm_order_all_cart;
-	var cart_goods_qty=objForm.cart_goods_qty;
-	//안되면 hidden으로 넘겨서 해보기 
-	
-	var order_goods_id=goods_id;
-	var order_goods_qty=goods_sales_price;
-		
-	//var total_price,final_total_price; //없어도 실행되얗dsadsadsadsads
-	var order_goods_qty=document.getElementById("cart_goods_qty");
-		
-	var formObj=document.createElement("form");
-	var i_goods_id = document.createElement("input"); 
-    var i_goods_title = document.createElement("input");
-    var i_goods_sales_price=document.createElement("input");
-    var i_fileName=document.createElement("input");
-    var i_order_goods_qty=document.createElement("input");
-    
-    i_goods_id.name="goods_id";
-    i_goods_title.name="goods_title";
-    i_goods_sales_price.name="goods_sales_price";
-    i_fileName.name="goods_fileName";
-    i_order_goods_qty.name="order_goods_qty";
-    
-    i_goods_id.value=goods_id;
-    i_order_goods_qty.value=Number(order_goods_qty);
-    i_goods_title.value=goods_title;
-    i_goods_sales_price.value=goods_sales_price;
-    i_fileName.value=fileName;
-    
-    formObj.appendChild(i_goods_id);
-    formObj.appendChild(i_goods_title);
-    formObj.appendChild(i_goods_sales_price);
-    formObj.appendChild(i_fileName);
-    formObj.appendChild(i_order_goods_qty);
 
-    document.body.appendChild(formObj); 
-    formObj.method="post";
-    formObj.action="${contextPath}/order/orderEachGoods.do";
-    formObj.submit(); 
-	}	 */
 
 //'${item.goods_id }','${item.goods_title }','${discounted_price}','${item.goods_fileName}');">
 /*
@@ -622,12 +568,12 @@ function fn_order_all_cart_goods() {
 	var order_goods_qty;
 	var order_goods_id;
 	var objForm=document.frm_order_all_cart;
-	var cart_goods_qty=objForm.cart_goods_qty;
-	var h_order_each_goods_qty=objForm.h_order_each_goods_qty;
+	var cart_goods_qty=objForm.cart_goods_qty; //cart_goods_qty는 객체 -배열
+	//var h_order_each_goods_qty=objForm.h_order_each_goods_qty;
 	var checked_goods=objForm.checked_goods;
 	var length=checked_goods.length;
 	
-	var goods_ticket_date=objForm.goods_ticket_date;
+	var _goods_ticket_date=objForm.goods_ticket_date; //이거자체가 배열 그냥 두면 알아서 넘어가려나?????
 	var goods_point=objForm.goods_point;
 	
 	
@@ -637,14 +583,22 @@ function fn_order_all_cart_goods() {
 	
 	//alert(length);
 	if(length>1){
-		for(var i=0; i<length;i++){
+		for(var i=0; i<length;i++){ //상품개수만큼 반복 
 			if(checked_goods[i].checked==true){
-				order_goods_id=checked_goods[i].value;
+				order_goods_id=checked_goods[i].value;   //checked_goods의 값이 goods_id
 				order_goods_qty=cart_goods_qty[i].value;
+				goods_ticket_date=_goods_ticket_date[i].value;
 				cart_goods_qty[i].value=""; //이거는 왜 이렇게 지정해줘야할까 ??
-				cart_goods_qty[i].value=order_goods_id+":"+order_goods_qty;
+				cart_goods_qty[i].value=order_goods_id+":"+order_goods_qty+":"+goods_ticket_date;
+				//상품ID 랑 수량이랑 예약일을 합쳐서 배열로 만들어서 넘겨준다 
 				//alert(select_goods_qty[i].value);
+								
+				//goods_ticket_date=_goods_ticket_date[i].value;
+				//배열을 어떻게 만들지 생각을 좀 해보자 일단 qty에 붙여볼까 
 				console.log("수량"+cart_goods_qty[i].value);
+				//console.log(goods_ticket_date[i].value);
+				//console.log(goods_ticket_date[i]);
+				
 			}
 		}	
 	}else{
@@ -654,10 +608,14 @@ function fn_order_all_cart_goods() {
 		//alert(select_goods_qty.value);
 	}
 		
- 	objForm.method="post";
+	objForm.method="post";
  	objForm.action="${contextPath}/order/orderAllCartGoods.do";
 	objForm.submit();
 }
+
+
+
+
 
 /* function fn_order_all_cart_goods() {
 	console.log("모두주문하기");
@@ -761,9 +719,9 @@ function fn_order_all_cart_goods() {
 					
 		</td>
 		<!-- /////////////////////////예매날짜 input 필요한지 생각해보기  -->		
-				<td>   
+				<td>   <!-- 이거 hidden으로 받는데 없을거같은데  -->
 				<input type="hidden" id="goods_ticket_date" value="${goods_ticket_date }">
-				 ${goods_ticket_date }	
+				 ${goods_ticket_date}	
 				</td>
 				
 				
@@ -821,8 +779,8 @@ function fn_order_all_cart_goods() {
 			    <fmt:formatNumber  value="${item.goods_sales_price*cart_goods_qty}" type="number" var="priceXqty" pattern="#,###"/>
 				         <p id="p_priceXqty"> ${priceXqty}원</p>	</strong> 
 		</td>-->
-					<td><!-- javascript:fn_order_each_goods('${item.goods_id}','${item.goods_title}','${item.goods_sales_price}','${item.goods_fileName}'); -->
-		<!-- 각각구매 -->	 <a href="javascript:fn_order_each_goods('${item.goods_id}','${item.goods_title}','${item.goods_sales_price}','${item.goods_fileName}','${item.goods_point}');">
+					<td><!-- javascript:fn_order_each_goods('${item.goods_id}','${item.goods_title}','${item.goods_sales_price}','${item.goods_fileName}'); '${item.goods_point}','${item.goods_ticket_date}',-->
+		<!-- 각각구매 -->	 <a href="javascript:fn_order_each_goods('${item.goods_id}','${item.goods_title}','${item.goods_sales_price}','${item.goods_fileName}','${item.goods_point}','${goods_ticket_date }','${idx.index}');">
 					       <!-- 왜 '' 붙여야 넘어갈까 이게 기본인가  -->
 					       	<img width="75" alt=""  src="${contextPath}/resources/image/btn_order.jpg">
 							</a><br>
