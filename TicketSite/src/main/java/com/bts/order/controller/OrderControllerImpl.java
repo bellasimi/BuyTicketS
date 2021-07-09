@@ -152,7 +152,9 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 			String[] cart_goods=cart_goods_qty[i].split(":");  //cart_id: qty 형태로 넘어온거라서 앞의 카트id를 분리함
 			
 			System.out.println("cart_goods"+"i"+cart_goods[i]);
-				
+			
+			System.out.println("cart_goods_qty.length"+cart_goods_qty.length);
+			
 			for(int j = 0; j< myGoodsList.size();j++) { //카트에 있던 상품목록 크기만큼 반복 
 				GoodsVO goodsVO = myGoodsList.get(j); 
 				int goods_id = goodsVO.getGoods_id();//굿즈목록에서 상품ID만 빼옴 

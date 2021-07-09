@@ -604,7 +604,8 @@ function fn_order_all_cart_goods() {
 	}else{
 		order_goods_id=checked_goods.value;
 		order_goods_qty=cart_goods_qty.value;
-		cart_goods_qty.value=order_goods_id+":"+order_goods_qty;
+		goods_ticket_date=_goods_ticket_date.value;
+		cart_goods_qty.value=order_goods_id+":"+order_goods_qty+":"+goods_ticket_date;
 		//alert(select_goods_qty.value);
 	}
 		
