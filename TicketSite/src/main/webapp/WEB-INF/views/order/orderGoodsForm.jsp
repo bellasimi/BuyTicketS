@@ -202,7 +202,7 @@ var hp3;
 var pay_method;
 var card_com_name;
 //var card_pay_month;
-var pay_orderer_hp_num;
+var pay_hp_num;
 var final_total_oder_price; */
 //최종 결제 팝업창 띄우는 곳 
 function fn_show_order_detail(){
@@ -285,16 +285,16 @@ function fn_show_order_detail(){
 			pay_method+="<Br>"+
 				 		"카드사:"+card_com_name+"<br>"+
 				 		"할부개월수:"+card_pay_month;
-			pay_orderer_hp_num="해당없음";
-			
+			pay_hp_num="해당없음";
+			//pay_hp_com 추가해야함 
 		  }else if(pay_method=="휴대폰결제"){
 			var i_pay_order_tel1=document.getElementById("pay_order_tel1");
 			var i_pay_order_tel2=document.getElementById("pay_order_tel2");
 			var i_pay_order_tel3=document.getElementById("pay_order_tel3");
-			pay_orderer_hp_num=i_pay_order_tel1.value+"-"+
+			pay_hp_num=i_pay_order_tel1.value+"-"+
 						   	    i_pay_order_tel2.value+"-"+
 							    i_pay_order_tel3.value;
-			pay_method+="<Br>"+"결제휴대폰번호:"+pay_orderer_hp_num;
+			pay_method+="<Br>"+"결제휴대폰번호:"+pay_hp_num;
 			card_com_name="해당없음";
 			card_pay_month="해당없음";
 		  } //end if
@@ -393,7 +393,8 @@ var card_com_name;
 var card_number;
 var card_expired_m;
 var card_expired_y;
-var pay_orderer_hp_num;
+var pay_hp_num;
+var pay_hp_com
 var goods_ticket_date; //myOrderList
 var goods_point; //myOrderList
 var order_total_price;
@@ -413,7 +414,8 @@ var point_used;
 var pay_method;
 var card_com_name;
 //var card_pay_month;
-var pay_orderer_hp_num;
+var pay_hp_num;
+var pay_hp_com;
 var final_total_oder_price;
 //가장 마지막 최종결제하기  결제정보를 넘기는 곳 
 function fn_process_pay_order(){
@@ -433,7 +435,8 @@ function fn_process_pay_order(){
 	    card_number,
 	    card_expired_m,
 	    card_expired_y,
-	    pay_orderer_hp_num,
+	    pay_hp_com,
+	    pay_hp_num,
 	    goods_ticket_date, //myOrderList
 	    goods_point, //myOrderList
 	    order_total_price,
@@ -450,17 +453,19 @@ function fn_process_pay_order(){
     var i_card_number=document.createElement("input");
     var i_card_expired_m=document.createElement("input");
     var i_card_expired_y=document.createElement("input");
-    var i_pay_orderer_hp_num=document.createElement("input");
+    var i_pay_hp_num=document.createElement("input");
+    var i_pay_hp_com=document.createElement("input");
     var i_order_total_price=document.createElement("input");
     var i_point_used=document.createElement("input");
-   
+    pay_hp_com
     i_pay_method.name="pay_method";
   	i_random_account.name="random_account";
     i_card_com_name.name="card_com_name";
     i_card_number.name="card_number";
     i_card_expired_m.name="card_expired_m";
     i_card_expired_y.name="card_expired_y";
-    i_pay_orderer_hp_num.name="pay_orderer_hp_num";
+    i_pay_hp_com.name="pay_hp_com";
+    i_pay_hp_num.name="pay_hp_num";
     i_order_total_price.name="order_total_price";
     i_point_used.name="point_used";
   
@@ -470,9 +475,14 @@ function fn_process_pay_order(){
     i_card_number.value="000-0999";
     i_card_expired_m.value="09";
     i_card_expired_y.value="22";
-    i_pay_orderer_hp_num.value="010-000-0000";
+    
+    i_pay_hp_com.value="SKT";
+    i_pay_hp_num.value="010-000-0000";
     i_order_total_price.value=4000;
     i_point_used.value=1000;
+    
+  	//pay_hp_com
+    //pay_hp_num
     
     
     /*
@@ -482,7 +492,8 @@ function fn_process_pay_order(){
     i_card_number.value=card_number;
     i_card_expired_m.value=card_expired_m;
     i_card_expired_y.value=card_expired_y;
-    i_pay_orderer_hp_num.value=pay_orderer_hp_num;
+    i_pay_hp_com.value=pay_hp_com;
+    i_pay_hp_num.value=pay_hp_num;
     i_order_total_price.value=order_total_price;
     i_point_used.value=point_used;
     */
@@ -493,7 +504,8 @@ function fn_process_pay_order(){
     formObj.appendChild(i_card_number);
     formObj.appendChild(i_card_expired_m);
     formObj.appendChild(i_card_expired_y);
-    formObj.appendChild(i_pay_orderer_hp_num);
+    formObj.appendChild(i_pay_hp_com);
+    formObj.appendChild(i_pay_hp_num);
     formObj.appendChild(i_order_total_price);
     formObj.appendChild(i_card_com_name);
     formObj.appendChild(i_point_used);

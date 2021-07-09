@@ -29,7 +29,9 @@ public class OrderVO implements Serializable{
 	private String card_expired_m; //카드유효기간(월)
 	private String card_expired_y; //카드유효기간(년)
 	
-	private String pay_orderer_hp_num; //폰결제 시 번호
+	private String pay_hp_com; //통신사
+	private String pay_hp_num; //폰결제 시 번호
+	
 	private String pay_order_time;  //주문날짜
 	private String goods_ticket_date; //티켓예약일
 	private int goods_point; //한상품당 적립되는 금액
@@ -181,12 +183,12 @@ public class OrderVO implements Serializable{
 		this.card_expired_y = card_expired_y;
 	}
 
-	public String getPay_orderer_hp_num() {
-		return pay_orderer_hp_num;
+	public String getPay_hp_num() {
+		return pay_hp_num;
 	}
 
-	public void setPay_orderer_hp_num(String pay_orderer_hp_num) {
-		this.pay_orderer_hp_num = pay_orderer_hp_num;
+	public void setPay_hp_num(String pay_hp_num) {
+		this.pay_hp_num = pay_hp_num;
 	}
 
 	public String getPay_order_time() {
@@ -240,6 +242,16 @@ public class OrderVO implements Serializable{
 	public void setCart_goods_qty(int cart_goods_qty) {
 		this.cart_goods_qty = cart_goods_qty;
 	}
+
+	public String getPay_hp_com() {
+		return pay_hp_com;
+	}
+
+	public void setPay_hp_com(String pay_hp_com) {
+		this.pay_hp_com = pay_hp_com;
+	}
+	
+	
 	
 	
 //	private String card_pay_month; //할부 개월수 

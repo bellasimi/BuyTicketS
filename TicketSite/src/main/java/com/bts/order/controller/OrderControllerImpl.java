@@ -231,12 +231,15 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 				orderVO.setCard_number(receiverMap.get("card_number"));
 				orderVO.setCard_expired_m(receiverMap.get("card_expired_m"));
 				orderVO.setCard_expired_y(receiverMap.get("card_expired_y"));
-				orderVO.setPay_orderer_hp_num(receiverMap.get("pay_orderer_hp_num"));
+				
+				orderVO.setPay_hp_num(receiverMap.get("pay_hp_num"));
+				orderVO.setPay_hp_com(receiverMap.get("pay_hp_com"));
 				orderVO.setOrder_total_price(Integer.parseInt(receiverMap.get("order_total_price")));
 				orderVO.setPoint_used(Integer.parseInt(receiverMap.get("point_used")));
 				//모든정보 orderVO에 모아준다음에 
 				
 				System.out.println(receiverMap.get("card_expired_y"));
+				System.out.println(receiverMap.get("pay_hp_com"));
 				myOrderList.set(i, orderVO); //myOrderList에 저장해준다  
 			}//end for
 			

@@ -30,7 +30,7 @@
 		<result property="card_expired_m" column="card_expired_m" />
 		<result property="card_expired_y" column="card_expired_y" />
 		
-		<result property="pay_orderer_hp_num" column="pay_orderer_hp_num" />
+		<result property="pay_hp_num" column="pay_hp_num" />
 		<result property="pay_order_time" column="pay_order_time" />
 		<result property="goods_ticket_date" column="goods_ticket_date" />
 		<result property="goods_point" column="goods_point" />
@@ -76,7 +76,7 @@
 									    card_number,
 									    card_expired_m,
 									    card_expired_y,
-									    pay_orderer_hp_num,
+									    pay_hp_num,
 									    goods_ticket_date,
 									    goods_point,
 									    order_total_price,
@@ -97,7 +97,7 @@
 									    #{card_number},
 									    #{card_expired_m},
 									    #{card_expired_y},
-				                        #{pay_orderer_hp_num},
+				                        #{pay_hp_num},
 				                        #{goods_ticket_date},
 				                        #{goods_point},
 				                        #{order_total_price},
