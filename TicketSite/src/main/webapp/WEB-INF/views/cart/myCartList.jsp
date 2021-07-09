@@ -729,7 +729,7 @@ function fn_order_all_cart_goods() {
 		<td class="price">
 				<input type="hidden" id="h_goods_price" value="${item.goods_price}">
 				<fmt:formatNumber value="${item.goods_price}" var="goodsprice" pattern="#,###"/>
-<!-- 금액출력을 위한 부분 -->		
+<!-- 금액dsadsd출력을 위한 부분 -->		
 <!-- 변수명 어떤식으로 할지 생각  -->
 		<!-- 정가-->	<span>${goodsprice}원</span>
 		
