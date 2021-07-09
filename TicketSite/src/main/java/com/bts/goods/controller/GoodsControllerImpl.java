@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bts.common.base.BaseController;
 import com.bts.goods.service.GoodsService;
 import com.bts.goods.vo.GoodsVO;
+import com.bts.member.vo.MemberVO;
 
 import net.sf.json.JSONObject;
 
@@ -30,7 +31,9 @@ import net.sf.json.JSONObject;
 public class GoodsControllerImpl extends BaseController   implements GoodsController {
 	@Autowired
 	private GoodsService goodsService;
-	
+
+	@Autowired
+	private MemberVO memberVO;
 //이렇게 두면 db에 값 없을 때 페이지 안뜸.
 //sort별로 분류 
 	//자연동물,박물관, ... nature,museum,themepark,history,attraction
@@ -126,23 +129,87 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 	
 	    return jsonInfo ;
 	}
-	//위시리스트
+
+	//위시리스트출력
 	//method= {RequestMethod.POST,RequestMethod.GET}
-	@RequestMapping(value="/wishList.do", method=RequestMethod.POST)
-	public ModelAndView wishList(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="/WishList.do",method= {RequestMethod.POST,RequestMethod.GET})
+	public ModelAndView WishList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	ModelAndView mav = new ModelAndView();
+	HttpSession session = request.getSession();
+	memberVO = (MemberVO) session.getAttribute("memberInfo");
+	String member_id = memberVO.getMember_id();
 	String viewName = (String) request.getAttribute("viewName");
 	mav.setViewName(viewName);
+	List<GoodsVO> list = goodsService.WishList(member_id); 
+	mav.addObject("goodsList",list);
+	return mav;
+	}
+	//위시리스트에 추가 
+	@RequestMapping(value="/addwish.do", method= {RequestMethod.POST,RequestMethod.GET})
+	public @ResponseBody String addwish(@RequestParam("goods_id")int goods_id,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
+		memberVO=(MemberVO) session.getAttribute("memberInfo");
+		String member_id = memberVO.getMember_id();
+		System.out.println(goods_id);
+		System.out.println(member_id);
+		/*
+		 * ModelAndView mav = new ModelAndView(); //mav.setViewName("goods/wishList");
+		 * String viewName = (String) request.getAttribute("viewName");
+		 * mav.setViewName(viewName);
+		 */
+		Map wish = new HashMap();
+		wish.put("goods_id",goods_id);
+		wish.put("member_id", member_id);
+
+		System.out.println(wish);
+		boolean result = goodsService.addWishList(wish);
+		boolean exist = goodsService.existwish(wish);
+		
+		/*
+		 * mav.addObject("goods_id",goods_id2); List<GoodsVO> list =
+		 * goodsService.WishList(); mav.addObject("goodsList",list); return mav;
+		 */
+		/*
+		 * if(result==true) { return "add_success"; } else return "add_fail";
+		 */
+		
+		if(exist==true) {
+			return "isAlreadyExisted";
+		}
+		else return "null";
 	
-	return mav;	
 	}
-	//위시리스트에 추가 할것
-	@RequestMapping(value="/addwish.do", method=RequestMethod.POST)
-	public ModelAndView addwish(HttpServletRequest request, HttpServletResponse response) {
+//위시리스트에서 각각삭제
+	@RequestMapping(value="deletewish.do", method={RequestMethod.POST,RequestMethod.GET})
+	public ModelAndView deletewish(@RequestParam("goods_id")int goods_id,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("goods/wishList");
+		HttpSession session = request.getSession();
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		String member_id = memberVO.getMember_id();
+		Map wish = new HashMap();
+		wish.put("goods_id", goods_id);
+		wish.put("member_id", member_id);
+		
+		boolean result = goodsService.deleteWishList(wish);
+
+		List<GoodsVO> list = goodsService.WishList(member_id); 
+		mav.setViewName("/goods/WishList");
 		return mav;
+		
 	}
+	
+//위시리스트 전체 삭제
+	@RequestMapping(value="deletewishall.do", method={RequestMethod.POST,RequestMethod.GET})
+	public  ModelAndView deletewishall(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		String member_id = memberVO.getMember_id();
+		boolean result = goodsService.deleteWishListAll(member_id);
+		mav.setViewName("/goods/WishList");
+		return mav;
+		
+	}	
 	private void addGoodsInQuick(String goods_id,GoodsVO goodsVO,HttpSession session){
 		boolean already_existed=false;
 		List<GoodsVO> quickGoodsList; //

@@ -18,7 +18,7 @@
 <div class="main_book">
    <c:set  var="goods_count" value="0" />
 	<h3>베스트셀러</h3><!-- bestseller,bigsale,new,kids,freecancel -->
-	<c:forEach var="item" items="${goodsMap.bestseller }">
+	<c:forEach var="item" items="${goodsMap.bestseller}">
 	   <c:set  var="goods_count" value="${goods_count+1 }" />
 		<div class="book">
 			<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
@@ -65,7 +65,7 @@
 		       ${goods_price}원
 		  </div>
 	</div>
-	 <c:if test="${goods_count==15   }">
+	 <c:if test="${goods_count==15  }">
      <div class="book">
        <font size=20> <a href="#">more</a></font>
      </div>

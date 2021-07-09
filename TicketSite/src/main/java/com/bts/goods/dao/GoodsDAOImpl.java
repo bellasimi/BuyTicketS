@@ -2,6 +2,7 @@ package com.bts.goods.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,34 @@ public class GoodsDAOImpl  implements GoodsDAO{
 	   return list;
 	}
 	
+	@Override
+	public void insertWishList(Map wish) throws DataAccessException{
+		sqlSession.insert("mapper.goods.insertWishList", wish);
+		
+	}
+	@Override
+	public List<GoodsVO> selectWishList(String member_id) {
+		List<GoodsVO> list = sqlSession.selectList("mapper.goods.selectWishList",member_id);
+		return list;
+	}
+
+	@Override
+	public void deleteWishList(Map wish) throws DataAccessException {
+		sqlSession.delete("mapper.goods.deleteWishList", wish);
+		
+	}
+
+	@Override
+	public void deleteWishListAll(String member_id) throws DataAccessException {
+		sqlSession.delete("mapper.goods.deleteWishListAll",member_id);
+		
+	}
+
+	@Override
+	public String existwish(Map wish) throws DataAccessException {
+		String goods_id = sqlSession.selectOne("mapper.goods.existwish",wish);
+		return goods_id;
+	}
 
 	
 }

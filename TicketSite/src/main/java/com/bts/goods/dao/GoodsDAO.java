@@ -1,6 +1,7 @@
 package com.bts.goods.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
@@ -17,4 +18,10 @@ public interface GoodsDAO {
 	public List<ImageFileVO> selectGoodsDetailImage(String goods_id) throws DataAccessException;
 	public List<GoodsVO> selectGoodsBySearchWord(String searchWord) throws DataAccessException;
 	// ticket_goods에서 searchWord와 like한 goods_title을 가진 데이터들 select
+	public void insertWishList(Map wish) throws DataAccessException;//위시리스트에 추가
+	public List<GoodsVO> selectWishList(String member_id)throws DataAccessException;
+	public void deleteWishList(Map wish)throws DataAccessException;
+	public void deleteWishListAll(String member_id) throws DataAccessException;
+	public String existwish(Map wish)throws DataAccessException;
+
 }

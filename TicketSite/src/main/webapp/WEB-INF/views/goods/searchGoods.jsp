@@ -85,7 +85,7 @@
 	</div>
 	<table id="list_view">
 		<tbody>
-		  <c:forEach var="item" items="${goodsList }"> 
+		  <c:forEach var="item" items="${goodsList}"> 
 			<tr>
 					<td class="goods_image">
 						<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">
@@ -94,7 +94,7 @@
 					</td>
 					<td class="goods_description">
 						<h2>
-							<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">${item.goods_title }</a>
+							<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">${item.goods_title }</a>
 						</h2>
 						
 						<div class="writer_press" >
@@ -109,10 +109,43 @@
 						</strong><br>(${item.goods_discount}% 할인)
 					</td>
 					<td><input type="checkbox" value=""></td>
-					<td class="buy_btns">
+					
+<%-- <script type="text/javascript">
+	function add_wish(goods_id){
+		$.ajax({
+			type:"post",
+			url:"${contextPath}/goods/addwish.do",
+			data:{
+				goods_id:goods_id
+			},
+			success:function(data, textStatus){
+				if(data.trim()=='add_success'){
+					imagePopup('open','.layer02');
+				}else if(data.trim()=='already_existed'){
+					alert("이미 위시리스트에 등록된 상품입니다.");
+				}
+				
+			},
+			error: function(data,textStatus){
+				alert("오류가 발생했습니다!")
+			},
+			complete: function(data,textStatus){
+				
+			}
+		});
+		
+		
+	}
 
+</script>
+						
+							<li><a href="javascript:add_wish('${item.goods_id}')">위시리스트</a></li> --%>
+							
+					<td class="buy_btns">
 						<UL>
-							<li><a href="#">위시리스트</a></li>
+						<li><a href="${contextPath}/goods/WishList.do?goods_id=${item.goods_id}">위시리스트</a></li>
+						
+							
 						</UL>
 					</td>
 			</tr>

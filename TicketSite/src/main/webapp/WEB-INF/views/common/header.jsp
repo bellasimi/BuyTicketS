@@ -143,7 +143,7 @@ function showSlides(n) {
 		     <c:when test="${isLogOn==true and not empty memberInfo }">
 			   <li><a href="${contextPath}/member/logout.do">로그아웃</a></li>
 			   <li><a href="${contextPath}/mypage/myPageMain.do">마이페이지</a></li>
-			   <li><a href="${contextPath}/goods/wishList.do">위시리스트</a></li>
+			   <li><a href="${contextPath}/goods/WishList.do">위시리스트</a></li>
 			   <li><a href="${contextPath}/cart/myCartList.do">장바구니</a></li>
 			   <li><a href="#">주문배송</a></li>
 			 </c:when>

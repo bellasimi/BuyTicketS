@@ -60,8 +60,45 @@ public class GoodsServiceImpl implements GoodsService{
 		List<String> list=goodsDAO.selectKeywordSearch(keyword);
 		return list;
 	}
+	//위시리스트 추가
+	@Override
+	public boolean addWishList(Map wish) throws Exception {
+		boolean result = true;
+		goodsDAO.insertWishList(wish);
+		return result;
+	}
+	//위시리스트 출력
+	@Override
+	public List<GoodsVO> WishList(String member_id) {
+		List<GoodsVO> list= goodsDAO.selectWishList(member_id);
+		return list;
+	}
+	//위시리스트 삭제
+	@Override
+	public boolean deleteWishList(Map wish) throws Exception {
+		boolean result = true;//되니까 SERVICE가 되는거임 안되면 SQL 오류뜸
+		goodsDAO.deleteWishList(wish);
+		return result;
+	}
 
-	
+	//위시리스트 전체 삭제
 
-	
+	@Override
+	public boolean deleteWishListAll(String member_id) throws Exception {
+		boolean result =true;
+		goodsDAO.deleteWishListAll(member_id);
+		return result;
+	}
+
+	@Override
+	public boolean existwish(Map wish) throws Exception {
+
+		boolean result;
+		String goods_id = goodsDAO.existwish(wish);
+		if(goods_id.equals(null)) {
+			result = false;
+		}
+		else result =true;
+		return result;
+	}
 }

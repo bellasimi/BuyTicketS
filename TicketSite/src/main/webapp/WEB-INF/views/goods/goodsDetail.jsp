@@ -17,6 +17,7 @@
 %>  
 <html>
 <head>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <style>
 #layer {
 	z-index: 2;
@@ -47,6 +48,10 @@
 	function add_cart(goods_id) {
 		var goods_ticket_date=document.getElementById("goods_ticket_date").value;
 		var order_goods_qty =document.getElementById("order_goods_qty").value;//구매 수량
+		var isLogOn = document.getElementById("isLogOn").value;
+		if(isLogOn == 'false'||isLogOn == ''){
+			alert("로그인 후 이용가능합니다.")
+		}
 		$.ajax({
 			type : "post",
 			async : false, //false인 경우 동기식으로 처리한다.
@@ -68,7 +73,7 @@
 				
 			},
 			error : function(data, textStatus) {
-				alert("예매일을 선택해주세요!");
+				alert("작업 실패");
 			},
 			complete : function(data, textStatus) {
 				//alert("작업을완료 했습니다");
@@ -93,7 +98,40 @@
 			jQuery('#layer').attr('style', 'visibility:hidden');
 		}
 	}
-	
+
+	function add_wish(goods_id){
+		var isLogOn = document.getElementById("isLogOn").value;
+		if(isLogOn == 'false' || isLogOn ==''){
+			alert("로그인 후 이용가능합니다.")
+		}
+		$.ajax({
+			type : "post",
+			async : false, //false인 경우 동기식으로 처리한다. 순서대로 처리
+			url : "${contextPath}/goods/addwish.do",
+			data : {
+				
+				goods_id:goods_id
+				
+				
+			},
+			success : function(data, textStatus) {
+				
+				if(data.trim()=='null'){
+					imagePopup('open', '.layer01');	
+				}else if(data.trim()=='isAlreadyExisted'){
+					alert("이미 위시리스트에 등록된 상품입니다.");	
+				}
+				
+			},
+			error : function(data, textStatus) {
+				alert("작업 실패");
+			},
+			complete : function(data, textStatus) {
+				
+			}
+		}); //end ajax	 
+		
+	} 
 function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){ 
 	// 263행 href="javascript:fn_order_each_goods('${goods.goods_id }','${goods.goods_title}','${goods.goods_sales_price}','${goods.goods_fileName}')로 받은 값 
 	var _isLogOn=document.getElementById("isLogOn");
@@ -149,26 +187,7 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 	}	
 	
 
-	function reservation(){
-		var goods_ticket_date = document.getElementById("goods_ticket_date");
-		$.ajax({
-			type : "post",
-			async : false, //false인 경우 동기식으로 처리한다.
-			url : "${contextPath}/goods/reservation.do",
-			data : {
-				goods_ticket_date:goods_ticket_date, 
-				
-				
-			},
-			
-			error : function(data, textStatus) {
-				alert("에러가 발생했습니다."+data);
-			},
-			complete : function(data, textStatus) {
-				//alert("작업을완료 했습니다");
-			}
-		}); //end ajax	
-	}
+
 	
 	//오늘 이전엔 예매 안되도록 하는 함수!!
 	function ticket_date(){
@@ -250,7 +269,7 @@ body, html {
   height: 100%;
 }
 
-#이름1 {background-color: #cccccc;} //각 탭의 바탕색들 
+#이름1 {background-color: #cccccc;} 
 #이름2 {background-color: #cccccc;}
 #이름3 {background-color: #cccccc;}
 #이름4 {background-color: #cccccc;}
@@ -405,8 +424,11 @@ body, html {
 		<ul>
 			<li><a class="buy" href="javascript:fn_order_each_goods('${goods.goods_id }','${goods.goods_title}','${goods.goods_sales_price}','${goods.goods_fileName}');">구매하기 </a></li>
 			<li><a class="cart" href="javascript:add_cart('${goods.goods_id }')">장바구니</a></li>
-			
-			<li><a class="wish" href="#">위시리스트</a></li>
+			<li><a href="javascript:add_wish('${goods.goods_id}')">위시리스트</a></li>
+			<%--1.ajax 
+			2.매핑주소 get방식으로 값 넘기기
+			<li><a href="javascript:add_wish('${goods.goods_id}')">위시리스트</a></li>
+			<li><a href="${contextPath}/goods/addwish.do?goods_id=${goods.goods_id}">위시리스트</a></li> --%>
 		</ul>
 	</div>
 

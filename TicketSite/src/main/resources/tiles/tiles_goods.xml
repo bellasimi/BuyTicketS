@@ -27,5 +27,18 @@
          <put-attribute name="title" value="상품 검색 결과 페이지" />
          <put-attribute name="body" value="/WEB-INF/views/goods/searchGoods.jsp" />
       </definition>
-  
+  <!-- 위시리스트 출력 -->
+  	<definition name="/goods/WishList" extends="baseLayout">
+  		<put-attribute name="title" value="위시리스트" />
+         <put-attribute name="body" value="/WEB-INF/views/goods/WishList.jsp" />
+  	</definition>
+  	  <!-- 위시리스트  삭제 후 출력-->
+  	<definition name="/goods/deletewish" extends="baseLayout">
+  		<put-attribute name="title" value="위시리스트" />
+         <put-attribute name="body" value="/WEB-INF/views/goods/WishList.jsp" />
+  	</definition>  <!-- 위시리스트 추가 -->
+  	<definition name="/goods/addwish" extends="baseLayout">
+  		<put-attribute name="title" value="위시리스트추가" />
+         <put-attribute name="body" value="/WEB-INF/views/goods/WishList.jsp" />
+  	</definition>
 </tiles-definitions>
