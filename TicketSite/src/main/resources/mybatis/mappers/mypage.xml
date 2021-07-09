@@ -102,18 +102,6 @@
 			      <if test=" emailsts_yn!='' and emailsts_yn!=null">
 			         emailsts_yn=#{emailsts_yn},
 			      </if>
-			      <if test=" zipcode!='' and zipcode!=null">
-			         zipcode=#{zipcode},
-			      </if>
-			      <if test=" roadAddress!='' and roadAddress!=null">
-			         roadAddress=#{roadAddress},
-			      </if>			     
-			      <if test=" jibunAddress!='' and jibunAddress!=null">
-			         jibunAddress=#{jibunAddress},
-			      </if>
-			      <if test=" namujiAddress!='' and namujiAddress!=null">
-			         namujiAddress=#{namujiAddress}
-			      </if>
 			   </set>
 		where 
 		member_id=#{member_id}

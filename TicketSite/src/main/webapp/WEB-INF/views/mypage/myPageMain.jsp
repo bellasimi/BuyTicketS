@@ -231,15 +231,6 @@ body, html {
 	   <strong>${memberInfo.hp1 }-${memberInfo.hp2}-${memberInfo.hp3 }</strong>
    </td>
    </tr>
-   <tr>
-    <td>
-	  주소 
-   </td>
-    <td>
-		도로명:  &nbsp;&nbsp; <strong>${memberInfo.roadAddress }</strong>  <br>
-		지번:   &nbsp;&nbsp; <strong>${memberInfo.jibunAddress }</strong> 
-   </td>
-   </tr>
 </table>
 </div>
 
