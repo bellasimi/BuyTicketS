@@ -51,7 +51,11 @@
 		var isLogOn = document.getElementById("isLogOn").value;
 		if(isLogOn == 'false'||isLogOn == ''){
 			alert("로그인 후 이용가능합니다.")
+			
 		}
+		if(goods_ticket_date == ''){
+			 alert("예매일을 입력해주세요.")
+		}else{
 		$.ajax({
 			type : "post",
 			async : false, //false인 경우 동기식으로 처리한다.
@@ -79,6 +83,7 @@
 				//alert("작업을완료 했습니다");
 			}
 		}); //end ajax	
+		}// else문 예매일 선택시에만 넘어가게
 	}
 
 	
@@ -100,10 +105,11 @@
 	}
 
 	function add_wish(goods_id){
+		console.log(goods_id)
 		var isLogOn = document.getElementById("isLogOn").value;
 		if(isLogOn == 'false' || isLogOn ==''){
 			alert("로그인 후 이용가능합니다.")
-		}
+		}else{
 		$.ajax({
 			type : "post",
 			async : false, //false인 경우 동기식으로 처리한다. 순서대로 처리
@@ -130,6 +136,7 @@
 				
 			}
 		}); //end ajax	 
+		}//else
 		
 	} 
 function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){ 

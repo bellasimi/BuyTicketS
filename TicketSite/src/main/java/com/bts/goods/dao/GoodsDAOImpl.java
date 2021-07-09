@@ -88,9 +88,10 @@ public class GoodsDAOImpl  implements GoodsDAO{
 	}
 
 	@Override
-	public String existwish(Map wish) throws DataAccessException {
+	public boolean existwish(Map wish) throws DataAccessException {
 		String goods_id = sqlSession.selectOne("mapper.goods.existwish",wish);
-		return goods_id;
+		
+		return Boolean.parseBoolean(goods_id);//결과물이 존재하는지 Boolean형식으로 parsing 있으면 true, 없으면 false
 	}
 
 	

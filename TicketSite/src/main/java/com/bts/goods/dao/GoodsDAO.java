@@ -22,6 +22,6 @@ public interface GoodsDAO {
 	public List<GoodsVO> selectWishList(String member_id)throws DataAccessException;
 	public void deleteWishList(Map wish)throws DataAccessException;
 	public void deleteWishListAll(String member_id) throws DataAccessException;
-	public String existwish(Map wish)throws DataAccessException;
+	public boolean existwish(Map wish)throws DataAccessException;
 
 }

@@ -33,7 +33,8 @@ public class MainController extends BaseController {
 		
 		session=request.getSession();
 		session.setAttribute("side_menu", "user");
-		Map<String,List<GoodsVO>> goodsMap=goodsService.StatusList();//bestseller,bigsale,new,kids,freecancel
+		Map<String,List<GoodsVO>> goodsMap=goodsService.StatusList();//bestseller,bigsale,new
+		System.out.println(goodsMap);
 		mav.addObject("goodsMap", goodsMap);
 		return mav;
 	}

@@ -39,6 +39,10 @@ public class GoodsServiceImpl implements GoodsService{
 		Map<String,List<GoodsVO>> goodsMap=new HashMap<String,List<GoodsVO>>();
 		List<GoodsVO> goodsList=goodsDAO.selectStatusList("bestseller");
 		goodsMap.put("bestseller",goodsList);
+		goodsList=goodsDAO.selectStatusList("bigsale");
+		goodsMap.put("bigsale",goodsList);
+		goodsList=goodsDAO.selectStatusList("new");
+		goodsMap.put("newsale",goodsList);
 		return goodsMap;
 	}
 	//상세페이지
@@ -93,12 +97,6 @@ public class GoodsServiceImpl implements GoodsService{
 	@Override
 	public boolean existwish(Map wish) throws Exception {
 
-		boolean result;
-		String goods_id = goodsDAO.existwish(wish);
-		if(goods_id.equals(null)) {
-			result = false;
-		}
-		else result =true;
-		return result;
+		return goodsDAO.existwish(wish); 
 	}
 }

@@ -38,10 +38,9 @@
 		</c:otherwise>
 		
 	</c:choose>
-	<c:forEach var="item" items="${PlaceList}" >
-	
-
 	<h3>${place}</h3><!-- 해당 place로 db없으면 오류남 현재는 강원도;gang;만들어간 상태 -->
+	<c:forEach var="item" items="${PlaceList}" >
+
 	   <c:set  var="goods_count" value="${goods_count+1}" />
 		<div class="book">
 		  <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">

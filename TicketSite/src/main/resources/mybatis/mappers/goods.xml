@@ -140,7 +140,8 @@
 <delete id="deleteWishListAll">
 	delete from ticket_wish where member_id=#{member_id}
 </delete>
+<!-- 위시리스트 존재하는지 확인 -->
 <select id="existwish" resultType="String">
-	select goods_id from ticket_wish where goods_id=#{goods_id} and member_id=#{member_id}
+	select decode(count(*), 0, 'false', 'true') from ticket_wish where goods_id=#{goods_id} and member_id=#{member_id}
 </select>
 </mapper>

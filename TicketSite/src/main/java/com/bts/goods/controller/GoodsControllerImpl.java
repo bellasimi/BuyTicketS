@@ -152,19 +152,27 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		String member_id = memberVO.getMember_id();
 		System.out.println(goods_id);
 		System.out.println(member_id);
+		
+		Map wish = new HashMap();
+		wish.put("goods_id",goods_id);
+		wish.put("member_id", member_id);
+		
+		System.out.println(wish);
+		System.out.println("이 아래서부터 안되나?");
+		boolean exist = goodsService.existwish(wish);
+		System.out.println("isAreadyExisted:"+exist);
+		if(exist==true) {
+			return "isAlreadyExisted";
+		}
+		else {
+		goodsService.addWishList(wish);
+		return "null";
+		}
 		/*
 		 * ModelAndView mav = new ModelAndView(); //mav.setViewName("goods/wishList");
 		 * String viewName = (String) request.getAttribute("viewName");
 		 * mav.setViewName(viewName);
 		 */
-		Map wish = new HashMap();
-		wish.put("goods_id",goods_id);
-		wish.put("member_id", member_id);
-
-		System.out.println(wish);
-		boolean result = goodsService.addWishList(wish);
-		boolean exist = goodsService.existwish(wish);
-		
 		/*
 		 * mav.addObject("goods_id",goods_id2); List<GoodsVO> list =
 		 * goodsService.WishList(); mav.addObject("goodsList",list); return mav;
@@ -172,12 +180,6 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		/*
 		 * if(result==true) { return "add_success"; } else return "add_fail";
 		 */
-		
-		if(exist==true) {
-			return "isAlreadyExisted";
-		}
-		else return "null";
-	
 	}
 //위시리스트에서 각각삭제
 	@RequestMapping(value="deletewish.do", method={RequestMethod.POST,RequestMethod.GET})
