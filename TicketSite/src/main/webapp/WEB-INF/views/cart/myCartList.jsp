@@ -20,7 +20,7 @@
 
 
 //체크박스 관련 처리부분-하단 금액테이블 계산 + 전체선택/해제 +부분선택/해제 + 여기도 하나만일때랑 나눠져야 한다 
-//1개일때랑 나눠서 처리 dsadsdasd
+//1개일때랑 나눠서 처리 
 $(document).ready(function(){
 $("input[type=checkbox]").change(function() {
 	var checked_goods=document.frm_order_all_cart.checked_goods; //체크박스 받아옴
