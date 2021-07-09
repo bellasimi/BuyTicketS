@@ -39,7 +39,7 @@ $("input[type=checkbox]").change(function() {
 	var salesPrice;
 	var goodsQty;
 
-	var totalGoodsPrice=0; //총합(정가*수량) dasdsadsdadsdadasdsdadadasdasd
+	var totalGoodsPrice=0; //총합(정가*수량) dadsdsdsdsadsdadsdadasdsdadadasdasd
 	var totalSalesPrice=0; //총합(판매가*수량)  --결제금액 
 	var totalDiscount=0; //총할인되는 금액
 
