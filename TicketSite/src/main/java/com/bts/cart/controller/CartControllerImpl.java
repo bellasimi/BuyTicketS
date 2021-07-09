@@ -62,11 +62,12 @@ public class CartControllerImpl extends BaseController implements CartController
 	@Override
 	@RequestMapping(value="/addGoodsInCart.do" ,method = RequestMethod.POST,produces = "application/text; charset=utf8")
 	public  @ResponseBody String addGoodsInCart(@RequestParam("goods_id") int goods_id, 
-								@RequestParam("goods_ticket_date") String goods_ticket_date,
+								@RequestParam("goods_ticket_date") Date goods_ticket_date,
 								@RequestParam("cart_goods_qty") int cart_goods_qty,
 			                    HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		//수량 배열로 받지않아도 되겠지 하나씩 저장되니까??????
 		System.out.println("카트컨트롤러 접근");
+		System.out.println(goods_ticket_date);
 		HttpSession session=request.getSession();
 		memberVO=(MemberVO)session.getAttribute("memberInfo");
 		//세션영역의 정보 이용 id 가져온다  

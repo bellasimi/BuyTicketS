@@ -722,6 +722,9 @@ function fn_order_all_cart_goods() {
 		<!-- /////////////////////////예매날짜 input 필요한지 생각해보기  -->		
 				<td>   <!-- 이거 hidden으로 받는데 없을거같은데  -->
 				<input type="hidden" id="goods_ticket_date" value="${goods_ticket_date }">
+				<!-- 
+				<fmt:formatDate value="${goods_ticket_date}" var="fmt_goods_ticket_date" pattern="yyyy-mm-dd"/>
+				 ${fmt_goods_ticket_date} -->
 				 ${goods_ticket_date}	
 				</td>
 				

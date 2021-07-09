@@ -1,11 +1,12 @@
 package com.bts.order.vo;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import org.springframework.stereotype.Component;
 
 @Component("orderVO")
-public class OrderVO {  
+public class OrderVO implements Serializable{  
 	private int order_seq_num;// 주문*상품에 부여되는 번호 
 	private int order_id;// 하나의 주문세트에 부여되는 번호
 	

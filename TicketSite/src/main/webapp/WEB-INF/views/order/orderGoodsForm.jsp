@@ -51,7 +51,8 @@
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <script>
- 
+ /*
+ //창이 열리면 무조건 실행된다  아직 뭔지 잘 모르겠음 
   window.onload=function()
   {
     init();
@@ -59,16 +60,16 @@
 
   function init(){
   	var form_order=document.form_order;
-  	var h_tel1=form_order.h_tel1;
+  	//var h_tel1=form_order.h_tel1;
   	var h_hp1=form_order.h_hp1;
-  	var tel1=h_tel1.value;
+  	//var tel1=h_tel1.value;
   	var hp1=h_hp1.value;
-  	var select_tel1=form_order.tel1;
+  	//var select_tel1=form_order.tel1;
   	var select_hp1=form_order.hp1;
-  	select_tel1.value=tel1;
+  //	select_tel1.value=tel1;
   	select_hp1.value=hp1;
   }    
-    
+   */ 
 	function reset_all() {
 		var e_receiver_name = document.getElementById("receiver_name");
 		var e_hp1 = document.getElementById("hp1");
@@ -173,6 +174,7 @@ function imagePopup(type) {
 	}
 }
 
+/*
 var goods_id="";
 var goods_title="";
 var goods_fileName="";
@@ -201,8 +203,8 @@ var pay_method;
 var card_com_name;
 //var card_pay_month;
 var pay_orderer_hp_num;
-var final_total_oder_price;
-//최종 결제창
+var final_total_oder_price; */
+//최종 결제 팝업창 띄우는 곳 
 function fn_show_order_detail(){
 	goods_id="";
 	goods_title="";
@@ -370,85 +372,134 @@ function fn_show_order_detail(){
 	imagePopup('open');
 }
 
+
+var goods_id="";
+var goods_title="";
+var goods_fileName="";
+
+var order_goods_qty
+var each_goods_price;
+var total_order_goods_price;
+var total_order_goods_qty;
+var orderer_name;
+//var receiver_name
+var hp1;
+var hp2;
+var hp3;
+
+var pay_method;
+var random_account;
+var card_com_name;
+var card_number;
+var card_expired_m;
+var card_expired_y;
+var pay_orderer_hp_num;
+var goods_ticket_date; //myOrderList
+var goods_point; //myOrderList
+var order_total_price;
+var point_used;
+
+
+//var tel1;
+//var tel2;
+//var tel3;
+
+//var receiver_hp_num;
+//var receiver_tel_num;
+//var delivery_address;
+//var delivery_message;
+//var delivery_method;
+//var gift_wrapping;
+var pay_method;
+var card_com_name;
+//var card_pay_month;
+var pay_orderer_hp_num;
+var final_total_oder_price;
+//가장 마지막 최종결제하기  결제정보를 넘기는 곳 
 function fn_process_pay_order(){
+	 /* 주문 db에 넘겨줘야 하는 값들ㅇㅇ  orderlist랑 memberinfo 빼고 전부 
+	 order_id,
+		member_id,// session-member에 있는값
+	    goods_id, //myOrderList
+	    orderer_name,// session-member
+	    orderer_hp,//session-member
+	    goods_title, //myOrderList
+	    order_goods_qty, //myOrderList
+	    goods_sales_price, //myOrderList
+	    goods_fileName, //myOrderList
+	    pay_method,
+	    random_account,
+	    card_com_name,
+	    card_number,
+	    card_expired_m,
+	    card_expired_y,
+	    pay_orderer_hp_num,
+	    goods_ticket_date, //myOrderList
+	    goods_point, //myOrderList
+	    order_total_price,
+	    point_used
+	    */ 
+	
 	
 	alert("최종 결제하기"); //이 부분을 먼저 처리해줘야함 
 	var formObj=document.createElement("form");
- //   var i_receiver_name=document.createElement("input");
-    
- //   var i_receiver_hp1=document.createElement("input");
- //   var i_receiver_hp2=document.createElement("input");
- //   var i_receiver_hp3=document.createElement("input");
-   
- //   var i_receiver_tel1=document.createElement("input");
- //   var i_receiver_tel2=document.createElement("input");
- //   var i_receiver_tel3=document.createElement("input");
-    
- //   var i_delivery_address=document.createElement("input");
-//    var i_delivery_message=document.createElement("input");
- //   var i_delivery_method=document.createElement("input");
- //   var i_gift_wrapping=document.createElement("input");
-    var i_pay_method=document.createElement("input");
-    var i_card_com_name=document.createElement("input");
-//    var i_card_pay_month=document.createElement("input");
-    var i_pay_orderer_hp_num=document.createElement("input");
-   
-//    i_receiver_name.name="receiver_name";
- //   i_receiver_hp1.name="receiver_hp1";
-//    i_receiver_hp2.name="receiver_hp2";
-//    i_receiver_hp3.name="receiver_hp3";
-   
-//    i_receiver_tel1.name="receiver_tel1";
-//    i_receiver_tel2.name="receiver_tel2";
-//    i_receiver_tel3.name="receiver_tel3";
-   
- //   i_delivery_address.name="delivery_address";
- //   i_delivery_message.name="delivery_message";
-//    i_delivery_method.name="delivery_method";
- //   i_gift_wrapping.name="gift_wrapping";
-    i_pay_method.name="pay_method";
-    i_card_com_name.name="card_com_name";
- //   i_card_pay_month.name="card_pay_month";
-    i_pay_orderer_hp_num.name="pay_orderer_hp_num";
-  
-//    i_receiver_name.value=receiver_name;
-//    i_receiver_hp1.value=hp1;
-//    i_receiver_hp2.value=hp2;
-//    i_receiver_hp3.value=hp3;
-    
-//    i_receiver_tel1.value=tel1;
-//    i_receiver_tel2.value=tel2;
-//    i_receiver_tel3.value=tel3;
-    
-//    i_delivery_address.value=delivery_address;
-//    i_delivery_message.value=delivery_message;
-//    i_delivery_method.value=delivery_method;
-//    i_gift_wrapping.value=gift_wrapping;
-//    i_pay_method.value=pay_method;
-	i_card_com_name.value=card_com_name;
-//    i_card_pay_month.value=card_pay_month;
-    i_pay_orderer_hp_num.value=pay_orderer_hp_num;
-    
-//    formObj.appendChild(i_receiver_name);
-//    formObj.appendChild(i_receiver_hp1);
-///    formObj.appendChild(i_receiver_hp2);
-//    formObj.appendChild(i_receiver_hp3);
-//    formObj.appendChild(i_receiver_tel1);
-//    formObj.appendChild(i_receiver_tel2);
- //   formObj.appendChild(i_receiver_tel3);
 
-//    formObj.appendChild(i_delivery_address);
-//    formObj.appendChild(i_delivery_message);
-//    formObj.appendChild(i_delivery_method);
-//    formObj.appendChild(i_gift_wrapping);
+    var i_pay_method=document.createElement("input");
+    var i_random_account=document.createElement("input");
+    var i_card_com_name=document.createElement("input");
+    var i_card_number=document.createElement("input");
+    var i_card_expired_m=document.createElement("input");
+    var i_card_expired_y=document.createElement("input");
+    var i_pay_orderer_hp_num=document.createElement("input");
+    var i_order_total_price=document.createElement("input");
+    var i_point_used=document.createElement("input");
+   
+    i_pay_method.name="pay_method";
+  	i_random_account.name="random_account";
+    i_card_com_name.name="card_com_name";
+    i_card_number.name="card_number";
+    i_card_expired_m.name="card_expired_m";
+    i_card_expired_y.name="card_expired_y";
+    i_pay_orderer_hp_num.name="pay_orderer_hp_num";
+    i_order_total_price.name="order_total_price";
+    i_point_used.name="point_used";
+  
+    i_pay_method.value=pay_method;
+    i_random_account.value="00000000";
+    i_card_com_name.value="신한";
+    i_card_number.value="000-0999";
+    i_card_expired_m.value="09";
+    i_card_expired_y.value="22";
+    i_pay_orderer_hp_num.value="010-000-0000";
+    i_order_total_price.value=4000;
+    i_point_used.value=1000;
+    
+    
+    /*
+    i_pay_method.value=pay_method;
+    i_random_account.value=random_account;
+    i_card_com_name.value=card_com_name;
+    i_card_number.value=card_number;
+    i_card_expired_m.value=card_expired_m;
+    i_card_expired_y.value=card_expired_y;
+    i_pay_orderer_hp_num.value=pay_orderer_hp_num;
+    i_order_total_price.value=order_total_price;
+    i_point_used.value=point_used;
+    */
     
     formObj.appendChild(i_pay_method);
+    formObj.appendChild(i_random_account);
     formObj.appendChild(i_card_com_name);
-//    formObj.appendChild(i_card_pay_month);
+    formObj.appendChild(i_card_number);
+    formObj.appendChild(i_card_expired_m);
+    formObj.appendChild(i_card_expired_y);
     formObj.appendChild(i_pay_orderer_hp_num);
+    formObj.appendChild(i_order_total_price);
+    formObj.appendChild(i_card_com_name);
+    formObj.appendChild(i_point_used);
     
 
-    document.body.appendChild(formObj); 
+    document.body.appendChild(formObj);  //orderController에서 receiverMap으로 받아간다
     formObj.method="post";
     formObj.action="${contextPath}/order/payToOrderGoods.do";
     formObj.submit();

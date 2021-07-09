@@ -1,9 +1,10 @@
 package com.bts.goods.vo;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public class GoodsVO {
+public class GoodsVO implements Serializable{
 	
 	private int goods_id; 			//ticket_seq 일련번호 
 	private String goods_sort;		//분류 박물관.. 

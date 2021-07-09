@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 public interface CartController {
 	public ModelAndView myCartMain(HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public @ResponseBody String addGoodsInCart(@RequestParam("goods_id") int goods_id,
-					@RequestParam("goods_ticket_date") String goods_ticket_date,
+					@RequestParam("goods_ticket_date") Date goods_ticket_date,
 					@RequestParam("cart_goods_qty") int cart_goods_qty,
 					HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public  @ResponseBody String modifyCartQty(@RequestParam("goods_id") int goods_id,@RequestParam("cart_goods_qty") int cart_goods_qty,

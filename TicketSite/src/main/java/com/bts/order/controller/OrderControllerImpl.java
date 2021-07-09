@@ -45,6 +45,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		System.out.println("날짜"+_orderVO.getGoods_ticket_date());
 		System.out.println("가격"+_orderVO.getGoods_sales_price());
 		System.out.println("수량"+_orderVO.getOrder_goods_qty());
+		System.out.println("포인트"+_orderVO.getGoods_point());
 		
 		request.setCharacterEncoding("utf-8");
 		HttpSession session=request.getSession();
@@ -84,53 +85,9 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		session.setAttribute("orderer", memberInfo);  //회원정보 세션에 넘겨줌 
 		return mav;
 	}
-	/*
-	@RequestMapping(value="/orderAllCartGoods.do" ,method = RequestMethod.POST)
-	public ModelAndView orderAllCartGoods( @RequestParam("cart_goods_qty")  String[] cart_goods_qty,
-									@RequestParam("goods_ticket_date") String[] goods_ticket_date,
-			                 HttpServletRequest request, HttpServletResponse response)  throws Exception{
-		String viewName=(String)request.getAttribute("viewName");
-		ModelAndView mav = new ModelAndView(viewName);
-		HttpSession session=request.getSession();
-		Map cartMap=(Map)session.getAttribute("cartMap");
-		List myOrderList=new ArrayList<OrderVO>();
-		
-		List<GoodsVO> myGoodsList=(List<GoodsVO>)cartMap.get("myGoodsList");
-		MemberVO memberVO=(MemberVO)session.getAttribute("memberInfo");
-		
-		for(int i=0; i<cart_goods_qty.length;i++){
-			String[] cart_goods=cart_goods_qty[i].split(":");
-			String[] goods_date = goods_ticket_date[i].split(":");
-			for(int j = 0; j< myGoodsList.size();j++) {
-				GoodsVO goodsVO = myGoodsList.get(j);
-				int goods_id = goodsVO.getGoods_id();
-				if(goods_id==Integer.parseInt(cart_goods[0])) {//īƮ�� ID�� ���� ���
-					OrderVO _orderVO=new OrderVO();
-					String goods_title=goodsVO.getGoods_title();
-					int goods_sales_price=goodsVO.getGoods_sales_price();
-					String goods_fileName=goodsVO.getGoods_fileName();
-					int    goods_point =goodsVO.getGoods_point();
-					//int goods_delivery_price =goodsVO.getGoods_delivery_price();
-					_orderVO.setGoods_id(goods_id);
-					_orderVO.setGoods_title(goods_title);
-					_orderVO.setGoods_sales_price(goods_sales_price);
-					_orderVO.setGoods_fileName(goods_fileName);
-					_orderVO.setOrder_goods_qty(Integer.parseInt(cart_goods[1]));//
-					_orderVO.setGoods_point(goods_point);
-					_orderVO.setGoods_ticket_date(Date.valueOf(goods_date[1])); //무슨말인지 이해는 잘..
-					//여기서 예약일도 넣어주는게 좋을듯 
-					myOrderList.add(_orderVO);
-					break;
-				}//if
-			}//j
-		}//i
-		System.out.println("전부결제");
-		session.setAttribute("myOrderList", myOrderList);
-		session.setAttribute("orderer", memberVO);
-		return mav;
-		
-	}	*/
 	
+	
+	//카트에서 주문창으로 넘어오는 부분 - sql 처리 안거친다 세션에 값보내주는 역할만ㅇㅇ
 	@RequestMapping(value="/orderAllCartGoods.do" ,method = RequestMethod.POST)
 	public ModelAndView orderAllCartGoods( @RequestParam("cart_goods_qty")  String[] cart_goods_qty,
 									HttpServletRequest request, HttpServletResponse response)  throws Exception{
@@ -146,7 +103,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		//cartMap안의 goodsList꺼냄 / 멤버정보는 세션에서 값가져옴 
 		List<GoodsVO> myGoodsList=(List<GoodsVO>)cartMap.get("myGoodsList"); 
 		MemberVO memberVO=(MemberVO)session.getAttribute("memberInfo");
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");//String ->date로 변환하기위함 
+		//SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");//String ->date로 변환하기위함인데 안쓸듯 
 		//상품개수를 알아낼 수 있는게 cart_goods_qty.length 
 		for(int i=0; i<cart_goods_qty.length;i++){ //주문 상품개수만큼 반복 
 			String[] cart_goods=cart_goods_qty[i].split(":");  //cart_id: qty 형태로 넘어온거라서 앞의 카트id를 분리함
@@ -245,9 +202,55 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		
 	}	*/
 	
-	
-	//결제하기를 눌러야 디비에 저장이 된다 
+	//결제하기를 눌러야 디비에 저장이 된다  //receiverMap이 아니라 orderMap으로 바꿔줘봐야겠다 //receiverMap이 문서안에서만 통요됨
+	//일단 receiverMap 이름바꾸지말고 코드 완성시켜놓고 payMap 으로 바꾸기 
 	@RequestMapping(value="/payToOrderGoods.do" ,method = RequestMethod.POST)
+		public ModelAndView payToOrderGoods(@RequestParam Map<String, String> receiverMap,
+				                       HttpServletRequest request, HttpServletResponse response)  throws Exception{
+			String viewName=(String)request.getAttribute("viewName");
+			ModelAndView mav = new ModelAndView(viewName);
+			
+			HttpSession session=request.getSession();
+			MemberVO memberVO=(MemberVO)session.getAttribute("orderer");
+			String member_id=memberVO.getMember_id();
+			String orderer_name=memberVO.getMember_name();
+			String orderer_hp = memberVO.getHp1()+"-"+memberVO.getHp2()+"-"+memberVO.getHp3();
+			List<OrderVO> myOrderList=(List<OrderVO>)session.getAttribute("myOrderList");
+			
+			for(int i=0; i<myOrderList.size();i++){
+				OrderVO orderVO=(OrderVO)myOrderList.get(i); 
+				//goods_id, goods_title,order_goods_qty,goods_sales_price,
+				//goods_fileName,goods_ticket_date,goods_point가 들어가있는 주문리스트가 하나씩 저장된다 
+				orderVO.setMember_id(member_id);
+				orderVO.setOrderer_name(orderer_name);
+				orderVO.setOrderer_hp(orderer_hp);
+				
+				orderVO.setPay_method(receiverMap.get("pay_method"));
+				orderVO.setRandom_account(receiverMap.get("random_account"));
+				orderVO.setCard_com_name(receiverMap.get("card_com_name"));
+				orderVO.setCard_number(receiverMap.get("card_number"));
+				orderVO.setCard_expired_m(receiverMap.get("card_expired_m"));
+				orderVO.setCard_expired_y(receiverMap.get("card_expired_y"));
+				orderVO.setPay_orderer_hp_num(receiverMap.get("pay_orderer_hp_num"));
+				orderVO.setOrder_total_price(Integer.parseInt(receiverMap.get("order_total_price")));
+				orderVO.setPoint_used(Integer.parseInt(receiverMap.get("point_used")));
+				//모든정보 orderVO에 모아준다음에 
+				
+				System.out.println(receiverMap.get("card_expired_y"));
+				myOrderList.set(i, orderVO); //myOrderList에 저장해준다  
+			}//end for
+			
+			System.out.println("최종결제버튼누르면");
+			
+		    orderService.addNewOrder(myOrderList);
+			mav.addObject("myOrderInfo",receiverMap);//OrderVO주문관련 정보를은 주문인포로 따로또 보내줌 
+			mav.addObject("myOrderList", myOrderList);
+			return mav;
+		}
+		
+	//결제하기를 눌러야 디비에 저장이 된다  //receiverMap이 아니라 orderMap으로 바꿔줘봐야겠다 아니면 payMap 
+	/*
+		@RequestMapping(value="/payToOrderGoods.do" ,method = RequestMethod.POST)
 	public ModelAndView payToOrderGoods(@RequestParam Map<String, String> receiverMap,
 			                       HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		String viewName=(String)request.getAttribute("viewName");
@@ -267,7 +270,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 			orderVO.setOrderer_hp(orderer_hp);
 					
 			
-			/*
+			
 			 * orderVO.setReceiver_name(receiverMap.get("receiver_name"));
 			 * 
 			 * orderVO.setReceiver_hp1(receiverMap.get("receiver_hp1"));
@@ -277,10 +280,10 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 			 * orderVO.setReceiver_tel2(receiverMap.get("receiver_tel2"));
 			 * orderVO.setReceiver_tel3(receiverMap.get("receiver_tel3"));
 			 * orderVO.setDelivery_address(receiverMap.get("delivery_address"));
-			 * orderVO.setDelivery_message(receiverMap.get("delivery_message"));
-			 * orderVO.setDelivery_method(receiverMap.get("delivery_method"));
-			 * orderVO.setGift_wrapping(receiverMap.get("gift_wrapping"));
-			 */
+			  orderVO.setDelivery_message(receiverMap.get("delivery_message"));
+			  orderVO.setDelivery_method(receiverMap.get("delivery_method"));
+			  orderVO.setGift_wrapping(receiverMap.get("gift_wrapping"));
+			 
 			orderVO.setPay_method(receiverMap.get("pay_method"));
 			orderVO.setCard_com_name(receiverMap.get("card_com_name"));
 //			orderVO.setCard_pay_month(receiverMap.get("card_pay_month"));
@@ -297,7 +300,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		return mav;
 	}
 
-	
+	*/
 	
 
 }
