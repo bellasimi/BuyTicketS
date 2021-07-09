@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <!DOCTYPE html >
-<html>  
+<html> 
 <head>
 <meta charset="utf-8">
 <script>
@@ -272,7 +272,7 @@ function  calcPeriod(search_period){
 		         <c:if test="${page ==10 }">
 		          <a href="${contextPath}/admin/goods/adminGooodsMain.do?chapter=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
 		         </c:if> 
-	      		</c:forEach> 
+	      		</c:forEach>
      
 		</TBODY>
 		

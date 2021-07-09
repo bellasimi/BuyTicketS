@@ -13,22 +13,22 @@ window.onload=function()
 {
 	init();
 }
- 
+
 //화면이 표시되면서  각각의 주문건에 대한 배송 상태를 표시한다.
-function init(){
-	var frm_delivery_list=document.frm_delivery_list;
-	var h_delivery_state=frm_delivery_list.h_delivery_state;
-	var s_delivery_state=frm_delivery_list.s_delivery_state;
+// function init(){
+// 	var frm_delivery_list=document.frm_delivery_list;
+// 	var h_delivery_state=frm_delivery_list.h_delivery_state;
+// 	var s_delivery_state=frm_delivery_list.s_delivery_state;
 	
 	
-	if(h_delivery_state.length==undefined){
-		s_delivery_state.value=h_delivery_state.value; //조회된 주문 정보가 1건인 경우
-	}else{
-		for(var i=0; s_delivery_state.length;i++){
-			s_delivery_state[i].value=h_delivery_state[i].value;//조회된 주문 정보가 여러건인 경우
-		}
-	}
-}
+// 	if(h_delivery_state.length==undefined){
+// 		s_delivery_state.value=h_delivery_state.value; //조회된 주문 정보가 1건인 경우
+// 	}else{
+// 		for(var i=0; s_delivery_state.length;i++){
+// 			s_delivery_state[i].value=h_delivery_state[i].value;//조회된 주문 정보가 여러건인 경우
+// 		}
+// 	}
+// }
 </script>
 </c:when>
 </c:choose>
@@ -135,8 +135,9 @@ function fn_modify_order_state(order_id,select_id){
 		async : false,
 		url : "${contextPath}/admin/order/modifyDeliveryState.do",
 		data : {
-			order_id:order_id,
-			"delivery_state":value
+			order_id:order_id
+// 			,
+// 			"delivery_state":value
 		},
 		success : function(data, textStatus) {
 			if(data.trim()=='mod_success'){
@@ -472,8 +473,8 @@ function fn_detail_search(){
 				<td class="fixed" >주문번호</td>
 				<td class="fixed">주문일자</td>
 				<td>주문내역</td>
-				<td>배송상태</td>
-				<td>배송수정</td>
+<!-- 				<td>배송상태</td> -->
+<!-- 				<td>배송수정</td> -->
 			</tr>
    <c:choose>
      <c:when test="${empty newOrderList}">			
@@ -520,51 +521,51 @@ function fn_detail_search(){
 				       </c:if>
 				    </c:forEach> 
 				</td>
-				<td width=10%>
-				 <select name="s_delivery_state${i.index }"  id="s_delivery_state${i.index }">
-				 <c:choose>
-				   <c:when test="${item.delivery_state=='delivery_prepared' }">
-				     <option  value="delivery_prepared" selected>배송준비중</option>
-				     <option  value="delivering">배송중</option>
-				     <option  value="finished_delivering">배송완료</option>
-				     <option  value="cancel_order">주문취소</option>
-				     <option  value="returning_goods">반품</option>
-				   </c:when>
-				    <c:when test="${item.delivery_state=='delivering' }">
-				    <option  value="delivery_prepared" >배송준비중</option>
-				     <option  value="delivering" selected >배송중</option>
-				     <option  value="finished_delivering">배송완료</option>
-				     <option  value="cancel_order">주문취소</option>
-				     <option  value="returning_goods">반품</option>
-				   </c:when>
-				   <c:when test="${item.delivery_state=='finished_delivering' }">
-				    <option  value="delivery_prepared" >배송준비중</option>
-				     <option  value="delivering"  >배송중</option>
-				     <option  value="finished_delivering" selected>배송완료</option>
-				     <option  value="cancel_order">주문취소</option>
-				     <option  value="returning_goods">반품</option>
-				   </c:when>
-				   <c:when test="${item.delivery_state=='cancel_order' }">
-				    <option  value="delivery_prepared" >배송준비중</option>
-				     <option  value="delivering"  >배송중</option>
-				     <option  value="finished_delivering" >배송완료</option>
-				     <option  value="cancel_order" selected>주문취소</option>
-				     <option  value="returning_goods">반품</option>
-				   </c:when>
-				   <c:when test="${item.delivery_state=='returning_goods' }">
-				    <option  value="delivery_prepared" >배송준비중</option>
-				     <option  value="delivering"  >배송중</option>
-				     <option  value="finished_delivering" >배송완료</option>
-				     <option  value="cancel_order" >주문취소</option>
-				     <option  value="returning_goods" selected>반품</option>
-				   </c:when>
-				   </c:choose>
-				 </select> 
-				</td>
-				<td width=10%>
-			     <input  type="button" value="배송수정"  onClick="fn_modify_order_state('${item.order_id}','s_delivery_state${i.index}')"/>
-			    </td>
-			</tr>
+<!-- 				<td width=10%> -->
+<%-- 				 <select name="s_delivery_state${i.index }"  id="s_delivery_state${i.index }"> --%>
+<%-- 				 <c:choose> --%>
+<%-- 				   <c:when test="${item.delivery_state=='delivery_prepared' }"> --%>
+<!-- 				     <option  value="delivery_prepared" selected>배송준비중</option> -->
+<!-- 				     <option  value="delivering">배송중</option> -->
+<!-- 				     <option  value="finished_delivering">배송완료</option> -->
+<!-- 				     <option  value="cancel_order">주문취소</option> -->
+<!-- 				     <option  value="returning_goods">반품</option> -->
+<%-- 				   </c:when> --%>
+<%-- 				    <c:when test="${item.delivery_state=='delivering' }"> --%>
+<!-- 				    <option  value="delivery_prepared" >배송준비중</option> -->
+<!-- 				     <option  value="delivering" selected >배송중</option> -->
+<!-- 				     <option  value="finished_delivering">배송완료</option> -->
+<!-- 				     <option  value="cancel_order">주문취소</option> -->
+<!-- 				     <option  value="returning_goods">반품</option> -->
+<%-- 				   </c:when> --%>
+<%-- 				   <c:when test="${item.delivery_state=='finished_delivering' }"> --%>
+<!-- 				    <option  value="delivery_prepared" >배송준비중</option> -->
+<!-- 				     <option  value="delivering"  >배송중</option> -->
+<!-- 				     <option  value="finished_delivering" selected>배송완료</option> -->
+<!-- 				     <option  value="cancel_order">주문취소</option> -->
+<!-- 				     <option  value="returning_goods">반품</option> -->
+<%-- 				   </c:when> --%>
+<%-- 				   <c:when test="${item.delivery_state=='cancel_order' }"> --%>
+<!-- 				    <option  value="delivery_prepared" >배송준비중</option> -->
+<!-- 				     <option  value="delivering"  >배송중</option> -->
+<!-- 				     <option  value="finished_delivering" >배송완료</option> -->
+<!-- 				     <option  value="cancel_order" selected>주문취소</option> -->
+<!-- 				     <option  value="returning_goods">반품</option> -->
+<%-- 				   </c:when> --%>
+<%-- 				   <c:when test="${item.delivery_state=='returning_goods' }"> --%>
+<!-- 				    <option  value="delivery_prepared" >배송준비중</option> -->
+<!-- 				     <option  value="delivering"  >배송중</option> -->
+<!-- 				     <option  value="finished_delivering" >배송완료</option> -->
+<!-- 				     <option  value="cancel_order" >주문취소</option> -->
+<!-- 				     <option  value="returning_goods" selected>반품</option> -->
+<%-- 				   </c:when> --%>
+<%-- 				   </c:choose> --%>
+<!-- 				 </select>  -->
+<!-- 				</td> -->
+<!-- 				<td width=10%> -->
+<%-- 			     <input  type="button" value="배송수정"  onClick="fn_modify_order_state('${item.order_id}','s_delivery_state${i.index}')"/> --%>
+<!-- 			    </td> -->
+<!-- 			</tr> -->
 		</c:when>
 		</c:choose>	
 		<c:set  var="pre_order_id" value="${item.order_id }" />

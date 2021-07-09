@@ -4,248 +4,177 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--  -->
 <mapper namespace="mapper.admin.goods">
-<!-- 리절트 맵 정의  -->	
-		<resultMap id="goodsResult" type="goodsVO">
-		<result property="goods_id" column="goods_id" />
-		<result property="goods_title" column="goods_title" />
-		<result property="goods_place" column="goods_place"/>
-		<result property="goods_publisher" column="goods_publisher" />
-		<result property="goods_price" column="goods_price" />
-
-		
-		<result property="goods_status" column="goods_status" />
-		<result property="goods_sales_price" column="goods_sales_price" />
-		<result property="goods_expired_date" column="goods_expired_date" />
-
-
-		<result property="goods_delivery_price" column="goods_delivery_price" />
-		<result property="goods_delivery_date" column="goods_delivery_date" />
-		
-		<result property="goods_fileName" column="fileName" />
-		<result property="goods_sort" column="goods_sort" />
-		<result property="goods_terms" column="goods_terms" />
-		<result property="goods_usage" column="goods_usage" />
-		<result property="goods_description" column="goods_description"/>
-	</resultMap>
-
-	<resultMap id="imageResult" type="ImageFileVO">
-	   <result property="goods_id" column="goods_id" />
-	   <result property="fileName" column="fileName" />
-	   <result property="reg_id" column="reg_id" />
-	   <result property="image_id" column="image_id" />
-	   <result property="fileType" column="fileType" />
+<!-- 리절트 맵 정의 -->
+	<resultMap type="goodsVO" id="goodsResult">
+	<result column="goods_id" property="goods_id"/>
+	<result column="goods_title" property="goods_title"/>
+	<result column="goods_place" property="goods_place"/>
+	<result column="goods_publisher" property="goods_publisher"/>
+	<result column="goods_price" property="goods_price"/>
+	<result column="goods_status" property="goods_status"/>
+	<result column="goods_sales_price" property="goods_sales_price"/>
+	<result column="goods_expired_date" property="goods_expired_date"/>
+	<result column="goods_delivery_price" property="goods_delivery_price"/>
+	<result column="goods_delivery_date" property="goods_delivery_date"/>
+	<result column="fileName" property="goods_fileName"/>
+	<result column="goods_sort" property="goods_sort"/>
+	<result column="goods_terms" property="goods_terms"/>
+	<result column="goods_usage" property="goods_usage"/>
+	<result column="goods_description" property="goods_description"/>
 	</resultMap>
 	
-	<resultMap id="orderGoodsResult" type="OrderVO">
-		<result property="order_id" column="order_id" />
-		<result property="member_id" column="member_id" />
-		<result property="goods_id" column="goods_id" />
-		<result property="goods_title" column="goods_title" />
-		<result property="goods_sales_price" column="goods_sales_price" />
-		<result property="order_total_price" column="order_total_price" />
-		<result property="order_goods_qty" column="order_goods_qty" />
-		
-		<result property="orderer_name" column="orderer_name" />
-		<result property="receiver_name" column="receiver_name" />
-		<result property="receiver_hp1" column="receiver_hp1" />
-		<result property="receiver_hp2" column="receiver_hp2" />
-		<result property="receiver_hp3" column="receiver_hp3" />
-	
-		<result property="delivery_address" column="delivery_address" />
-		<result property="delivery_message" column="delivery_message" />
-		
-		<result property="delivery_method" column="delivery_method" />
-		<result property="gift_wrapping" column="gift_wrapping" />
-		<result property="pay_method" column="pay_method" />
-		<result property="card_com_name" column="card_com_name" />
-		<result property="card_pay_month" column="card_pay_month" />
-		
-		<result property="pay_orderer_hp_num" column="pay_orderer_hp_num" />
-		<result property="pay_order_time" column="pay_order_time" />
-		<result property="delivery_state" column="delivery_state" />
-		<result property="final_total_price" column="final_total_price" />
-		<result property="goods_qty" column="goods_qty" />
-		
-		<result property="goods_fileName" column="goods_fileName" />
+	<resultMap type="ImageFileVO" id="imageResult">
+	<result column="goods_id" property="goods_id"/>
+	<result column="fileName" property="fileName"/>
+	<result column="reg_id" property="reg_id"/>
+	<result column="image_id" property="image_id"/>
+	<result column="fileType" property="fileType"/>
 	</resultMap>
-	<insert id="insertNewGoods" parameterType="java.util.Map"   >
-		<selectKey resultType="Integer" keyProperty="goods_id" order="BEFORE">
-	    	select seq_goods_id.nextval from dual
-	    </selectKey>
-	    
-	    <![CDATA[
-		   		   insert into TICKET_GOODS(goods_id, 
-		               				goods_sort,
-                    				goods_title,
-                   	 				goods_publisher,
-                   	 				goods_place,
-                    				goods_price,
-									goods_sales_price,
-									goods_point,
-									goods_expired_date,
-									goods_status,
-									goods_terms,
-									goods_usage,
-			              			goods_description)
-					  			values(#{goods_id},
-					  			       #{goods_sort},
-					  			       #{goods_title},
-					  			       #{goods_publisher},
-					  			       #{goods_place},
-					  			       #{goods_price},
-					  			       #{goods_sales_price},
-					  			       #{goods_point},
-					  			       #{goods_expired_date},
-
-					  			       #{goods_status },
-					  			       #{goods_terms},	
-									   #{goods_usage},
-					  			       #{goods_description:VARCHAR}
-					 			 )
-		]]>
-	</insert> 
-		<insert id="insertGoodsImageFile" parameterType="imageFileVO"   >
-		<selectKey resultType="int" keyProperty="image_id" order="BEFORE">
-	    	select seq_image_id.nextval from dual
-	    </selectKey>
-	    <![CDATA[
-		   insert into TICKET_IMAGE (image_id,
-		                                     goods_id,
-																				 fileName,
-																				 fileType,
-																				 reg_id)
-											   					values(#{image_id},
-											   					 			 #{goods_id},
-											   							 	 #{fileName},
-											   								 #{fileType},
-											   								 #{reg_id} )
-		]]>
-	</insert> 
-	<select id="selectNewGoodsList" resultMap="goodsResult"   parameterType="java.util.Map"  >
-	    <![CDATA[ 
-		    select * from (
-            select rowNum as recNum,
-                   goods_id,
-                   goods_sort,
-                   goods_place,
-                   goods_title,
-                   goods_publisher,
-                   goods_price,
-                   goods_sales_price,
-                   goods_point,
-                   goods_status,
-                   to_char(GOODS_EXPIRED_DATE,'YYYY-MM-DD') as GOODS_EXPIRED_DATE
-                from (
-                      select  goods_id,
-                              goods_sort,
-                              goods_place,
-                              goods_title,
-                              goods_publisher,
-                              goods_price,
-                              goods_sales_price,
-                              goods_point,
-                              GOODS_EXPIRED_DATE,
-                              goods_status
-                       from TICKET_GOODS    
-                   ) order by goods_id desc
-            )                  
-         where            
-      recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10
-    	]]>
+	
+	<resultMap type="OrderVO" id="orderGoodsResult">
+	<result column="order_id" property="order_id"/>
+	<result column="member_id" property="member_id"/>
+	<result column="goods_id" property="goods_id"/>
+	<result column="goods_title" property="goods_title"/>
+	<result column="goods_sales_price" property="goods_sales_price"/>
+	<result column="order_total_price" property="order_total_price"/>
+	<result column="order_goods_qty" property="order_goods_qty"/>
+	<result column="orderer_name" property="orderer_name"/>
+	<result column="receiver_name" property="receiver_name"/>
+	<result column="receiver_hp1" property="receiver_hp1"/>
+	<result column="receiver_hp2" property="receiver_hp2"/>
+	<result column="receiver_hp3" property="receiver_hp3"/>
+	<result column="delivery_address" property="delivery_address"/>
+	<result column="delivery_message" property="delivery_message"/>
+	<result column="delivery_method" property="delivery_method"/>
+	<result column="gift_wrapping" property="gift_wrapping"/>
+	<result column="pay_method" property="pay_method"/>
+	<result column="card_com_name" property="card_com_name"/>
+	<result column="card_pay_month" property="card_pay_month"/>
+	<result column="pay_orderer_hp_num" property="pay_orderer_hp_num"/>
+	<result column="pay_order_time" property="pay_order_time"/>
+	<result column="delivery_state" property="delivery_state"/>
+	<result column="final_total_price" property="final_total_price"/>
+	<result column="goods_qty" property="goods_qty"/>
+	<result column="goods_fileName" property="goods_fileName"/>
+	</resultMap>
+	
+	<insert id="insertNewGoods" parameterType="java.util.Map">
+	<selectKey order="BEFORE" keyProperty="goods_id" resultType="Integer"> select seq_goods_id.nextval from dual </selectKey>
+	<![CDATA[ insert into TICKET_GOODS(goods_id,
+									   goods_sort, 
+									   goods_title, 
+									   goods_publisher, 
+									   goods_place, 
+									   goods_price, 
+									   goods_sales_price, 
+									   goods_point, 
+									   goods_expired_date, 
+									   goods_status, 
+									   goods_terms, 
+									   goods_usage, 
+									   goods_description) values(#{goods_id}, 
+									   							 #{goods_sort}, 
+									   							 #{goods_title}, 
+									   							 #{goods_publisher}, 
+									   							 #{goods_place}, 
+									   							 #{goods_price}, 
+									   							 #{goods_sales_price}, 
+									   							 #{goods_point}, 
+									   							 #{goods_expired_date}, 
+									   							 #{goods_status }, 
+									   							 #{goods_terms}, 
+									   							 #{goods_usage}, 
+									   							 #{goods_description:VARCHAR} ) ]]>
+	</insert>
+	
+	<insert id="insertGoodsImageFile" parameterType="imageFileVO">
+	<selectKey order="BEFORE" keyProperty="image_id" resultType="int"> select seq_image_id.nextval from dual </selectKey>
+	<![CDATA[ insert into TICKET_IMAGE (image_id,
+										goods_id, 
+										fileName, 
+										fileType, 
+										reg_id) values(#{image_id}, 
+													   #{goods_id}, 
+													   #{fileName}, 
+													   #{fileType}, 
+													   #{reg_id} ) ]]>
+	</insert>
+	
+	
+	<select id="selectNewGoodsList" parameterType="java.util.Map" resultMap="goodsResult">
+	<![CDATA[ select * from ( select rowNum as recNum, 
+							goods_id, goods_sort, 
+							goods_place, 
+							goods_title, 
+							goods_publisher, 
+							goods_price, 
+							goods_sales_price, 
+							goods_point, 
+							goods_status, 
+							to_char(GOODS_EXPIRED_DATE,'YYYY-MM-DD') as GOODS_EXPIRED_DATE from ( select goods_id, 
+																										 goods_sort, 
+																										 goods_place, 
+																										 goods_title, 
+																										 goods_publisher, 
+																										 goods_price, 
+																										 goods_sales_price, 
+																										 goods_point, 
+																										 GOODS_EXPIRED_DATE, 
+																										 goods_status from TICKET_GOODS ) order by goods_id desc ) where recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10 ]]>
 	</select>
 	
-	<select id="selectOrderGoodsList" resultMap="orderGoodsResult"   parameterType="java.util.Map"  >
-		  select * from (
-			    select rowNum as recNum,t.*
-			       from (
-			              select  *  from TICKET_ORDER 
-			              where to_char(pay_order_time,'yyyy-mm-dd')  between #{beginDate} and #{endDate}
-			                <if test="search_type=='orderer_id'">
-			                  AND orderer_id=#{search_word}
-			                </if>
-			                <if test="search_type=='orderer_name'">
-			                  AND orderer_name=#{search_word}
-			                </if>
-			                <if test="search_type=='orderer_hp_num'">
-			                   AND pay_orderer_hp_num=#{search_word} 
-			                </if>
-			              order by PAY_ORDER_TIME desc
-					    ) t
-				)							
-			where				
-		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10				        
+	<select id="selectOrderGoodsList" parameterType="java.util.Map" resultMap="orderGoodsResult">
+	select * from ( select rowNum as recNum,t.* 
+		from ( select * from TICKET_ORDER where to_char(pay_order_time,'YYYY-MM-DD') 
+		between #{beginDate} and #{endDate} 
+	<if test="search_type=='orderer_id'"> AND orderer_id=#{search_word} </if>
+	<if test="search_type=='orderer_name'"> AND orderer_name=#{search_word} </if>
+	<if test="search_type=='orderer_hp_num'"> AND pay_orderer_hp_num=#{search_word} </if>
+	order by PAY_ORDER_TIME desc ) t ) where recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10 
 	</select>
 	
- 
-
-	
-	<select id="selectGoodsDetail" resultMap="goodsResult"   parameterType="String"  >
-	    <![CDATA[
-		     select g.*,to_char(g.goods_expired_date,'YYYY-MM-DD') as goods_expired_date, d.fileName from TICKET_GOODS g, TICKET_IMAGE d
-	        where g.goods_id=d.goods_id
-	        and d.filetype='main_image'
-	        and g.goods_id=#{goods_id}
-	        order by g.goods_id
-    	]]>
+	<select id="selectGoodsDetail" parameterType="String" resultMap="goodsResult">
+	<![CDATA[ select g.*,to_char(g.goods_expired_date,'YYYY-MM-DD') as goods_expired_date, 
+			  d.fileName from TICKET_GOODS g,
+			  TICKET_IMAGE d where g.goods_id=d.goods_id and d.filetype='main_image' and g.goods_id=#{goods_id} order by g.goods_id ]]>
 	</select>
-	<select id="selectGoodsImageFileList" resultMap="imageResult"   parameterType="String"  >
-	    <![CDATA[
-		    	select * from  TICKET_IMAGE 
-		    	where  
-			    goods_id=#{goods_id}
-			    order by image_id asc
-    	]]>
-	</select>	
 	
 	
-<update id="updateGoodsInfo" parameterType="java.util.HashMap" >
-	   update TICKET_GOODS
-	    <set> 
-	    <choose>
-	      <when test="goods_sort!='' and goods_sort!=null"> goods_sort=#{goods_sort}, </when>
-	      <when test="goods_place!='' and goods_place!=null"> goods_place=#{goods_place}, </when>
-	      <when test="goods_title!='' and goods_title!=null"> goods_title=#{goods_title}, </when>
-	      <when test="goods_publisher!='' and goods_publisher!=null"> goods_publisher=#{goods_publisher}, </when>
-	      <when test="goods_price!='' and goods_price!=null"> goods_price=#{goods_price}, </when>
-	      <when test="goods_sales_price!='' and goods_sales_price!=null"> goods_sales_price=#{goods_sales_price}, </when>
-	      <when test="goods_point!='' and goods_point!=null"> goods_point=#{goods_point}, </when>
-	      <when test="goods_expired_date!='' and goods_expired_date!=null"> goods_expired_date=#{goods_expired_date}, </when>
-	      <when test="goods_status!='' and goods_status!=null"> goods_status=#{goods_status} </when>
-	    </choose>
-	     </set>
-	    where goods_id=#{goods_id}
+	<select id="selectGoodsImageFileList" parameterType="String" resultMap="imageResult">
+	<![CDATA[ select * from TICKET_IMAGE where goods_id=#{goods_id} order by image_id asc ]]>
+	</select>
 	
-	</update>	
-	<update id="updateGoodsImage" parameterType="imageFileVO">
-		update TICKET_IMAGE
-		set fileName=#{fileName}
-		where	 
-		goods_id=#{goods_id} and image_id=#{image_id}
+	<update id="updateGoodsInfo" parameterType="java.util.HashMap">
+		update TICKET_GOODS 
+			<set>
+				<choose>
+					<when test="goods_sort!='' and goods_sort!=null"> goods_sort=#{goods_sort}, </when>
+					<when test="goods_place!='' and goods_place!=null"> goods_place=#{goods_place}, </when>
+					<when test="goods_title!='' and goods_title!=null"> goods_title=#{goods_title}, </when>
+					<when test="goods_publisher!='' and goods_publisher!=null"> goods_publisher=#{goods_publisher}, </when>
+					<when test="goods_price!='' and goods_price!=null"> goods_price=#{goods_price}, </when>
+					<when test="goods_sales_price!='' and goods_sales_price!=null"> goods_sales_price=#{goods_sales_price}, </when>
+					<when test="goods_point!='' and goods_point!=null"> goods_point=#{goods_point}, </when>
+					<when test="goods_expired_date!='' and goods_expired_date!=null"> goods_expired_date=#{goods_expired_date}, </when>
+					<when test="goods_status!='' and goods_status!=null"> goods_status=#{goods_status} </when>
+				</choose>
+			</set>
+		where goods_id=#{goods_id} 
 	</update>
 	
-	<delete id="deleteGoodsImage" parameterType="String">
-	  delete from TICKET_IMAGE
-	  where image_id=#{image_id}
-	</delete>
-	<delete id="iddeletei">
-		delete from TICKET_IMAGE where goods_id=#{0}
-	</delete>
-	<delete id="iddeleteg">
-		delete from TICKET_GOODS where goods_id=#{0}
-	</delete>
-<update id="updateOrderGoods" parameterType="java.util.HashMap" >
-	   update TICKET_ORDER
-	    <set> 
-	      <if test=" delivery_state!='' and delivery_state!=null">
-	        delivery_state=#{delivery_state},
-	      </if>
-	      <if test=" delivery_address!='' and delivery_address!=null">
-	        delivery_address=#{delivery_address},
-	      </if>
-	    </set>
-	    where 
-	    order_id=#{order_id}
+	<update id="updateGoodsImage" parameterType="imageFileVO"> update TICKET_IMAGE set fileName=#{fileName} where goods_id=#{goods_id} and image_id=#{image_id} </update>
+	<delete id="deleteGoodsImage" parameterType="String"> delete from TICKET_IMAGE where image_id=#{image_id} </delete>
+	<delete id="iddeletei"> delete from TICKET_IMAGE where goods_id=#{0} </delete>
+	<delete id="iddeleteg"> delete from TICKET_GOODS where goods_id=#{0} </delete>
 	
-	</update>		
-</mapper>
+	<update id="updateOrderGoods" parameterType="java.util.HashMap">
+		update TICKET_ORDER 
+			<set>
+				<if test=" delivery_state!='' and delivery_state!=null"> delivery_state=#{delivery_state}, </if>
+				<if test=" delivery_address!='' and delivery_address!=null"> delivery_address=#{delivery_address}, </if>
+			</set>
+		where order_id=#{order_id} 
+	</update>
 
+</mapper>

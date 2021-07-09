@@ -6,6 +6,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
  
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -233,7 +234,7 @@ function fn_detail_search(){
 				<tr>
 					<td>
 					  <select name="curYear">
-					     <c:forEach   var="i" begin="0" end="5">
+					     <c:forEach var="i" begin="0" end="5">
 					      <c:choose>
 					        <c:when test="${endYear==endYear-i}">
 					          <option value="${endYear }" selected>${endYear  }</option>
@@ -425,7 +426,6 @@ function fn_detail_search(){
 				<td class="fixed" >회원아이디</td>
 				<td class="fixed">회원이름</td>
 				<td>휴대폰번호</td>
-				<td>주소</td>
 				<td>가입일</td>
 				<td>탈퇴여부</td>
 			</tr>

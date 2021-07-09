@@ -15,7 +15,7 @@ window.onload=function()
 {
   test();
 }
- 
+
 function test(){
 	init();
 	alert("회원 정보가 수정되었습니다.");
@@ -127,7 +127,6 @@ function fn_modify_member_info(member_id,mod_type){
 			var member_birth_y=frm_mod_member.member_birth_y;
 			var member_birth_m=frm_mod_member.member_birth_m;
 			var member_birth_d=frm_mod_member.member_birth_d;
-			var member_birth_gn=frm_mod_member.member_birth_gn;
 			
 			for(var i=0; member_birth_y.length;i++){
 			 	if(member_birth_y[i].selected){
@@ -149,13 +148,6 @@ function fn_modify_member_info(member_id,mod_type){
 				} 
 			}
 			
-			//alert("수정 년:"+value_y+","+value_m+","+value_d);
-			for(var i=0; member_birth_gn.length;i++){
-			 	if(member_birth_gn[i].checked){
-					value_gn=member_birth_gn[i].value;
-					break;
-				} 
-			}
 			//alert("생년 양음년 "+value_gn);
 			value=+value_y+","+value_m+","+value_d+","+value_gn;
 		}else if(mod_type=='hp'){
@@ -187,24 +179,12 @@ function fn_modify_member_info(member_id,mod_type){
 			
 			value=value_email1+","+value_email2+","+value_emailsts_yn;
 			//alert(value);
-		}else if(mod_type=='address'){
-			var zipcode=frm_mod_member.zipcode;
-			var roadAddress=frm_mod_member.roadAddress;
-			var jibunAddress=frm_mod_member.jibunAddress;
-			var namujiAddress=frm_mod_member.namujiAddress;
-			
-			value_zipcode=zipcode.value;
-			value_roadAddress=roadAddress.value;
-			value_jibunAddress=jibunAddress.value;
-			value_namujiAddress=namujiAddress.value;
-			
-			value=value_zipcode+","+value_roadAddress+","+value_jibunAddress+","+value_namujiAddress;
 		}
 	 
 		$.ajax({
 			type : "post",
 			async : false, //false인 경우 동기식으로 처리한다.
-			url : "http://localhost:8090/bts/admin/member/modifyMemberInfo.do",
+			url : "http://localhost:8282/bts/admin/member/modifyMemberInfo.do",
 			data : {
 				member_id:member_id,
 				mod_type:mod_type,
@@ -249,7 +229,7 @@ function fn_delete_member(member_id ,del_yn){
 </head>
 
 <body>
-	<h3>내 상세 정보</h3>
+	<h3>회원 상세 정보</h3>
 <form name="frm_mod_member">	
 	<div id="detail_table">
 		<table>
@@ -275,7 +255,7 @@ function fn_delete_member(member_id ,del_yn){
 				<tr class="dot_line">
 					<td class="fixed_join">이름</td>
 					<td>
-					  <input name="member_name" type="text" size="20" value="${member_info.member_name }"  disabled />
+					  <input name="member_name" type="text" size="20" value="${member_info.member_name }"disabled />
 					 </td>
 					 <td>
 					  <input type="button" value="수정하기" disabled onClick="fn_modify_member_info('${member_info.member_id }','member_name')" />
@@ -341,26 +321,11 @@ function fn_delete_member(member_id ,del_yn){
 							</c:choose>
 					   	</c:forEach>
 					</select>일 
-					
-					   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					   <c:choose>
-					    <c:when test="${member_info.member_birth_gn=='2' }"> 
-					  <input type="radio" name="member_birth_gn" value="2" checked />양력
-						&nbsp;&nbsp;&nbsp; 
-						<input type="radio"  name="member_birth_gn" value="1" />음력
-						</c:when>
-						<c:otherwise>
-						  <input type="radio" name="member_birth_gn" value="2" />양력
-						   &nbsp;&nbsp;&nbsp; 
-						<input type="radio"  name="member_birth_gn" value="1" checked  />음력
-						</c:otherwise>
-						</c:choose>
 					</td>
 					<td>
 					  <input type="button" value="수정하기" onClick="fn_modify_member_info('${member_info.member_id }','member_birth')" />
 					</td>
 				</tr>
-				
 				<tr class="dot_line">
 					<td class="fixed_join">휴대폰번호</td>
 					<td>
@@ -419,22 +384,6 @@ function fn_delete_member(member_id ,del_yn){
 					  <input type="button" value="수정하기" onClick="fn_modify_member_info('${member_info.member_id }','email')" />
 					</td>
 				</tr>
-				<tr class="dot_line">
-					<td class="fixed_join">주소</td>
-					<td>
-					   <input type="text" id="zipcode" name="zipcode" size=5 value="${member_info.zipcode }" > <a href="javascript:execDaumPostcode()">우편번호검색</a>
-					  <br>
-					  <p> 
-					   지번 주소:<br><input type="text" id="roadAddress"  name="roadAddress" size="50" value="${member_info.roadAddress }"><br><br>
-					  도로명 주소: <input type="text" id="jibunAddress" name="jibunAddress" size="50" value="${member_info.jibunAddress }"><br><br>
-					  나머지 주소: <input type="text"  name="namujiAddress" size="50" value="${member_info.namujiAddress }" />
-					   <span id="guide" style="color:#999"></span>
-					   </p>
-					</td>
-					<td>
-					  <input type="button" value="수정하기" onClick="fn_modify_member_info('${member_info.member_id }','address')" />
-					</td>
-				</tr>
 			</tbody>
 		</table>
 		</div>
@@ -449,7 +398,7 @@ function fn_delete_member(member_id ,del_yn){
 				    <input  type="button"  value="회원복원" onClick="fn_delete_member('${member_info.member_id }','N')">   
 				  </c:when>
 				  <c:when  test="${member_info.del_yn=='N' }">
-				    <input  type="button"  value="회원탈퇴" onClick="fn_delete_member('${member_info.member_id }','Y')">
+				    <input  type="button"  value="회원강퇴" onClick="fn_delete_member('${member_info.member_id }','Y')">
 				  </c:when>
 				  
 				</c:choose>
