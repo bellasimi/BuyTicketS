@@ -61,7 +61,7 @@
 	</resultMap>
 	
 	<insert id="insertNewGoods" parameterType="java.util.Map">
-	<selectKey order="BEFORE" keyProperty="goods_id" resultType="Integer"> select seq_goods_id.nextval from dual </selectKey>
+	<selectKey order="BEFORE" keyProperty="goods_id" resultType="Integer"> select  ticket_goods_id_seq.nextval from dual </selectKey>
 	<![CDATA[ insert into TICKET_GOODS(goods_id,
 									   goods_sort, 
 									   goods_title, 

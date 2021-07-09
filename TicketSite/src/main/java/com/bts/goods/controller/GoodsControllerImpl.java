@@ -158,7 +158,6 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		wish.put("member_id", member_id);
 		
 		System.out.println(wish);
-		System.out.println("이 아래서부터 안되나?");
 		boolean exist = goodsService.existwish(wish);
 		System.out.println("isAreadyExisted:"+exist);
 		if(exist==true) {
@@ -195,7 +194,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		boolean result = goodsService.deleteWishList(wish);
 
 		List<GoodsVO> list = goodsService.WishList(member_id); 
-		mav.setViewName("/goods/WishList");
+		mav.setViewName("redirect:/goods/WishList.do");
 		return mav;
 		
 	}
@@ -208,7 +207,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		memberVO = (MemberVO) session.getAttribute("memberInfo");
 		String member_id = memberVO.getMember_id();
 		boolean result = goodsService.deleteWishListAll(member_id);
-		mav.setViewName("/goods/WishList");
+		mav.setViewName("redirect:/goods/WishList.do");
 		return mav;
 		
 	}	

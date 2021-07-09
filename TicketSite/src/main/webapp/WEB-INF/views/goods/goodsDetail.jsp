@@ -19,7 +19,7 @@
 <head>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <style>
-#layer {
+#layer,#layer2  {
 	z-index: 2;
 	position: absolute;
 	top: 0px;
@@ -35,10 +35,9 @@
 	top: 45%;
 	width: 300px;
 	height: 200px;
-	background-color: #ccffff;
+	background-color: white;
 	border: 3px solid #87cb42;
 }
-
 #close {
 	z-index: 4;
 	float: right;
@@ -49,10 +48,11 @@
 		var goods_ticket_date=document.getElementById("goods_ticket_date").value;
 		var order_goods_qty =document.getElementById("order_goods_qty").value;//구매 수량
 		var isLogOn = document.getElementById("isLogOn").value;
+		var layer = $('#layer').attr('name');
 		if(isLogOn == 'false'||isLogOn == ''){
 			alert("로그인 후 이용가능합니다.")
-			
-		}
+			location.href="${contextPath}/member/loginForm.do"
+		}else{
 		if(goods_ticket_date == ''){
 			 alert("예매일을 입력해주세요.")
 		}else{
@@ -70,7 +70,7 @@
 				//alert(data);
 			//	$('#message').append(data);
 				if(data.trim()=='add_success'){
-					imagePopup('open', '.layer01');	
+					imagePopup('open', layer);	
 				}else if(data.trim()=='already_existed'){
 					alert("이미 카트에 등록된 상품입니다.");	
 				}
@@ -84,31 +84,51 @@
 			}
 		}); //end ajax	
 		}// else문 예매일 선택시에만 넘어가게
+		}// else login시에 예매 가능하게
 	}
 
 	
 			
-	function imagePopup(type) {
+	function imagePopup(type,layer) {
+		console.log(type,layer)
 		if (type == 'open') {
-			// 팝업창을 연다.
-			jQuery('#layer').attr('style', 'visibility:visible');
-
-			// 페이지를 가리기위한 레이어 영역의 높이를 페이지 전체의 높이와 같게 한다.
-			jQuery('#layer').height(jQuery(document).height());
-		}
+			if(layer == 'layer'){
+				// 팝업창을 연다.
+				jQuery('#layer').attr('style', 'visibility:visible');
+				// 페이지를 가리기위한 레이어 영역의 높이를 페이지 전체의 높이와 같게 한다.
+				jQuery('#layer').height(jQuery(document).height());
+			}
+			else if(layer == 'layer2'){
+				jQuery('#layer2').attr('style', 'visibility:visible');
+				// 페이지를 가리기위한 레이어 영역의 높이를 페이지 전체의 높이와 같게 한다.
+				jQuery('#layer2').height(jQuery(document).height());
+			}
+		}//type if
 
 		else if (type == 'close') {
-
+			if(layer == 'layer'){
 			// 팝업창을 닫는다.
-			jQuery('#layer').attr('style', 'visibility:hidden');
-		}
-	}
-
+				jQuery('#layer').attr('style', 'visibility:hidden');
+			}
+			else if(layer== 'layer2'){
+				jQuery('#layer2').attr('style', 'visibility:hidden');
+			}
+		}//type elseif
+	}//function
+	
+	/* function imagePopup(type) {
+		console.log(type)
+	
+		
+	}//function */
 	function add_wish(goods_id){
 		console.log(goods_id)
-		var isLogOn = document.getElementById("isLogOn").value;
+		var isLogOn = document.getElementById("isLogOn").value;//id가 isLogOn인 input 태그의 value값을 가져와라!
+		//var layer = document.getElementById("layer").getAttribute("name");//id가 layer인 태그의 name값을 가져와라!
+		var layer = $('#layer2').attr('name');//id가 layer인 태그의 name값을 가져와라! 제이쿼리!!
 		if(isLogOn == 'false' || isLogOn ==''){
 			alert("로그인 후 이용가능합니다.")
+			location.href="${contextPath}/member/loginForm.do"
 		}else{
 		$.ajax({
 			type : "post",
@@ -117,13 +137,12 @@
 			data : {
 				
 				goods_id:goods_id
-				
-				
+	
 			},
 			success : function(data, textStatus) {
-				
+			
 				if(data.trim()=='null'){
-					imagePopup('open', '.layer01');	
+					imagePopup('open', layer);	//.layer02은 null이다. 
 				}else if(data.trim()=='isAlreadyExisted'){
 					alert("이미 위시리스트에 등록된 상품입니다.");	
 				}
@@ -520,16 +539,31 @@ body, html {
 			</div>
 		</div>
 	</div>
-	<div id="layer" style="visibility: hidden">
+	<div id="layer" style="visibility: hidden" name="layer" class="layer">
 		<!-- visibility:hidden 으로 설정하여 해당 div안의 모든것들을 가려둔다. -->
 		<div id="popup">
 			<!-- 팝업창 닫기 버튼 -->
-			<a href="javascript:" onClick="javascript:imagePopup('close', '.layer01');"> <img
+			<a href="javascript:" onClick="javascript:imagePopup('close', 'layer');"> <img
 				src="${contextPath}/resources/image/close.png" id="close" />
 			</a> <br /> <font size="12" id="contents">장바구니에 담았습니다.</font><br>
-<form   action='${contextPath}/cart/myCartList.do'  >				
-		<input  type="submit" value="장바구니 보기">
-</form>			
+			<form   action='${contextPath}/cart/myCartList.do'  >				
+				<input  type="submit" value="장바구니 보기">
+			</form>			
+		</div>
+	</div>
+	<div id="layer2" style="visibility: hidden" name="layer2">
+		<div id="popup">
+			<a href="javascript:" onClick="javascript:imagePopup('close','layer2');">
+			<img
+				src="${contextPath}/resources/image/close.png" id="close" />
+			</a> <br /> <font size="12" id="contents">위시리스트에 담았습니다.</font><br>
+			<form   action='${contextPath}/goods/WishList.do'  >				
+				<input  type="submit" value="위시리스트 보기">
+			</form>			
+			
+		</div>
+	</div>
+	
 </body>
 </html>
 <input type="hidden" name="isLogOn" id="isLogOn" value="${isLogOn}"/>
