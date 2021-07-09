@@ -9,7 +9,8 @@
 <head>
 <script type="text/javascript">
   var cnt=0;
-  function fn_addFile(){
+  function fn_addFile()
+  {
 	  if(cnt == 0){
 		  $("#d_file").append("<br>"+"<input  type='file' name='main_image' id='f_main_image' />");	  
 	  }else{

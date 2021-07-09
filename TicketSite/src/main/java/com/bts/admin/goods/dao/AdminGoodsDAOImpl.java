@@ -20,14 +20,16 @@ public class AdminGoodsDAOImpl  implements AdminGoodsDAO
 	private SqlSession sqlSession;
 	
 	@Override
-	public int insertNewGoods(Map newGoodsMap) throws DataAccessException {
+	public int insertNewGoods(Map newGoodsMap) throws DataAccessException 
+	{
 		sqlSession.insert("mapper.admin.goods.insertNewGoods",newGoodsMap);
 		//return Integer.parseInt((String)newGoodsMap.get("goods_id"));
 		return (Integer) newGoodsMap.get("goods_id");
 	}
 	
 	@Override
-	public void insertGoodsImageFile(List fileList)  throws DataAccessException {
+	public void insertGoodsImageFile(List fileList)  throws DataAccessException 
+	{
 		for(int i=0; i<fileList.size();i++){
 			ImageFileVO imageFileVO=(ImageFileVO)fileList.get(i);
 			sqlSession.insert("mapper.admin.goods.insertGoodsImageFile",imageFileVO);

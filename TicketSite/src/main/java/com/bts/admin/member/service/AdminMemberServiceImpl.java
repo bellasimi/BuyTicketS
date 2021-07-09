@@ -34,7 +34,8 @@ public class AdminMemberServiceImpl implements AdminMemberService
 	@Autowired
 	private AdminMemberDAO adminMemberDAO;
 	
-	public ArrayList<MemberVO> listMember(HashMap condMap) throws Exception{
+	public ArrayList<MemberVO> listMember(HashMap condMap) throws Exception
+	{
 		return adminMemberDAO.listMember(condMap);
 	}
 

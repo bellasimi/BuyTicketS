@@ -8,7 +8,7 @@ import org.springframework.dao.DataAccessException;
 import com.bts.member.vo.MemberVO;
 import com.bts.order.vo.OrderVO;
 
-public interface AdminOrderDAO 
+public interface AdminOrderDAO  
 {
 	public ArrayList<OrderVO> selectNewOrderList(Map condMap) throws DataAccessException;
 	public void  updateDeliveryState(Map deliveryMap) throws DataAccessException;

@@ -24,5 +24,4 @@ public interface AdminGoodsDAO
 	public void updateOrderGoods(Map orderMap) throws DataAccessException;
 	public void iddeletei(int id);
 	public void iddeleteg(int id);
-	
 }

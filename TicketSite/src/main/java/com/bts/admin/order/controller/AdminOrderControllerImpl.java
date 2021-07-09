@@ -36,7 +36,7 @@ import com.bts.mypage.service.MyPageService;
 import com.bts.order.vo.OrderVO;
 
 @Controller("adminOrderController")
-@RequestMapping(value="/admin/order")
+@RequestMapping(value="/admin/order") 
 public class AdminOrderControllerImpl extends BaseController  implements AdminOrderController
 {
 	@Autowired
@@ -45,7 +45,8 @@ public class AdminOrderControllerImpl extends BaseController  implements AdminOr
 	@Override
 	@RequestMapping(value="/adminOrderMain.do" ,method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView adminOrderMain(@RequestParam Map<String, String> dateMap,
-			                          HttpServletRequest request, HttpServletResponse response)  throws Exception {
+			                           HttpServletRequest request, HttpServletResponse response)  throws Exception 
+	{
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 

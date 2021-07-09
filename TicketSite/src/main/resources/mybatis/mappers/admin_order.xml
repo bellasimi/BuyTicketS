@@ -18,9 +18,12 @@
 		<result property="receiver_hp1" column="receiver_hp1" />
 		<result property="receiver_hp2" column="receiver_hp2" />
 		<result property="receiver_hp3" column="receiver_hp3" />
-
-		<result property="delivery_address" column="delivery_address" />
-		<result property="delivery_message" column="delivery_message" />
+		<!--  -->
+<!-- 		<result property="receiver_tel1" column="receiver_tel1" /> -->
+<!-- 		<result property="receiver_tel2" column="receiver_tel2" /> -->
+<!-- 		<result property="receiver_tel3" column="receiver_tel3" /> -->
+<!-- 		<result property="delivery_address" column="delivery_address" /> -->
+<!-- 		<result property="delivery_message" column="delivery_message" /> -->
 		
 		<result property="delivery_method" column="delivery_method" />
 		<result property="gift_wrapping" column="gift_wrapping" />
@@ -47,7 +50,10 @@
 		<result property="member_birth_d" column="member_birth_d" />
 		
 		<result property="member_birth_gn" column="member_birth_gn" />
-
+		<result property="tel1" column="tel1" />
+		<result property="tel2" column="tel2" />
+		<result property="tel3" column="tel3" />
+		
 		<result property="hp1" column="hp1" />
 		<result property="hp2" column="hp2" />
 		<result property="hp3" column="hp3" />
@@ -82,9 +88,9 @@
 <update id="updateDeliveryState" parameterType="java.util.Map" >
 	   update TICKET_ORDER
 	    <set> 
-	      <if test=" delivery_state!='' and delivery_state!=null">
-	        delivery_state=#{delivery_state}
-	      </if>
+<!-- 	      <if test=" delivery_state!='' and delivery_state!=null"> -->
+<!-- 	        delivery_state=#{delivery_state} -->
+<!-- 	      </if> -->
 	    </set>
 	    where 
 	    order_id=#{order_id}

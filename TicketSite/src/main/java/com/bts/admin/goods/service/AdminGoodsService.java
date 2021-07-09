@@ -24,5 +24,4 @@ public interface AdminGoodsService
 	public void removeGoodsImage(int image_id) throws Exception;
 	public void addNewGoodsImage(List imageFileList) throws Exception;
 	public void iddeletesv(int id);
-	
 }

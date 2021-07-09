@@ -6,7 +6,7 @@
 <c:set var="orderList"  value="${orderMap.orderList}"  />
 <c:set var="deliveryInfo"  value="${orderMap.deliveryInfo}"  />
 <c:set var="orderer"  value="${orderMap.orderer}"  />
- 
+  
 <script  type="text/javascript">
 function fn_modify_order_state(order_id){
 	var s_delivery_state=document.getElementById("s_delivery_state");

@@ -28,7 +28,7 @@ import com.bts.member.vo.MemberVO;
 import com.bts.order.vo.OrderVO;
 
 
-@Service("adminOrderService")
+@Service("adminOrderService") 
 @Transactional(propagation=Propagation.REQUIRED)
 public class AdminOrderServiceImpl implements AdminOrderService 
 {

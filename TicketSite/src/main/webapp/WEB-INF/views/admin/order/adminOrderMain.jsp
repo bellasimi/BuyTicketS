@@ -13,7 +13,7 @@ window.onload=function()
 {
 	init();
 }
-
+ 
 //화면이 표시되면서  각각의 주문건에 대한 배송 상태를 표시한다.
 function init(){
 	var frm_delivery_list=document.frm_delivery_list;

@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bts.member.vo.MemberVO;
 
-public interface AdminMemberController 
+public interface AdminMemberController  
 {
 	public ModelAndView adminGoodsMain(@RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView memberDetail(HttpServletRequest request, HttpServletResponse response)  throws Exception;

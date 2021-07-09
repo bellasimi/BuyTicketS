@@ -6,7 +6,7 @@
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <c:set var="goods"  value="${goodsMap.goods}"  />
 <c:set var="imageFileList"  value="${goodsMap.imageFileList}"  />
-
+ 
 <c:choose>
 <c:when test='${not empty goods.goods_status}'>
 <script>

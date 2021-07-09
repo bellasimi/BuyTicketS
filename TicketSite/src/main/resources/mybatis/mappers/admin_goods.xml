@@ -8,6 +8,7 @@
 		<resultMap id="goodsResult" type="goodsVO">
 		<result property="goods_id" column="goods_id" />
 		<result property="goods_title" column="goods_title" />
+		<result property="goods_place" column="goods_place"/>
 		<result property="goods_publisher" column="goods_publisher" />
 		<result property="goods_price" column="goods_price" />
 
@@ -49,7 +50,7 @@
 		<result property="receiver_hp1" column="receiver_hp1" />
 		<result property="receiver_hp2" column="receiver_hp2" />
 		<result property="receiver_hp3" column="receiver_hp3" />
-		
+	
 		<result property="delivery_address" column="delivery_address" />
 		<result property="delivery_message" column="delivery_message" />
 		
@@ -77,11 +78,11 @@
 		               				goods_sort,
                     				goods_title,
                    	 				goods_publisher,
+                   	 				goods_place,
                     				goods_price,
 									goods_sales_price,
 									goods_point,
 									goods_expired_date,
-	
 									goods_status,
 									goods_terms,
 									goods_usage,
@@ -90,6 +91,7 @@
 					  			       #{goods_sort},
 					  			       #{goods_title},
 					  			       #{goods_publisher},
+					  			       #{goods_place},
 					  			       #{goods_price},
 					  			       #{goods_sales_price},
 					  			       #{goods_point},
@@ -144,9 +146,9 @@
                               goods_point,
                               GOODS_EXPIRED_DATE,
                               goods_status
-                       from TICKET_GOODS 
-                   )
-            )                     
+                       from TICKET_GOODS    
+                   ) order by goods_id desc
+            )                  
          where            
       recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10
     	]]>
@@ -199,52 +201,19 @@
 <update id="updateGoodsInfo" parameterType="java.util.HashMap" >
 	   update TICKET_GOODS
 	    <set> 
-	      <if test=" goods_sort!='' and goods_sort!=null">
-	        goods_sort=#{goods_sort},
-	      </if>
-	      <if test=" goods_title!='' and goods_title!=null">
-	        goods_title=#{goods_title},
-	      </if>
-	      <if test="goods_publisher!='' and goods_publisher!=null">
-	        goods_publisher=#{goods_publisher},
-	      </if>
-
-	      <if test=" goods_price!='' and goods_price!=null">
-	        goods_price=#{goods_price},
-	      </if>
-	      <if test=" goods_expired_date!='' and goods_expired_date!=null">
-	        goods_expired_date=#{goods_expired_date},
-	      </if>
-	      <if test=" goods_sales_price!='' and goods_sales_price!=null">
-	        goods_sales_price=#{goods_sales_price},
-	      </if>
-	      <if test=" goods_point!='' and goods_point!=null">
-	        goods_point=#{goods_point},
-	      </if>
-	      <if test=" goods_page_total!='' and goods_page_total!=null">
-	        goods_page_total=#{goods_page_total},
-	      </if>
-	      <if test=" goods_status!='' and goods_status!=null">
-	        goods_status=#{goods_status},
-	      </if>
-	      <if test=" goods_writer_intro!='' and goods_writer_intro!=null">
-	        goods_writer_intro=#{goods_writer_intro},
-	      </if>
-	      <if test=" goods_intro!='' and goods_intro!=null">
-	        goods_intro=#{goods_intro},
-	      </if>
-	      <if test=" publisher_comment!='' and publisher_comment!=null">
-	        publisher_comment=#{publisher_comment},
-	      </if>
-	      <if test=" recommendation!='' and recommendation!=null">
-	        recommendation=#{recommendation},
-	      </if>
-	      <if test=" goods_contents_order!='' and goods_contents_order!=null">
-	        goods_contents_order=#{goods_contents_order:VARCHAR}
-	      </if>
+	    <choose>
+	      <when test="goods_sort!='' and goods_sort!=null"> goods_sort=#{goods_sort}, </when>
+	      <when test="goods_place!='' and goods_place!=null"> goods_place=#{goods_place}, </when>
+	      <when test="goods_title!='' and goods_title!=null"> goods_title=#{goods_title}, </when>
+	      <when test="goods_publisher!='' and goods_publisher!=null"> goods_publisher=#{goods_publisher}, </when>
+	      <when test="goods_price!='' and goods_price!=null"> goods_price=#{goods_price}, </when>
+	      <when test="goods_sales_price!='' and goods_sales_price!=null"> goods_sales_price=#{goods_sales_price}, </when>
+	      <when test="goods_point!='' and goods_point!=null"> goods_point=#{goods_point}, </when>
+	      <when test="goods_expired_date!='' and goods_expired_date!=null"> goods_expired_date=#{goods_expired_date}, </when>
+	      <when test="goods_status!='' and goods_status!=null"> goods_status=#{goods_status} </when>
+	    </choose>
 	     </set>
-	    where 
-	    goods_id=#{goods_id}
+	    where goods_id=#{goods_id}
 	
 	</update>	
 	<update id="updateGoodsImage" parameterType="imageFileVO">

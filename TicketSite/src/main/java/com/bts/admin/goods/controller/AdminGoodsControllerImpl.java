@@ -42,7 +42,8 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 	//�����ڸ���
 	@RequestMapping(value="/adminGoodsMain.do" ,method={RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView adminGoodsMain(@RequestParam Map<String, String> dateMap,
-			                           HttpServletRequest request, HttpServletResponse response)  throws Exception {
+			                           HttpServletRequest request, HttpServletResponse response)  throws Exception 
+	{
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session=request.getSession();
@@ -144,7 +145,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 			}
 			
 			message= "<script>";
-			message += " alert('메인 이미지를 등록해주세요');";
+			message += " alert('새 상품을 등록했습니다2');";
 			message +=" location.href='"+multipartRequest.getContextPath()+"/admin/goods/addNewGoodsForm.do';";
 			message +=("</script>");
 			e.printStackTrace();
@@ -158,7 +159,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 			                            HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
-		
+System.out.println("/modifyGoodsForm.do");
 		Map goodsMap=adminGoodsService.goodsDetail(goods_id);
 		mav.addObject("goodsMap",goodsMap);
 		
