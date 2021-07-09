@@ -12,16 +12,14 @@
 <ul>
 <c:choose>
 <c:when test="${side_menu=='admin_mode'}">
-   <li>
-		<H3>주요기능</H3>
-		<ul>
-			<li><a href="${contextPath}/admin/goods/adminGoodsMain.do">상품관리</a></li>
-			<li><a href="${contextPath}/admin/order/adminOrderMain.do">주문관리</a></li>
-			<li><a href="${contextPath}/admin/member/adminMemberMain.do">회원관리</a></li>
-			<li><a href="#">배송관리</a></li>
-			<li><a href="#">게시판관리</a></li>
-		</ul>
-	</li>
+		<li>
+		<H3>주요기능&nbsp;&nbsp;&nbsp;&nbsp;
+		
+			<a href="${contextPath}/admin/goods/adminGoodsMain.do">상품관리</a>ㅣ
+			<a href="${contextPath}/admin/order/adminOrderMain.do">주문관리</a>ㅣ
+			<a href="${contextPath}/admin/member/adminMemberMain.do">회원관리</a>ㅣ
+			<a href="#">배송관리</a>ㅣ
+			<a href="#">게시판관리</a></H3>
 </c:when>
 <c:when test="${side_menu=='my_page'}">
 	
