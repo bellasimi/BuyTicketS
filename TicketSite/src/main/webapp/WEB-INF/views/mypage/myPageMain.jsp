@@ -114,13 +114,13 @@ body, html {
               <c:when test="${ pre_order_id != item.order_id}">
                 <c:choose>
 	              <c:when test="${item.delivery_state=='delivery_prepared' }">
-	                <tr  bgcolor="lightgreen">    
+	                <tr  bgcolor="gray">    
 	              </c:when>
 	              <c:when test="${item.delivery_state=='finished_delivering' }">
-	                <tr  bgcolor="lightgray">    
+	                <tr  bgcolor="gray">    
 	              </c:when>
 	              <c:otherwise>
-	                <tr  bgcolor="orange">   
+	                <tr  bgcolor="gray">   
 	              </c:otherwise>
 	            </c:choose> 
             <tr>
@@ -177,25 +177,37 @@ body, html {
 </div>
 
 <div id="Point" class="tabcontent">
-포인트
-  <table>
-  <tr>
-  <td>
-  	<strong>사용일자</strong>
-  </td>
-  <td>
-  	<strong>사용내역</strong>
-  </td>
-  <td>
-  	<strong>증감액</strong>
-  </td>
-  <td>
-  	<strong>잔여액</strong>
-  </td>
-  </tr>
-  
+포인트 : member_point
+  <table  border=0 width=100% cellpadding=10 cellspacing=10>
+	  <tr>
+		  <td>
+		  	<strong>사용일자</strong>
+		  </td>
+		  <td>
+		  	<strong>사용내역</strong>
+		  </td>
+		  <td>
+		  	<strong>증감액</strong>
+		  </td>
+		  <td>
+		  	<strong>잔여액</strong>
+		  </td>
+	  </tr>
+	  <tr>
+	  	<td>
+	  	pay_order_time
+	  	</td>
+	  	<td>
+	  	goods_title
+	  	</td>
+	  	<td>
+	  	point_used
+	  	</td>
+	  	<td>
+	  	member_point
+	  	</td>
+	  </tr>
   </table>
- 포인트 : member_point
 </div>
 
 <div id="MyInform" class="tabcontent">
