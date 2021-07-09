@@ -35,7 +35,7 @@ import com.bts.member.vo.MemberVO;
 @RequestMapping(value="/admin/goods")
 public class AdminGoodsControllerImpl extends BaseController  implements AdminGoodsController
 {
-	private static final String CURR_IMAGE_REPO_PATH = "C:\\web\\bts\\src\\main\\webapp\\resources\\shopping\\file_repo";
+	private static final String CURR_IMAGE_REPO_PATH = "C:\\Users\\311\\git\\Ticket\\TicketSite\\src\\main\\webapp\\resources\\shopping\\file_repo\\temp";
 	//private static final String CURR_IMAGE_REPO_PATH = "C:\\shopping\\file_repo";
 	@Autowired
 	private AdminGoodsService adminGoodsService;

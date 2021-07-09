@@ -192,7 +192,7 @@ function  calcPeriod(search_period){
 <DIV class="clear"></DIV>
 <TABLE class="list_view">
 		<TBODY align=center >
-			<tr style="background:#33ff00" >
+			<tr style="background:#33ff00;" >
 				<td>상품번호</td>
 				<td>분류</td>
 				<td>지역</td>
@@ -203,6 +203,7 @@ function  calcPeriod(search_period){
 				<td>포인트</td>
 				<td>유효기간</td>
 				<td>판매상태</td>
+				<td>판매종료일</td>
 				<td>삭제</td>
 			</tr>
    <c:choose>
@@ -245,7 +246,7 @@ function  calcPeriod(search_period){
 <!-- 				<td> -->
 <%-- 				 <strong>${item.goods_credate }</strong>  --%>
 <!-- 				</td> -->
-				<td>
+				<td width="90">
 				    <c:set var="pub_date" value="${item.goods_expired_date}" />
 					   <c:set var="arr" value="${fn:split(pub_date,' ')}" />
 					<strong>
@@ -253,9 +254,12 @@ function  calcPeriod(search_period){
 					</strong>
 				</td>
 				<TD>
-				  <strong>${item.goods_status }</strong>
+					<strong>${item.goods_status }</strong>
 				</TD>
-				<td>
+				<td width="90">
+					<strong>${item.goods_lastsale_date }</strong>
+				</td>
+				<td width="50">
 				<a href="${contextPath}/admin/goods/iddelete.do?goods_id=${item.goods_id}"><button>삭제</button></a>
 				</td>
 			</TR>

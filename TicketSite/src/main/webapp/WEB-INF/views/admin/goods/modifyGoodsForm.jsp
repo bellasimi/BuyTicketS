@@ -174,24 +174,7 @@ function fn_modify_goods(goods_id, attribute)
 		</UL>
 		<DIV class="tab_container">
 <!-- tab1. 메인이미지 -->
-		<div class="tab_content" id="tab1">
-<!-- 			<h4>메인이미지</h4> -->
-<!-- 			<table > -->
-<!-- 				<tr> -->
-<!-- 					<td align="right">파일을 추가하세요 </td> -->
-		            
-<!-- 		            <td  align="left"> <input type="button"  value="파일 추가" onClick="fn_addFile()"/></td> -->
-<!-- 		            <td> -->
-<!-- 			            <div id="d_file"> -->
-<!-- 			            </div> -->
-<!-- 		            </td> -->
-<!-- 					<td> -->
-<%-- <%-- 	 					<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_status')"/> --%>
-<%-- 	 					<input  type="button" value="수정"  onClick="modifyImageFile('main_image','${item.goods_id}','${item.image_id}','${item.fileType}')"/> --%>
-<!-- 					</td> -->
-<!-- 				</tr> -->
-<!-- 			</table> -->
-			
+		<div class="tab_content" id="tab1">			
 			<form id="FILE_FORM" method="post" enctype="multipart/form-data"  >
 				<h4>상품이미지</h4>
 				 <table>
@@ -375,6 +358,14 @@ function fn_modify_goods(goods_id, attribute)
 						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_status')"/>
 					</td>
 				</tr>
+				<tr>
+					<td>판매종료일</td>
+					<td>${goods.goods_lastsale_date}</td>
+					<td><input  name="goods_lastsale_date"  type="date" size="20" value="${goods.goods_lastsale_date}"/></td>
+					<td>
+						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_lastsale_date }','goods_status')"/>
+					</td>
+				</tr>				
 			</table>
 		</div>
 <!-- tab3. 상세설명 -->			

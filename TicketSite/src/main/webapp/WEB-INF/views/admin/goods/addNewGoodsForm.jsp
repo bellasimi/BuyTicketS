@@ -119,24 +119,7 @@
 							<tr>
 								<td >포인트</td>
 								<td>
-<!-- 									<select name="goods_point"> -->
-<!-- 										<option value="nope" selected>0 -->
-<!-- 										<option value="one_hundred">100 -->
-<!-- 										<option value="two_hundred">200 -->
-<!-- 										<option value="three_hundred">300 -->
-<!-- 										<option value="four_hundred">400 -->
-<!-- 										<option value="five_hundred">500 -->
-<!-- 										<option value="six_hundred">600 -->
-<!-- 										<option value="seven_hundred">700 -->
-<!-- 										<option value="eight_hundred">800 -->
-<!-- 										<option value="nine_hundred">900 -->
-<!-- 										<option value="one_thousand">1000 -->
-<!-- 										<option value="two_thousand">2000 -->
-<!-- 										<option value="three_thousand">3000 -->
-<!-- 										<option value="four_thousand">4000 -->
-<!-- 										<option value="five_thousand">5000 -->
-<!-- 									</select> -->
-								<input name="goods_point" type="text" size="40" />
+									<input name="goods_point" type="text" size="40" />
 								</td>
 							</tr>
 					
@@ -144,17 +127,7 @@
 								<td >유효기간</td>
 								<td><input  name="goods_expired_date"  type="date" size="40" /></td>
 							</tr>
-							
-				
-<!-- 							<tr> -->
-<!-- 								<td >상품 배송비</td> -->
-<!-- 								<td><input name="goods_delivery_price" type="text" size="40" /></td> -->
-<!-- 							</tr> -->
-<!-- 							<tr> -->
-<!-- 								<td >상품 도착일</td> -->
-<!-- 								<td><input name="goods_delivery_date"  type="date" size="40" /></td> -->
-<!-- 							</tr> -->
-							
+														
 							<tr>
 								<td >판매상태</td>
 								<td>
@@ -167,6 +140,11 @@
 										<option value="" >수정중</option>
 									</select>
 								</td>
+							</tr>
+							
+							<tr>
+								<td>판매 종료일</td>
+								<td><input  name="goods_lastsale_date"  type="date" size="40" /></td>
 							</tr>
 						</table>	
 					</div>

@@ -14,8 +14,9 @@
 	<result column="goods_status" property="goods_status"/>
 	<result column="goods_sales_price" property="goods_sales_price"/>
 	<result column="goods_expired_date" property="goods_expired_date"/>
-	<result column="goods_delivery_price" property="goods_delivery_price"/>
-	<result column="goods_delivery_date" property="goods_delivery_date"/>
+<!-- 	<result column="goods_delivery_price" property="goods_delivery_price"/> -->
+<!-- 	<result column="goods_delivery_date" property="goods_delivery_date"/> -->
+	<result column="goods_lastsale_date" property="goods_lastsale_date"/>
 	<result column="fileName" property="goods_fileName"/>
 	<result column="goods_sort" property="goods_sort"/>
 	<result column="goods_terms" property="goods_terms"/>
@@ -44,9 +45,9 @@
 	<result column="receiver_hp1" property="receiver_hp1"/>
 	<result column="receiver_hp2" property="receiver_hp2"/>
 	<result column="receiver_hp3" property="receiver_hp3"/>
-	<result column="delivery_address" property="delivery_address"/>
-	<result column="delivery_message" property="delivery_message"/>
-	<result column="delivery_method" property="delivery_method"/>
+<!-- 	<result column="delivery_address" property="delivery_address"/> -->
+<!-- 	<result column="delivery_message" property="delivery_message"/> -->
+<!-- 	<result column="delivery_method" property="delivery_method"/> -->
 	<result column="gift_wrapping" property="gift_wrapping"/>
 	<result column="pay_method" property="pay_method"/>
 	<result column="card_com_name" property="card_com_name"/>
@@ -73,7 +74,8 @@
 									   goods_status, 
 									   goods_terms, 
 									   goods_usage, 
-									   goods_description) values(#{goods_id}, 
+									   goods_description,
+									   goods_lastsale_date) values(#{goods_id}, 
 									   							 #{goods_sort}, 
 									   							 #{goods_title}, 
 									   							 #{goods_publisher}, 
@@ -85,11 +87,14 @@
 									   							 #{goods_status }, 
 									   							 #{goods_terms}, 
 									   							 #{goods_usage}, 
-									   							 #{goods_description:VARCHAR} ) ]]>
+									   							 #{goods_description:VARCHAR},
+									   							 #{goods_lastsale_date})]]>
 	</insert>
 	
 	<insert id="insertGoodsImageFile" parameterType="imageFileVO">
-	<selectKey order="BEFORE" keyProperty="image_id" resultType="int"> select seq_image_id.nextval from dual </selectKey>
+	<selectKey resultType="int" keyProperty="image_id" order="BEFORE">
+		select TICKET_IMAGE_ID_SEQ.nextval from dual
+	</selectKey>
 	<![CDATA[ insert into TICKET_IMAGE (image_id,
 										goods_id, 
 										fileName, 
@@ -111,17 +116,20 @@
 							goods_price, 
 							goods_sales_price, 
 							goods_point, 
-							goods_status, 
+							goods_status,
+							goods_lastsale_date,
 							to_char(GOODS_EXPIRED_DATE,'YYYY-MM-DD') as GOODS_EXPIRED_DATE from ( select goods_id, 
-																										 goods_sort, 
-																										 goods_place, 
-																										 goods_title, 
-																										 goods_publisher, 
-																										 goods_price, 
-																										 goods_sales_price, 
-																										 goods_point, 
-																										 GOODS_EXPIRED_DATE, 
-																										 goods_status from TICKET_GOODS ) order by goods_id desc ) where recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10 ]]>
+													 goods_sort, 
+													 goods_place, 
+													 goods_title, 
+													 goods_publisher, 
+													 goods_price, 
+													 goods_sales_price, 
+													 goods_point, 
+													 GOODS_EXPIRED_DATE, 
+													 goods_status,
+													 goods_lastsale_date
+													  from TICKET_GOODS ) order by goods_id desc ) where recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10 ]]>
 	</select>
 	
 	<select id="selectOrderGoodsList" parameterType="java.util.Map" resultMap="orderGoodsResult">
