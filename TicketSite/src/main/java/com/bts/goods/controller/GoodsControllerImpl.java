@@ -122,11 +122,9 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 	 //  JSONObject
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("keyword", keywordList);
-		 		
+		
 	    String jsonInfo = jsonObject.toString();
 	 
-	  //System.out.println(jsonInfo);
-	
 	    return jsonInfo ;
 	}
 
@@ -144,6 +142,46 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 	mav.addObject("goodsList",list);
 	return mav;
 	}
+	
+	//위시리스트 정렬
+		//판매 종료임박
+		@RequestMapping(value="wishlastsale.do", method={RequestMethod.POST,RequestMethod.GET})
+		public ModelAndView wishlastsale(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+			ModelAndView mav =new ModelAndView();
+			memberVO = (MemberVO) session.getAttribute("memberInfo");
+			String member_id = memberVO.getMember_id();
+			List<GoodsVO> list = goodsService.wishlastsale(member_id);
+			mav.addObject("goodsList",list);
+			mav.addObject("listmenu","list1");
+			mav.setViewName("/goods/WishList");
+			return mav;
+		}
+		//가격 오름차순
+		@RequestMapping(value="wishcheap.do", method={RequestMethod.POST,RequestMethod.GET})
+		public ModelAndView wishcheap(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+			ModelAndView mav =new ModelAndView();
+			memberVO = (MemberVO) session.getAttribute("memberInfo");
+			String member_id = memberVO.getMember_id();
+			List<GoodsVO> list = goodsService.wishcheap(member_id);
+			mav.addObject("goodsList",list);
+			mav.addObject("listmenu","list2");
+			mav.setViewName("/goods/WishList");
+			return mav;
+		}
+		//할인율순
+		@RequestMapping(value="wishdiscount.do", method={RequestMethod.POST,RequestMethod.GET})
+		public ModelAndView wishdiscount(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+			ModelAndView mav =new ModelAndView();
+			memberVO = (MemberVO) session.getAttribute("memberInfo");
+			String member_id = memberVO.getMember_id();
+			List<GoodsVO> list = goodsService.wishdiscount(member_id);
+			mav.addObject("goodsList",list);
+			mav.addObject("listmenu","list3");
+			mav.setViewName("/goods/WishList");
+			return mav;
+		}
+		//평점순
+
 	//위시리스트에 추가 
 	@RequestMapping(value="/addwish.do", method= {RequestMethod.POST,RequestMethod.GET})
 	public @ResponseBody String addwish(@RequestParam("goods_id")int goods_id,HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -238,6 +276,8 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		session.setAttribute("quickGoodsList",quickGoodsList);
 		session.setAttribute("quickGoodsListNum", quickGoodsList.size());
 	}
+	
+
 	//키워드: goods_status 값: 해당 goodsVO 인 MAP 구현 함수 
 	//현재 사용하고 있지 않음 -> 이기능을 admingoodsControl의 매핑주소:/admin/goods/adminGoodsMain.do  adminGoodsMain() 함수가 구현하고 있음 
 	@RequestMapping(value="/goodsList.do" ,method={RequestMethod.POST,RequestMethod.GET})

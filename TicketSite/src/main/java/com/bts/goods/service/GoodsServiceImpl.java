@@ -99,4 +99,22 @@ public class GoodsServiceImpl implements GoodsService{
 
 		return goodsDAO.existwish(wish); 
 	}
+
+	@Override
+	public List<GoodsVO> wishlastsale(String member_id) throws Exception {
+		
+		return goodsDAO.wishlastsale(member_id);
+	}
+
+	@Override
+	public List<GoodsVO> wishcheap(String member_id) throws Exception {
+
+		return goodsDAO.wishcheap(member_id);
+	}
+
+	@Override
+	public List<GoodsVO> wishdiscount(String member_id) throws Exception {
+
+		return goodsDAO.wishdiscount(member_id);
+	}
 }

@@ -94,5 +94,21 @@ public class GoodsDAOImpl  implements GoodsDAO{
 		return Boolean.parseBoolean(goods_id);//결과물이 존재하는지 Boolean형식으로 parsing 있으면 true, 없으면 false
 	}
 
+	@Override
+	public List<GoodsVO> wishlastsale(String member_id) throws DataAccessException {
+		
+		return sqlSession.selectList("mapper.goods.wishlastsale", member_id);
+	}
+
+	@Override
+	public List<GoodsVO> wishcheap(String member_id) throws DataAccessException {
+		return sqlSession.selectList("mapper.goods.wishcheap", member_id);
+	}
+
+	@Override
+	public List<GoodsVO> wishdiscount(String member_id) throws DataAccessException {
+		return sqlSession.selectList("mapper.goods.wishdiscount", member_id);
+	}
+
 	
 }

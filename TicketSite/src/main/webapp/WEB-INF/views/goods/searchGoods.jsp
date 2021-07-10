@@ -80,7 +80,8 @@
 		<ul>
 			<li><a class="active" href="#">판매 종료 임박</a></li>
 			<li><a href="#">가격 오름차순</a></li>
-			<li><a style="border: currentColor; border-image: none;" href="#">최근 등록</a></li>
+			<li><a href="#">할인률순</a></li>
+			<li><a style="border: currentColor; border-image: none;" href="#">평점순</a></li>
 		</ul>
 	</div>
 	<table id="list_view">

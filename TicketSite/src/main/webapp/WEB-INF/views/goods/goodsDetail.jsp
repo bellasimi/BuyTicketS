@@ -25,6 +25,7 @@
 	top: 0px;
 	left: 0px;
 	width: 100%;
+	font-size:12pt;
 }
 
 #popup {
@@ -94,9 +95,9 @@
 		if (type == 'open') {
 			if(layer == 'layer'){
 				// 팝업창을 연다.
-				jQuery('#layer').attr('style', 'visibility:visible');
+				$('#layer').attr('style', 'visibility:visible');
 				// 페이지를 가리기위한 레이어 영역의 높이를 페이지 전체의 높이와 같게 한다.
-				jQuery('#layer').height(jQuery(document).height());
+				$('#layer').height(jQuery(document).height());
 			}
 			else if(layer == 'layer2'){
 				jQuery('#layer2').attr('style', 'visibility:visible');
@@ -545,7 +546,7 @@ body, html {
 			<!-- 팝업창 닫기 버튼 -->
 			<a href="javascript:" onClick="javascript:imagePopup('close', 'layer');"> <img
 				src="${contextPath}/resources/image/close.png" id="close" />
-			</a> <br /> <font size="12" id="contents">장바구니에 담았습니다.</font><br>
+			</a> <br /> <font size="12" id="contents" style="font-size: 30pt;text-align: center;">장바구니에<br> 담았습니다.</font><br><br>
 			<form   action='${contextPath}/cart/myCartList.do'  >				
 				<input  type="submit" value="장바구니 보기">
 			</form>			
@@ -556,7 +557,7 @@ body, html {
 			<a href="javascript:" onClick="javascript:imagePopup('close','layer2');">
 			<img
 				src="${contextPath}/resources/image/close.png" id="close" />
-			</a> <br /> <font size="12" id="contents">위시리스트에 담았습니다.</font><br>
+			</a> <br /> <font size="12" id="contents" style="font-size:30pt; text-align: center;">위시리스트에<br> 담았습니다.</font><br><br>
 			<form   action='${contextPath}/goods/WishList.do'  >				
 				<input  type="submit" value="위시리스트 보기">
 			</form>			

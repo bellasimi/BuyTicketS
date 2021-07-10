@@ -13,28 +13,44 @@
       pageContext.setAttribute("br", "<br/>"); //br 태그
 %> 
 <head>
+<script type="text/javascript">
+$(document).ready(function(){
+	var listmenu = $('#listmenu').val();
+	console.log(listmenu);
+	if(listmenu == 'list1'){
+	 	 $('#list1').attr('class','active');}
+	else if (listmenu == 'list2'){
+		 $('#list2').attr('class','active');}
+	else if (listmenu == 'list3'){
+		 $('#list3').attr('class','active');}
+	else if (listmenu == 'list4'){
+		 $('#list4').attr('class','active');}
+	
+});
+</script>
  <title>위시리스트</title>
 </head>
 <body>
 	<hgroup>
 		<h1>위시리스트</h1>
 	</hgroup>
-	
+	<input type="hidden" value="${listmenu}" id="listmenu"/>
 	<div id="sorting">
 		<ul>
-	
-			<li><a class="active" href="#">판매 종료 임박</a></li>
-			<li><a href="#">가격 오름차순</a></li>
-			<li><a style="border: currentColor; border-image: none;" href="#">최근 등록</a></li>
+
+			<li><a id="list1" href="${contextPath}/goods/wishlastsale.do">판매 종료 임박</a></li>
+			<li><a id="list2" href="${contextPath}/goods/wishcheap.do">가격 오름차순</a></li>
+			<li><a id="list3" href="${contextPath}/goods/wishdiscount.do">할인율순</a></li>
+			<li><a id="list4" style="border: currentColor; border-image: none;" href="${contextPath}/goods/wishrate.do">평점순</a></li>
 
 		</ul>
 	</div>
 	<table id="list_view">
-					
 	
 		<tbody>
 		  <c:forEach var="item" items="${goodsList}"> 
 			<tr>
+					<td><input type="checkbox" value=""></td>
 					<td class="goods_image">
 						<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">
 							   <img width="75" alt="" src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"/>
@@ -57,9 +73,12 @@
 				               ${goods_sales_price}원 
 						</strong><br>(${item.goods_discount}% 할인)
 					</td>
-					<td><input type="checkbox" value=""></td>
+				<!-- 
+	<td class="buy_btns2">  main.css 702,705 a끼리 줄바꿈 안되게 수정 display: block;삭제 -->
+	
 	<td class="buy_btns">
 						<UL>
+						<li><a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">구매</a></li>
 						<li><a href="${contextPath}/goods/deletewish.do?goods_id=${item.goods_id}">삭제</a></li>
 						
 							
@@ -70,8 +89,11 @@
 			</c:forEach>
 		</tbody>
 		<td class="buy_btns" style="width:20px">
+		<!-- <td class="buy_btns2" style="width:20px"> -->
 						<UL>
-						<li><a href="${contextPath}/goods/deletewishall.do">전체삭제</a></li>
+						<li><a href="${contextPath}/goods/deletewishall.do">전체삭제</a>
+						<a href="${contextPath}/goods/deletewicheck.do">선택삭제</a>
+						</li>
 						</UL>
 					</td>
 	</table>
