@@ -29,11 +29,12 @@ import com.bts.member.vo.MemberVO;
 @RequestMapping(value="/admin/goods")
 public class AdminGoodsControllerImpl extends BaseController  implements AdminGoodsController
 {
-    private static final String CURR_IMAGE_REPO_PATH = "C:\\Users\\311\\git\\Ticket\\TicketSite\\src\\main\\webapp\\resources\\shopping\\file_repo\\temp";
-    //private static final String CURR_IMAGE_REPO_PATH = "C:\\shopping\\file_repo";
+	//학원 컴퓨터 git 위치 
+	//private static String CURR_IMAGE_REPO_PATH = "C:\\Users\\311\\git\\Ticket\\TicketSite\\src\\main\\webapp\\resources\\shopping\\file_repo";
+    //본인 컴퓨터 git 위치  
+	private static final String CURR_IMAGE_REPO_PATH = "C:\\Users\\82107\\git\\Ticket\\TicketSite\\src\\main\\webapp\\resources\\shopping\\file_repo";
     @Autowired
     private AdminGoodsService adminGoodsService;
-    //�����ڸ���
     @RequestMapping(value="/adminGoodsMain.do" ,method={RequestMethod.POST,RequestMethod.GET})
     public ModelAndView adminGoodsMain(@RequestParam Map<String, String> dateMap,
                                        HttpServletRequest request, HttpServletResponse response)  throws Exception 
@@ -42,7 +43,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
         ModelAndView mav = new ModelAndView(viewName);
         HttpSession session=request.getSession();
         session=request.getSession();
-        session.setAttribute("side_menu", "admin_mode"); //���������� ���̵� �޴��� �����Ѵ�.
+        session.setAttribute("side_menu", "admin_mode"); 
         
         String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
         String section = dateMap.get("section");
@@ -83,7 +84,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
         return mav;
         
     }
-    //��ǰ���
+   
     @RequestMapping(value="/addNewGoods.do" ,method={RequestMethod.POST})
     public ResponseEntity addNewGoods(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)  throws Exception {
         multipartRequest.setCharacterEncoding("utf-8");
@@ -92,6 +93,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
         
         Map newGoodsMap = new HashMap();
         Enumeration enu=multipartRequest.getParameterNames();
+       
         while(enu.hasMoreElements()){
             String name=(String)enu.nextElement();
             String value=multipartRequest.getParameter(name);
@@ -102,6 +104,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
     MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
     String reg_id = memberVO.getMember_id();
         List<ImageFileVO> imageFileList =upload(multipartRequest);
+       
         if(imageFileList!= null && imageFileList.size()!=0) {
             for(ImageFileVO imageFileVO : imageFileList) {
                 imageFileVO.setReg_id(reg_id);
@@ -151,13 +154,13 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
                                         HttpServletRequest request, HttpServletResponse response)  throws Exception {
         String viewName=(String)request.getAttribute("viewName");
         ModelAndView mav = new ModelAndView(viewName);
-System.out.println("/modifyGoodsForm.do");
+        System.out.println("/modifyGoodsForm.do");
         Map goodsMap=adminGoodsService.goodsDetail(goods_id);
         mav.addObject("goodsMap",goodsMap);
         
         return mav;
     }
-    //��ǰ���� ����â���� ajax�� ������ ���� ����
+    
     @RequestMapping(value="/modifyGoodsInfo.do" ,method={RequestMethod.POST})
     public ResponseEntity modifyGoodsInfo( @RequestParam("goods_id") String goods_id,
                                  @RequestParam("attribute") String attribute,
@@ -212,7 +215,6 @@ System.out.println("/modifyGoodsForm.do");
                 }
                 
                 adminGoodsService.modifyGoodsImage(imageFileList);
-                //���ε��� �̹����� ��ǰ��ȣ ������ ����!
                 for(ImageFileVO  imageFileVO:imageFileList) {
                     imageFileName = imageFileVO.getFileName();
                     File srcFile = new File(CURR_IMAGE_REPO_PATH+"\\"+"temp"+"\\"+imageFileName);

@@ -86,11 +86,11 @@
 								<td width=500>
 									<select name="goods_place">
 										<option value="seoul" selected>서울시
-										<option value="gyeonggi">경기도
-										<option value="gangwon">강원도
-										<option value="chungcheong">충청도
+										<option value="ggi">경기도
+										<option value="gang">강원도
+										<option value="chung">충청도
 										<option value="jeolla">전라도
-										<option value="gyeongsang">경상도
+										<option value="sang">경상도
 										<option value="jeju">제주도
 									</select>
 								</td>
@@ -109,7 +109,10 @@
 								<td >상품가격</td>
 								<td><input name="goods_price" type="text" size="40" /></td>
 							</tr>
-					
+							<tr >
+								<td >할인률</td>
+								<td><input name="goods_discount" type="text" size="40" placeholder="정수형"/></td>
+							</tr>
 							<tr>
 								<td >상품판매가격</td>
 								<td><input name="goods_sales_price" type="text" size="40" /></td>
@@ -135,9 +138,6 @@
 										<option value="bestseller" selected >베스트셀러</option>
 										<option value="bigsale" >초특가세일</option>
 										<option value="new"  >신규 액티비티</option>
-										<option value="kids" >수정중</option>
-										<option value="freecancel" >수정중</option>
-										<option value="" >수정중</option>
 									</select>
 								</td>
 							</tr>

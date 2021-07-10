@@ -25,9 +25,11 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 import com.bts.goods.vo.ImageFileVO;
 
 public abstract class BaseController  {
-	private static final String CURR_IMAGE_REPO_PATH = "C:\\Users\\311\\git\\Ticket\\TicketSite\\src\\main\\webapp\\resources\\shopping\\file_repo";
-	//private static final String CURR_IMAGE_REPO_PATH = "C:\\shopping\\file_repo";
-	
+	//학원 컴퓨터 git 위치 
+	//private static String CURR_IMAGE_REPO_PATH = "C:\\Users\\311\\git\\Ticket\\TicketSite\\src\\main\\webapp\\resources\\shopping\\file_repo";
+    //본인 컴퓨터 git 위치 
+    private static final String CURR_IMAGE_REPO_PATH = "C:\\Users\\82107\\git\\Ticket\\TicketSite\\src\\main\\webapp\\resources\\shopping\\file_repo";
+ 
 	protected List<ImageFileVO> upload(MultipartHttpServletRequest multipartRequest) throws Exception{
 		List<ImageFileVO> fileList= new ArrayList<ImageFileVO>();
 		Iterator<String> fileNames = multipartRequest.getFileNames();
