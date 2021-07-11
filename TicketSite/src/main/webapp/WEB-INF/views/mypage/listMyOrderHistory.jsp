@@ -149,10 +149,10 @@ function fn_cancel_order(order_id){
 				<td class="fixed">주문일자</td>
 				<td>주문내역</td>
 				<td>주문금액/수량</td>
-				<td>주문상태</td>
+				<td>리뷰등록</td>
 				<td>주문자</td>
 				<td>수령자</td>
-				<td>주문취소</td>
+				<td>예매마감일</td>
 			</tr>
    <c:choose>
      <c:when test="${empty myOrderHistList }">			
@@ -194,20 +194,11 @@ function fn_cancel_order(order_id){
 				<td>
 				  <strong>
 				    <c:choose>
-					    <c:when test="${item.delivery_state=='delivery_prepared' }">
-					       배송준비중
+					    <c:when test="${item.review_state=='review_confirm' }">
+					       리뷰등록
 					    </c:when>
-					    <c:when test="${item.delivery_state=='delivering' }">
-					       배송중
-					    </c:when>
-					    <c:when test="${item.delivery_state=='finished_delivering' }">
-					       배송완료
-					    </c:when>
-					    <c:when test="${item.delivery_state=='cancel_order' }">
-					       주문취소
-					    </c:when>
-					    <c:when test="${item.delivery_state=='returning_goods' }">
-					       반품
+					    <c:when test="${item.review_state=='review_unconfirm' }">
+					       리뷰미등록
 					    </c:when>
 				  </c:choose>
 				  </strong>
@@ -220,7 +211,7 @@ function fn_cancel_order(order_id){
 				</td>
 				<td>
 			     <c:choose>
-			   <c:when test="${item.delivery_state=='delivery_prepared'}">
+			   <c:when test="${item.review_state=='review_confirm'}">
 			       <input  type="button" onClick="fn_cancel_order('${item.order_id}')" value="주문취소"  />
 			   </c:when>
 			   <c:otherwise>

@@ -7,7 +7,6 @@
 <html>
 <head>
 <meta charset="utf-8">
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
  <script>
     
    window.onload=function()
@@ -243,17 +242,6 @@ function fn_modify_member_info(attribute){
 							</c:choose>
 					   	</c:forEach>
 					</select>일 <span style="padding-left:50px"></span>
-					   <c:choose>
-					    <c:when test="${memberInfo.member_birth_gn=='2' }"> 
-					  <input type="radio" name="member_birth_gn" value="2" checked />양력
-						<span style="padding-left:20px"></span> 
-						<input type="radio"  name="member_birth_gn" value="1" />음력
-						</c:when>
-						<c:otherwise>
-						  <input type="radio" name="member_birth_gn" value="2" />양력
-						  <input type="radio"  name="member_birth_gn" value="1" checked  />음력
-						</c:otherwise>
-						</c:choose>
 					</td>
 					<td>
 					  <input type="button" value="수정하기" onClick="fn_modify_member_info('member_birth')" />

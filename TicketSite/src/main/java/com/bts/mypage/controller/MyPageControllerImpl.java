@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bts.common.base.BaseController;
 import com.bts.member.vo.MemberVO;
+import com.bts.mypage.service.MyPageDummyService;
 import com.bts.mypage.service.MyPageService;
 import com.bts.order.vo.OrderVO;
 
@@ -32,6 +33,9 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 	
 	@Autowired
 	private MemberVO memberVO;
+	
+	@Autowired
+	private MyPageDummyService dummyService;
 	
 	@Override
 	@RequestMapping(value="/myPageMain.do" ,method = RequestMethod.GET)
@@ -47,6 +51,10 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		String member_id=memberVO.getMember_id();
 		
 		List<OrderVO> myOrderList=myPageService.listMyOrderGoods(member_id);
+		
+		// 아래는 test를 위한 dummy data 입니다
+		//TODO:: 아래는 삭제 되어야 할 부분 입니다.
+		//myOrderList = dummyService.createDummyGoods();
 		
 		mav.addObject("message", message);
 		mav.addObject("myOrderList", myOrderList);
