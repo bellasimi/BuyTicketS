@@ -3,9 +3,11 @@ package com.bts.goods.controller;
 import java.io.Console;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bts.common.base.BaseController;
 import com.bts.goods.service.GoodsService;
 import com.bts.goods.vo.GoodsVO;
+import com.bts.goods.vo.ImageFileVO;
 import com.bts.member.vo.MemberVO;
 
 import net.sf.json.JSONObject;
@@ -80,6 +83,8 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		Map goodsMap=goodsService.goodsDetail(goods_id);
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("goodsMap", goodsMap);
+		List<ImageFileVO> imageList = (List<ImageFileVO>) goodsMap.get("imageList");
+		System.out.println(imageList);
 		GoodsVO goodsVO=(GoodsVO)goodsMap.get("goodsVO");
 		mav.addObject("goods", goodsVO);
 		addGoodsInQuick(goods_id,goodsVO,session); //이걸 모르겠네 아마 이게 커맨드 방식으로 goodsvo 보내주는 걸까?
@@ -102,11 +107,69 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		List<GoodsVO> goodsList=goodsService.searchGoods(searchWord);
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("goodsList", goodsList);
+		mav.addObject("searchWord",searchWord);
 		return mav;
 		
 	}
-
-	//키워드로 찾기 -> 뷰페이지가 없음 (타일즈 설정도 없음), 헤더에 존재, json으로 keyword;goods_title
+//검색어로 찾기 정렬
+	//판매종료임박순-  오름차순
+	@RequestMapping(value="/searchlastsale.do",method={RequestMethod.POST,RequestMethod.GET})
+	public ModelAndView searchlastsale(@RequestParam("searchWord")String searchWord,HttpServletResponse response, HttpServletRequest request) throws Exception {
+		System.out.println("야호");
+		ModelAndView mav = new ModelAndView();
+		List<GoodsVO> goodsList = goodsService.searchGoods(searchWord);
+		System.out.println(searchWord);
+		goodsList = goodsList.stream().sorted(Comparator.comparing(GoodsVO::getGoods_lastsale_date)).collect(Collectors.toList());
+		System.out.println(goodsList);
+		mav.addObject("listmenu", "list1");
+		mav.addObject("goodsList", goodsList);
+		mav.addObject("searchWord",searchWord);
+		mav.setViewName("/goods/searchGoods");
+		return mav;
+		
+	}
+	//가격 오름차순
+	@RequestMapping(value="/searchcheap.do", method = {RequestMethod.GET})
+	public ModelAndView searchprice(@RequestParam("searchWord")String searchWord,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		List <GoodsVO> goodsList = goodsService.searchGoods(searchWord);
+		goodsList = goodsList.stream().sorted(Comparator.comparing(GoodsVO::getGoods_sales_price)).collect(Collectors.toList());
+		mav.addObject("listmenu","list2");
+		mav.addObject("goodsList",goodsList);
+		mav.addObject("searchWord",searchWord);
+		mav.setViewName("/goods/searchGoods");
+		return mav;
+	}
+	//할인율 내림차순
+	@RequestMapping(value="/searchdiscount.do", method =RequestMethod.GET)
+	public ModelAndView searchdiscount(@RequestParam("searchWord")String searchWord, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		List<GoodsVO> goodsList = goodsService.searchGoods(searchWord);
+		goodsList = goodsList.stream().sorted(Comparator.comparing(GoodsVO::getGoods_discount).reversed()).collect(Collectors.toList());
+		mav.addObject("goodsList",goodsList);
+		mav.addObject("searchWord",searchWord);
+		mav.addObject("listmenu","list3");
+		mav.setViewName("/goods/searchGoods");
+		
+		return mav;
+	}
+	//평점평균 내림차순 
+	@RequestMapping(value="/searchrate.do", method=RequestMethod.GET)
+	public ModelAndView searchrate(@RequestParam("searchWord")String searchWord,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		List<GoodsVO> goodsList = goodsService.searchGoods(searchWord);
+		/*
+		 * goodsList =
+		 * goodsList.stream().sorted(Comparator.comparing(GoodsVO::getGoods_rate_avg).
+		 * reversed()).collect(Collectors.toList());
+		 * mav.addObject("goodsList",goodsList); mav.addObject("searchWord",searchWord);
+		 */
+		  mav.addObject("listmenu","list4"); mav.setViewName("/goods/searchGoods");
+		 
+		return mav;
+	}
+	
+	//키워드로 찾기 -> 뷰페이지가 없음 (타일즈 설정도 없음), 헤더에 존재, json으로 keyword:goods_title
 	@RequestMapping(value="/keywordSearch.do",method = RequestMethod.GET,produces = "application/text; charset=utf8")
 	public @ResponseBody String  keywordSearch(@RequestParam("keyword") String keyword,
 			                                  HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -117,14 +180,15 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		   return null ;
 	
 		keyword = keyword.toUpperCase();
+		//System.out.println(keyword);
 	    List<String> keywordList =goodsService.keywordSearch(keyword);
-	    
+	    //System.out.println(keywordList);
 	 //  JSONObject
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("keyword", keywordList);
 		
 	    String jsonInfo = jsonObject.toString();
-	 
+
 	    return jsonInfo ;
 	}
 
@@ -188,16 +252,13 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		HttpSession session = request.getSession();
 		memberVO=(MemberVO) session.getAttribute("memberInfo");
 		String member_id = memberVO.getMember_id();
-		System.out.println(goods_id);
-		System.out.println(member_id);
+	
 		
 		Map wish = new HashMap();
 		wish.put("goods_id",goods_id);
 		wish.put("member_id", member_id);
 		
-		System.out.println(wish);
 		boolean exist = goodsService.existwish(wish);
-		System.out.println("isAreadyExisted:"+exist);
 		if(exist==true) {
 			return "isAlreadyExisted";
 		}
@@ -221,6 +282,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 //위시리스트에서 각각삭제
 	@RequestMapping(value="deletewish.do", method={RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView deletewish(@RequestParam("goods_id")int goods_id,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();
 		memberVO = (MemberVO) session.getAttribute("memberInfo");
@@ -228,7 +290,6 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		Map wish = new HashMap();
 		wish.put("goods_id", goods_id);
 		wish.put("member_id", member_id);
-		
 		boolean result = goodsService.deleteWishList(wish);
 
 		List<GoodsVO> list = goodsService.WishList(member_id); 

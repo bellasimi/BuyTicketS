@@ -13,9 +13,94 @@
       pageContext.setAttribute("br", "<br/>"); //br 태그
 %> 
 <head>
+<script type="text/javascript">
+$(document).ready(function(){
+	var listmenu = $('input[id=listmenu]').val();
+	console.log(listmenu);
+	if(listmenu == "list1"){//판매종료
+		$('#list1').attr('class','active');}
+	else if(listmenu == "list2"){//가격
+		$('#list2').attr('class','active');}
+	else if(listmenu == "list3"){//할인율
+		$('#list3').attr('class','active');}
+	else if(listmenu == "list4"){//평점
+		$('#list4').attr('class','active');}
+		
+}); 
+function add_wish(goods_id){
+	var isLogOn = $('#isLogOn').val();
+	console.log(isLogOn);
+	if(isLogOn =='false'|| isLogOn ==''){
+		alert("로그인 후 이용해주세요!");
+	}
+	else{
+	$.ajax({
+		type : "post",
+		async : false, //false인 경우 동기식으로 처리한다.
+		url : "${contextPath}/goods/addwish.do",
+		data : {
+			goods_id:goods_id
+		},
+		
+		success : function(data, textStatus) {
+			
+			if(data.trim()=='null'){
+				imgpopup("#layer","open")
+			}else if(data.trim()=='isAreadyExisted'){
+				alert("이미 위시리스트에 담긴 상품입니다.");	
+			}
+			
+		},
+		error : function(data, textStatus) {
+			alert("에러가 발생했습니다."+data);
+		},
+		complete : function(data, textStatus) {
+			//alert("작업을완료 했습니다");
+			
+		}
+	}); //end ajax
+	}//else
+}
+
+function imgpopup(layer,style){
+	if(style=="open"){
+		$(layer).attr("style","visibility:visible");}
+	else if(style =="close"){
+		$(layer).attr("style","visibility:hidden");}
+	
+}
+
+</script>
+<style>
+#layer{
+	z-index: 2;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	font-size:12pt;
+}
+
+#popup {
+	z-index: 3;
+	position: fixed;
+	text-align: center;
+	left: 50%;
+	top: 45%;
+	width: 300px;
+	height: 200px;
+	background-color: white;
+	border: 3px solid #87cb42;
+}
+#close {
+	z-index: 4;
+	float: right;
+}
+</style>
  <title>검색 도서 목록 페이지</title>
 </head>
 <body>
+
 	<hgroup>
 		<h1>검색된 티켓 상품</h1>
 	</hgroup>
@@ -76,12 +161,13 @@
 		<div class="clear"></div>
 	</section>
 	<div class="clear"></div> --%>
+	<input type="hidden" id="listmenu" value="${listmenu}"/>
 	<div id="sorting">
 		<ul>
-			<li><a class="active" href="#">판매 종료 임박</a></li>
-			<li><a href="#">가격 오름차순</a></li>
-			<li><a href="#">할인률순</a></li>
-			<li><a style="border: currentColor; border-image: none;" href="#">평점순</a></li>
+			<li><a id="list1"  href="${contextPath}/goods/searchlastsale.do?searchWord=${searchWord}">판매 종료 임박</a></li>
+			<li><a id="list2" href="${contextPath}/goods/searchcheap.do?searchWord=${searchWord}">가격 오름차순</a></li>
+			<li><a id="list3" href="${contextPath}/goods/searchdiscount.do?searchWord=${searchWord}">할인률순</a></li>
+			<li><a id="list4" style="border: currentColor; border-image: none;" href="${contextPath}/goods/searchrate.do?searchWord=${searchWord}">평점순</a></li>
 		</ul>
 	</div>
 	<table id="list_view">
@@ -141,10 +227,10 @@
 </script>
 						
 							<li><a href="javascript:add_wish('${item.goods_id}')">위시리스트</a></li> --%>
-							
+						
 					<td class="buy_btns">
 						<UL>
-						<li><a href="${contextPath}/goods/WishList.do?goods_id=${item.goods_id}">위시리스트</a></li>
+						<li><a href="javascript:add_wish(${item.goods_id})">위시리스트</a></li>
 						
 							
 						</UL>
@@ -171,3 +257,17 @@
 			<li><a class="no_border" href="#">Next</a></li>
 		</ul>
 	</div>
+	
+	<div id="layer" style="visibility: hidden" name="layer">
+		<div id="popup">
+			<a href="javascript:" onClick="javascript:imgpopup('#layer','close');">
+			<img
+				src="${contextPath}/resources/image/close.png" id="close" />
+			</a> <br /> <font size="12" id="contents" style="font-size:30pt; text-align: center;">위시리스트에<br> 담았습니다.</font><br><br>
+			<form   action='${contextPath}/goods/WishList.do'  >				
+				<input  type="submit" value="위시리스트 보기">
+			</form>			
+			
+		</div>
+	</div>
+	<input type="hidden" value="${isLogOn}" id="isLogOn">

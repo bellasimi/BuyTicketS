@@ -45,6 +45,7 @@
 }
 </style>
 <script type="text/javascript">
+
 	function add_cart(goods_id) {
 		var goods_ticket_date=document.getElementById("goods_ticket_date").value;
 		var order_goods_qty =document.getElementById("order_goods_qty").value;//구매 수량
@@ -235,7 +236,7 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 	
 	//탭 메뉴 함수 
 	
-	function openPage(pageName, elmnt, color) {
+function openPage(pageName, elmnt, color) {
   // Hide all elements with class="tabcontent" by default */
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
@@ -257,7 +258,11 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 }
 
 // Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();
+$(document).ready(function(){
+
+	document.getElementById("defaultOpen").click();
+	
+});
 
 </script>
 <style>
@@ -280,30 +285,34 @@ body, html {
   font-size: 17px;
   margin-top:40px;
   height: auto;
-  width: 20%; //칸 갯수에 따라서 조정
+  width: 20%; 
   
 }
 
 .tablink:hover {
-  background-color: #777; //칸에 마우스올렸을 때 바뀌는 색!
+  background-color: #777;
 }
 
 /* Style the tab content (and add height:100% for full page content) */
 .tabcontent {
-  color: white;
+  color: black;
   display: none;
   padding: 100px 20px;
   height: 100%;
+  margin: 100px 0px 0px 10px;
 }
-
-#이름1 {background-color: #cccccc;} 
-#이름2 {background-color: #cccccc;}
-#이름3 {background-color: #cccccc;}
-#이름4 {background-color: #cccccc;}
-#이름5 {background-color: #cccccc;}
+.tabcontent .title{
+	margin: 10px 0px; padding-top: 10px; color: rgb(0, 0, 0); font-size: 20pt; font-weight: bold; border-bottom-color: rgb(255, 153, 0); border-bottom-width: 1px; border-bottom-style: solid;
+}
+.tabcontent .cont{
+	margin: 10px 0px; padding-top: 10px;color: black;
+  font-size: 15pt;
+}
 </style>
 </head>
 <body>
+<input id="imageList" type="hidden" value="${imageList}">
+				
 <!-- sort 조건으로 c:set -->
 	<c:if test="${goodsMap.goodsVO.goods_sort eq 'nature'}">
 		<c:set var="sort" value="자연동물/전망대"/>
@@ -459,87 +468,58 @@ body, html {
 		</ul>
 	</div>
 
-	<button class="tablink" onclick="openPage('이름1', this, 'gray')">상세설명</button>
+	<button class="tablink" onclick="openPage('이름1', this, 'gray')" id="defaultOpen">상세설명</button>
 	<button class="tablink" onclick="openPage('이름2', this, 'gray')">이용약관</button>
 	<button class="tablink" onclick="openPage('이름3', this, 'gray')">사용방법</button>
 	<button class="tablink" onclick="openPage('이름4', this, 'gray')">위치</button>
 	<button class="tablink" onclick="openPage('이름5', this, 'gray')">리뷰</button>
 	
-	<div id="이름1" class="tabcontent">
-				<h4>상세설명</h4>
-				<p>${fn:replace(goods.goods_description,crcn,br)}</p>
-				<c:forEach var="image" items="${imageList }">
-					<img 
-						src="${contextPath}/resources/shopping/file_repo/${goods.goods_id}/${goods.goods_fileName}">
+	<div id="이름1" class="tabcontent" >
+	
+	<div class="clear"></div>
+				 <p><div class="cont">${fn:replace(goods.goods_description,crcn,br)}</div>
+				<c:forEach var="image" items="${imageList}">				
+					<img style="width:720px; height:500px;margin-left: auto; margin-right: auto;" 
+					src="${contextPath}/resources/shopping/file_repo/${goods.goods_id}/${image.fileName}">
 				</c:forEach>
+		
 	</div>
 
 	<div id="이름2" class="tabcontent">
-				<h4>이용약관</h4>		
-				<div class="writer">주최: ${goods.goods_publisher}</div>
-				 <p>${fn:replace(goods.goods_terms,crcn,br)}</p> 
+	
+	<div class="clear"></div>	
+				<p><div class="title">주최: ${goods.goods_publisher}</div>
+				 <p><div class="cont">${fn:replace(goods.goods_terms,crcn,br)}</div>
+			
 	</div>
 
 	<div id="이름3" class="tabcontent">
-				<h4>사용방법</h4>
-				<p>${fn:replace(goods.goods_usage,crcn,br)}</p> 
-	</div>
+			
+	<div class="clear"></div>
+				 <p><div class="cont">${fn:replace(goods.goods_usage,crcn,br)}</div>
+				</div>
+	
 
 	<div id="이름4" class="tabcontent">
-				<h4>위치</h4>
-				 <p>${fn:replace(goods.goods_location,crcn,br)}</p> 
+
+	<div class="clear"></div>
+				 <p><div class="cont">${fn:replace(goods.goods_location,crcn,br)}</div>
+				
 	</div>
 	
 	<div id="이름5" class="tabcontent">
-				<h4>리뷰</h4>
+	
+	<div class="clear"></div>
+				<p><div class="title">리뷰</div>
+				 <p><div class="cont">내용</div>
+			
 	</div>
 	
 	
 	<div class="clear"></div>
 	
 	<div class="clear"></div>
-	<!-- 내용 들어 가는 곳 -->
-	<div id="container">
-		<ul class="tabs">
-			<li><a href="#tab1">상세설명</a></li>
-			<li><a href="#tab2">이용약관</a></li>
-			<li><a href="#tab3">사용방법</a></li>
-			<li><a href="#tab4">위치</a></li>
-			<li><a href="#tab5">리뷰</a></li>
-			<li><a href="#tab6">기타</a></li>
-		</ul>
-		<div class="tab_container">
-			<div class="tab_content" id="tab1">
-				<h4>상세설명</h4>
-				<p>${fn:replace(goods.goods_description,crcn,br)}</p>
-				<c:forEach var="image" items="${imageList }">
-					<img 
-						src="${contextPath}/resources/shopping/file_repo/${goods.goods_id}/${goods.goods_fileName}">
-				</c:forEach>
-			</div>
-			<div class="tab_content" id="tab2">
-				<h4>이용약관</h4>
-				<p>
-				<div class="writer">주최: ${goods.goods_publisher}</div>
-				 <p>${fn:replace(goods.goods_terms,crcn,br) }</p> 
-				
-			</div>
-			<div class="tab_content" id="tab3">
-				<h4>사용방법</h4>
-				<p>${fn:replace(goods.goods_usage,crcn,br)}</p> 
-			</div>
-			<div class="tab_content" id="tab4">
-				<h4>위치</h4>
-				 <p>${fn:replace(goods.goods_location,crcn,br)}</p> 
-			</div>
-			<div class="tab_content" id="tab5">
-				<h4>추천</h4>
-			</div>
-			<div class="tab_content" id="tab6">
-				<h4>리뷰</h4>
-			</div>
-		</div>
-	</div>
+	
 	<div id="layer" style="visibility: hidden" name="layer" class="layer">
 		<!-- visibility:hidden 으로 설정하여 해당 div안의 모든것들을 가려둔다. -->
 		<div id="popup">
@@ -568,3 +548,44 @@ body, html {
 </body>
 </html>
 <input type="hidden" name="isLogOn" id="isLogOn" value="${isLogOn}"/>
+<%-- 	<!-- 내용 들어 가는 곳 -->
+	<div id="container">
+		<ul class="tabs">
+			<li><a href="#tab1">상세설명</a></li>
+			<li><a href="#tab2">이용약관</a></li>
+			<li><a href="#tab3">사용방법</a></li>
+			<li><a href="#tab4">위치</a></li>
+			<li><a href="#tab5">리뷰</a></li>
+			<li><a href="#tab6">기타</a></li>
+		</ul>
+		<div class="tab_container">
+			<div class="tab_content" id="tab1" >
+				<h4>상세설명</h4>
+				<p>${fn:replace(goods.goods_description,crcn,br)}</p>
+				<c:forEach var="image" items="${imageList}">
+					<img src="${contextPath}/resources/shopping/file_repo/${goods.goods_id}/${image.fileName}">
+				</c:forEach>
+			</div>
+			<div class="tab_content" id="tab2">
+				<h4>이용약관</h4>
+				<p>
+				<div class="writer">주최: ${goods.goods_publisher}</div>
+				 <p>${fn:replace(goods.goods_terms,crcn,br) }</p> 
+				
+			</div>
+			<div class="tab_content" id="tab3">
+				<h4>사용방법</h4>
+				<p>${fn:replace(goods.goods_usage,crcn,br)}</p> 
+			</div>
+			<div class="tab_content" id="tab4">
+				<h4>위치</h4>
+				 <p>${fn:replace(goods.goods_location,crcn,br)}</p> 
+			</div>
+			<div class="tab_content" id="tab5">
+				<h4>추천</h4>
+			</div>
+			<div class="tab_content" id="tab6">
+				<h4>리뷰</h4>
+			</div>
+		</div>
+	</div> --%>
