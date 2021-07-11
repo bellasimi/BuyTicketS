@@ -664,9 +664,10 @@ function usepoint(){
 </c:forEach>
 		</tbody>
 	</table>
-	
+	<!--적립버튼 나중에 지울것 
 		<input type="hidden" value="${final_total_order_price}" id="total_order_price" />
 		<input type="button" value="적립" onclick="getpoint()"/>
+		  -->
 		<div class="clear"></div>
 
 	<br>
@@ -695,6 +696,7 @@ function usepoint(){
 				 <input  type="text" value="${orderer.email1}@${orderer.email2}" size="15" />
 				</td>
 			  </tr>
+			 
 		   </tbody>
 		</table>
 	</div>
@@ -711,14 +713,16 @@ function usepoint(){
 			<tbody>
 				<tr class="dot_line">
 					<td width=100>적립금</td>
-					<td><input id="discount_juklip" type="text" size="10" />원/1000원
+					<td><input id="discount_juklip" type="number" size="10" min="0" max="${orderer.member_point}"/>원/${orderer.member_point}원
 						&nbsp;&nbsp;&nbsp; <input type="checkbox" /> 모두 사용하기</td>
 				</tr>
+				<!--  
 				<tr class="dot_line">
 					<td>예치금</td>
 					<td><input id="discount_yechi" type="text" size="10" />원/1000원
 						&nbsp;&nbsp;&nbsp; <input type="checkbox" /> 모두 사용하기</td>
 				</tr>
+				-->
 				<tr class="dot_line">
 					<td>상품권 전환금</td>
 					<td cellpadding="5"><input id="discount_sangpum" type="text"
@@ -767,10 +771,12 @@ function usepoint(){
 					<p id="p_totalPrice">${totalorder_price}원</p> <input
 					id="h_totalPrice" type="hidden" value="${total_order_price}" />
 				</td>
+				<!--  플러스버튼 
 				<td><IMG width="25" alt=""
 					src="${pageContext.request.contextPath}/resources/image/plus.jpg"></td>
 		
 				<td>
+				-->
 				<img width="25" alt="" 	src="${pageContext.request.contextPath}/resources/image/minus.jpg"></td>
 		<!-- 총할인액 -->
 				<td>
