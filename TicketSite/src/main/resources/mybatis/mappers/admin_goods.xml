@@ -75,7 +75,10 @@
 									   goods_terms, 
 									   goods_usage, 
 									   goods_description,
-									   goods_lastsale_date) values(#{goods_id}, 
+									   goods_lastsale_date,
+									   goods_discount,
+									   goods_location
+									   ) values(#{goods_id}, 
 									   							 #{goods_sort}, 
 									   							 #{goods_title}, 
 									   							 #{goods_publisher}, 
@@ -84,11 +87,13 @@
 									   							 #{goods_sales_price}, 
 									   							 #{goods_point}, 
 									   							 #{goods_expired_date}, 
-									   							 #{goods_status }, 
+									   							 #{goods_status}, 
 									   							 #{goods_terms}, 
 									   							 #{goods_usage}, 
 									   							 #{goods_description:VARCHAR},
-									   							 #{goods_lastsale_date})]]>
+									   							 #{goods_lastsale_date},
+									   							 #{goods_discount},
+									   							 #{goods_location})]]>
 	</insert>
 	
 	<insert id="insertGoodsImageFile" parameterType="imageFileVO">
@@ -165,7 +170,9 @@
 					<when test="goods_sales_price!='' and goods_sales_price!=null"> goods_sales_price=#{goods_sales_price}, </when>
 					<when test="goods_point!='' and goods_point!=null"> goods_point=#{goods_point}, </when>
 					<when test="goods_expired_date!='' and goods_expired_date!=null"> goods_expired_date=#{goods_expired_date}, </when>
-					<when test="goods_status!='' and goods_status!=null"> goods_status=#{goods_status} </when>
+					<when test="goods_status!='' and goods_status!=null"> goods_status=#{goods_status}, </when>
+					<when test="goods_discount!='' and goods_discount!=null"> goods_discount=#{goods_discount}, </when>
+					<when test="goods_location!='' and goods_location!=null"> goods_location=#{goods_location} </when>
 				</choose>
 			</set>
 		where goods_id=#{goods_id} 

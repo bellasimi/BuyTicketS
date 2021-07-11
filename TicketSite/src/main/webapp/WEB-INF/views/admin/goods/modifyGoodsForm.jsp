@@ -44,6 +44,7 @@ function fn_modify_goods(goods_id, attribute)
 	else if(attribute=='goods_usage'){ value=frm_mod_goods.goods_usage.value; }
 	else if(attribute=='goods_location'){ value=frm_mod_goods.goods_location.value; }
 	else if(attribute=='goods_lastsale_date'){ value=frm_mod_goods.goods_lastsale_date.value; }
+	else if(attribute=='goods_discount'){ value=frm_mod_goods.goods_discount.value; }
  console.log(frm_mod_goods.goods_price.value);
 	$.ajax({
 		type : "post",
@@ -312,7 +313,14 @@ function fn_modify_goods(goods_id, attribute)
 						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_price')"/>
 					</td>
 				</tr>
-		
+				<tr>
+					<td>할인율</td>
+					<td>${goods.goods_discount}</td>
+					<td><input name="goods_discount" type="text" size="20" value="${goods.goods_discount}"/></td>
+					<td>
+						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_discount')"/>
+					</td>
+				</tr>
 				<tr>
 					<td>상품판매가격</td>
 					<td>${goods.goods_sales_price}</td>
@@ -347,8 +355,8 @@ function fn_modify_goods(goods_id, attribute)
 					<td>
 						<select name="goods_status">
 							<option value="bestseller" selected>베스트셀러</option>
-							<option value="bigsale">할인행사</option>
-							<option value="new">새로운아이</option>
+							<option value="bigsale">초특가세일</option>
+							<option value="newsale">신규액티비티</option>
 <!-- 							<option value="on_sale" >판매중</option> -->
 <!-- 							<option value="buy_out" >품절</option> -->
 <!-- 							<option value="main_book" >절판</option> -->
@@ -385,7 +393,7 @@ function fn_modify_goods(goods_id, attribute)
 			<H4>이용약관</H4>
 			<table>
 				<tr>
-					<td><textarea  rows="30" cols="80" name="goods_terms" placeholder="이용약관" value="${goods.goods_terms}"></textarea></td>
+					<td><textarea  rows="30" cols="80" name="goods_terms" placeholder="${goods.goods_terms}"></textarea></td>
 					<td>
 						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_terms')"/>
 					</td>
@@ -397,9 +405,9 @@ function fn_modify_goods(goods_id, attribute)
 			<H4>이용방법</H4>
 			<table>
 				<tr>
-					<td><textarea  rows="30" cols="80" name="goods_usage" placeholder="이용방법" value="${goods.goods_title}"></textarea></td>
+					<td><textarea  rows="30" cols="80" name="goods_usage" placeholder="${goods.goods_usage}"></textarea></td>
 					<td>
-						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_title')"/>
+						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_usage')"/>
 					</td>
 			    </tr>
 		    </table>
@@ -409,8 +417,8 @@ function fn_modify_goods(goods_id, attribute)
 			<H4>위치</H4>
 			<table>
 				<tr>
-					<td >위치</td>
-					<td>내용 추가 예정</td>
+					<td ><textarea  rows="30" cols="80" name="goods_location"  placeholder="위치"></textarea></td>
+		
 					<td>
 						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_location')"/>
 					</td>

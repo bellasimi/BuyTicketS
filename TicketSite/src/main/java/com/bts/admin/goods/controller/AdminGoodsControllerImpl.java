@@ -95,7 +95,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
         Enumeration enu=multipartRequest.getParameterNames();
        
         while(enu.hasMoreElements()){
-            String name=(String)enu.nextElement();
+            String name=(String)enu.nextElement();          
             String value=multipartRequest.getParameter(name);
             newGoodsMap.put(name,value);
         }

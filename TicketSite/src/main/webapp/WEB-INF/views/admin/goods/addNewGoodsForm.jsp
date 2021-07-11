@@ -136,8 +136,8 @@
 								<td>
 									<select name="goods_status">
 										<option value="bestseller" selected >베스트셀러</option>
-										<option value="bigsale" >초특가세일</option>
-										<option value="new"  >신규 액티비티</option>
+										<option value="bigsale">초특가세일</option>
+										<option value="newsale">신규 액티비티</option>
 									</select>
 								</td>
 							</tr>
@@ -178,8 +178,7 @@
 						<H4>위치</H4>
 						<table>
 							<tr>
-								<td >위치</td>
-								<td>내용 추가 예정</td>
+								<td><textarea  rows="30" cols="80" name="goods_location" placeholder="위치"></textarea></td>						   
 						    </tr>
 					    </table>
 					</div>

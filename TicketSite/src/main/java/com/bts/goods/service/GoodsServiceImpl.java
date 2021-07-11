@@ -41,7 +41,7 @@ public class GoodsServiceImpl implements GoodsService{
 		goodsMap.put("bestseller",goodsList);
 		goodsList=goodsDAO.selectStatusList("bigsale");
 		goodsMap.put("bigsale",goodsList);
-		goodsList=goodsDAO.selectStatusList("new");
+		goodsList=goodsDAO.selectStatusList("newsale");
 		goodsMap.put("newsale",goodsList);
 		return goodsMap;
 	}
