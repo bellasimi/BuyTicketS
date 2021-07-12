@@ -120,10 +120,25 @@
             order by pay_order_time desc
     	]]>
 	</select>
-	<!-- 이거왜 여기있을까 -->
+	
 	<delete id="deleteGoodsFromCart" parameterType="orderVO">
 	  delete from ticket_cart
 	  where goods_id=#{goods_id}
 	</delete>
+	
+	<update id="usePoint" parameterType="orderVO">
+	  update from ticket_member
+	  where member_id=#{member_id}
+	  set memeber_point=member_point-#{point_used}
+	</update>
+	<!-- 오히려 이게 하나만 빠지게 해야될것 같다 아마도  -->
+	
+	<!-- 밑에거는 굿즈 개수만큼 돌아가야되는데.... -->
+	<update id="getPoint" parameterType="orderVO">
+  	  update from ticket_member
+	  where member_id=#{member_id}
+	  set memeber_point=member_point+#{goods_point}
+	
+	</update>
 	
 </mapper>

@@ -224,8 +224,8 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 				orderVO.setMember_id(member_id);
 				orderVO.setOrderer_name(orderer_name);
 				orderVO.setOrderer_hp(orderer_hp);
-				
-				orderVO.setPay_method(receiverMap.get("pay_method"));
+							
+				orderVO.setPay_method(receiverMap.get("pay_method").trim());
 				orderVO.setRandom_account(receiverMap.get("random_account"));
 				orderVO.setCard_com_name(receiverMap.get("card_com_name"));
 				orderVO.setCard_number(receiverMap.get("card_number"));
@@ -236,10 +236,23 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 				orderVO.setPay_hp_com(receiverMap.get("pay_hp_com"));
 				orderVO.setOrder_total_price(Integer.parseInt(receiverMap.get("order_total_price")));
 				orderVO.setPoint_used(Integer.parseInt(receiverMap.get("point_used")));
+				//orderVO.setGoods_point(Integer.parseInt(receiverMap.get("goods_point")));
 				//모든정보 orderVO에 모아준다음에 
 				
+				
+				System.out.println(receiverMap.get("pay_method"));
+				System.out.println(receiverMap.get("random_account"));
+				System.out.println(receiverMap.get("card_com_name"));
+				System.out.println(receiverMap.get("card_number"));
+				System.out.println(receiverMap.get("card_expired_m"));
 				System.out.println(receiverMap.get("card_expired_y"));
+				System.out.println(receiverMap.get("pay_hp_num"));
 				System.out.println(receiverMap.get("pay_hp_com"));
+				System.out.println(receiverMap.get("order_total_price"));
+				System.out.println(receiverMap.get("point_used"));
+				//System.out.println(receiverMap.get("goods_point"));
+				
+				
 				myOrderList.set(i, orderVO); //myOrderList에 저장해준다  
 			}//end for
 			
