@@ -30,9 +30,9 @@ import com.bts.member.vo.MemberVO;
 public class AdminGoodsControllerImpl extends BaseController  implements AdminGoodsController
 {
 	//학원 컴퓨터 git 위치 
-	//private static String CURR_IMAGE_REPO_PATH = "C:\\Users\\311\\git\\Ticket\\TicketSite\\src\\main\\webapp\\resources\\shopping\\file_repo";
+	private static String CURR_IMAGE_REPO_PATH = "C:\\Users\\311\\git\\Ticket\\TicketSite\\src\\main\\webapp\\resources\\shopping\\file_repo";
     //본인 컴퓨터 git 위치  
-	private static final String CURR_IMAGE_REPO_PATH = "C:\\Users\\82107\\git\\Ticket\\TicketSite\\src\\main\\webapp\\resources\\shopping\\file_repo";
+//	private static final String CURR_IMAGE_REPO_PATH = "C:\\Users\\82107\\git\\Ticket\\TicketSite\\src\\main\\webapp\\resources\\shopping\\file_repo";
     @Autowired
     private AdminGoodsService adminGoodsService;
     @RequestMapping(value="/adminGoodsMain.do" ,method={RequestMethod.POST,RequestMethod.GET})
@@ -111,7 +111,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
             }
             newGoodsMap.put("imageFileList", imageFileList);
         }
-        
+System.out.println("포인트 - 컨트롤러Impl");
         String message = null;
         ResponseEntity resEntity = null;
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -127,7 +127,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
                 }
             }
             message= "<script>";
-            message += " alert('새 상품을 등록했습니다.');";
+            message += " alert('성공! 꽃길만 걸으세요~');";
             message +=" location.href='"+multipartRequest.getContextPath()+"/admin/goods/addNewGoodsForm.do';";
             message +=("</script>");
         }catch(Exception e) {
@@ -140,7 +140,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
             }
             
             message= "<script>";
-            message += " alert('새 상품을 등록했습니다2');";
+            message += " alert('데이터가 미쳐 날뛰고 있습니다..');";
             message +=" location.href='"+multipartRequest.getContextPath()+"/admin/goods/addNewGoodsForm.do';";
             message +=("</script>");
             e.printStackTrace();

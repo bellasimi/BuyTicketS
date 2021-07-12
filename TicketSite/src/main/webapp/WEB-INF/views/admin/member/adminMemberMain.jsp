@@ -420,6 +420,7 @@ function fn_detail_search(){
 	</div>
 	
 <div class="clear"></div>
+※ 상세정보를 확인하려면 <mem style="color:red"><strong>아이디</strong></mem>를 클릭하세요
 <table class="list_view">
 		<tbody align=center >
 			<tr align=center bgcolor="#ffcc00">

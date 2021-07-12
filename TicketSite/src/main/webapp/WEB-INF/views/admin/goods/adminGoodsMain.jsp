@@ -190,6 +190,7 @@ function  calcPeriod(search_period){
 	</DIV>
 </form>	
 <DIV class="clear"></DIV>
+※ 상세정보를 확인하려면 <sang style="color:red"><strong>상품명</strong></sang>을 클릭하세요
 <TABLE class="list_view">
 		<TBODY align=center >
 			<tr style="background:#33ff00;" >
