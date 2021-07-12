@@ -2,19 +2,6 @@
 	font-family: NanumGothic;
 	src: local("?"), url(../imgs/nanum.woff) format("woff"), url(../imgs/nanum.ttf) format("truetype");
 }
-.text-block {
-  position: absolute;
-  bottom: 35px;
-  left: 0px;
-  background-color: #ff8040;
-  color: white;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-.container{
-	position: relative;
-  font-family: Arial;
-}
 * {
 	margin: 0px; padding: 0px; vertical-align: middle;
 }
@@ -47,8 +34,17 @@ a:hover {
 	margin: 0px auto; padding: 0px; width: 1100px; float: left;
 }
 /* 원본 css 위치------------------------------------------------------------------------- */
-
-
+.text-block {
+top:-14;
+  left: 0px;
+  background-color: #ff8040;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+	position: relative;
+  font-family: Arial;
+ width: 50;
+}
 /* 배경사진 */
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -783,14 +779,14 @@ article h1_TITLE {
 
 
 .main_book {
-	width: auto; padding-top: 0px; font-size: 0.75em;
+	width: auto; padding-top: 0px; font-size: 0.75em; 
 }
 .main_book h3 {
 	margin: 0px 0px 5px; padding: 0px 0px 5px; color: rgb(51, 102, 153); text-transform: uppercase; font-family: "NanumGothic", Serif; font-size: 1.2em; border-bottom-color: rgb(51, 102, 153); border-bottom-width: 1px; border-bottom-style: solid;
 }
 
 .main_book .book {
-	background-position: right; border: 2px solid rgb(255, 255, 255); border-image: none; width: 148px; height: 216px; text-align: center; float: left; background-image: url("../imgs/vline_grey.gif"); background-repeat: repeat-y;
+	background-position: right; border: 2px solid rgb(255, 255, 255); border-image: none; width: 148px; height: 216px;  float: left; background-image: url("../imgs/vline_grey.gif"); background-repeat: repeat-y;
 }
 .main_book .book img {
 	margin: 0px 0px 0px;
@@ -805,13 +801,16 @@ article h1_TITLE {
 	margin: 0px; padding: 2px 0px;
 }
 .main_book .book .title {
-	margin: 0px; padding: 2px 0px;
+	margin: 0px; padding: 2px 0px;text-align: left;
 }
 .main_book .book .writer {
 	margin: 0px; padding: 2px 0px;
 }
 .main_book .book .price {
-	margin: 0px; padding: 2px 0px;
+	margin: 0px; padding: 2px 0px; text-decoration: line-through red; color: #c0c0c0;text-align: right;
+}
+.main_book .book .disprice {
+	margin: 0px; padding: 2px 0px; text-align: right;
 }
 .main_book .book .sort {
 	margin-top: 4px;
