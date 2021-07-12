@@ -337,6 +337,14 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		session.setAttribute("quickGoodsList",quickGoodsList);
 		session.setAttribute("quickGoodsListNum", quickGoodsList.size());
 	}
+//위시리스트 체크된 부분만 삭제
+	@RequestMapping(value="/deletecheckedwish.do", method= {RequestMethod.POST})
+	public ModelAndView deletecheckedwish(@RequestParam("idlist")String[] idlist) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println(idlist);
+		return mav;
+		
+	}
 	
 
 	//키워드: goods_status 값: 해당 goodsVO 인 MAP 구현 함수 

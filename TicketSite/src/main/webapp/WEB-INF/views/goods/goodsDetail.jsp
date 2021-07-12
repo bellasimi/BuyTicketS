@@ -19,29 +19,10 @@
 <head>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <style>
-#layer,#layer2  {
-	z-index: 2;
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	width: 100%;
-	font-size:12pt;
-}
-
-#popup {
-	z-index: 3;
-	position: fixed;
-	text-align: center;
-	left: 50%;
-	top: 45%;
-	width: 300px;
-	height: 200px;
-	background-color: white;
-	border: 3px solid #87cb42;
-}
-#close {
-	z-index: 4;
-	float: right;
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
 }
 </style>
 <script type="text/javascript">
@@ -50,6 +31,7 @@
 		var goods_ticket_date=document.getElementById("goods_ticket_date").value;
 		var order_goods_qty =document.getElementById("order_goods_qty").value;//구매 수량
 		var isLogOn = document.getElementById("isLogOn").value;
+		console.log("로그인?"+isLogOn);
 		var layer = $('#layer').attr('name');
 		if(isLogOn == 'false'||isLogOn == ''){
 			alert("로그인 후 이용가능합니다.")
@@ -161,17 +143,23 @@
 		
 	} 
 function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){ 
+	//var goods_ticket_date=document.getElementById("goods_ticket_date").value;
+	var goods_ticket_date= $('#goods_ticket_date').val();//253행 goods_ticket_date의 값
 	// 263행 href="javascript:fn_order_each_goods('${goods.goods_id }','${goods.goods_title}','${goods.goods_sales_price}','${goods.goods_fileName}')로 받은 값 
 	var _isLogOn=document.getElementById("isLogOn");
 	var isLogOn=_isLogOn.value;
-	
+	 
 	 if(isLogOn=="false" || isLogOn=='' ){
 		alert("로그인 후 주문이 가능합니다!!!");
 	} 
-	
+	 else{//로그인 돼있으면
+		 if(goods_ticket_date == ''){
+			 alert("예매일을 입력해 주세요!!")
+		 }
+		 else{
 	 	var total_price,final_total_price;
 		var order_goods_qty=document.getElementById("order_goods_qty"); //251행 order_goods_qty의 값
-		var goods_ticket_date=document.getElementById("goods_ticket_date");//253행 goods_ticket_date의 값
+		
 	var formObj=document.createElement("form");//폼 만들기 
 	
 	var i_goods_id = document.createElement("input"); //input tag 만들기
@@ -179,25 +167,21 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
     var i_goods_sales_price=document.createElement("input");
     var i_fileName=document.createElement("input");
     var i_order_goods_qty=document.createElement("input");
-    /*
     var i_goods_ticket_date=document.createElement("input");
-    i_goods_ticket.name ="goods_ticket_date";
-    i_goods_ticket.value=goods_ticket_date;
-    formObj.appendChild(i_goods_ticket_date);
-    */
+ 
     i_goods_id.name="goods_id"; 
     i_goods_title.name="goods_title"; 
     i_goods_sales_price.name="goods_sales_price";
     i_fileName.name="goods_fileName";
     i_order_goods_qty.name="order_goods_qty";
-   
+    i_goods_ticket_date.name ="goods_ticket_date";
     
     i_goods_id.value=goods_id;//'${goods.goods_id }
     i_order_goods_qty.value=order_goods_qty.value;// 100행에서 id로 받은 값
     i_goods_title.value=goods_title;//${goods.goods_title}'
     i_goods_sales_price.value=goods_sales_price;//'${goods.goods_sales_price}'
     i_fileName.value=fileName;//${goods.goods_fileName}
-   
+    i_goods_ticket_date.value=goods_ticket_date;
     //폼에 입력
     
     formObj.appendChild(i_goods_id);
@@ -205,20 +189,20 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
     formObj.appendChild(i_goods_sales_price);
     formObj.appendChild(i_fileName);
     formObj.appendChild(i_order_goods_qty);
-   
+    formObj.appendChild(i_goods_ticket_date);
 	//폼을 바디에 입력
     document.body.appendChild(formObj);
 	//포스트 형식으로 "${contextPath}/order/orderEachGoods.do" 경로로 전송
     formObj.method="post";
     formObj.action="${contextPath}/order/orderEachGoods.do";
     formObj.submit();
-	}	
-	
+	}//else	예매일
+	}//else 로그인
 
-
+}
 	
 	//오늘 이전엔 예매 안되도록 하는 함수!!
-	function ticket_date(){
+function ticket_date(){
 	var today = new Date();
 	var dd = today.getDate();
 	var mm = today.getMonth()+1;
@@ -265,50 +249,7 @@ $(document).ready(function(){
 });
 
 </script>
-<style>
-/* Set height of body and the document to 100% to enable "full page tabs" */
-body, html {
-  height: 100%;
-  margin: 0;
-  font-family: Arial;
-}
 
-/* Style tab links */
-.tablink {
-  background-color: #555;
-  color: black;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  font-size: 17px;
-  margin-top:40px;
-  height: auto;
-  width: 20%; 
-  
-}
-
-.tablink:hover {
-  background-color: #777;
-}
-
-/* Style the tab content (and add height:100% for full page content) */
-.tabcontent {
-  color: black;
-  display: none;
-  padding: 100px 20px;
-  height: 100%;
-  margin: 100px 0px 0px 10px;
-}
-.tabcontent .title{
-	margin: 10px 0px; padding-top: 10px; color: rgb(0, 0, 0); font-size: 20pt; font-weight: bold; border-bottom-color: rgb(255, 153, 0); border-bottom-width: 1px; border-bottom-style: solid;
-}
-.tabcontent .cont{
-	margin: 10px 0px; padding-top: 10px;color: black;
-  font-size: 15pt;
-}
-</style>
 </head>
 <body>
 <input id="imageList" type="hidden" value="${imageList}">
