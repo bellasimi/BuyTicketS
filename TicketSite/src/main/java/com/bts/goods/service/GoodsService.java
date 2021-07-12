@@ -23,5 +23,6 @@ public interface GoodsService {
 	public boolean deleteWishList(Map wish)throws Exception;
 	public boolean deleteWishListAll(String member_id)throws Exception;
 	public boolean existwish(Map wish)throws Exception;
+	public void deletecheckedwish(Map wish) throws Exception;
 
 }

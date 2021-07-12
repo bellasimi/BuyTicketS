@@ -110,5 +110,11 @@ public class GoodsDAOImpl  implements GoodsDAO{
 		return sqlSession.selectList("mapper.goods.wishdiscount", member_id);
 	}
 
+	@Override
+	public void deletecheckedwish(Map wish) throws DataAccessException {
+		System.out.println("dao값: "+wish);
+		sqlSession.delete("mapper.goods.deletecheckedwish",wish);
+	}
+
 	
 }

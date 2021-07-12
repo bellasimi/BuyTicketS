@@ -117,4 +117,11 @@ public class GoodsServiceImpl implements GoodsService{
 
 		return goodsDAO.wishdiscount(member_id);
 	}
+
+	@Override
+	public void deletecheckedwish(Map wish) throws Exception {
+		System.out.println("서비스값: "+wish);
+		goodsDAO.deletecheckedwish(wish);
+		
+	}
 }

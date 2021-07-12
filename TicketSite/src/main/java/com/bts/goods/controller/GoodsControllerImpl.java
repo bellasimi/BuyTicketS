@@ -281,7 +281,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 	}
 //위시리스트에서 각각삭제
 	@RequestMapping(value="deletewish.do", method={RequestMethod.POST,RequestMethod.GET})
-	public ModelAndView deletewish(@RequestParam("goods_id")int goods_id,HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView deletewish(@RequestParam("goods_id")String goods_id,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();
@@ -292,7 +292,6 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		wish.put("member_id", member_id);
 		boolean result = goodsService.deleteWishList(wish);
 
-		List<GoodsVO> list = goodsService.WishList(member_id); 
 		mav.setViewName("redirect:/goods/WishList.do");
 		return mav;
 		
@@ -338,11 +337,18 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		session.setAttribute("quickGoodsListNum", quickGoodsList.size());
 	}
 //위시리스트 체크된 부분만 삭제
-	@RequestMapping(value="/deletecheckedwish.do", method= {RequestMethod.POST})
-	public ModelAndView deletecheckedwish(@RequestParam("idlist")String[] idlist) {
+	@RequestMapping(value="/deletecheckedwish.do", method= {RequestMethod.POST}, produces = "application/text; charset=utf8")
+	@ResponseBody public String deletecheckedwish(@RequestParam("idlist")List<String> idlist,HttpSession session,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		System.out.println(idlist);
-		return mav;
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		String member_id =memberVO.getMember_id();
+		Map wish = new HashMap();
+		wish.put("member_id",member_id);
+		wish.put("idlist",idlist);
+		System.out.println(wish);
+		goodsService.deletecheckedwish(wish);
+		String result="삭제완료!";
+		return result;
 		
 	}
 	
