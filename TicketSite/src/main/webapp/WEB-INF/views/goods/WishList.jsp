@@ -52,7 +52,10 @@ $(document).ready(function(){
 	});
 	//부분선택/전체해제 
 	$("#checked_goods").change(function() {  //prop으로 썼었다 change로 해도 일단 선택은 똑같이 됨 
+		console.log($("input[id=checked_goods]:checked").length);
+	console.log($("input[id=checked_goods]").length);
 		if($("input[id=checked_goods]:checked").length==$("input[id=checked_goods]").length) {
+			
 			$("#checkall").prop("checked",true);
 			
 		} else {			
@@ -164,7 +167,8 @@ function deletechecked(){
 					</td>
 					<td class="price">
 						<strong>${item.goods_discount}% 할인</strong>					
-					</td><td class="price">
+					</td>
+					<td class="price">
 						<strong>
 						<fmt:formatNumber  value="${item.goods_sales_price}" type="number" var="goods_sales_price" />
 				               ${goods_sales_price}원 

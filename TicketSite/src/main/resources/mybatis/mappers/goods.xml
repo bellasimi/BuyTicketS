@@ -107,6 +107,17 @@
 		    order by g.goods_lastsale_date
 		]]>
 </select>	
+<!-- 검색한 놈 중 체크해서 위시리스트 추가 
+<insert id="addcheckwish">
+	 <![CDATA[
+	 insert into ticket_wish()
+	]]>
+</insert>
+위시리스트에 배열값 존재하는지?
+<select id="existcheckwish" resultType="String">
+
+
+</select> -->
 <!-- 키워드로 검색 자동완성-->
  <select id="selectKeywordSearch" resultType="String"  parameterType="String"  >
      <![CDATA[

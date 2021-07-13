@@ -55,8 +55,54 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 			mav.addObject("SortList", SortList);
 						
 			return mav;
+		}//가격 오름차순
+		@RequestMapping(value="/slistcheap.do",method= {RequestMethod.POST, RequestMethod.GET})
+		public ModelAndView slistcheap(@RequestParam("goods_sort")String goods_sort) throws Exception {
+			ModelAndView mav = new ModelAndView();
+			List<GoodsVO> SortList =goodsService.SortList(goods_sort);
+			String sort = SortList.get(0).getGoods_sort();
+			//for문에서 c:set 안되서 하는 짓임. 
+			SortList = SortList.stream().sorted(Comparator.comparing(GoodsVO::getGoods_sales_price)).collect(Collectors.toList());
+	
+			mav.addObject("listmenu","list1");
+			mav.addObject("sort", sort);
+			mav.addObject("SortList", SortList);
+			mav.setViewName("/goods/sort");
+			return mav;
 		}
+		//할인율순
+		@RequestMapping(value="/slistdiscount.do",method= {RequestMethod.POST, RequestMethod.GET})
+		public ModelAndView slistdiscount(@RequestParam("goods_sort")String goods_sort) throws Exception {
+			ModelAndView mav = new ModelAndView();
+			List<GoodsVO> SortList =goodsService.SortList(goods_sort);
+			
+			String sort = SortList.get(0).getGoods_sort();
+			//for문에서 c:set 안되서 하는 짓임. 
+			SortList = SortList.stream().sorted(Comparator.comparing(GoodsVO::getGoods_discount).reversed()).collect(Collectors.toList());
 
+			mav.addObject("listmenu","list2");
+			mav.addObject("sort", sort);
+			mav.addObject("SortList", SortList);
+			mav.setViewName("/goods/sort");
+			return mav;
+		}
+		/*//평점순
+		@RequestMapping(value="/slistrate.do",method= {RequestMethod.POST, RequestMethod.GET})
+		public ModelAndView slistrate(@RequestParam("goods_sort")String goods_sort) throws Exception {
+			ModelAndView mav = new ModelAndView();
+			List<GoodsVO> SortList =goodsService.SortList(goods_sort);
+			
+			String sort = SortList.get(0).getGoods_sort();
+			//for문에서 c:set 안되서 하는 짓임. 
+			SortList = SortList.stream().sorted(Comparator.comparing(GoodsVO::getGoods_rate_avg).reversed()).collect(Collectors.toList());
+			
+		
+			mav.addObject("listmenu","list3");
+			mav.addObject("sort", sort);
+			mav.addObject("SortList", SortList);
+			mav.setViewName("/goods/sort");
+			return mav;
+		}*/
 //place별로 
 		//서울,경기,강원도,충청도,전라도,경상도,제주도 
 		//seoul,ggi,gang,chung,jeolla,sang,jeju
@@ -72,7 +118,53 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 			mav.setViewName(viewName);
 			return mav;
 		}
+		//가격 오름차순
+		@RequestMapping(value="/plistcheap.do",method= {RequestMethod.POST, RequestMethod.GET})
+		public ModelAndView plistcheap(@RequestParam("goods_place")String goods_place) throws Exception {
+			ModelAndView mav = new ModelAndView();
+			List<GoodsVO> PlaceList = goodsService.PlaceList(goods_place);		
+			String place = PlaceList.get(0).getGoods_place();// 지역이름으로 검색한 리스트 중 아무값에서나 getGoods_place()하면 지역이름만 추출가능
+			//for문에서 c:set 안되서 하는 짓임. 
+			PlaceList = PlaceList.stream().sorted(Comparator.comparing(GoodsVO::getGoods_sales_price)).collect(Collectors.toList());
 	
+			mav.addObject("place",place);//지역이름
+			mav.addObject("listmenu","list1");
+			mav.addObject("PlaceList",PlaceList);
+			mav.setViewName("/goods/place");
+			return mav;
+		}
+		//할인율순
+		@RequestMapping(value="/plistdiscount.do",method= {RequestMethod.POST, RequestMethod.GET})
+		public ModelAndView plistdiscount(@RequestParam("goods_place")String goods_place) throws Exception {
+			ModelAndView mav = new ModelAndView();
+			List<GoodsVO> PlaceList = goodsService.PlaceList(goods_place);
+			
+			String place = PlaceList.get(0).getGoods_place();// 지역이름으로 검색한 리스트 중 아무값에서나 getGoods_place()하면 지역이름만 추출가능
+			//for문에서 c:set 안되서 하는 짓임. 
+			PlaceList = PlaceList.stream().sorted(Comparator.comparing(GoodsVO::getGoods_discount).reversed()).collect(Collectors.toList());
+			
+			mav.addObject("place",place);//지역이름
+			mav.addObject("listmenu","list2");
+			mav.addObject("PlaceList",PlaceList);
+			mav.setViewName("/goods/place");
+			return mav;
+		}
+		/*//평점순
+		@RequestMapping(value="/plistrate.do",method= {RequestMethod.POST, RequestMethod.GET})
+		public ModelAndView plistrate(@RequestParam("goods_place")String goods_place) throws Exception {
+			ModelAndView mav = new ModelAndView();
+			List<GoodsVO> PlaceList = goodsService.PlaceList(goods_place);
+			
+			String place = PlaceList.get(0).getGoods_place();// 지역이름으로 검색한 리스트 중 아무값에서나 getGoods_place()하면 지역이름만 추출가능
+			//for문에서 c:set 안되서 하는 짓임. 
+			PlaceList = PlaceList.stream().sorted(Comparator.comparing(GoodsVO::getGoods_rate_avg).reversed()).collect(Collectors.toList());
+			
+			mav.addObject("place",place);//지역이름
+			mav.addObject("listmenu","list3");
+			mav.addObject("PlaceList",PlaceList);
+			mav.setViewName("/goods/place");
+			return mav;
+		}*/
 	
 	//상품 상세페이지 
 	@RequestMapping(value="/goodsDetail.do" ,method = RequestMethod.GET)
@@ -99,13 +191,14 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 	
 	}
 	
-	//검색어로 찾기 -> 뷰페이지 존재 
+//검색어로 찾기 -> 뷰페이지 존재 
 	@RequestMapping(value="/searchGoods.do" ,method = RequestMethod.GET)
 	public ModelAndView searchGoods(@RequestParam("searchWord") String searchWord,
-			                       HttpServletRequest request, HttpServletResponse response) throws Exception{
+			                       HttpServletRequest request, HttpServletResponse response,HttpSession session ) throws Exception{
 		String viewName=(String)request.getAttribute("viewName"); //goods/searchGoods.jsp
 		List<GoodsVO> goodsList=goodsService.searchGoods(searchWord);
 		ModelAndView mav = new ModelAndView(viewName);
+			
 		mav.addObject("goodsList", goodsList);
 		mav.addObject("searchWord",searchWord);
 		return mav;
@@ -168,8 +261,18 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		 
 		return mav;
 	}
-	
-	//키워드로 찾기 -> 뷰페이지가 없음 (타일즈 설정도 없음), 헤더에 존재, json으로 keyword:goods_title
+//검색어로 찾은 것 위시리스트 체크
+	@RequestMapping(value="/addcheckwish.do", method = RequestMethod.POST, produces ="application/text; charset=utf8")
+	@ResponseBody public String addcheckwish(@RequestParam("idlist")List<String> idlist, HttpSession session, HttpServletRequest request,HttpServletResponse response) {
+		System.out.println(idlist);
+		
+		
+		
+		return null;
+		
+		
+	}
+//키워드로 찾기 -> 뷰페이지가 없음 (타일즈 설정도 없음), 헤더에 존재, json으로 keyword:goods_title
 	@RequestMapping(value="/keywordSearch.do",method = RequestMethod.GET,produces = "application/text; charset=utf8")
 	public @ResponseBody String  keywordSearch(@RequestParam("keyword") String keyword,
 			                                  HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -192,7 +295,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 	    return jsonInfo ;
 	}
 
-	//위시리스트출력
+//위시리스트출력
 	//method= {RequestMethod.POST,RequestMethod.GET}
 	@RequestMapping(value="/WishList.do",method= {RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView WishList(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -246,9 +349,9 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		}
 		//평점순
 
-	//위시리스트에 추가 
+//위시리스트에 추가 
 	@RequestMapping(value="/addwish.do", method= {RequestMethod.POST,RequestMethod.GET})
-	public @ResponseBody String addwish(@RequestParam("goods_id")int goods_id,HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@ResponseBody public  String addwish(@RequestParam("goods_id")int goods_id,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		memberVO=(MemberVO) session.getAttribute("memberInfo");
 		String member_id = memberVO.getMember_id();
@@ -259,6 +362,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		wish.put("member_id", member_id);
 		
 		boolean exist = goodsService.existwish(wish);
+	
 		if(exist==true) {
 			return "isAlreadyExisted";
 		}
@@ -403,5 +507,6 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		return mav;
 		
 	}
+
 	
 }

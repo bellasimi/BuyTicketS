@@ -16,6 +16,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	var listmenu = $('input[id=listmenu]').val();
+	var isLogOn = $('#isLogOn').val();
 	console.log(listmenu);
 	if(listmenu == "list1"){//판매종료
 		$('#list1').attr('class','active');}
@@ -25,13 +26,104 @@ $(document).ready(function(){
 		$('#list3').attr('class','active');}
 	else if(listmenu == "list4"){//평점
 		$('#list4').attr('class','active');}
+	
+	//체크박스 함수
+	//전체 체크박스
+	$('#checkall').click(function(){
+		if($('input[id=checkall]').prop("checked")){//checkall 체크됐으면 이거 atrr나 input[id=checkall]:checked 안돼!! 이게 속성 고정되서 else 안먹힘
+			//prop("checked",true) 하면 else false로 인식으로 못해... 그냥 checked만 해
+			$('input[type=checkbox]').prop("checked",true);}
+		else{
+			$('input[type=checkbox]').prop("checked",false);
+		}
 		
-}); 
+
+		
+	});// 전체 체크 클릭시
+
+	//개별 체크박스 전체 체크박스 비교
+	$('#checked_goods').change(function(){
+		var length = $('input[id=checked_goods]').length;
+		console.log(length);
+		var clength = $('input[id=checked_goods]:checked').length;
+		console.log(clength);
+		if(length == clength){
+			$('#checkall').prop("checked",true);
+		}else{
+			$('#checkall').prop("checked",false);
+		}		
+		
+	});//체크박스 변동 사항 있다면 실행되는 함수 
+
+});// 페이지 들어오자 마자 자동 실행 함수
+/* 
+function add_checkwish(){
+	var isLogOn = $('#isLogOn').val();
+	console.log(isLogOn);
+	//로그인 확인
+	var checked_goods = $('input[id=checked_goods]:checked');
+	var length = checked_goods.length;
+	console.log("체크된 길이: "+length);
+	//상품 체크  확인
+	if(length==0){
+		alert("상품을 체크해주세요!");
+	}
+	else{
+		
+		var idlist [];
+		var checked_goods_id;
+		checked_goods.each(function(){
+			
+				checked_goods_id = $(this).val();
+				idlist.push(checked_goods_id);
+		});//체크박스 각각의 값 배열로 전달	
+		console.log("idlist: "+idlist);
+		if(isLogOn=='false'||isLogOn=''){
+			alert("로그인 후 이용할 수 있습니다!");
+			location.href="${contextPath}/member/loginForm.do"
+		}
+		else{	
+			
+			$.ajax({
+				type : "post",
+				traditional:true,// 이래야 java에서 배열값을 받는다!
+				async : false, //false인 경우 동기식으로 처리한다.
+				url : "${contextPath}/goods/addcheckwish.do",
+				data : {
+					idlist:idlist
+				},
+				
+				success : function(data, textStatus) {
+					console.log(data.trim());
+					if(data.trim()=='null'){
+						alert("성공후 null값")
+					}
+					else if(data.trim()=='alreadyExisted')){
+						alert("이미 위시리트에 담긴 상품이 있습니다!")
+					}
+					 
+				},
+				error : function(data, textStatus) {
+					alert("에러가 발생했습니다."+data);
+				},
+				complete : function(data, textStatus) {
+					
+					
+				}
+			}); //end ajax	
+		}//else 로그인
+			}//else 상품을 체크한 경우
+
+}//function add_checkwish
+	 */
+	
+
 function add_wish(goods_id){
 	var isLogOn = $('#isLogOn').val();
 	console.log(isLogOn);
 	if(isLogOn =='false'|| isLogOn ==''){
 		alert("로그인 후 이용해주세요!");
+		location.href="${contextPath}/member/loginForm.do"
 	}
 	else{
 	$.ajax({
@@ -46,13 +138,13 @@ function add_wish(goods_id){
 			
 			if(data.trim()=='null'){
 				imgpopup("#layer","open")
-			}else if(data.trim()=='isAreadyExisted'){
+			}else if(data.trim()=='isAlreadyExisted'){
 				alert("이미 위시리스트에 담긴 상품입니다.");	
 			}
 			
 		},
 		error : function(data, textStatus) {
-			alert("에러가 발생했습니다."+data);
+			alert("로그인 후 이용해주세요!");
 		},
 		complete : function(data, textStatus) {
 			//alert("작업을완료 했습니다");
@@ -171,19 +263,19 @@ function imgpopup(layer,style){
 		</ul>
 	</div>
 	<table id="list_view">
-		<tr><td><input type="checkbox" id="checkall"></td><td></td><td>상품명</td><td>정가</td><td>할인율</td><td>판매가</td></tr>
+	<tr><td><input type="checkbox" id="checkall" ></td><td>상품명</td><td>원가</td><td>할인율</td><td>할인가</td><td></td></td>
 		<tbody>
 		  <c:forEach var="item" items="${goodsList}"> 
 			<tr>
-					<td><input type="checkbox" id="checkbox"></td>
+					<td><input type="checkbox" id="checked_goods" name="checked_goods"  value="${item.goods_id}" ></td>
 					<td class="goods_image">
 						<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">
-							   <img width="75" alt="" src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+							   <img width="75" alt="" src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"/>
 						</a>
 					</td>
 					<td class="goods_description">
 						<h2>
-							<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">${item.goods_title }</a>
+							<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">${item.goods_title }</a>
 						</h2>
 						
 						<div class="writer_press" >
@@ -191,20 +283,19 @@ function imgpopup(layer,style){
 						<c:out value="${arr[0]}" />
 						</div>
 					</td>
-					<td class="price"><span><fmt:formatNumber  value="${item.goods_price}" type="number" var="goods_price" />
-					${goods_price}원</span></td>
+					<td class="price">
+						<fmt:formatNumber  value="${item.goods_price}" type="number" var="goods_price" />		        
+						<span>${goods_price}원</span>						
+					</td>
+					<td class="price">
+						<strong>${item.goods_discount}% 할인</strong>					
+					</td>
 					<td class="price">
 						<strong>
 						<fmt:formatNumber  value="${item.goods_sales_price}" type="number" var="goods_sales_price" />
 				               ${goods_sales_price}원 
-						</strong>
+						</strong>			
 					</td>
-					<td class="price">
-						<strong>
-							${item.goods_discount}% 할인						
-						</strong>
-					</td>
-					
 					
 <%-- <script type="text/javascript">
 	function add_wish(goods_id){
@@ -247,6 +338,15 @@ function imgpopup(layer,style){
 			</tr>
 			</c:forEach>
 		</tbody>
+		<tr>
+		<td class="buy_btns">
+						<UL>
+						<li><a href="javascript:add_checkwish()">선택한 것만 위시리스트</a></li>
+						
+							
+						</UL>
+					</td>
+			</tr>
 	</table>
 	<div class="clear"></div>
 	<div id="page_wrap">
