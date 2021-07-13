@@ -19,6 +19,10 @@
        <put-attribute name="title" value="내 정보 상세 페이지" />
        <put-attribute name="body" value="/WEB-INF/views/mypage/myDetailInfo.jsp" />
      </definition>
+     <definition name="/mypage/review" extends="baseLayout">
+       <put-attribute name="title" value="내 리뷰 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/mypage/review.jsp" />
+     </definition>
 </tiles-definitions>
 
 
