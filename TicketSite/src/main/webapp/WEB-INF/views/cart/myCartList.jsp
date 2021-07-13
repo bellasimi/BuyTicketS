@@ -518,7 +518,7 @@ function fn_order_all_cart_goods() {
 		<td>정가</td>
 		<td>판매가</td>
 		<td>수량</td>
-		<td>합계</td>
+	<!-- 	<td>합계</td> -->
 		<td>주문</td>
 	</tr>
 		<c:choose>
@@ -536,10 +536,8 @@ function fn_order_all_cart_goods() {
 		<c:set var="cart_goods_qty" value="${myCartList[idx.index].cart_goods_qty}" />
 		<c:set var="cart_id" value="${myCartList[idx.index].cart_id}" />
 		<c:set var="goods_ticket_date" value="${myCartList[idx.index].goods_ticket_date }"/>
-
 		<c:set var="discount_price" value="${item.goods_price*(item.goods_discount/100)}"/>
 				
-				<!-- 구분 checkbox의 value는 무슨의미가 있나 넘어갈때 name이용해 넘ㅇ           함수안에 들어가는 qty 값은 나중에 다시 받아와야할거같기도 수량변화부분 반영해야됨-->    
 		<td>
 			<input type="checkbox" class="checked_goods" name="checked_goods" checked  value="${item.goods_id}" >
 		</td>
@@ -581,55 +579,39 @@ function fn_order_all_cart_goods() {
  			<input type="button" value=" + " name="plus" onclick="javascript:plusone(${item.goods_id},${item.goods_price},${item.goods_sales_price},${idx.index});">
  		</td>
 				
-		<td>
-		<!-- 	<fmt:formatNumber  value="${item.goods_sales_price*cart_goods_qty}" var="priceXqty" pattern="#,###"/> -->
-			<input type="text" name="priceXqty" size=5 value="${priceXqty}" readonly style="border:0px none;background-color:transparent;"
-
-출처: https://kc99.tistory.com/855 [OJR Lab.]><br>
-		</td>			
-				
-	
-	
-	<!-- 합계보이는 부분을 input으로 넣으면 될듯 -->
-	<!--  	<td>이거 여러번 해도 안꼬이는지 확인해야함
-					   <strong> 
-					   			<input type="hidden" name="h_priceXqty" value="${item.goods_sales_price*cart_goods_qty}">
-			    <fmt:formatNumber  value="${item.goods_sales_price*cart_goods_qty}" type="number" var="priceXqty" pattern="#,###"/>
-				         <p id="p_priceXqty"> ${priceXqty}원</p>	</strong> 
-		</td>-->
-					<td>
-		<!-- 각각구매 -->	 <a href="javascript:fn_order_each_goods('${item.goods_id}','${item.goods_title}','${item.goods_sales_price}','${item.goods_fileName}','${item.goods_point}','${goods_ticket_date }','${idx.index}');">
-					       <!-- 왜 '' 붙여야 넘어갈까 이게 기본인가  -->
-					       	<img width="75" alt=""  src="${contextPath}/resources/image/btn_order.jpg">
-							</a><br>
-						<a href="#"> 
-						   <img width="75" alt=""
-							src="${contextPath}/resources/image/btn_add_list.jpg">
-						</A><br> 
-						<a href="javascript:delete_cart_goods('${cart_id}');"> 
-						   <img width="75" alt=""
-							   src="${contextPath}/resources/image/btn_delete.jpg">
-					   </a>
-					</td>
-			</tr>
-			<!--  
-			<c:if test="${item.goods_delivery_price>0}">
-				<c:set var="totalDeliveryPrice" value="2500"/>
-			</c:if>
-			-->
+	<!-- <td>
+		<!-- 	<fmt:formatNumber  value="${item.goods_sales_price*cart_goods_qty}" var="priceXqty" pattern="#,###"/> 
+			<input type="text" name="priceXqty" size=5 value="${priceXqty}" readonly style="border:0px none;background-color:transparent;"><br>
+		</td>	 -->		
+		<td><!-- 각각구매 -->
+			 <a href="javascript:fn_order_each_goods('${item.goods_id}','${item.goods_title}','${item.goods_sales_price}','${item.goods_fileName}','${item.goods_point}','${goods_ticket_date }','${idx.index}');">
+			<img width="75" alt=""  src="${contextPath}/resources/image/btn_order.jpg">
+			</a><br>
+			<a href="#"> 
+			 <img width="75" alt=""
+					src="${contextPath}/resources/image/btn_add_list.jpg">
+			</a><br> 
+				<a href="javascript:delete_cart_goods('${cart_id}');"> 
+			   <img width="75" alt=""
+					   src="${contextPath}/resources/image/btn_delete.jpg">
+			 </a>
+		</td>
+	</tr>
+		
 				<c:set var="totalGoodsPrice" value="${totalGoodsPrice+item.goods_price*cart_goods_qty }" />
 				<c:set var="totalGoodsNum" value="${totalGoodsNum+1}" />
 				<c:set var="totalSalesPrice" value="${totalSalesPrice+item.goods_sales_price*cart_goods_qty}" />
 				<c:set var="totalDiscount" value="${totalDiscount+discount_price*cart_goods_qty}" />
-				
 </c:forEach>
-		    
-		</tbody>
-	</table>
-   <!-- 여기까지 위쪽 표  -->  	
-	<div class="clear"></div>
-	 </c:otherwise>
+ </c:otherwise>
 	</c:choose> 
+	</tbody>
+</table>
+   <!-- 여기까지 위쪽 표  -->
+   
+     	
+	<div class="clear"></div>
+	
 	<br>
 	<br>
 	

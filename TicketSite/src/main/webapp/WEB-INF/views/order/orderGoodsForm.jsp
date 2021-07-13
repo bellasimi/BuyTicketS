@@ -220,24 +220,25 @@ function fn_pay_phone(){
 	var e_account=document.getElementById("tr_random_account");
 	e_card.style.visibility="hidden";
 	e_phone.style.visibility="visible";
-	e_account.visibility="hidden";
+	e_account.style.visibility="hidden";
 }
 function fn_random_account() {
-		var e_card=document.getElementById("tr_pay_card");
-		var e_phone=document.getElementById("tr_pay_phone");
-		var e_account=document.getElementById("tr_random_account");
-		e_card.style.visibility="hidden";
-		e_phone.style.visibility="hidden";
-		e_account.visibility="visible";
+	var e_card=document.getElementById("tr_pay_card");
+	var e_phone=document.getElementById("tr_pay_phone");
+	var e_account=document.getElementById("tr_random_account");
+	e_card.style.visibility="hidden";
+	e_phone.style.visibility="hidden";
+	e_account.style.visibility="visible";
+	
 }
 
 function fn_pay_card(){
 	var e_card=document.getElementById("tr_pay_card");
 	var e_phone=document.getElementById("tr_pay_phone");
-	var e_random_account=document.getElementById("tr_random_account");
+	var e_account=document.getElementById("tr_random_account");
 	e_card.style.visibility="visible";
 	e_phone.style.visibility="hidden";
-	e_account.visibility="hidden";
+	e_account.style.visibility="hidden";
 }
 	
 
@@ -333,8 +334,9 @@ order_total_price=parseInt(order_total_price);
 			pay_hp_num=i_pay_hp1+"-"+i_pay_hp2+"-"+i_pay_hp3;
 			
 		  } else if(pay_method=="무통장입금") {
-			  var i_random_account=document.getElementById("h_random_account");
+			  var i_random_account=document.getElementById("random_account");
 			  random_account=i_random_account.value;
+			  
 		  }//end if
 		  break;
 	  }// end for
@@ -726,16 +728,7 @@ order_total_price=parseInt(order_total_price);
 						<option>30</option>
 					</select>
 					
-					<!-- 
-					var pay_method;
-var random_account;
-var card_com_name;
-var card_number;
-var card_expired_m;
-var card_expired_y;
-var pay_hp_num;
-var pay_hp_com;
-					 -->
+
 					</td>
 				</tr>
 				<tr id="tr_pay_phone" style="visibility:hidden">
@@ -775,6 +768,16 @@ var pay_hp_com;
 		</table>
 	</div>
 </form>
+					<!-- 
+					var pay_method;
+var random_account;
+var card_com_name;
+var card_number;
+var card_expired_m;
+var card_expired_y;
+var pay_hp_num;
+var pay_hp_com;
+					 -->
     <div class="clear"></div>
 	<br>
 	<br>
