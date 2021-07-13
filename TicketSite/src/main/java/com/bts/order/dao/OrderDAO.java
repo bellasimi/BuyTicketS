@@ -12,4 +12,8 @@ public interface OrderDAO {
 	public void insertNewOrder(List<OrderVO> myOrderList) throws DataAccessException;
 	public OrderVO findMyOrder(String order_id) throws DataAccessException;
 	public void removeGoodsFromCart(List<OrderVO> myOrderList)throws DataAccessException;
+	public void getPoint(List<OrderVO> myOrderList) throws DataAccessException;
+	public void usePoint(List<OrderVO> myOrderList) throws DataAccessException;
+	//public void usePoint(int point_used) throws DataAccessException;
+	//이거는 ao.DataIntegrityViolationException invalid number 에러뜬다 ORA-01722
 }

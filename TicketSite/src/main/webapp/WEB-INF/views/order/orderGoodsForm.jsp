@@ -15,8 +15,7 @@
 <c:set var="total_order_goods_qty" value="0" />
 <!-- 총할인금액 -->
 <c:set var="total_discount_price" value="0" />
-<!-- 총 배송비 
-<c:set var="total_delivery_price" value="0" />-->
+
 
 <head>
 <style>
@@ -76,7 +75,8 @@
    */ 
    //<input id="point_used" type="number" size="10" min="0" max="${orderer.member_point}"/>원/${orderer.member_point}원
   // <button id="use_point_all">모두사용</button>	   
-$(document).ready(function(){
+
+  $(document).ready(function(){
 	$("#use_point_all").click(function() {
 		console.log("적립금 모두사용");
 		var point_used=document.form_order.point_used;
@@ -84,7 +84,7 @@ $(document).ready(function(){
 		//$("#ch_point_used").prop("checked",true);
 	});
 
-
+  });
 //class="discountBox" 
 //point_used discount_sangpum discount_okcashbag discount_coupon
 
@@ -95,57 +95,62 @@ $(document).ready(function(){
 		var discount_okcashbag=0;
 		var discount_coupon=0;
 		var totalDiscount=0;
+		
+		
 		console.log("함수2");
 		if($("#ch_point_used").prop("checked")){
 			console.log("point");
 			point_used=document.form_order.point_used.value;
 			point_used=parseInt(point_used);
-			console.log(point_used+typeof point_used);
+			if(isNaN(point_used)) {
+				point_used=0;
+				console.log("isNan");
+			}
+			console.log("if문point_used"+point_used+typeof point_used);
 		}
 		if($("#ch_discount_sangpum").prop("checked")){
 			discount_sangpum=document.form_order.discount_sangpum.value;
 			discount_sangpum=parseInt(discount_sangpum);
+			if(isNaN(discount_sangpum)) {
+				discount_sangpum=0;
+			}
 			console.log("discount_sangpum"+discount_sangpum);
 		}
 		if($("#ch_discount_okcashbag").prop("checked")){
 			discount_okcashbag=document.form_order.discount_okcashbag.value;
 			discount_okcashbag=parseInt(discount_okcashbag);
+			if(isNaN(discount_okcashbag)) {
+				discount_okcashbag=0;
+			}
 			console.log("discount_okcashbag"+discount_okcashbag);
 		}
 		if($("#ch_discount_coupon").prop("checked")){
 			discount_coupon=document.form_order.discount_coupon.value;
 			discount_coupon=parseInt(discount_coupon);
+			if(isNaN(discount_coupon)) {
+				discount_coupon=0;
+			}
+			
 			console.log("discount_coupon"+discount_coupon);
 		}
 		totalDiscount=point_used+discount_sangpum+discount_okcashbag+discount_coupon;
+		var totalPrice=document.form_order.h_totalPrice.value;
+		totalPrice=parseInt(totalPrice);
 		document.getElementById("p_totalDiscount").innerHTML=totalDiscount;
-
+		document.getElementById("p_final_totalPrice").innerHTML=totalPrice-totalDiscount;
+		//나중에 최종값을 넘겨주기 위한것 
+		var h_final_total_Price=document.form_order.h_final_total_Price;
+		h_final_total_Price.value=totalPrice-totalDiscount;
+		//
+		console.log("point_used"+point_used+typeof point_used);
+		console.log("discount_sangpum"+discount_sangpum+typeof discount_sangpum);
+		console.log("discount_okcashbag"+discount_okcashbag+typeof discount_okcashbag);
+		console.log("discount_coupon"+discount_coupon+typeof discount_coupon);
+		
 	
 	});	
 });
-		/*console.log("사용");
-		console.log($("#point_used").is("checked",true));
-		var point_used;
-		var discount_sangpum;
-		var discount_okcashbag;
-		var discount_coupon;
-		
-		//var point_used=document.form_order.point_used;
-		//point_used.value=point_used.max;
-			//console.log(point_used.max);
-			if($("#point_used").click()) {
-				
-			}
-		var point_used=document.form_order.point_used.value;
-		var discount_sangpum=document.form_order.discount_sangpum.value;
-		var discount_okcashbag=document.form_order.discount_okcashbag.value;
-		var discount_coupon=document.form_order.discount_coupon.value;
-		
-		var totalDiscount=point_used+discount_sangpum+discount_okcashbag+discount_coupon;
-		document.getElementById("p_totalDiscount").innerHTML=totalDiscount;
-		*/
-	//});
-//});
+	
    
 
 /*
@@ -226,18 +231,18 @@ function fn_pay_phone(){
 	
 	var e_card=document.getElementById("tr_pay_card");
 	var e_phone=document.getElementById("tr_pay_phone");
-	var e_random_account=document.getElementById("tr_random_account");
+	var e_account=document.getElementById("tr_random_account");
 	e_card.style.visibility="hidden";
 	e_phone.style.visibility="visible";
-	e_random_account.visibility="hidden";
+	e_account.visibility="hidden";
 }
 function fn_random_account() {
 		var e_card=document.getElementById("tr_pay_card");
 		var e_phone=document.getElementById("tr_pay_phone");
-		var e_random_account=document.getElementById("tr_random_account");
+		var e_account=document.getElementById("tr_random_account");
 		e_card.style.visibility="hidden";
 		e_phone.style.visibility="hidden";
-		e_random_account.visibility="visible";
+		e_account.visibility="visible";
 }
 
 function fn_pay_card(){
@@ -246,7 +251,7 @@ function fn_pay_card(){
 	var e_random_account=document.getElementById("tr_random_account");
 	e_card.style.visibility="visible";
 	e_phone.style.visibility="hidden";
-	e_random_account.visibility="hidden";
+	e_account.visibility="hidden";
 }
 	
 
@@ -470,16 +475,39 @@ function fn_show_order_detail(){
 }
 */
 
+/* 주문 db에 넘겨줘야 하는 값들ㅇㅇ  orderlist랑 memberinfo 빼고 전부 
+order_id,
+	member_id,// session-member에 있는값
+   goods_id, //myOrderList
+   orderer_name,// session-member
+   orderer_hp,//session-member
+   goods_title, //myOrderList
+   order_goods_qty, //myOrderList
+   goods_sales_price, //myOrderList
+   goods_fileName, //myOrderList
+   pay_method,
+   random_account,
+   card_com_name,
+   card_number,
+   card_expired_m,
+   card_expired_y,
+   pay_hp_com,
+   pay_hp_num,
+   goods_ticket_date, //myOrderList
+   goods_point, //myOrderList
+   order_total_price,
+   point_used
+   */
+
 var goods_id="";
 var goods_title="";
 var goods_fileName="";
 
-var order_goods_qty
+var order_goods_qty;
 var each_goods_price;
 var total_order_goods_price;
 var total_order_goods_qty;
 var orderer_name;
-//var receiver_name
 
 var pay_method="";
 var random_account="";
@@ -494,39 +522,19 @@ var goods_point; //myOrderList
 var order_total_price=0;
 var point_used=0;
 
-var final_total_oder_price;
+//var final_total_oder_price;
 //가장 마지막 최종결제하기  결제정보를 넘기는 곳 
 function fn_process_pay_order(){
-	 /* 주문 db에 넘겨줘야 하는 값들ㅇㅇ  orderlist랑 memberinfo 빼고 전부 
-	 order_id,
-		member_id,// session-member에 있는값
-	    goods_id, //myOrderList
-	    orderer_name,// session-member
-	    orderer_hp,//session-member
-	    goods_title, //myOrderList
-	    order_goods_qty, //myOrderList
-	    goods_sales_price, //myOrderList
-	    goods_fileName, //myOrderList
-	    pay_method,
-	    random_account,
-	    card_com_name,
-	    card_number,
-	    card_expired_m,
-	    card_expired_y,
-	    pay_hp_com,
-	    pay_hp_num,
-	    goods_ticket_date, //myOrderList
-	    goods_point, //myOrderList
-	    order_total_price,
-	    point_used
-	    */
 console.log("최종결제하기");
 var r_pay_method  =  document.form_order.pay_method;
-var point_used = document.getElementById("point_used").value;
-console.log("point_used"+point_used);
+
+//최종액 넘겨주기 위한곳
+var order_total_price=document.getElementById("h_final_total_Price").value;
+console.log("전체금액 객체제대로 넘어오는지"+order_total_price)
+order_total_price=parseInt(order_total_price);
 	for(var i=0; i<r_pay_method.length;i++){
 	  if(r_pay_method[i].checked==true){
-		  pay_method=r_pay_method[i].value
+		  pay_method=r_pay_method[i].value;
 		  if(pay_method=="신용카드"){
 			var i_card_com_name=document.getElementById("card_com_name");
 			var i_card_num1=document.getElementById("card_num1");
@@ -564,6 +572,12 @@ console.log("point_used"+point_used);
 	  }// end for
 	}
 	
+	var point_used = document.getElementById("point_used").value;
+	console.log("point_used"+point_used+typeof point_used);
+	//포인트 사용된값 받으려면 checked도 되어있어야 함 --------- 
+	
+	
+	
 	alert("최종 결제하기"); //이 부분을 먼저 처리해줘야함 
 	var formObj=document.createElement("form");
 
@@ -597,13 +611,13 @@ console.log("point_used"+point_used);
     console.log("pay_hp_com"+pay_hp_com);
     console.log("pay_hp_num"+pay_hp_num);
     console.log("point_used"+point_used);
-    //console.log(""+);
+    console.log("order_total_price"+order_total_price+typeof order_total_price);
     //console.log(""+);
     //console.log(""+);
     //console.log(""+);
     ///console.log(""+);
     
-    /*
+    
   i_pay_method.value=pay_method;
      i_random_account.value=random_account;
      i_card_com_name.value=card_com_name;
@@ -612,13 +626,13 @@ console.log("point_used"+point_used);
      i_card_expired_y.value=card_expired_y;
       i_pay_hp_com.value=pay_hp_com;
      i_pay_hp_num.value=pay_hp_num;
-     i_order_total_price.value=40000;
+     i_order_total_price.value=order_total_price;
      i_point_used.value=point_used;
-     */
+     //i_point_used.value=10;
     
     //더미데이터 넣은부분
    
-    i_pay_method.value=pay_method;
+    /*i_pay_method.value=pay_method;
     i_random_account.value="00000000";
     i_card_com_name.value="신한";
     i_card_number.value="000-0999";
@@ -628,10 +642,8 @@ console.log("point_used"+point_used);
     i_pay_hp_num.value="010-000-0000";
     i_order_total_price.value=4000;
     i_point_used.value=1000;
-    
-  	//pay_hp_com
-    //pay_hp_num
-    
+    */
+
     
     /*
     i_pay_method.value=pay_method;
@@ -692,7 +704,9 @@ function getpoint(){
 
     form.submit();
 }
-*/
+
+
+
 function howmuch(){
 	var juklip =  Number($('#discount_juklip').val());
 	var yechi=  Number($('#discount_yechi').val());
@@ -746,7 +760,7 @@ function usepoint(){
 
     form.submit();
 }	
-
+*/
 </script>
 </head>
 <body>
@@ -917,7 +931,7 @@ function usepoint(){
 				<td>최종 결제금액</td>
 			</tr>
 			<tr cellpadding=40 align=center>
-				<td id="">
+				<td>
 					<p id="p_totalNum">${total_order_goods_qty}개</p> 
 					<input id="h_total_order_goods_qty" type="hidden" value="${total_order_goods_qty}" />
 				</td>
@@ -925,8 +939,8 @@ function usepoint(){
 		<!-- 총상품금액 -->		
 				<td>
 					<fmt:formatNumber value="${total_order_price}" var="totalorder_price" pattern="#,###"/>
-					<p id="p_totalPrice">${totalorder_price}원</p> <input
-					id="h_totalPrice" type="hidden" value="${total_order_price}" />
+					<p id="p_totalPrice">${totalorder_price}원</p> 
+					<input id="h_totalPrice" type="hidden" value="${total_order_price}" />
 				</td>
 				<!--  플러스버튼 
 				<td><IMG width="25" alt=""
@@ -948,13 +962,10 @@ function usepoint(){
 				
 				<td><img width="25" alt="" src="${pageContext.request.contextPath}/resources/image/equal.jpg"></td>
 		<!--최종 결제액 -->	
-				<td>
-					<p id="p_final_totalPrice">
-					<!--<fmt:formatNumber value="${final_total_order_price}" var="final_total_order_price" pattern="#,###"/>
-						--><font size="15">${totalorder_price}원 </font>
-						
-						<div id="finalprice"></div>
-					</p> <input id="h_final_total_Price" type="hidden" value="${final_total_order_price}" />
+				<td><!-- 여기 다시좀 챙겨봐야함  -->
+					<font size="15"><p id="p_final_totalPrice">
+					${totalorder_price}원 
+					</p></font> <input id="h_final_total_Price" type="hidden" value="${total_order_price}"/>
 				</td>
 			</tr>
 		</tbody>
@@ -969,14 +980,13 @@ function usepoint(){
 			<tbody>
 				<tr >
 					<td>
-					   <input type="radio" id="pay_method" name="pay_method" value="신용카드"   onClick="fn_pay_card()" checked>신용카드 &nbsp;&nbsp;&nbsp; 
-					<input type="radio" id="pay_method" name="pay_method" value="휴대폰결제" onClick="fn_pay_phone()">휴대폰 결제 &nbsp;&nbsp;&nbsp;
-					   <input type="radio" id="pay_method" name="pay_method" value="무통장입금" onClick="fn_random_account()">무통장 입금 &nbsp;&nbsp;&nbsp;
+					   <input type="radio" id="pay_method" name="pay_method" value="신용카드"   onclick="fn_pay_card()" checked>신용카드 &nbsp;&nbsp;&nbsp; 
+					<input type="radio" id="pay_method" name="pay_method" value="휴대폰결제" onclick="fn_pay_phone()">휴대폰 결제 &nbsp;&nbsp;&nbsp;
+					   <input type="radio" id="pay_method" name="pay_method" value="무통장입금" onclick="fn_random_account()">무통장 입금 &nbsp;&nbsp;&nbsp;
 					</td>
 				</tr>
 				<tr >
 					<td>
-					   
 					   <input type="radio" id="pay_method" name="pay_method" value="실시간 계좌이체">실시간 계좌이체 &nbsp;&nbsp;&nbsp;
 					   <input type="radio" id="pay_method" name="pay_method" value="카카오페이(간편결제)">카카오페이(간편결제) &nbsp;&nbsp;&nbsp; 
 					   <input type="radio" id="pay_method" name="pay_method" value="페이나우(간편결제)">페이나우(간편결제) &nbsp;&nbsp;&nbsp; 
@@ -1084,7 +1094,7 @@ var pay_hp_com;
 		<br>
 		<br> <!--  <a href="javascript:fn_show_order_detail();">--> 
 		<img width="125" alt="" src="${contextPath}/resources/image/btn_gulje.jpg">
-		<br> <input name="btn_process_pay_order" type="button" onClick="fn_process_pay_order()" value="최종결제하기">
+		<br> <input name="btn_process_pay_order" type="button" onclick="fn_process_pay_order()" value="최종결제하기">
 		</a> <a href="${contextPath}/main/main.do"> 
 		   <img width="75" alt="" src="${contextPath}/resources/image/btn_shoping_continue.jpg">
 		</a>

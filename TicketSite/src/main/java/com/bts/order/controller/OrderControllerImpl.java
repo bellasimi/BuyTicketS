@@ -249,7 +249,8 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 				System.out.println(receiverMap.get("pay_hp_num"));
 				System.out.println(receiverMap.get("pay_hp_com"));
 				System.out.println(receiverMap.get("order_total_price"));
-				System.out.println(receiverMap.get("point_used"));
+				System.out.println("point_used"+receiverMap.get("point_used"));
+				System.out.println("포인트"+orderVO.getGoods_point());
 				//System.out.println(receiverMap.get("goods_point"));
 				
 				

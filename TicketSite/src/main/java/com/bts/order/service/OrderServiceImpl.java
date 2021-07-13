@@ -26,9 +26,14 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	public void addNewOrder(List<OrderVO> myOrderList) throws Exception{
+		//orderDAO.usePoint(myOrderList.get(0).getPoint_used());
+		orderDAO.usePoint(myOrderList);
+		orderDAO.getPoint(myOrderList);
 		orderDAO.insertNewOrder(myOrderList);
 		//주문 완료되면 카트에서는 지움 
 		orderDAO.removeGoodsFromCart(myOrderList);
+		
+	
 		
 	}	
 	
