@@ -407,7 +407,7 @@ function delete_cart_goods(cart_id) {
 	
 //}
 
-//페이지에서 계속 수정되는 cart_goods_qty는 직접 받는다 
+//페이지에서 계속 수정되는 cart_goods_qty는 폼에서 직접 넘겨받는다 
 //fn_order_each_goods('${item.goods_id}','${item.goods_title}','${item.goods_sales_price}','${item.goods_fileName}'
 function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName,goods_point,goods_ticket_date,index) {
 	console.log("개별주문 함수 ");

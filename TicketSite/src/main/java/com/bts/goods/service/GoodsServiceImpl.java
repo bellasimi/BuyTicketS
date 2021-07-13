@@ -41,7 +41,7 @@ public class GoodsServiceImpl implements GoodsService{
 		goodsMap.put("bestseller",goodsList);
 		goodsList=goodsDAO.selectStatusList("bigsale");
 		goodsMap.put("bigsale",goodsList);
-		goodsList=goodsDAO.selectStatusList("new");
+		goodsList=goodsDAO.selectStatusList("newsale");
 		goodsMap.put("newsale",goodsList);
 		return goodsMap;
 	}
@@ -98,5 +98,30 @@ public class GoodsServiceImpl implements GoodsService{
 	public boolean existwish(Map wish) throws Exception {
 
 		return goodsDAO.existwish(wish); 
+	}
+
+	@Override
+	public List<GoodsVO> wishlastsale(String member_id) throws Exception {
+		
+		return goodsDAO.wishlastsale(member_id);
+	}
+
+	@Override
+	public List<GoodsVO> wishcheap(String member_id) throws Exception {
+
+		return goodsDAO.wishcheap(member_id);
+	}
+
+	@Override
+	public List<GoodsVO> wishdiscount(String member_id) throws Exception {
+
+		return goodsDAO.wishdiscount(member_id);
+	}
+
+	@Override
+	public void deletecheckedwish(Map wish) throws Exception {
+		System.out.println("서비스값: "+wish);
+		goodsDAO.deletecheckedwish(wish);
+		
 	}
 }

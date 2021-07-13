@@ -51,6 +51,10 @@
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <script>
+
+
+
+
  /*
  //창이 열리면 무조건 실행된다  아직 뭔지 잘 모르겠음 
   window.onload=function()
@@ -70,6 +74,81 @@
   	select_hp1.value=hp1;
   }    
    */ 
+   //<input id="point_used" type="number" size="10" min="0" max="${orderer.member_point}"/>원/${orderer.member_point}원
+  // <button id="use_point_all">모두사용</button>	   
+$(document).ready(function(){
+	$("#use_point_all").click(function() {
+		console.log("적립금 모두사용");
+		var point_used=document.form_order.point_used;
+		point_used.value=point_used.max;
+		//$("#ch_point_used").prop("checked",true);
+	});
+
+
+//class="discountBox" 
+//point_used discount_sangpum discount_okcashbag discount_coupon
+
+$(document).ready(function(){
+	$(".discountBox").change(function() {
+		var point_used=0;
+		var discount_sangpum=0;
+		var discount_okcashbag=0;
+		var discount_coupon=0;
+		var totalDiscount=0;
+		console.log("함수2");
+		if($("#ch_point_used").prop("checked")){
+			console.log("point");
+			point_used=document.form_order.point_used.value;
+			point_used=parseInt(point_used);
+			console.log(point_used+typeof point_used);
+		}
+		if($("#ch_discount_sangpum").prop("checked")){
+			discount_sangpum=document.form_order.discount_sangpum.value;
+			discount_sangpum=parseInt(discount_sangpum);
+			console.log("discount_sangpum"+discount_sangpum);
+		}
+		if($("#ch_discount_okcashbag").prop("checked")){
+			discount_okcashbag=document.form_order.discount_okcashbag.value;
+			discount_okcashbag=parseInt(discount_okcashbag);
+			console.log("discount_okcashbag"+discount_okcashbag);
+		}
+		if($("#ch_discount_coupon").prop("checked")){
+			discount_coupon=document.form_order.discount_coupon.value;
+			discount_coupon=parseInt(discount_coupon);
+			console.log("discount_coupon"+discount_coupon);
+		}
+		totalDiscount=point_used+discount_sangpum+discount_okcashbag+discount_coupon;
+		document.getElementById("p_totalDiscount").innerHTML=totalDiscount;
+
+	
+	});	
+});
+		/*console.log("사용");
+		console.log($("#point_used").is("checked",true));
+		var point_used;
+		var discount_sangpum;
+		var discount_okcashbag;
+		var discount_coupon;
+		
+		//var point_used=document.form_order.point_used;
+		//point_used.value=point_used.max;
+			//console.log(point_used.max);
+			if($("#point_used").click()) {
+				
+			}
+		var point_used=document.form_order.point_used.value;
+		var discount_sangpum=document.form_order.discount_sangpum.value;
+		var discount_okcashbag=document.form_order.discount_okcashbag.value;
+		var discount_coupon=document.form_order.discount_coupon.value;
+		
+		var totalDiscount=point_used+discount_sangpum+discount_okcashbag+discount_coupon;
+		document.getElementById("p_totalDiscount").innerHTML=totalDiscount;
+		*/
+	//});
+//});
+   
+
+/*
 	function reset_all() {
 		var e_receiver_name = document.getElementById("receiver_name");
 		var e_hp1 = document.getElementById("hp1");
@@ -141,23 +220,39 @@
 		e_namujiAddress.value = h_namujiAddress.value;
 
 	}
-	
+	*/
 function fn_pay_phone(){
 	
 	
 	var e_card=document.getElementById("tr_pay_card");
 	var e_phone=document.getElementById("tr_pay_phone");
+	var e_random_account=document.getElementById("tr_random_account");
 	e_card.style.visibility="hidden";
 	e_phone.style.visibility="visible";
+	e_random_account.visibility="hidden";
+}
+function fn_random_account() {
+		var e_card=document.getElementById("tr_pay_card");
+		var e_phone=document.getElementById("tr_pay_phone");
+		var e_random_account=document.getElementById("tr_random_account");
+		e_card.style.visibility="hidden";
+		e_phone.style.visibility="hidden";
+		e_random_account.visibility="visible";
 }
 
 function fn_pay_card(){
 	var e_card=document.getElementById("tr_pay_card");
 	var e_phone=document.getElementById("tr_pay_phone");
+	var e_random_account=document.getElementById("tr_random_account");
 	e_card.style.visibility="visible";
 	e_phone.style.visibility="hidden";
+	e_random_account.visibility="hidden";
 }
+	
 
+	
+//최종결제 팝업창
+/*
 function imagePopup(type) {
 	if (type == 'open') {
 		// 팝업창을 연다.
@@ -173,6 +268,7 @@ function imagePopup(type) {
 		jQuery('#layer').attr('style', 'visibility:hidden');
 	}
 }
+*/
 
 /*
 var goods_id="";
@@ -205,6 +301,7 @@ var card_com_name;
 var pay_hp_num;
 var final_total_oder_price; */
 //최종 결제 팝업창 띄우는 곳 
+/*
 function fn_show_order_detail(){
 	goods_id="";
 	goods_title="";
@@ -270,7 +367,7 @@ function fn_show_order_detail(){
 		  gift_wrapping=r_gift_wrapping[i].value
 		 break;
 	  }
-	}  */
+	}  
 	
 	var r_pay_method  =  frm.pay_method;
 	
@@ -371,7 +468,7 @@ function fn_show_order_detail(){
 	p_pay_method.innerHTML=pay_method;
 	imagePopup('open');
 }
-
+*/
 
 var goods_id="";
 var goods_title="";
@@ -383,39 +480,20 @@ var total_order_goods_price;
 var total_order_goods_qty;
 var orderer_name;
 //var receiver_name
-var hp1;
-var hp2;
-var hp3;
 
-var pay_method;
-var random_account;
-var card_com_name;
-var card_number;
-var card_expired_m;
-var card_expired_y;
-var pay_hp_num;
-var pay_hp_com
+var pay_method="";
+var random_account="";
+var card_com_name="";
+var card_number="";
+var card_expired_m="";
+var card_expired_y="";
+var pay_hp_num="";
+var pay_hp_com="";
 var goods_ticket_date; //myOrderList
 var goods_point; //myOrderList
-var order_total_price;
-var point_used;
+var order_total_price=0;
+var point_used=0;
 
-
-//var tel1;
-//var tel2;
-//var tel3;
-
-//var receiver_hp_num;
-//var receiver_tel_num;
-//var delivery_address;
-//var delivery_message;
-//var delivery_method;
-//var gift_wrapping;
-var pay_method;
-var card_com_name;
-//var card_pay_month;
-var pay_hp_num;
-var pay_hp_com;
 var final_total_oder_price;
 //가장 마지막 최종결제하기  결제정보를 넘기는 곳 
 function fn_process_pay_order(){
@@ -441,8 +519,50 @@ function fn_process_pay_order(){
 	    goods_point, //myOrderList
 	    order_total_price,
 	    point_used
-	    */ 
-	
+	    */
+console.log("최종결제하기");
+var r_pay_method  =  document.form_order.pay_method;
+var point_used = document.getElementById("point_used").value;
+console.log("point_used"+point_used);
+	for(var i=0; i<r_pay_method.length;i++){
+	  if(r_pay_method[i].checked==true){
+		  pay_method=r_pay_method[i].value
+		  if(pay_method=="신용카드"){
+			var i_card_com_name=document.getElementById("card_com_name");
+			var i_card_num1=document.getElementById("card_num1");
+			var i_card_num2=document.getElementById("card_num2");
+			var i_card_num3=document.getElementById("card_num3");
+			//var i_card_number=document.getElementById("card_number");
+			var i_card_expired_m=document.getElementById("card_expired_m");
+			var i_card_expired_y=document.getElementById("card_expired_y");
+			
+			card_com_name=i_card_com_name.value;
+			card_num1=i_card_num1.value;
+			card_num2=i_card_num2.value;
+			card_num3=i_card_num3.value;
+			
+			card_number=card_num1+"-"+card_num2+"-"+card_num3;
+			card_expired_m=i_card_expired_m.value;
+			card_expired_y=i_card_expired_y.value;
+		  }else if(pay_method=="휴대폰결제"){
+			var i_pay_hp_com=document.getElementById("pay_hp_com");
+			var i_pay_hp1=document.getElementById("pay_hp1");
+			var i_pay_hp2=document.getElementById("pay_hp2");
+			var i_pay_hp2=document.getElementById("pay_hp3");
+			pay_hp1=i_pay_hp1.value;
+			pay_hp2=i_pay_hp2.value;
+			pay_hp3=i_pay_hp3.value;
+			
+			pay_hp_com=i_pay_hp_com.value;
+			pay_hp_num=i_pay_hp1+"-"+i_pay_hp2+"-"+i_pay_hp3;
+			
+		  } else if(pay_method=="무통장입금") {
+			  var i_random_account=document.getElementById("h_random_account");
+			  random_account=i_random_account.value;
+		  }//end if
+		  break;
+	  }// end for
+	}
 	
 	alert("최종 결제하기"); //이 부분을 먼저 처리해줘야함 
 	var formObj=document.createElement("form");
@@ -457,7 +577,7 @@ function fn_process_pay_order(){
     var i_pay_hp_com=document.createElement("input");
     var i_order_total_price=document.createElement("input");
     var i_point_used=document.createElement("input");
-    pay_hp_com
+
     i_pay_method.name="pay_method";
   	i_random_account.name="random_account";
     i_card_com_name.name="card_com_name";
@@ -468,14 +588,42 @@ function fn_process_pay_order(){
     i_pay_hp_num.name="pay_hp_num";
     i_order_total_price.name="order_total_price";
     i_point_used.name="point_used";
-  
+  	
+    console.log("pay_method"+pay_method);
+    console.log("random_account"+random_account);
+    console.log("card_com_name"+card_com_name);
+    console.log("card_number"+card_number);
+    console.log("card_expired_m"+card_expired_m+card_expired_y);
+    console.log("pay_hp_com"+pay_hp_com);
+    console.log("pay_hp_num"+pay_hp_num);
+    console.log("point_used"+point_used);
+    //console.log(""+);
+    //console.log(""+);
+    //console.log(""+);
+    //console.log(""+);
+    ///console.log(""+);
+    
+    /*
+  i_pay_method.value=pay_method;
+     i_random_account.value=random_account;
+     i_card_com_name.value=card_com_name;
+     i_card_number.value=card_number;
+     i_card_expired_m.value=card_expired_m;
+     i_card_expired_y.value=card_expired_y;
+      i_pay_hp_com.value=pay_hp_com;
+     i_pay_hp_num.value=pay_hp_num;
+     i_order_total_price.value=40000;
+     i_point_used.value=point_used;
+     */
+    
+    //더미데이터 넣은부분
+   
     i_pay_method.value=pay_method;
     i_random_account.value="00000000";
     i_card_com_name.value="신한";
     i_card_number.value="000-0999";
     i_card_expired_m.value="09";
-    i_card_expired_y.value="22";
-    
+    i_card_expired_y.value="22";    
     i_pay_hp_com.value="SKT";
     i_pay_hp_num.value="010-000-0000";
     i_order_total_price.value=4000;
@@ -507,7 +655,6 @@ function fn_process_pay_order(){
     formObj.appendChild(i_pay_hp_com);
     formObj.appendChild(i_pay_hp_num);
     formObj.appendChild(i_order_total_price);
-    formObj.appendChild(i_card_com_name);
     formObj.appendChild(i_point_used);
     
 
@@ -515,8 +662,11 @@ function fn_process_pay_order(){
     formObj.method="post";
     formObj.action="${contextPath}/order/payToOrderGoods.do";
     formObj.submit();
-	imagePopup('close');
+//	imagePopup('close');
 }
+
+
+/*
 //적립
 function getpoint(){
 	var getjuklip = Number($('#_jucklip').val())- Number($('#discount_juklip').val());
@@ -542,6 +692,7 @@ function getpoint(){
 
     form.submit();
 }
+*/
 function howmuch(){
 	var juklip =  Number($('#discount_juklip').val());
 	var yechi=  Number($('#discount_yechi').val());
@@ -613,7 +764,7 @@ function usepoint(){
 			</tr>
 			
 			<c:forEach var="item" items="${myOrderList}">
-			<tr>
+			<tr> <!-- 상품 하나씩 나오는 부분  -->
 				<td class="goods_image">
 					<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">
 			        <img width="75" alt=""  src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
@@ -627,11 +778,11 @@ function usepoint(){
 					      <input   type="hidden" id="h_goods_title" name="h_goods_title" value="${item.goods_title }" />
 					  </h2>
 					</td>
-					<td>
+					<td> <!-- 이거 넘겨줄곳 필요할듯 input hidden이나  -->
 					${item.goods_ticket_date}
 					</td>
 					<td>
-					  <h2>${item.order_goods_qty }개<h2>
+					  <h2>${item.order_goods_qty }개<h2> 
 					    <input   type="hidden" id="h_order_goods_qty" name="h_order_goods_qty" value="${item.order_goods_qty}" />
 					</td>
 					<!-- 주문금액 -->
@@ -639,7 +790,7 @@ function usepoint(){
 					<td>
 				
 					<fmt:formatNumber value="${item.goods_sales_price}" var="goodssales_price" pattern="#,###"/>
-					<h2>${goodssales_price}원 (10%추가할인)</h2>
+					<h2>${goodssales_price}원</h2>
 					</td>
 					
 					<td>
@@ -658,15 +809,14 @@ function usepoint(){
 			<c:set var="total_order_price"
 				value="${total_order_price+ item.goods_sales_price*item.order_goods_qty}"/>
 		
+		<!-- 총 주문한 티켓장수 -->
 			<c:set var="total_order_goods_qty"
 				value="${total_order_goods_qty+item.order_goods_qty }" />
 				
 </c:forEach>
 		</tbody>
 	</table>
-	
-		<input type="hidden" value="${final_total_order_price}" id="total_order_price" />
-		<input type="button" value="적립" onclick="getpoint()"/>
+
 		<div class="clear"></div>
 
 	<br>
@@ -695,6 +845,7 @@ function usepoint(){
 				 <input  type="text" value="${orderer.email1}@${orderer.email2}" size="15" />
 				</td>
 			  </tr>
+			 
 		   </tbody>
 		</table>
 	</div>
@@ -710,36 +861,46 @@ function usepoint(){
 		
 			<tbody>
 				<tr class="dot_line">
-					<td width=100>적립금</td>
-					<td><input id="discount_juklip" type="text" size="10" />원/1000원
-						&nbsp;&nbsp;&nbsp; <input type="checkbox" /> 모두 사용하기</td>
+					<td width=100>
+						적립금
+						<button type="button" id="use_point_all">모두사용</button>					
+					</td> 
+					<td><input id="point_used" type="number" size="10" min="0" max="${orderer.member_point}"/>원/${orderer.member_point}원
+						&nbsp;&nbsp;&nbsp; <input type="checkbox" id="ch_point_used" class="discountBox" onclick=""/> 사용하기</td>
+						<!-- 모두사용하기 누르면 자동으로 값이 전체돈으로 입력되도록해야한다  -->
+						
 				</tr>
+				<!--  
 				<tr class="dot_line">
 					<td>예치금</td>
 					<td><input id="discount_yechi" type="text" size="10" />원/1000원
 						&nbsp;&nbsp;&nbsp; <input type="checkbox" /> 모두 사용하기</td>
 				</tr>
+				-->
 				<tr class="dot_line">
 					<td>상품권 전환금</td>
 					<td cellpadding="5"><input id="discount_sangpum" type="text"
-						size="10" />원/0원 &nbsp;&nbsp;&nbsp; <input type="checkbox" /> 모두
+						size="10" />원/0원 &nbsp;&nbsp;&nbsp; 
+						<input type="checkbox" id="ch_discount_sangpum" class="discountBox" onclick=""/> 
 						사용하기</td>
 				</tr>
 				<tr class="dot_line">
 					<td>OK 캐쉬백 포인트</td>
 					<td cellpadding="5"><input id="discount_okcashbag" type="text"
-						size="10" />원/0원 &nbsp;&nbsp;&nbsp; <input type="checkbox" /> 모두
+						size="10" />원/0원 &nbsp;&nbsp;&nbsp; 
+						<input type="checkbox" id="ch_discount_okcashbag" class="discountBox" onclick=""/> 
 						사용하기</td>
 				</tr>
 				<tr class="dot_line">
 					<td>쿠폰할인</td>
 					<td cellpadding="5"><input id="discount_coupon" type="text"
-						size="10" />원/0원 &nbsp;&nbsp;&nbsp; <input type="checkbox" /> 모두
+						size="10" />원/0원 &nbsp;&nbsp;&nbsp; 
+						<input type="checkbox"  id="ch_discount_coupon" class="discountBox" onclick=""/> 
 						사용하기</td>
 				</tr>
 			</tbody>
-			
-			<input type="button" onclick="usepoint()" value="할인받기"/>
+			<!-- 
+			<input type="button" onclick="usepoint()" value="할인받기"/> -->
 		</table>
 	</div>
 	<div class="clear"></div>
@@ -767,14 +928,16 @@ function usepoint(){
 					<p id="p_totalPrice">${totalorder_price}원</p> <input
 					id="h_totalPrice" type="hidden" value="${total_order_price}" />
 				</td>
+				<!--  플러스버튼 
 				<td><IMG width="25" alt=""
 					src="${pageContext.request.contextPath}/resources/image/plus.jpg"></td>
-		
+			-->
 				<td>
+			
 				<img width="25" alt="" 	src="${pageContext.request.contextPath}/resources/image/minus.jpg"></td>
 		<!-- 총할인액 -->
 				<td>
-					<p id="p_totalSalesPrice">
+					<p id="p_totalDiscount">0
 					<!--<fmt:formatNumber value="${total_discount_price}" var="tdiscountprice" pattern="#,000"/>
 					${tdiscountprice}원--> 
 					<div id="p_result"></div>
@@ -788,8 +951,8 @@ function usepoint(){
 				<td>
 					<p id="p_final_totalPrice">
 					<!--<fmt:formatNumber value="${final_total_order_price}" var="final_total_order_price" pattern="#,###"/>
-						<font size="15">${final_total_order_price }원 </font>
-						-->
+						--><font size="15">${totalorder_price}원 </font>
+						
 						<div id="finalprice"></div>
 					</p> <input id="h_final_total_Price" type="hidden" value="${final_total_order_price}" />
 				</td>
@@ -807,22 +970,17 @@ function usepoint(){
 				<tr >
 					<td>
 					   <input type="radio" id="pay_method" name="pay_method" value="신용카드"   onClick="fn_pay_card()" checked>신용카드 &nbsp;&nbsp;&nbsp; 
-					   <input type="radio" id="pay_method" name="pay_method" value="제휴 신용카드"  >제휴 신용카드 &nbsp;&nbsp;&nbsp; 
-					   <input type="radio" id="pay_method" name="pay_method" value="실시간 계좌이체">실시간 계좌이체 &nbsp;&nbsp;&nbsp;
-					   <input type="radio" id="pay_method" name="pay_method" value="무통장 입금">무통장 입금 &nbsp;&nbsp;&nbsp;
+					<input type="radio" id="pay_method" name="pay_method" value="휴대폰결제" onClick="fn_pay_phone()">휴대폰 결제 &nbsp;&nbsp;&nbsp;
+					   <input type="radio" id="pay_method" name="pay_method" value="무통장입금" onClick="fn_random_account()">무통장 입금 &nbsp;&nbsp;&nbsp;
 					</td>
 				</tr>
 				<tr >
 					<td>
-					   <input type="radio" id="pay_method" name="pay_method" value="휴대폰결제" onClick="fn_pay_phone()">휴대폰 결제 &nbsp;&nbsp;&nbsp;
+					   
+					   <input type="radio" id="pay_method" name="pay_method" value="실시간 계좌이체">실시간 계좌이체 &nbsp;&nbsp;&nbsp;
 					   <input type="radio" id="pay_method" name="pay_method" value="카카오페이(간편결제)">카카오페이(간편결제) &nbsp;&nbsp;&nbsp; 
 					   <input type="radio" id="pay_method" name="pay_method" value="페이나우(간편결제)">페이나우(간편결제) &nbsp;&nbsp;&nbsp; 
 					   <input type="radio" id="pay_method" name="pay_method" value="페이코(간편결제)">페이코(간편결제) &nbsp;&nbsp;&nbsp;
-					</td>
-				</tr>
-				<tr >
-					<td>
-					   <input type="radio"  id="pay_method" name="pay_method" value="직접입금">직접입금&nbsp;&nbsp;&nbsp;
 					</td>
 				</tr>
 				<tr id="tr_pay_card">
@@ -839,27 +997,81 @@ function usepoint(){
 							<option value="시티">시티</option>
 							<option value="NH농협">NH농협</option>
 					</select>
+					<input type="text" id="card_num1" size="4">&nbsp;<input type="text" id="card_num2" size="4">&nbsp;<input type="text" id="card_num3" size="4">
 					<br><Br>
-					<strong>할부 기간:<strong>  &nbsp;&nbsp;&nbsp;
-					<select id="card_pay_month" name="card_pay_month">
-							<option value="일시불" selected>일시불</option>
-							<option value="2개월">2개월</option>
-							<option value="3개월">3개월</option>
-							<option value="4개월">4개월</option>
-							<option value="5개월">5개월</option>
-							<option value="6개월">6개월</option>
+					<strong>유효기간</strong>
+					<select id="card_expired_m">
+						<option>01</option>
+						<option>02</option>
+						<option>03</option>
+						<option>04</option>
+						<option>05</option>
+						<option>06</option>
+						<option>07</option>
+						<option>08</option>
+						<option>09</option>
+						<option>10</option>
+						<option>11</option>
+						<option>12</option>
+					</select>
+					<select id="card_expired_y">
+						<option>21</option>
+						<option>22</option>
+						<option>23</option>
+						<option>23</option>
+						<option>25</option>
+						<option>26</option>
+						<option>27</option>
+						<option>28</option>
+						<option>29</option>
+						<option>30</option>
 					</select>
 					
+					<!-- 
+					var pay_method;
+var random_account;
+var card_com_name;
+var card_number;
+var card_expired_m;
+var card_expired_y;
+var pay_hp_num;
+var pay_hp_com;
+					 -->
 					</td>
 				</tr>
 				<tr id="tr_pay_phone" style="visibility:hidden">
 				  <td>
 				  <strong>휴대폰 번호 입력: <strong>
-				  	       <input  type="text" size="5" value=""  id="pay_order_tel1" name="pay_order_tel1" />-
-				           <input  type="text" size="5" value="" id="pay_order_tel2" name="pay_order_tel2" />-
-				           <input  type="text" size="5" value="" id="pay_order_tel3" name="pay_order_tel3" />
+				  	<select id="pay_hp_com"	name="pay_hp_com">
+				  		<option>SKT</option>
+				  		<option>KT</option>
+				  		<option>LG U+</option>
+				  		<option>알뜰폰</option>
+				  	</select>
+					<select id="pay_hp1" name="pay_hp1">
+							<option>없음</option>
+							<option value="010" selected>010</option>
+							<option value="011">011</option>
+							<option value="016">016</option>
+							<option value="017">017</option>
+							<option value="018">018</option>
+							<option value="019">019</option>
+					</select> 
+					 - <input size="10px" type="text" id="pay_hp2" name="pay_hp2"> 
+					 - <input size="10px" type="text" id="pay_hp3" name="pay_hp3"><br><br> 
+					  <input type="hidden" id="h_pay_hp1" name="h_pay_hp1" /> 
+					  <input type="hidden" id="h_pay_hp2" name="h_pay_hp2"/> 
+					  <input type="hidden" id="h_pay_hp3" name="h_pay_hp3"/>
+					  <c:set  var="orderer_hp" value="${orderer.hp1}-${orderer.hp2}-${orderer.hp3 }"/>
+				  	      
 				  </td>
 				</tr>
+				<tr id="tr_random_account" style="visibility:hidden">
+				  <td>
+				  무통장입금계좌 : 
+				  <input type="text" id="random_account" value="1002-000-00000">
+				  </td>
+				 </tr>
 			</tbody>
 		</table>
 	</div>
@@ -870,15 +1082,16 @@ function usepoint(){
 	<br>
 	<center>
 		<br>
-		<br> <a href="javascript:fn_show_order_detail();"> 
+		<br> <!--  <a href="javascript:fn_show_order_detail();">--> 
 		<img width="125" alt="" src="${contextPath}/resources/image/btn_gulje.jpg">
+		<br> <input name="btn_process_pay_order" type="button" onClick="fn_process_pay_order()" value="최종결제하기">
 		</a> <a href="${contextPath}/main/main.do"> 
 		   <img width="75" alt="" src="${contextPath}/resources/image/btn_shoping_continue.jpg">
 		</a>
 	
 <div class="clear"></div>		
 <!-- visibility:hidden 으로 설정하여 해당 div안의 모든것들을 가려둔다.-->
-	<div id="layer" style="visibility:hidden">
+<!--  	<div id="layer" style="visibility:hidden">
 		 
 		<div id="popup_order_detail">
 			 팝업창 닫기 버튼 
@@ -960,6 +1173,7 @@ function usepoint(){
 			</div>
 			<div class="clear"></div>	
 			<br> 
+			-->
 			
 			
 			

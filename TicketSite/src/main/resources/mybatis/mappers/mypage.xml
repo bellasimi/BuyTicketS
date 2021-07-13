@@ -20,9 +20,6 @@
 		<result property="receiver_hp2" column="receiver_hp2" />
 		<result property="receiver_hp3" column="receiver_hp3" />
 		
-		<result property="delivery_address" column="delivery_address" />
-		<result property="delivery_message" column="delivery_message" />
-		
 		<result property="delivery_method" column="delivery_method" />
 		<result property="gift_wrapping" column="gift_wrapping" />
 		<result property="pay_method" column="pay_method" />

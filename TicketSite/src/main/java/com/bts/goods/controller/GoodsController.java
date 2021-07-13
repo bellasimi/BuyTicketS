@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import net.sf.json.JSONObject;
+
 public interface GoodsController  {
 	public ModelAndView sort(@RequestParam("goods_sort")String goods_sort, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	//ticket_goods를 sort별 자연동물,박물관..List로 만들기, mav.addObject("SortList", SortList) veiws: goods/SortList.jsp

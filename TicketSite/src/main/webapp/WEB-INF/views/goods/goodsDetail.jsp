@@ -19,35 +19,19 @@
 <head>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <style>
-#layer,#layer2  {
-	z-index: 2;
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	width: 100%;
-}
-
-#popup {
-	z-index: 3;
-	position: fixed;
-	text-align: center;
-	left: 50%;
-	top: 45%;
-	width: 300px;
-	height: 200px;
-	background-color: white;
-	border: 3px solid #87cb42;
-}
-#close {
-	z-index: 4;
-	float: right;
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
 }
 </style>
 <script type="text/javascript">
+
 	function add_cart(goods_id) {
 		var goods_ticket_date=document.getElementById("goods_ticket_date").value;
 		var order_goods_qty =document.getElementById("order_goods_qty").value;//구매 수량
 		var isLogOn = document.getElementById("isLogOn").value;
+		console.log("로그인?"+isLogOn);
 		var layer = $('#layer').attr('name');
 		if(isLogOn == 'false'||isLogOn == ''){
 			alert("로그인 후 이용가능합니다.")
@@ -94,9 +78,9 @@
 		if (type == 'open') {
 			if(layer == 'layer'){
 				// 팝업창을 연다.
-				jQuery('#layer').attr('style', 'visibility:visible');
+				$('#layer').attr('style', 'visibility:visible');
 				// 페이지를 가리기위한 레이어 영역의 높이를 페이지 전체의 높이와 같게 한다.
-				jQuery('#layer').height(jQuery(document).height());
+				$('#layer').height(jQuery(document).height());
 			}
 			else if(layer == 'layer2'){
 				jQuery('#layer2').attr('style', 'visibility:visible');
@@ -159,17 +143,23 @@
 		
 	} 
 function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){ 
+	//var goods_ticket_date=document.getElementById("goods_ticket_date").value;
+	var goods_ticket_date= $('#goods_ticket_date').val();//253행 goods_ticket_date의 값
 	// 263행 href="javascript:fn_order_each_goods('${goods.goods_id }','${goods.goods_title}','${goods.goods_sales_price}','${goods.goods_fileName}')로 받은 값 
 	var _isLogOn=document.getElementById("isLogOn");
 	var isLogOn=_isLogOn.value;
-	
+	 
 	 if(isLogOn=="false" || isLogOn=='' ){
 		alert("로그인 후 주문이 가능합니다!!!");
 	} 
-	
+	 else{//로그인 돼있으면
+		 if(goods_ticket_date == ''){
+			 alert("예매일을 입력해 주세요!!")
+		 }
+		 else{
 	 	var total_price,final_total_price;
 		var order_goods_qty=document.getElementById("order_goods_qty"); //251행 order_goods_qty의 값
-		var goods_ticket_date=document.getElementById("goods_ticket_date");//253행 goods_ticket_date의 값
+		
 	var formObj=document.createElement("form");//폼 만들기 
 	
 	var i_goods_id = document.createElement("input"); //input tag 만들기
@@ -177,25 +167,21 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
     var i_goods_sales_price=document.createElement("input");
     var i_fileName=document.createElement("input");
     var i_order_goods_qty=document.createElement("input");
-    /*
     var i_goods_ticket_date=document.createElement("input");
-    i_goods_ticket.name ="goods_ticket_date";
-    i_goods_ticket.value=goods_ticket_date;
-    formObj.appendChild(i_goods_ticket_date);
-    */
+ 
     i_goods_id.name="goods_id"; 
     i_goods_title.name="goods_title"; 
     i_goods_sales_price.name="goods_sales_price";
     i_fileName.name="goods_fileName";
     i_order_goods_qty.name="order_goods_qty";
-   
+    i_goods_ticket_date.name ="goods_ticket_date";
     
     i_goods_id.value=goods_id;//'${goods.goods_id }
     i_order_goods_qty.value=order_goods_qty.value;// 100행에서 id로 받은 값
     i_goods_title.value=goods_title;//${goods.goods_title}'
     i_goods_sales_price.value=goods_sales_price;//'${goods.goods_sales_price}'
     i_fileName.value=fileName;//${goods.goods_fileName}
-   
+    i_goods_ticket_date.value=goods_ticket_date;
     //폼에 입력
     
     formObj.appendChild(i_goods_id);
@@ -203,20 +189,20 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
     formObj.appendChild(i_goods_sales_price);
     formObj.appendChild(i_fileName);
     formObj.appendChild(i_order_goods_qty);
-   
+    formObj.appendChild(i_goods_ticket_date);
 	//폼을 바디에 입력
     document.body.appendChild(formObj);
 	//포스트 형식으로 "${contextPath}/order/orderEachGoods.do" 경로로 전송
     formObj.method="post";
     formObj.action="${contextPath}/order/orderEachGoods.do";
     formObj.submit();
-	}	
-	
+	}//else	예매일
+	}//else 로그인
 
-
+}
 	
 	//오늘 이전엔 예매 안되도록 하는 함수!!
-	function ticket_date(){
+function ticket_date(){
 	var today = new Date();
 	var dd = today.getDate();
 	var mm = today.getMonth()+1;
@@ -234,7 +220,7 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 	
 	//탭 메뉴 함수 
 	
-	function openPage(pageName, elmnt, color) {
+function openPage(pageName, elmnt, color) {
   // Hide all elements with class="tabcontent" by default */
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
@@ -256,53 +242,18 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 }
 
 // Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();
+$(document).ready(function(){
+
+	document.getElementById("defaultOpen").click();
+	
+});
 
 </script>
-<style>
-/* Set height of body and the document to 100% to enable "full page tabs" */
-body, html {
-  height: 100%;
-  margin: 0;
-  font-family: Arial;
-}
 
-/* Style tab links */
-.tablink {
-  background-color: #555;
-  color: black;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  font-size: 17px;
-  margin-top:40px;
-  height: auto;
-  width: 20%; //칸 갯수에 따라서 조정
-  
-}
-
-.tablink:hover {
-  background-color: #777; //칸에 마우스올렸을 때 바뀌는 색!
-}
-
-/* Style the tab content (and add height:100% for full page content) */
-.tabcontent {
-  color: white;
-  display: none;
-  padding: 100px 20px;
-  height: 100%;
-}
-
-#이름1 {background-color: #cccccc;} 
-#이름2 {background-color: #cccccc;}
-#이름3 {background-color: #cccccc;}
-#이름4 {background-color: #cccccc;}
-#이름5 {background-color: #cccccc;}
-</style>
 </head>
 <body>
+<input id="imageList" type="hidden" value="${imageList}">
+				
 <!-- sort 조건으로 c:set -->
 	<c:if test="${goodsMap.goodsVO.goods_sort eq 'nature'}">
 		<c:set var="sort" value="자연동물/전망대"/>
@@ -458,46 +409,87 @@ body, html {
 		</ul>
 	</div>
 
-	<button class="tablink" onclick="openPage('이름1', this, 'gray')">상세설명</button>
+	<button class="tablink" onclick="openPage('이름1', this, 'gray')" id="defaultOpen">상세설명</button>
 	<button class="tablink" onclick="openPage('이름2', this, 'gray')">이용약관</button>
 	<button class="tablink" onclick="openPage('이름3', this, 'gray')">사용방법</button>
 	<button class="tablink" onclick="openPage('이름4', this, 'gray')">위치</button>
 	<button class="tablink" onclick="openPage('이름5', this, 'gray')">리뷰</button>
 	
-	<div id="이름1" class="tabcontent">
-				<h4>상세설명</h4>
-				<p>${fn:replace(goods.goods_description,crcn,br)}</p>
-				<c:forEach var="image" items="${imageList }">
-					<img 
-						src="${contextPath}/resources/shopping/file_repo/${goods.goods_id}/${goods.goods_fileName}">
+	<div id="이름1" class="tabcontent" >
+	
+	<div class="clear"></div>
+				 <p><div class="cont">${fn:replace(goods.goods_description,crcn,br)}</div>
+				<c:forEach var="image" items="${imageList}">				
+					<img style="width:720px; height:500px;margin-left: auto; margin-right: auto;" 
+					src="${contextPath}/resources/shopping/file_repo/${goods.goods_id}/${image.fileName}">
 				</c:forEach>
+		
 	</div>
 
 	<div id="이름2" class="tabcontent">
-				<h4>이용약관</h4>		
-				<div class="writer">주최: ${goods.goods_publisher}</div>
-				 <p>${fn:replace(goods.goods_terms,crcn,br)}</p> 
+	
+	<div class="clear"></div>	
+				<p><div class="title">주최: ${goods.goods_publisher}</div>
+				 <p><div class="cont">${fn:replace(goods.goods_terms,crcn,br)}</div>
+			
 	</div>
 
 	<div id="이름3" class="tabcontent">
-				<h4>사용방법</h4>
-				<p>${fn:replace(goods.goods_usage,crcn,br)}</p> 
-	</div>
+			
+	<div class="clear"></div>
+				 <p><div class="cont">${fn:replace(goods.goods_usage,crcn,br)}</div>
+				</div>
+	
 
 	<div id="이름4" class="tabcontent">
-				<h4>위치</h4>
-				 <p>${fn:replace(goods.goods_location,crcn,br)}</p> 
+
+	<div class="clear"></div>
+				 <p><div class="cont">${fn:replace(goods.goods_location,crcn,br)}</div>
+				
 	</div>
 	
 	<div id="이름5" class="tabcontent">
-				<h4>리뷰</h4>
+	
+	<div class="clear"></div>
+				<p><div class="title">리뷰</div>
+				 <p><div class="cont">내용</div>
+			
 	</div>
 	
 	
 	<div class="clear"></div>
 	
 	<div class="clear"></div>
-	<!-- 내용 들어 가는 곳 -->
+	
+	<div id="layer" style="visibility: hidden" name="layer" class="layer">
+		<!-- visibility:hidden 으로 설정하여 해당 div안의 모든것들을 가려둔다. -->
+		<div id="popup">
+			<!-- 팝업창 닫기 버튼 -->
+			<a href="javascript:" onClick="javascript:imagePopup('close', 'layer');"> <img
+				src="${contextPath}/resources/image/close.png" id="close" />
+			</a> <br /> <font size="12" id="contents" style="font-size: 30pt;text-align: center;">장바구니에<br> 담았습니다.</font><br><br>
+			<form   action='${contextPath}/cart/myCartList.do'  >				
+				<input  type="submit" value="장바구니 보기">
+			</form>			
+		</div>
+	</div>
+	<div id="layer2" style="visibility: hidden" name="layer2">
+		<div id="popup">
+			<a href="javascript:" onClick="javascript:imagePopup('close','layer2');">
+			<img
+				src="${contextPath}/resources/image/close.png" id="close" />
+			</a> <br /> <font size="12" id="contents" style="font-size:30pt; text-align: center;">위시리스트에<br> 담았습니다.</font><br><br>
+			<form   action='${contextPath}/goods/WishList.do'  >				
+				<input  type="submit" value="위시리스트 보기">
+			</form>			
+			
+		</div>
+	</div>
+	
+</body>
+</html>
+<input type="hidden" name="isLogOn" id="isLogOn" value="${isLogOn}"/>
+<%-- 	<!-- 내용 들어 가는 곳 -->
 	<div id="container">
 		<ul class="tabs">
 			<li><a href="#tab1">상세설명</a></li>
@@ -508,12 +500,11 @@ body, html {
 			<li><a href="#tab6">기타</a></li>
 		</ul>
 		<div class="tab_container">
-			<div class="tab_content" id="tab1">
+			<div class="tab_content" id="tab1" >
 				<h4>상세설명</h4>
 				<p>${fn:replace(goods.goods_description,crcn,br)}</p>
-				<c:forEach var="image" items="${imageList }">
-					<img 
-						src="${contextPath}/resources/shopping/file_repo/${goods.goods_id}/${goods.goods_fileName}">
+				<c:forEach var="image" items="${imageList}">
+					<img src="${contextPath}/resources/shopping/file_repo/${goods.goods_id}/${image.fileName}">
 				</c:forEach>
 			</div>
 			<div class="tab_content" id="tab2">
@@ -538,32 +529,4 @@ body, html {
 				<h4>리뷰</h4>
 			</div>
 		</div>
-	</div>
-	<div id="layer" style="visibility: hidden" name="layer" class="layer">
-		<!-- visibility:hidden 으로 설정하여 해당 div안의 모든것들을 가려둔다. -->
-		<div id="popup">
-			<!-- 팝업창 닫기 버튼 -->
-			<a href="javascript:" onClick="javascript:imagePopup('close', 'layer');"> <img
-				src="${contextPath}/resources/image/close.png" id="close" />
-			</a> <br /> <font size="12" id="contents">장바구니에 담았습니다.</font><br>
-			<form   action='${contextPath}/cart/myCartList.do'  >				
-				<input  type="submit" value="장바구니 보기">
-			</form>			
-		</div>
-	</div>
-	<div id="layer2" style="visibility: hidden" name="layer2">
-		<div id="popup">
-			<a href="javascript:" onClick="javascript:imagePopup('close','layer2');">
-			<img
-				src="${contextPath}/resources/image/close.png" id="close" />
-			</a> <br /> <font size="12" id="contents">위시리스트에 담았습니다.</font><br>
-			<form   action='${contextPath}/goods/WishList.do'  >				
-				<input  type="submit" value="위시리스트 보기">
-			</form>			
-			
-		</div>
-	</div>
-	
-</body>
-</html>
-<input type="hidden" name="isLogOn" id="isLogOn" value="${isLogOn}"/>
+	</div> --%>

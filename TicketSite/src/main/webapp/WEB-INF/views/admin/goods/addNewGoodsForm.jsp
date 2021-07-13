@@ -73,8 +73,9 @@
 								<td width=200 >분류선택</td>
 								<td width=500>
 									<select name="goods_sort">
+										<option value="000"selected >선택하세요
 										<option value="nature" >자연
-										<option value="museum"selected>박물관
+										<option value="museum">박물관
 										<option value="themepark">테마파크
 										<option value="history">역사
 										<option value="attraction">어트렉션
@@ -85,41 +86,78 @@
 								<td width=200 >지역선택</td>
 								<td width=500>
 									<select name="goods_place">
-										<option value="seoul" selected>서울시
-										<option value="gyeonggi">경기도
-										<option value="gangwon">강원도
-										<option value="chungcheong">충청도
+										<option value="000"selected >선택하세요
+										<option value="seoul">서울시
+										<option value="ggi">경기도
+										<option value="gang">강원도
+										<option value="chung">충청도
 										<option value="jeolla">전라도
-										<option value="gyeongsang">경상도
+										<option value="sang">경상도
 										<option value="jeju">제주도
 									</select>
 								</td>
 							</tr>
 							<tr >
 								<td >상품이름</td>
-								<td><input name="goods_title" type="text" size="40" /></td>
+								<td><input name="goods_title" type="text" size="40"placeholder="please enter product name"/></td>
 							</tr>
 					
 							<tr>
 								<td >주최사</td>
-								<td><input name="goods_publisher" type="text" size="40" /></td>
+								<td><input name="goods_publisher" type="text" size="40"placeholder="please enter product organizer"/></td>
 							</tr>
 		
 							<tr>
 								<td >상품가격</td>
-								<td><input name="goods_price" type="text" size="40" /></td>
+								<td><input name="goods_price" type="text" size="40"placeholder="please enter product price"/></td>
 							</tr>
-					
+							<tr >
+								<td >할인률</td>
+								<td>
+									<select name="goods_discount">
+										<option value="000"selected>선택하세요
+										<option value="5">5
+										<option value="10" >10
+										<option value="15">15
+										<option value="20">20
+										<option value="25">25
+										<option value="30">30
+										<option value="35">35
+										<option value="40">40
+										<option value="45">45
+										<option value="50">50
+										<option value="55">55
+										<option value="60">60
+										<option value="65">65
+										<option value="70">70
+										<option value="75">75
+										<option value="80">80
+										<option value="85">85
+										<option value="90">90
+										<option value="95">95
+										<option value="100">100
+										
+									</select>
+								</td>
+							</tr>
 							<tr>
 								<td >상품판매가격</td>
-								<td><input name="goods_sales_price" type="text" size="40" /></td>
+								<td><input name="goods_sales_price" type="text" size="40"placeholder="please enter product selling price"/></td>
 							</tr>
 					
 					
 							<tr>
 								<td >포인트</td>
 								<td>
-									<input name="goods_point" type="text" size="40" />
+									<select name="goods_point">
+										<option value="000"selected>선택하세요
+										<option value="100" >100
+										<option value="200">200
+										<option value="300">300
+										<option value="400">400
+										<option value="500">500
+										<option value="600">600
+										</select>
 								</td>
 							</tr>
 					
@@ -132,12 +170,10 @@
 								<td >판매상태</td>
 								<td>
 									<select name="goods_status">
-										<option value="bestseller" selected >베스트셀러</option>
-										<option value="bigsale" >초특가세일</option>
-										<option value="new"  >신규 액티비티</option>
-										<option value="kids" >수정중</option>
-										<option value="freecancel" >수정중</option>
-										<option value="" >수정중</option>
+										<option value="000"selected >선택하세요
+										<option value="bestseller" >베스트셀러</option>
+										<option value="bigsale">초특가세일</option>
+										<option value="newsale">신규 액티비티</option>
 									</select>
 								</td>
 							</tr>
@@ -178,13 +214,10 @@
 						<H4>위치</H4>
 						<table>
 							<tr>
-								<td >위치</td>
-								<td>내용 추가 예정</td>
+								<td><textarea  rows="30" cols="80" name="goods_location" placeholder="위치"></textarea></td>						   
 						    </tr>
 					    </table>
 					</div>
-					
-					
 				</div>
 			</div>
 <!-- final. 상품 등록하기 -->	

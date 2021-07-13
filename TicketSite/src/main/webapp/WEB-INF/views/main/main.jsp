@@ -29,23 +29,23 @@
 				  -->    
 				   <img width="148" height="108.5" 
 				     src="${contextPath}/resources/shopping/file_repo/${item.goods_id}/${item.goods_fileName}">
-			
-			<div class="title">${item.goods_title }</div>	
-			<div class="container">	
-			<div class="text-block">    		  			  		
-			<div class="discount">
+			<div class="text-block"><!-- 상품의 할인 아이콘 -->    		  			  		
+			<div class="discount"style="width: 70;">
 		  	   <fmt:formatNumber  value="${item.goods_discount}" type="number" var="goods_discount" />
 		          ${goods_discount}% OFF
 			</div>
 			</div>
-			</div>
-			<div class="price">
+			<div class="title" style="height: 50px;">${item.goods_title }</div>	
+			
+			<div class="priceform">
+			<div class="price" >
 		  	   <fmt:formatNumber  value="${item.goods_price}" type="number" var="goods_price" />
 		          ${goods_price}원
 			</div>
 			<div class="disprice">
 		  	   <fmt:formatNumber  value="${item.goods_sales_price}" type="number" var="goods_sales_price" />
 		          ${goods_sales_price}원
+			</div>
 			</div>
 		</div>
 	   <c:if test="${goods_count==15   }">
@@ -62,7 +62,7 @@
 <div class="main_book" >
 <c:set  var="goods_count" value="0" />
 	<h3>초특가 세일</h3><!--bigsale-->
-	<c:forEach var="item" items="${goodsMap.newbook }" >
+	<c:forEach var="item" items="${goodsMap.bigsale }" >
 	   <c:set  var="goods_count" value="${goods_count+1 }" />
 		<div class="book">
 		  <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
@@ -92,7 +92,7 @@
 <div class="main_book" >
 <c:set  var="goods_count" value="0" />
 	<h3>신규 액티비티</h3><!-- new -->
-	<c:forEach var="item" items="${goodsMap.steadyseller }" >
+	<c:forEach var="item" items="${goodsMap.newsale }" >
 	   <c:set  var="goods_count" value="${goods_count+1 }" />
 		<div class="book">
 		  <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">

@@ -24,6 +24,7 @@ public class CartDAOImpl  implements  CartDAO{
 		return cartList;
 	}
 	//장바구니 토대로 굿즈 리스트 가져오기 
+	
 	public List<GoodsVO> selectGoodsList(List<CartVO> cartList) throws DataAccessException {
 		
 		List<GoodsVO> myGoodsList;
