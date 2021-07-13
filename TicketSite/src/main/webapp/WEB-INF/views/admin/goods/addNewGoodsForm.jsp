@@ -30,11 +30,47 @@
 		 }
 		 
 	}
-</script>    
+  
+  $("select[name=goods_discount]").val();
+</script>
+
+<script type="text/javascript"
+src="https://code.jquery.com/jquery-2.1.0.min.js">
+</script>
+
+<script>
+var price = 0;
+var discount = 0;
+
+$(document).ready(function(){
+	$("#discount").change(function(){
+		discount=$(this).val();		
+		console.log(price);
+		console.log(discount);
+		console.log(price*discount);
+		var hap = document.ANG.goods_sales_price;
+		hap.value=price-(price*discount/100);
+		console.log(hap);
+    });
+	
+	$("#price").change(function(){	
+		price=$(this).val();
+		console.log(price);
+		console.log(discount);
+		
+		console.log(price*discount);
+	});
+	
+
+	
+});
+           
+</script>  
+
 </head>
 
 <BODY>
-	<form action="${contextPath}/admin/goods/addNewGoods.do" method="post"  enctype="multipart/form-data">
+	<form action="${contextPath}/admin/goods/addNewGoods.do" name="ANG" method="post"  enctype="multipart/form-data">
 			<h1>새상품 등록창</h1>
 		<div class="tab_container">
 <!-- 내용 들어 가는 곳 -->
@@ -73,7 +109,7 @@
 								<td width=200 >분류선택</td>
 								<td width=500>
 									<select name="goods_sort">
-										<option value="000"selected >선택하세요
+										<option value="선택하세요"selected >선택하세요
 										<option value="nature" >자연
 										<option value="museum">박물관
 										<option value="themepark">테마파크
@@ -86,7 +122,7 @@
 								<td width=200 >지역선택</td>
 								<td width=500>
 									<select name="goods_place">
-										<option value="000"selected >선택하세요
+										<option value="선택하세요"selected >선택하세요
 										<option value="seoul">서울시
 										<option value="ggi">경기도
 										<option value="gang">강원도
@@ -99,22 +135,22 @@
 							</tr>
 							<tr >
 								<td >상품이름</td>
-								<td><input name="goods_title" type="text" size="40"placeholder="please enter product name"/></td>
+								<td><input name="goods_title" type="text" size="25"placeholder="please enter product name"/></td>
 							</tr>
 					
 							<tr>
 								<td >주최사</td>
-								<td><input name="goods_publisher" type="text" size="40"placeholder="please enter product organizer"/></td>
+								<td><input name="goods_publisher" type="text" size="25"placeholder="please enter product organizer"/></td>
 							</tr>
 		
 							<tr>
 								<td >상품가격</td>
-								<td><input name="goods_price" type="text" size="40"placeholder="please enter product price"/></td>
+								<td><input name="goods_price" type="text" size="25" id="price" placeholder="please enter product price"/></td>
 							</tr>
 							<tr >
 								<td >할인률</td>
 								<td>
-									<select name="goods_discount">
+									<select name="goods_discount" id="discount">
 										<option value="000"selected>선택하세요
 										<option value="5">5
 										<option value="10" >10
@@ -142,7 +178,9 @@
 							</tr>
 							<tr>
 								<td >상품판매가격</td>
-								<td><input name="goods_sales_price" type="text" size="40"placeholder="please enter product selling price"/></td>
+								<td>
+									<input name="goods_sales_price" id="sales_price" type="text" size="40" readonly/>
+								</td>
 							</tr>
 					
 					
@@ -168,7 +206,7 @@
 					
 							<tr>
 								<td >유효기간</td>
-								<td><input  name="goods_expired_date"  type="date" size="40" /></td>
+								<td><input  name="goods_expired_date"  type="date" size="25" /></td>
 							</tr>
 														
 							<tr>
@@ -185,7 +223,7 @@
 							
 							<tr>
 								<td>판매 종료일</td>
-								<td><input  name="goods_lastsale_date"  type="date" size="40" /></td>
+								<td><input  name="goods_lastsale_date"  type="date" size="25" /></td>
 							</tr>
 						</table>	
 					</div>

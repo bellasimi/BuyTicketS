@@ -172,7 +172,10 @@
 					<when test="goods_expired_date!='' and goods_expired_date!=null"> goods_expired_date=#{goods_expired_date}, </when>
 					<when test="goods_status!='' and goods_status!=null"> goods_status=#{goods_status}, </when>
 					<when test="goods_discount!='' and goods_discount!=null"> goods_discount=#{goods_discount}, </when>
-					<when test="goods_location!='' and goods_location!=null"> goods_location=#{goods_location} </when>
+					<when test="goods_lastsale_date!='' and goods_lastsale_date!=null"> goods_goods_lastsale_date=#{goods_goods_lastsale_date}, </when>
+					<when test="goods_description!='' and goods_description!=null"> goods_description=#{goods_description}, </when>
+					<when test="goods_terms!='' and goods_terms!=null"> goods_terms=#{goods_terms}, </when>
+					<when test="goods_usage!='' and goods_usage!=null"> goods_usage=#{goods_usage} </when>
 				</choose>
 			</set>
 		where goods_id=#{goods_id} 
