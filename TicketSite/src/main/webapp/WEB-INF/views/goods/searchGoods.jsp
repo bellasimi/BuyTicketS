@@ -130,17 +130,16 @@ function add_checkwish(){
 				idlist.push(checked_goods_id);
 				
 		});//체크박스 각각의 값 배열로 전달	
-		
+	
 		console.log("idlist: "+idlist);
 
 		//로그인 확인
-		
-		if(isLogOn=='false'||isLogOn=''){
+
+		if(isLogOn==''||isLogOn=='false'){
 			alert("로그인 후 이용할 수 있습니다!");
 			location.href="${contextPath}/member/loginForm.do"
 		}
-		else{ 	
-			
+		else{ 				
 			$.ajax({
 				type : "post",
 				traditional:true,// 이래야 java에서 배열값을 받는다!
@@ -152,12 +151,7 @@ function add_checkwish(){
 				
 				success : function(data, textStatus) {
 					console.log(data.trim());
-					if(data.trim()=='null'){
-						alert("성공후 null값")
-					}
-					else if(data.trim()=='alreadyExisted')){
-						alert("이미 위시리트에 담긴 상품이 있습니다!")
-					}
+					
 					 
 				},
 				error : function(data, textStatus) {

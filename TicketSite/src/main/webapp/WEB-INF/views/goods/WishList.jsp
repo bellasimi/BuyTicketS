@@ -89,7 +89,7 @@ function deletechecked(){
 
 		console.log("아이디 : "+idlist[i]);
 	}
-	/* 
+	
 	if(length=0){
 		alert("체크박스를 선택해 주세요!!");
 	}else{
@@ -118,7 +118,7 @@ function deletechecked(){
 				
 			}
 		}); //end ajax	
-		}//else 로그인 */
+		}//else 로그인 
 	}//else 체크박스
 
 }//함수종결
