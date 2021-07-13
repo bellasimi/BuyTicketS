@@ -408,7 +408,7 @@ $(document).ready(function(){
 			<li><a href="${contextPath}/goods/addwish.do?goods_id=${goods.goods_id}">위시리스트</a></li> --%>
 		</ul>
 	</div>
-
+	<div class="clear"></div>
 	<button class="tablink" onclick="openPage('이름1', this, 'gray')" id="defaultOpen">상세설명</button>
 	<button class="tablink" onclick="openPage('이름2', this, 'gray')">이용약관</button>
 	<button class="tablink" onclick="openPage('이름3', this, 'gray')">사용방법</button>

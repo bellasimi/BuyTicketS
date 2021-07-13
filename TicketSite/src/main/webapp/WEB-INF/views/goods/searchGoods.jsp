@@ -15,8 +15,9 @@
 <head>
 <script type="text/javascript">
 $(document).ready(function(){
+	
 	var listmenu = $('input[id=listmenu]').val();
-	var isLogOn = $('#isLogOn').val();
+	
 	console.log(listmenu);
 	if(listmenu == "list1"){//판매종료
 		$('#list1').attr('class','active');}
@@ -56,66 +57,8 @@ $(document).ready(function(){
 	});//체크박스 변동 사항 있다면 실행되는 함수 
 
 });// 페이지 들어오자 마자 자동 실행 함수
-/* 
-function add_checkwish(){
-	var isLogOn = $('#isLogOn').val();
-	console.log(isLogOn);
-	//로그인 확인
-	var checked_goods = $('input[id=checked_goods]:checked');
-	var length = checked_goods.length;
-	console.log("체크된 길이: "+length);
-	//상품 체크  확인
-	if(length==0){
-		alert("상품을 체크해주세요!");
-	}
-	else{
-		
-		var idlist [];
-		var checked_goods_id;
-		checked_goods.each(function(){
-			
-				checked_goods_id = $(this).val();
-				idlist.push(checked_goods_id);
-		});//체크박스 각각의 값 배열로 전달	
-		console.log("idlist: "+idlist);
-		if(isLogOn=='false'||isLogOn=''){
-			alert("로그인 후 이용할 수 있습니다!");
-			location.href="${contextPath}/member/loginForm.do"
-		}
-		else{	
-			
-			$.ajax({
-				type : "post",
-				traditional:true,// 이래야 java에서 배열값을 받는다!
-				async : false, //false인 경우 동기식으로 처리한다.
-				url : "${contextPath}/goods/addcheckwish.do",
-				data : {
-					idlist:idlist
-				},
-				
-				success : function(data, textStatus) {
-					console.log(data.trim());
-					if(data.trim()=='null'){
-						alert("성공후 null값")
-					}
-					else if(data.trim()=='alreadyExisted')){
-						alert("이미 위시리트에 담긴 상품이 있습니다!")
-					}
-					 
-				},
-				error : function(data, textStatus) {
-					alert("에러가 발생했습니다."+data);
-				},
-				complete : function(data, textStatus) {
-					
-					
-				}
-			}); //end ajax	
-		}//else 로그인
-			}//else 상품을 체크한 경우
 
-}//function add_checkwish
-	 */
+	 
 	
 
 function add_wish(goods_id){
@@ -152,6 +95,7 @@ function add_wish(goods_id){
 		}
 	}); //end ajax
 	}//else
+
 }
 
 function imgpopup(layer,style){
@@ -162,6 +106,72 @@ function imgpopup(layer,style){
 	
 }
 
+
+function add_checkwish(){
+	var isLogOn = $('#isLogOn').val();
+	console.log(isLogOn);
+
+
+	var checked_goods = $('input[id=checked_goods]:checked');
+	var length = checked_goods.length;
+	console.log("체크된 길이: "+length);
+	
+	//상품 체크  확인
+	if(length==0){
+		alert("상품을 체크해주세요!");
+	}
+	else{
+		var idlist =[];
+		var checked_goods_id;
+		
+		checked_goods.each(function(){
+			
+				checked_goods_id = $(this).val();
+				idlist.push(checked_goods_id);
+				
+		});//체크박스 각각의 값 배열로 전달	
+		
+		console.log("idlist: "+idlist);
+
+		//로그인 확인
+		
+		if(isLogOn=='false'||isLogOn=''){
+			alert("로그인 후 이용할 수 있습니다!");
+			location.href="${contextPath}/member/loginForm.do"
+		}
+		else{ 	
+			
+			$.ajax({
+				type : "post",
+				traditional:true,// 이래야 java에서 배열값을 받는다!
+				async : false, //false인 경우 동기식으로 처리한다.
+				url : "${contextPath}/goods/addcheckwish.do",
+				data : {
+					idlist:idlist
+				},
+				
+				success : function(data, textStatus) {
+					console.log(data.trim());
+					if(data.trim()=='null'){
+						alert("성공후 null값")
+					}
+					else if(data.trim()=='alreadyExisted')){
+						alert("이미 위시리트에 담긴 상품이 있습니다!")
+					}
+					 
+				},
+				error : function(data, textStatus) {
+					alert("에러가 발생했습니다."+data);
+				},
+				complete : function(data, textStatus) {
+					
+					
+				}
+			}); //end ajax	
+		}//else 로그인  
+	}//else 상품을 체크한 경우
+
+}//function add_checkwish
 </script>
 <style>
 #layer{
