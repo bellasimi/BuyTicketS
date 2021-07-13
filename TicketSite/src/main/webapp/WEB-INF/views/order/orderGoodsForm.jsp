@@ -102,35 +102,21 @@ $(document).ready(function(){
 			console.log("point");
 			point_used=document.form_order.point_used.value;
 			point_used=parseInt(point_used);
-			if(isNaN(point_used)) {
-				point_used=0;
-				console.log("isNan");
-			}
 			console.log("if문point_used"+point_used+typeof point_used);
 		}
 		if($("#ch_discount_sangpum").prop("checked")){
 			discount_sangpum=document.form_order.discount_sangpum.value;
 			discount_sangpum=parseInt(discount_sangpum);
-			if(isNaN(discount_sangpum)) {
-				discount_sangpum=0;
-			}
 			console.log("discount_sangpum"+discount_sangpum);
 		}
 		if($("#ch_discount_okcashbag").prop("checked")){
 			discount_okcashbag=document.form_order.discount_okcashbag.value;
 			discount_okcashbag=parseInt(discount_okcashbag);
-			if(isNaN(discount_okcashbag)) {
-				discount_okcashbag=0;
-			}
 			console.log("discount_okcashbag"+discount_okcashbag);
 		}
 		if($("#ch_discount_coupon").prop("checked")){
 			discount_coupon=document.form_order.discount_coupon.value;
 			discount_coupon=parseInt(discount_coupon);
-			if(isNaN(discount_coupon)) {
-				discount_coupon=0;
-			}
-			
 			console.log("discount_coupon"+discount_coupon);
 		}
 		totalDiscount=point_used+discount_sangpum+discount_okcashbag+discount_coupon;
@@ -255,225 +241,7 @@ function fn_pay_card(){
 }
 	
 
-	
-//최종결제 팝업창
-/*
-function imagePopup(type) {
-	if (type == 'open') {
-		// 팝업창을 연다.
-		jQuery('#layer').attr('style', 'visibility:visible');
 
-		// 페이지를 가리기위한 레이어 영역의 높이를 페이지 전체의 높이와 같게 한다.
-		jQuery('#layer').height(jQuery(document).height());
-	}
-
-	else if (type == 'close') {
-
-		// 팝업창을 닫는다.
-		jQuery('#layer').attr('style', 'visibility:hidden');
-	}
-}
-*/
-
-/*
-var goods_id="";
-var goods_title="";
-var goods_fileName="";
-
-var order_goods_qty
-var each_goods_price;
-var total_order_goods_price;
-var total_order_goods_qty;
-var orderer_name;
-//var receiver_name
-var hp1;
-var hp2;
-var hp3;
-
-//var tel1;
-//var tel2;
-//var tel3;
-
-//var receiver_hp_num;
-//var receiver_tel_num;
-//var delivery_address;
-//var delivery_message;
-//var delivery_method;
-//var gift_wrapping;
-var pay_method;
-var card_com_name;
-//var card_pay_month;
-var pay_hp_num;
-var final_total_oder_price; */
-//최종 결제 팝업창 띄우는 곳 
-/*
-function fn_show_order_detail(){
-	goods_id="";
-	goods_title="";
-	
-	var frm=document.form_order;
-	var h_goods_id=frm.h_goods_id;
-	var h_goods_title=frm.h_goods_title;
-	var h_goods_fileName=frm.h_goods_fileName;
-	//var r_delivery_method  =  frm.delivery_method;
-	var h_order_goods_qty=document.getElementById("h_order_goods_qty");
-	var h_total_order_goods_qty=document.getElementById("h_total_order_goods_qty");
-	var h_total_sales_price=document.getElementById("finalprice");
-	
-	var h_final_total_Price=document.getElementById("h_final_total_Price");
-	var h_orderer_name=document.getElementById("h_orderer_name");
-	//var i_receiver_name=document.getElementById("receiver_name");
-	
-	
-	if(h_goods_id.length <2 ||h_goods_id.length==null){
-		goods_id+=h_goods_id.value;
-	}else{
-		for(var i=0; i<h_goods_id.length;i++){
-			goods_id+=h_goods_id[i].value+"<br>";
-			
-		}	
-	}
-	
-	if(h_goods_title.length <2 ||h_goods_title.length==null){
-		goods_title+=h_goods_title.value;
-	}else{
-		for(var i=0; i<h_goods_title.length;i++){
-			goods_title+=h_goods_title[i].value+"<br>";
-			
-		}	
-	}
-	
-	
-	if(h_goods_fileName.length <2 ||h_goods_fileName.length==null){
-		goods_fileName+=h_goods_fileName.value;
-	}else{
-		for(var i=0; i<h_goods_fileName.length;i++){
-			goods_fileName+=h_goods_fileName[i].value+"<br>";
-			
-		}	
-	}
-	
-	
-	total_order_goods_price=h_final_total_Price.value;
-	total_order_goods_qty=h_total_order_goods_qty.value;
-	
-	/* for(var i=0; i<r_delivery_method.length;i++){
-	  if(r_delivery_method[i].checked==true){
-		 delivery_method=r_delivery_method[i].value
-		 break;
-	  }
-	} 
-		
-	var r_gift_wrapping  =  frm.gift_wrapping;
-	
-	
-	for(var i=0; i<r_gift_wrapping.length;i++){
-	  if(r_gift_wrapping[i].checked==true){
-		  gift_wrapping=r_gift_wrapping[i].value
-		 break;
-	  }
-	}  
-	
-	var r_pay_method  =  frm.pay_method;
-	
-	for(var i=0; i<r_pay_method.length;i++){
-	  if(r_pay_method[i].checked==true){
-		  pay_method=r_pay_method[i].value
-		  if(pay_method=="신용카드"){
-			var i_card_com_name=document.getElementById("card_com_name");
-			var i_card_pay_month=document.getElementById("card_pay_month");
-			card_com_name=i_card_com_name.value;
-			card_pay_month=i_card_pay_month.value;
-			pay_method+="<Br>"+
-				 		"카드사:"+card_com_name+"<br>"+
-				 		"할부개월수:"+card_pay_month;
-			pay_hp_num="해당없음";
-			//pay_hp_com 추가해야함 
-		  }else if(pay_method=="휴대폰결제"){
-			var i_pay_order_tel1=document.getElementById("pay_order_tel1");
-			var i_pay_order_tel2=document.getElementById("pay_order_tel2");
-			var i_pay_order_tel3=document.getElementById("pay_order_tel3");
-			pay_hp_num=i_pay_order_tel1.value+"-"+
-						   	    i_pay_order_tel2.value+"-"+
-							    i_pay_order_tel3.value;
-			pay_method+="<Br>"+"결제휴대폰번호:"+pay_hp_num;
-			card_com_name="해당없음";
-			card_pay_month="해당없음";
-		  } //end if
-		 break;
-	  }// end for
-	}
-	
-	var i_hp1=document.getElementById("hp1");
-	var i_hp2=document.getElementById("hp2");
-	var i_hp3=document.getElementById("hp3");
-	
-//	var i_tel1=document.getElementById("tel1");
-//	var i_tel2=document.getElementById("tel2");
-//	var i_tel3=document.getElementById("tel3");
-	
-//	var i_zipcode=document.getElementById("zipcode");
-//	var i_roadAddress=document.getElementById("roadAddress");
-//	var i_jibunAddress=document.getElementById("jibunAddress");
-//	var i_namujiAddress=document.getElementById("namujiAddress");
-//	var i_delivery_message=document.getElementById("delivery_message");
-//	var i_pay_method=document.getElementById("pay_method");
-
-//	alert("총주문 금액:"+total_order_goods_price);
-	order_goods_qty=h_order_goods_qty.value;
-	//order_total_price=h_order_total_price.value;
-	
-	orderer_name=h_orderer_name.value;
-//	receiver_name=i_receiver_name.value;
-//	hp1=i_hp1.value;
-//	hp2=i_hp2.value;
-//	hp3=i_hp3.value;
-	
-//	tel1=i_tel1.value;
-//	tel2=i_tel2.value;
-//	tel3=i_tel3.value;
-	
-//	receiver_hp_num=hp1+"-"+hp2+"-"+hp3;
-//	receiver_tel_num=tel1+"-"+tel2+"-"+tel3;
-	
-//	delivery_address="우편번호:"+i_zipcode.value+"<br>"+
-//						"도로명 주소:"+i_roadAddress.value+"<br>"+
-//						"[지번 주소:"+i_jibunAddress.value+"]<br>"+
-//								  i_namujiAddress.value;
-	
-//	delivery_message=i_delivery_message.value;
-	
-	var p_order_goods_id=document.getElementById("p_order_goods_id");
-	var p_order_goods_title=document.getElementById("p_order_goods_title");
-	var p_order_goods_qty=document.getElementById("p_order_goods_qty");
-	var p_total_order_goods_qty=document.getElementById("p_total_order_goods_qty");
-	var p_total_order_goods_price=document.getElementById("p_total_order_goods_price");
-	var p_orderer_name=document.getElementById("p_orderer_name");
-//	var p_receiver_name=document.getElementById("p_receiver_name");
-//	var p_delivery_method=document.getElementById("p_delivery_method");
-//	var p_receiver_hp_num=document.getElementById("p_receiver_hp_num");
-//	var p_receiver_tel_num=document.getElementById("p_receiver_tel_num");
-//	var p_delivery_address=document.getElementById("p_delivery_address");
-//	var p_delivery_message=document.getElementById("p_delivery_message");
-//	var p_gift_wrapping=document.getElementById("p_gift_wrapping");	
-	var p_pay_method=document.getElementById("p_pay_method");
-	
-	p_order_goods_id.innerHTML=goods_id;
-	p_order_goods_title.innerHTML=goods_title;
-	p_total_order_goods_qty.innerHTML=total_order_goods_qty+"개";
-	p_total_order_goods_price.innerHTML=total_order_goods_price+"원";
-	p_orderer_name.innerHTML=orderer_name;
-//	p_receiver_name.innerHTML=receiver_name;
-//	p_delivery_method.innerHTML=delivery_method;
-//	p_receiver_hp_num.innerHTML=receiver_hp_num;
-//	p_receiver_tel_num.innerHTML=receiver_tel_num;
-//	p_delivery_address.innerHTML=delivery_address;
-//	p_delivery_message.innerHTML=delivery_message;
-//	p_gift_wrapping.innerHTML=gift_wrapping;
-	p_pay_method.innerHTML=pay_method;
-	imagePopup('open');
-}
-*/
 
 /* 주문 db에 넘겨줘야 하는 값들ㅇㅇ  orderlist랑 memberinfo 빼고 전부 
 order_id,
@@ -573,6 +341,7 @@ order_total_price=parseInt(order_total_price);
 	}
 	
 	var point_used = document.getElementById("point_used").value;
+	point_used=parseInt(point_used);
 	console.log("point_used"+point_used+typeof point_used);
 	//포인트 사용된값 받으려면 checked도 되어있어야 함 --------- 
 	
@@ -610,7 +379,7 @@ order_total_price=parseInt(order_total_price);
     console.log("card_expired_m"+card_expired_m+card_expired_y);
     console.log("pay_hp_com"+pay_hp_com);
     console.log("pay_hp_num"+pay_hp_num);
-    console.log("point_used"+point_used);
+    console.log("point_used"+point_used+typeof point_used );
     console.log("order_total_price"+order_total_price+typeof order_total_price);
     //console.log(""+);
     //console.log(""+);
@@ -678,94 +447,48 @@ order_total_price=parseInt(order_total_price);
 }
 
 
-/*
-//적립
-function getpoint(){
-	var getjuklip = Number($('#_jucklip').val())- Number($('#discount_juklip').val());
-	var formObj = document.createElement("form"); 
-	form.setAttribute("charset", "UTF-8");
-    form.setAttribute("method", "Post");  //Post 방식
-    form.setAttribute("action", "${contextPath}/member/getpoint.do"); //요청 보낼 주소
 
-	//$reciever_juklip.id=reciever_jucklip;
-	//$reciever_juklip.value=getjuklip;
-	//formObj.method="post";
-	//formObj.action="${contextPath}/member/getpoint.do";
-    //formObj.submit();
-    
-    var reciever_juklip= document.createElement("input");
-
-    reciever_juklip.setAttribute("type", "hidden");
-    reciever_juklip.setAttribute("name", "reciever_juklip");
-    reciever_juklip.setAttribute("value", getjuklip);
-
-    form.appendChild(reciever_juklip);
-    document.body.appendChild(form);
-
-    form.submit();
-}
-
-
-
-function howmuch(){
-	var juklip =  Number($('#discount_juklip').val());
-	var yechi=  Number($('#discount_yechi').val());
-	var sangpum= Number($('#discount_sangpum').val());
-	var okcashbag=Number($('#discount_okcashbag').val());
-	var coupon= Number($('#discount_coupon').val());
-	var total_order_price= Number($('#total_order_price').val());
-	var total_delivery_price= Number($('#total_delivery_price').val());
-	var discount = juklip+yechi+sangpum+okcashbag+coupon;
-	var final_price= total_order_price-discount+total_delivery_price;
-	return final_price;
-}
-//할인
-function usepoint(){
-	var juklip =  Number($('#discount_juklip').val());
-	var yechi=  Number($('#discount_yechi').val());
-	var sangpum= Number($('#discount_sangpum').val());
-	var okcashbag=Number($('#discount_okcashbag').val());
-	var coupon= Number($('#discount_coupon').val());
-	var total_order_price= Number($('#total_order_price').val());
-	var total_delivery_price= Number($('#total_delivery_price').val());
-	var discount = juklip+yechi+sangpum+okcashbag+coupon;
-	var final_price= total_order_price-discount+total_delivery_price;
-	howmuch(final_price);
-	discount = Intl.NumberFormat().format(discount);
-	final_price =Intl.NumberFormat().format(final_price);
-	
-	document.getElementById("p_result").innerHTML=discount+"원";
-	document.getElementById("finalprice").innerHTML=final_price+"원";
-	fianl_total_sales_price = final_price;
-	
-	var formObj = document.createElement("form"); 
-	form.setAttribute("charset", "UTF-8");
-    form.setAttribute("method", "Post");  //Post 방식
-    form.setAttribute("action", "${contextPath}/member/getpoint.do"); //요청 보낼 주소
-
-	//$reciever_juklip.id=reciever_jucklip;
-	//$reciever_juklip.value=getjuklip;
-	//formObj.method="post";
-	//formObj.action="${contextPath}/member/getpoint.do";
-    //formObj.submit();
-    
-    var reciever_juklip= document.createElement("input");
-
-    reciever_juklip.setAttribute("type", "hidden");
-    reciever_juklip.setAttribute("name", "reciever_juklip");
-    reciever_juklip.setAttribute("value", getjuklip);
-
-    form.appendChild(reciever_juklip);
-    document.body.appendChild(form);
-
-    form.submit();
-}	
-*/
 </script>
 </head>
 <body>
-	<H1>1.주문확인</H1>
+<br>
+	<H1>주문확인</H1>
 <form  name="form_order">	
+<div >
+	  <br><br>
+	   <h2>주문고객</h2>
+		 <table>
+		   <tbody>
+			 <tr class="dot_line">
+				<td ><h2>이름</h2></td>
+				<td>
+				 <input  type="text" value="${orderer.member_name}" id="h_orderer_name" size="15" />
+				</td>
+			  </tr>
+			  <tr class="dot_line">
+				<td ><h2>핸드폰</h2></td>
+				<td>
+				 <input  type="text" value="${orderer.hp1}-${orderer.hp2}-${orderer.hp3}" size="15" />
+				</td>
+			  </tr>
+			  <tr class="dot_line">
+				<td ><h2>이메일</h2></td>
+				<td>
+				 <input  type="text" value="${orderer.email1}@${orderer.email2}" size="15" />
+				</td>
+			  </tr>
+			 
+		   </tbody>
+		</table>
+	</div>
+
+		<div class="clear"></div>
+
+	<br>
+	<br>
+
+
+
 	<table class="list_view">
 		<tbody align=center>
 			<tr style="background: #33ff00">
@@ -806,10 +529,10 @@ function usepoint(){
 					<fmt:formatNumber value="${item.goods_sales_price}" var="goodssales_price" pattern="#,###"/>
 					<h2>${goodssales_price}원</h2>
 					</td>
-					
+					<!--  포인트 -->
 					<td>
 						<fmt:formatNumber value="${item.goods_point}" var="point" pattern="#,###"/>
-						<h2>${point}원</h2><!-- 포인트-->
+						<h2>${point}p</h2>
 					</td>
 			<!-- 총주문금액 -->
 					<td>
@@ -831,38 +554,7 @@ function usepoint(){
 		</tbody>
 	</table>
 
-		<div class="clear"></div>
-
-	<br>
-	<br>
-
-	<div >
-	  <br><br>
-	   <h2>주문고객</h2>
-		 <table>
-		   <tbody>
-			 <tr class="dot_line">
-				<td ><h2>이름</h2></td>
-				<td>
-				 <input  type="text" value="${orderer.member_name}" id="h_orderer_name" size="15" />
-				</td>
-			  </tr>
-			  <tr class="dot_line">
-				<td ><h2>핸드폰</h2></td>
-				<td>
-				 <input  type="text" value="${orderer.hp1}-${orderer.hp2}-${orderer.hp3}" size="15" />
-				</td>
-			  </tr>
-			  <tr class="dot_line">
-				<td ><h2>이메일</h2></td>
-				<td>
-				 <input  type="text" value="${orderer.email1}@${orderer.email2}" size="15" />
-				</td>
-			  </tr>
-			 
-		   </tbody>
-		</table>
-	</div>
+	
 	<div class="clear"></div>
 	<br>
 	<br>
@@ -879,7 +571,7 @@ function usepoint(){
 						적립금
 						<button type="button" id="use_point_all">모두사용</button>					
 					</td> 
-					<td><input id="point_used" type="number" size="10" min="0" max="${orderer.member_point}"/>원/${orderer.member_point}원
+					<td><input id="point_used" type="number" size="10" min="0" max="${orderer.member_point}" value="0"/>원/${orderer.member_point}원
 						&nbsp;&nbsp;&nbsp; <input type="checkbox" id="ch_point_used" class="discountBox" onclick=""/> 사용하기</td>
 						<!-- 모두사용하기 누르면 자동으로 값이 전체돈으로 입력되도록해야한다  -->
 						
@@ -887,28 +579,25 @@ function usepoint(){
 				<!--  
 				<tr class="dot_line">
 					<td>예치금</td>
-					<td><input id="discount_yechi" type="text" size="10" />원/1000원
+					<td><input id="discount_yechi" type="text" size="10" value="0"/>원/1000원
 						&nbsp;&nbsp;&nbsp; <input type="checkbox" /> 모두 사용하기</td>
 				</tr>
 				-->
 				<tr class="dot_line">
 					<td>상품권 전환금</td>
-					<td cellpadding="5"><input id="discount_sangpum" type="text"
-						size="10" />원/0원 &nbsp;&nbsp;&nbsp; 
+					<td cellpadding="5"><input id="discount_sangpum" type="text" size="10" value="0"/>원 &nbsp;&nbsp;&nbsp; 
 						<input type="checkbox" id="ch_discount_sangpum" class="discountBox" onclick=""/> 
 						사용하기</td>
 				</tr>
 				<tr class="dot_line">
 					<td>OK 캐쉬백 포인트</td>
-					<td cellpadding="5"><input id="discount_okcashbag" type="text"
-						size="10" />원/0원 &nbsp;&nbsp;&nbsp; 
+					<td cellpadding="5"><input id="discount_okcashbag" type="text" size="10" value="0"/>원 &nbsp;&nbsp;&nbsp; 
 						<input type="checkbox" id="ch_discount_okcashbag" class="discountBox" onclick=""/> 
 						사용하기</td>
 				</tr>
 				<tr class="dot_line">
 					<td>쿠폰할인</td>
-					<td cellpadding="5"><input id="discount_coupon" type="text"
-						size="10" />원/0원 &nbsp;&nbsp;&nbsp; 
+					<td cellpadding="5"><input id="discount_coupon" type="text"	size="10" value="0"/>원 &nbsp;&nbsp;&nbsp; 
 						<input type="checkbox"  id="ch_discount_coupon" class="discountBox" onclick=""/> 
 						사용하기</td>
 				</tr>
