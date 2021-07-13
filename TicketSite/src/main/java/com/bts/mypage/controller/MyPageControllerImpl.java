@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bts.common.base.BaseController;
+import com.bts.goods.service.GoodsService;
+import com.bts.goods.vo.GoodsVO;
 import com.bts.member.vo.MemberVO;
 import com.bts.mypage.service.MyPageDummyService;
 import com.bts.mypage.service.MyPageService;
@@ -30,6 +32,9 @@ import com.bts.order.vo.OrderVO;
 public class MyPageControllerImpl extends BaseController  implements MyPageController{
 	@Autowired
 	private MyPageService myPageService;
+	
+	@Autowired
+	private GoodsService goodsService;
 	
 	@Autowired
 	private MemberVO memberVO;
@@ -43,7 +48,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 			   HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		HttpSession session=request.getSession();
 		session=request.getSession();
-		session.setAttribute("side_menu", "my_page"); //���������� ���̵� �޴��� �����Ѵ�.
+		session.setAttribute("side_menu", "my_page");
 		
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
@@ -61,6 +66,23 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 
 		return mav;
 	}
+//리뷰	
+	@Override
+	@RequestMapping(value="/review.do",method=RequestMethod.GET)
+	public ModelAndView review(@RequestParam("order_id") String order_id,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName=(String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session=request.getSession();
+		MemberVO orderer=(MemberVO)session.getAttribute("memberInfo");
+		GoodsVO goodsi=(GoodsVO)session.getAttribute("goodsInfo");
+		List<OrderVO> myOrderList=myPageService.findMyOrderInfo(order_id);
+		
+		mav.addObject("orderer", orderer);
+		mav.addObject("order_id",order_id);
+		mav.addObject("goodsi",goodsi);
+		mav.addObject("myOrderList",myOrderList);
+		return mav;
+	}
 	
 	@Override
 	@RequestMapping(value="/myOrderDetail.do" ,method = RequestMethod.GET)
@@ -69,13 +91,15 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session=request.getSession();
 		MemberVO orderer=(MemberVO)session.getAttribute("memberInfo");
-		
+		String member_id = orderer.getMember_id();
 		List<OrderVO> myOrderList=myPageService.findMyOrderInfo(order_id);
 		mav.addObject("orderer", orderer);
 		mav.addObject("myOrderList",myOrderList);
 		return mav;
 	}
-	//���ų���
+	
+	
+	//
 	@Override
 	@RequestMapping(value="/listMyOrderHistory.do" ,method = RequestMethod.GET)
 	public ModelAndView listMyOrderHistory(@RequestParam Map<String, String> dateMap,
@@ -97,7 +121,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		dateMap.put("member_id", member_id);
 		List<OrderVO> myOrderHistList=myPageService.listMyOrderHistory(dateMap);
 		
-		String beginDate1[]=beginDate.split("-"); //�˻����ڸ� ��,��,�Ϸ� �и��ؼ� ȭ�鿡 �����մϴ�.
+		String beginDate1[]=beginDate.split("-");
 		String endDate1[]=endDate.split("-");
 		mav.addObject("beginYear",beginDate1[0]);
 		mav.addObject("beginMonth",beginDate1[1]);
@@ -127,7 +151,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		ModelAndView mav = new ModelAndView(viewName);
 		return mav;
 	}	
-	//ȸ������ ����
+	
 	@Override
 	@RequestMapping(value="/modifyMyInfo.do" ,method = RequestMethod.POST)
 	public ResponseEntity modifyMyInfo(@RequestParam("attribute")  String attribute,
@@ -143,7 +167,6 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 			memberMap.put("member_birth_y",val[0]);
 			memberMap.put("member_birth_m",val[1]);
 			memberMap.put("member_birth_d",val[2]);
-			memberMap.put("member_birth_gn",val[3]);
 		}else if(attribute.equals("hp")){
 			val=value.split(",");
 			memberMap.put("hp1",val[0]);
@@ -161,7 +184,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		
 		memberMap.put("member_id", member_id);
 		
-		//������ ȸ�� ������ �ٽ� ���ǿ� �����Ѵ�.
+		
 		memberVO=(MemberVO)myPageService.modifyMyInfo(memberMap);
 		session.removeAttribute("memberInfo");
 		session.setAttribute("memberInfo", memberVO);

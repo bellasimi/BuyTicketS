@@ -13,6 +13,7 @@ public interface MyPageController {
 	public ModelAndView myPageMain(@RequestParam(required = false,value="message")  String message,HttpServletRequest request, HttpServletResponse response)  throws Exception ;
 	public ModelAndView myOrderDetail(@RequestParam("order_id")  String order_id,HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView cancelMyOrder(@RequestParam("order_id")  String order_id,HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public ModelAndView review(@RequestParam("order_id") String order_id,HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView listMyOrderHistory(@RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView myDetailInfo(HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ResponseEntity modifyMyInfo(@RequestParam("attribute")  String attribute,
