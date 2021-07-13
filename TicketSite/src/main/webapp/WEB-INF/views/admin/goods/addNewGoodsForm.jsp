@@ -157,6 +157,11 @@
 										<option value="400">400
 										<option value="500">500
 										<option value="600">600
+										<option value="700">700
+										<option value="800">800
+										<option value="900">900
+										<option value="1000">1000
+										<option value="9999">9999
 										</select>
 								</td>
 							</tr>
