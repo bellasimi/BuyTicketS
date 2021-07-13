@@ -12,25 +12,29 @@
 			     <td>주문번호 </td>
 				<td colspan=2 class="fixed">주문상품명</td>
 				<td>수량</td>
+				<td>예약일</td>
 				<td>주문금액</td>
 				<td>적립금</td>
 				<td>주문금액합계</td>
 			</tr>
-			<TR>
+			<tr>
 				<c:forEach var="item" items="${myOrderList}">
-				    <td> ${item.order_id }</td>
-					<TD class="goods_image">
+				 <td> ${item.order_id }</td>
+				<td class="goods_image">
 					  <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">
 					    <IMG width="75" alt=""  src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
 					  </a>
-					</TD>
-					<TD>
+					</td>
+					<td>
 					  <h2>
 					     <A href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">${item.goods_title }</A>
 					  </h2>
-					</TD>
-					<td>
+					</td>
+					<td><!-- 수량 -->
 					  <h2>${item.order_goods_qty}개<h2>
+					</td>
+					<td>
+					${item.goods_ticket_date }
 					</td>
 				<!--  주문금액 -->
 					<!-- 여기는 그냥 가격ㅁ나 나오면 될거같은데  -->

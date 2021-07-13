@@ -81,35 +81,45 @@ $(document).ready(function(){
 		console.log("적립금 모두사용");
 		var point_used=document.form_order.point_used;
 		point_used.value=point_used.max;
-		$("#point_used").prop("checked",true);
-		
-			console.log(point_used.max);
+		//$("#ch_point_used").prop("checked",true);
 	});
-});
+
 
 //class="discountBox" 
 //point_used discount_sangpum discount_okcashbag discount_coupon
 
 $(document).ready(function(){
-	$(".discountBox").click(function() {
-		//var point_used=point_used=document.form_order.point_used;
-		var discount_sangpum;
-		var discount_okcashbag;
-		var discount_coupon
-		var totalDiscount;
+	$(".discountBox").change(function() {
+		var point_used=0;
+		var discount_sangpum=0;
+		var discount_okcashbag=0;
+		var discount_coupon=0;
+		var totalDiscount=0;
 		console.log("함수2");
-		if($("input:checkbox[id=point_used]:checked").prop("checked")){
+		if($("#ch_point_used").prop("checked")){
 			console.log("point");
-			//point_used=point_used.value;
-			//console.log("point_used"+point_used);
+			point_used=document.form_order.point_used.value;
+			point_used=parseInt(point_used);
+			console.log(point_used+typeof point_used);
 		}
-		//if($("#discount_sangpum").prop("checked")){
-		//	discount_sangpum=document.form_order.discount_sangpum.value;
-		//	console.log("discount_sangpum"+discount_sangpum);
-		//}
-		
-		
-		//document.getElementById("p_totalDiscount").innerHTML=totalDiscount;
+		if($("#ch_discount_sangpum").prop("checked")){
+			discount_sangpum=document.form_order.discount_sangpum.value;
+			discount_sangpum=parseInt(discount_sangpum);
+			console.log("discount_sangpum"+discount_sangpum);
+		}
+		if($("#ch_discount_okcashbag").prop("checked")){
+			discount_okcashbag=document.form_order.discount_okcashbag.value;
+			discount_okcashbag=parseInt(discount_okcashbag);
+			console.log("discount_okcashbag"+discount_okcashbag);
+		}
+		if($("#ch_discount_coupon").prop("checked")){
+			discount_coupon=document.form_order.discount_coupon.value;
+			discount_coupon=parseInt(discount_coupon);
+			console.log("discount_coupon"+discount_coupon);
+		}
+		totalDiscount=point_used+discount_sangpum+discount_okcashbag+discount_coupon;
+		document.getElementById("p_totalDiscount").innerHTML=totalDiscount;
+
 	
 	});	
 });
@@ -534,13 +544,8 @@ console.log("point_used"+point_used);
 			card_number=card_num1+"-"+card_num2+"-"+card_num3;
 			card_expired_m=i_card_expired_m.value;
 			card_expired_y=i_card_expired_y.value;
-			//pay_method+="<Br>"+
-			//	 		"카드사:"+card_com_name+"<br>"+
-			//	 		"할부개월수:"+card_pay_month;
-			//pay_hp_num="해당없음";
-			//pay_hp_com="해당없음";
-			//pay_hp_com 추가해야함 
 		  }else if(pay_method=="휴대폰결제"){
+			var i_pay_hp_com=document.getElementById("pay_hp_com");
 			var i_pay_hp1=document.getElementById("pay_hp1");
 			var i_pay_hp2=document.getElementById("pay_hp2");
 			var i_pay_hp2=document.getElementById("pay_hp3");
@@ -548,12 +553,13 @@ console.log("point_used"+point_used);
 			pay_hp2=i_pay_hp2.value;
 			pay_hp3=i_pay_hp3.value;
 			
+			pay_hp_com=i_pay_hp_com.value;
 			pay_hp_num=i_pay_hp1+"-"+i_pay_hp2+"-"+i_pay_hp3;
 			
-		  }// else if(pay_method=="무통장 입금") {
-		//	  var i_random_account=document.getElementById("h_random_account");
-		//	  random_account=i_random_account.value;
-		//  }//end if
+		  } else if(pay_method=="무통장입금") {
+			  var i_random_account=document.getElementById("h_random_account");
+			  random_account=i_random_account.value;
+		  }//end if
 		  break;
 	  }// end for
 	}
@@ -810,10 +816,7 @@ function usepoint(){
 </c:forEach>
 		</tbody>
 	</table>
-	<!--적립버튼 나중에 지울것 
-		<input type="hidden" value="${final_total_order_price}" id="total_order_price" />
-		<input type="button" value="적립" onclick="getpoint()"/>
-		  -->
+
 		<div class="clear"></div>
 
 	<br>
@@ -928,13 +931,13 @@ function usepoint(){
 				<!--  플러스버튼 
 				<td><IMG width="25" alt=""
 					src="${pageContext.request.contextPath}/resources/image/plus.jpg"></td>
-		
+			-->
 				<td>
-				-->
+			
 				<img width="25" alt="" 	src="${pageContext.request.contextPath}/resources/image/minus.jpg"></td>
 		<!-- 총할인액 -->
 				<td>
-					<p id="p_totalDiscount">
+					<p id="p_totalDiscount">0
 					<!--<fmt:formatNumber value="${total_discount_price}" var="tdiscountprice" pattern="#,000"/>
 					${tdiscountprice}원--> 
 					<div id="p_result"></div>
@@ -948,8 +951,8 @@ function usepoint(){
 				<td>
 					<p id="p_final_totalPrice">
 					<!--<fmt:formatNumber value="${final_total_order_price}" var="final_total_order_price" pattern="#,###"/>
-						<font size="15">${final_total_order_price }원 </font>
-						-->
+						--><font size="15">${totalorder_price}원 </font>
+						
 						<div id="finalprice"></div>
 					</p> <input id="h_final_total_Price" type="hidden" value="${final_total_order_price}" />
 				</td>
@@ -968,7 +971,7 @@ function usepoint(){
 					<td>
 					   <input type="radio" id="pay_method" name="pay_method" value="신용카드"   onClick="fn_pay_card()" checked>신용카드 &nbsp;&nbsp;&nbsp; 
 					<input type="radio" id="pay_method" name="pay_method" value="휴대폰결제" onClick="fn_pay_phone()">휴대폰 결제 &nbsp;&nbsp;&nbsp;
-					   <input type="radio" id="pay_method" name="pay_method" value="무통장 입금" onClick="fn_random_account()">무통장 입금 &nbsp;&nbsp;&nbsp;
+					   <input type="radio" id="pay_method" name="pay_method" value="무통장입금" onClick="fn_random_account()">무통장 입금 &nbsp;&nbsp;&nbsp;
 					</td>
 				</tr>
 				<tr >
@@ -1079,7 +1082,7 @@ var pay_hp_com;
 	<br>
 	<center>
 		<br>
-		<br> <a href="javascript:fn_show_order_detail();"> 
+		<br> <!--  <a href="javascript:fn_show_order_detail();">--> 
 		<img width="125" alt="" src="${contextPath}/resources/image/btn_gulje.jpg">
 		<br> <input name="btn_process_pay_order" type="button" onClick="fn_process_pay_order()" value="최종결제하기">
 		</a> <a href="${contextPath}/main/main.do"> 
