@@ -159,6 +159,34 @@ function fn_modify_goods(goods_id, attribute)
   }
 </script>
 
+<script>
+var price = 0;
+var discount = 0;
+
+$(document).ready(function(){
+	$("#discount").change(function(){
+		discount=$(this).val();		
+		console.log(price);
+		console.log(discount);
+		console.log(price*discount);
+		var hap = document.frm_mod_goods.goods_sales_price;
+		hap.value=price-(price*discount/100);
+		console.log(hap);
+    });
+	
+	$("#price").change(function(){	
+		price=$(this).val();
+		console.log(price);
+		console.log(discount);
+		
+		console.log(price*discount);
+	});
+	
+
+	
+});
+           
+</script> 
 </HEAD>
 <BODY>
 <form  name="frm_mod_goods"  method=post >
@@ -176,7 +204,7 @@ function fn_modify_goods(goods_id, attribute)
 		<DIV class="tab_container">
 <!-- tab1. 메인이미지 -->
 		<div class="tab_content" id="tab1">			
-			<form id="FILE_FORM" method="post" enctype="multipart/form-data"  >
+			<form id="FILE_FORM" method="post"  enctype="multipart/form-data"  >
 				<h4>상품이미지</h4>
 				 <table>
 					 <tr>
@@ -267,9 +295,9 @@ function fn_modify_goods(goods_id, attribute)
 							<option value="attraction">어트렉션
 						</select>
 					</td>
-					<td>
-						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_sort')"/>
-					</td>
+<!-- 					<td> -->
+<%-- 						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_sort')"/> --%>
+<!-- 					</td> -->
 				</tr>
 				<tr >
 					<td>지역선택</td>
@@ -285,49 +313,72 @@ function fn_modify_goods(goods_id, attribute)
 							<option value="jeju">제주도
 						</select>
 					</td>
-					<td>
-						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_place')"/>
-					</td>
+<!-- 					<td> -->
+<%-- 						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_place')"/> --%>
+<!-- 					</td> -->
 				</tr>
 				<tr >
 					<td>상품이름</td>
 					<td>${goods.goods_title}</td>
-					<td><input name="goods_title" type="text" size="20" value="${goods.goods_title}"/></td>
-					<td>
-						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_title')"/>
-					</td>
+					<td><input name="goods_title" type="text" size="20"value="${goods.goods_title}"/></td>
+<!-- 					<td> -->
+<%-- 						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_title')"/> --%>
+<!-- 					</td> -->
 				</tr>
 				<tr>
 					<td>주최사</td>
 					<td>${goods.goods_publisher}</td>
-					<td><input name="goods_publisher" type="text" size="20" value="${goods.goods_publisher}"/></td>
-					<td>
-						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_publisher')"/>
-					</td>
+					<td><input name="goods_publisher" type="text" size="20"value="${goods.goods_publisher}"/></td>
+<!-- 					<td> -->
+<%-- 						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_publisher')"/> --%>
+<!-- 					</td> -->
 				</tr>
 				<tr>
 					<td>상품가격</td>
 					<td>${goods.goods_price}</td>
-					<td><input name="goods_price" type="text" size="20" value="${goods.goods_price}"/></td>
-					<td>
-						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_price')"/>
-					</td>
+					<td><input name="goods_price" type="text" size="20" id="price" value="${goods.goods_price}"/></td>
+<!-- 					<td> -->
+<%-- 						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_price')"/> --%>
+<!-- 					</td> -->
 				</tr>
 				<tr>
 					<td>할인율</td>
 					<td>${goods.goods_discount}</td>
-					<td><input name="goods_discount" type="text" size="20" value="${goods.goods_discount}"/></td>
-					<td>
-						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_discount')"/>
-					</td>
+					<td><select name="goods_discount" id="discount">
+										<option value="000"selected>선택하세요
+										<option value="5">5
+										<option value="10" >10
+										<option value="15">15
+										<option value="20">20
+										<option value="25">25
+										<option value="30">30
+										<option value="35">35
+										<option value="40">40
+										<option value="45">45
+										<option value="50">50
+										<option value="55">55
+										<option value="60">60
+										<option value="65">65
+										<option value="70">70
+										<option value="75">75
+										<option value="80">80
+										<option value="85">85
+										<option value="90">90
+										<option value="95">95
+										<option value="100">100
+					</select></td>
+<%-- 					<td><input name="goods_discount" type="text" size="20" value="${goods.goods_discount}" id="discount"/></td> --%>
+<!-- 					<td> -->
+<%-- 						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_discount')"/> --%>
+<!-- 					</td> -->
 				</tr>
 				<tr>
 					<td>상품판매가격</td>
 					<td>${goods.goods_sales_price}</td>
-					<td><input name="goods_sales_price" type="text" size="20" value="${goods.goods_sales_price}"/></td>
-					<td>
-						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_sales_price')"/>
-					</td>
+					<td><input name="goods_sales_price" id="sales_price" type="text" size="20" readonly/></td>
+<!-- 					<td> -->
+<%-- 						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_sales_price','goods_discount','goods_price')"/> --%>
+<!-- 					</td> -->
 				</tr>
 		
 		
@@ -335,18 +386,18 @@ function fn_modify_goods(goods_id, attribute)
 					<td>포인트</td>
 					<td>${goods.goods_point}</td>
 					<td><input name="goods_point" type="text" size="20" value="${goods.goods_point}"/></td>
-					<td>
-						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_point')"/>
-					</td>
+<!-- 					<td> -->
+<%-- 						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_point')"/> --%>
+<!-- 					</td> -->
 				</tr>
 		
 				<tr>
 					<td>유효기간</td>
 					<td>${goods.goods_expired_date}</td>
-					<td><input  name="goods_expired_date"  type="date" size="20" value="${goods.goods_expired_date}"/></td>
-					<td>
-						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_expired_date')"/>
-					</td>
+					<td><input  name="goods_expired_date"  type="date" size="20"/></td>
+<!-- 					<td> -->
+<%-- 						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_expired_date')"/> --%>
+<!-- 					</td> -->
 				</tr>
 
 				<tr>
@@ -362,17 +413,20 @@ function fn_modify_goods(goods_id, attribute)
 <!-- 							<option value="main_book" >절판</option> -->
 						</select>
 					</td>
-					<td>
-						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_status')"/>
-					</td>
+<!-- 					<td> -->
+<%-- 						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_status')"/> --%>
+<!-- 					</td> -->
 				</tr>
 				<tr>
 					<td>판매종료일</td>
 					<td>${goods.goods_lastsale_date}</td>
-					<td><input  name="goods_lastsale_date"  type="date" size="20" value="${goods.goods_lastsale_date}"/></td>
-					<td>
-						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_lastsale_date }','goods_lastsale_date')"/>
-					</td>
+					<td><input  name="goods_lastsale_date"  type="date" size="20"/></td>
+<!-- 					<td> -->
+<%-- 						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_lastsale_date }','goods_lastsale_date')"/> --%>
+<!-- 					</td> -->
+<td>
+<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_sort','goods_place','goods_title','goods_publisher','goods_price','goods_discount','goods_sales_price','goods_discount','goods_price','goods_point','goods_expired_date','goods_status','goods_lastsale_date')"/>
+</td>
 				</tr>				
 			</table>
 		</div>
@@ -381,7 +435,7 @@ function fn_modify_goods(goods_id, attribute)
 			<H4>상세설명</H4>
 			<table>	
 				<tr>
-					<td><textarea  rows="30" cols="80" name="goods_description" placeholder="상세설명" value="${goods.goods_description}"></textarea></td>
+					<td><textarea  rows="30" cols="80" name="goods_description" placeholder="상세설명" >${goods.goods_description}</textarea></td>
 					<td>
 						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_description')"/>
 					</td>
@@ -393,7 +447,7 @@ function fn_modify_goods(goods_id, attribute)
 			<H4>이용약관</H4>
 			<table>
 				<tr>
-					<td><textarea  rows="30" cols="80" name="goods_terms" placeholder="${goods.goods_terms}"></textarea></td>
+					<td><textarea  rows="30" cols="80" name="goods_terms" >${goods.goods_terms}</textarea></td>
 					<td>
 						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_terms')"/>
 					</td>
@@ -405,7 +459,7 @@ function fn_modify_goods(goods_id, attribute)
 			<H4>이용방법</H4>
 			<table>
 				<tr>
-					<td><textarea  rows="30" cols="80" name="goods_usage" placeholder="${goods.goods_usage}"></textarea></td>
+					<td><textarea  rows="30" cols="80" name="goods_usage" >${goods.goods_usage}</textarea></td>
 					<td>
 						<input  type="button" value="수정반영"  onClick="fn_modify_goods('${goods.goods_id }','goods_usage')"/>
 					</td>

@@ -148,7 +148,7 @@ $(document).ready(function(){
 								<td><input name="goods_price" type="text" size="25" id="price" placeholder="please enter product price"/></td>
 							</tr>
 							<tr >
-								<td >할인률</td>
+								<td >할인율</td>
 								<td>
 									<select name="goods_discount" id="discount">
 										<option value="000"selected>선택하세요
@@ -177,9 +177,9 @@ $(document).ready(function(){
 								</td>
 							</tr>
 							<tr>
-								<td >상품판매가격</td>
+								<td>상품판매가격</td>
 								<td>
-									<input name="goods_sales_price" id="sales_price" type="text" size="40" readonly/>
+									<input name="goods_sales_price" id="sales_price" type="text" size="25" readonly/>
 								</td>
 							</tr>
 					
