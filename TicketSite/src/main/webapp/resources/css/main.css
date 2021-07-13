@@ -6,7 +6,8 @@
 	margin: 0px; padding: 0px; vertical-align: middle;
 }
 body {
-	background-position: top; margin: 0px; padding: 0px; color: rgb(102, 102, 102); font-family: "Dotum", Arial,serif; font-size: 1em; background-image: url("../imgs/body_back.gif"); background-repeat: repeat-x; background-color: rgb(255, 255, 255);
+	background-position: top; margin: 0px; padding: 0px; color: rgb(102, 102, 102); font-family: "Dotum", Arial,serif; font-size: 1em; 
+-image: url("../imgs/body_back.gif"); background-repeat: repeat-x; background-color: rgb(255, 255, 255);
 }
 img {
 	border: currentColor; border-image: none;
@@ -23,7 +24,6 @@ a {
 a:hover {
 	color: rgb(255, 102, 0); text-decoration: none; 
 }
-
 .clear {
 	clear: both; 
 }
@@ -31,49 +31,73 @@ a:hover {
 	margin: 0px auto; padding: 0px; width: 1100px;
 }
 #wrap {
-	margin: 0px auto; padding: 0px; width: 1100px; float: left;
+	margin: 0px auto; padding: 0px; width: 1100px; float: left; height: auto;
 }
 /* 원본 css 위치------------------------------------------------------------------------- */
 /* 회사 소개 */
 
-* {box-sizing: border-box}
+* {box-sizing: border-box;}
 
-/* Set height of body and the document to 100% */
-body, html {
-  height: 100%;
+body { 
   margin: 0;
-  font-family: Arial;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Style tab links */
-.tablink {
-  background-color: #555;
-  color: white;
+#navbar {
+  overflow: hidden;
+  background-color: #f1f1f1;
+  padding: 90px 10px;
+  transition: 0.4s;
+  position: relative;
+  width: 100%;
+  top: 0;
+  z-index: 99;
+}
+
+#navbar a {
   float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  font-size: 17px;
-  width: 25%;
+  color: black;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px; 
+  line-height: 25px;
+  border-radius: 4px;
 }
 
-.tablink:hover {
-  background-color: #777;
+#navbar #logo {
+  font-size: 35px;
+  font-weight: bold;
+  transition: 0.4s;
 }
 
-/* Style the tab content (and add height:100% for full page content) */
-.tabcontent {
+#navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+#navbar a.active {
+  background-color: dodgerblue;
   color: white;
-  display: none;
-  padding: 100px 20px;
-  height: 100%;
 }
 
-#Home {background-color: red;}
-#News {background-color: green;}
-#Contact {background-color: blue;}
-#About {background-color: orange;}
+#navbar-right {
+  float: right;
+}
+
+@media screen and (max-width: 580px) {
+  #navbar {
+    padding: 20px 10px !important;
+  }
+  #navbar a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  #navbar-right {
+    float: none;
+  }
+}
 
 /* 이용약관 */
 .accordion {
@@ -375,8 +399,8 @@ article {
 	margin: 20px 0px 0px 0px; width: 1100; float: right;
 }
 
-.link {
-	width: 148px; height: 216px; display: block; position: absolute; z-index: 2;
+.link {/* width: 148px; height: 216px; */
+	width: 150px; height: 226px; display: block; position: absolute; z-index: 2;
 }
 
 article #ad_main_banner {
@@ -669,8 +693,8 @@ ul.tabs li.active a:hover {
 .tab_content .writer {
 	margin: 10px 0px; padding: 5px; color: rgb(0, 0, 0); font-size: 1.2em; font-weight: bold; border-bottom-color: rgb(255, 153, 0); border-bottom-width: 1px; border-bottom-style: solid;
 }
-footer {
-	background-position: top; margin: 10px 0px 0px; font-size: 0.75em; background-image: url("../imgs/foo_back.gif"); background-repeat: repeat-x;
+footer {position:static; botton: 100px;
+	background-position: top; margin: 10px 0px 0px; font-size: 0.75em; background-image: url("../imgs/foo_back.gif"); background-repeat: repeat-x; 
 }
 footer ul {
 	list-style: none; margin: 0px 0px 0px 210px;
@@ -847,14 +871,14 @@ article h1_TITLE {
 
 
 .main_book {
-	width: auto; padding-top: 0px; font-size: 0.75em; 
+	width: auto;  font-size: 0.75em; padding: 10px 15px 10px 15px;
 }
 .main_book h3 {
 	margin: 0px 0px 5px; padding: 0px 0px 5px; color: rgb(51, 102, 153); text-transform: uppercase; font-family: "NanumGothic", Serif; font-size: 1.2em; border-bottom-color: rgb(51, 102, 153); border-bottom-width: 1px; border-bottom-style: solid;
 }
 
-.main_book .book {
-	background-position: right; border: 2px solid rgb(255, 255, 255); border-image: none; width: 148px; height: 216px;  float: left; background-image: url("../imgs/vline_grey.gif"); background-repeat: repeat-y;
+.main_book .book { 
+	background-position: right; border: 2px solid rgb(255, 255, 255); border-image: none; width: 155px; height: 216px;  float: left; background-image: url("../imgs/vline_grey.gif"); background-repeat: repeat-y;
 }
 .main_book .book img {
 	margin: 0px 0px 0px;
@@ -868,16 +892,16 @@ article h1_TITLE {
 .main_book .book .sort {
 	margin: 0px; padding: 2px 0px;
 }
-.main_book .book .title {
+.main_book .book .title {width: 148px;
 	margin: 0px; padding: 2px 0px;text-align: left;
 }
-.main_book .book .writer {
+.main_book .book .writer {width: 148px;
 	margin: 0px; padding: 2px 0px;
 }
-.main_book .book .price {
+.main_book .book .price {width: 148px;
 	margin: 0px; padding: 2px 0px; text-decoration: line-through red; color: #c0c0c0;text-align: right;
 }
-.main_book .book .disprice {
+.main_book .book .disprice {width: 148px;
 	margin: 0px; padding: 2px 0px; text-align: right;
 }
 .main_book .book .sort {
@@ -955,7 +979,7 @@ font-size: 12pt; font-style:normal;width: 492px; height: auto; padding: 2px 0px 
   display: none;
   padding: 100px 0px;
   width: 100%;
-  height: 100%;
+
   margin: 10px 0px 0px 0px;
 }
 .tabcontent .title{

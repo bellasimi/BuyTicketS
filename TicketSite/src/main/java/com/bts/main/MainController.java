@@ -52,9 +52,9 @@ public class MainController extends BaseController {
 		mav.addObject("goodsMap", goodsMap);
 		return mav;
 	}
-//문의사항
-	@RequestMapping(value= "/main/faq.do" ,method={RequestMethod.POST,RequestMethod.GET})
-	public ModelAndView customer(HttpServletRequest request, HttpServletResponse response) throws Exception{
+//화사소개 "/main/about.do" 
+	@RequestMapping(value= "/main/about.do" ,method={RequestMethod.POST,RequestMethod.GET})
+	public ModelAndView mainabout(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		HttpSession session;
 		ModelAndView mav=new ModelAndView();
 		String viewName=(String)request.getAttribute("viewName");

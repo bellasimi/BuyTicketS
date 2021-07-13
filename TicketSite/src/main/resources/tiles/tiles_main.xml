@@ -23,6 +23,10 @@
 		<put-attribute name="title" value="찾아오시는 길" />
 		<put-attribute name="body" value="/WEB-INF/views/main/address.jsp" />
 	</definition>
+	<definition name="/main/about" extends="baseLayout"><!-- name=.do앞부분 -->
+		<put-attribute name="title" value="회사소개" />
+		<put-attribute name="body" value="/WEB-INF/views/main/about.jsp" />
+	</definition>
 	<definition name="/main/customer" extends="baseLayout"><!-- name=.do앞부분 -->
 		<put-attribute name="title" value="문의사항" />
 		<put-attribute name="body" value="/WEB-INF/views/main/faq.jsp" />
