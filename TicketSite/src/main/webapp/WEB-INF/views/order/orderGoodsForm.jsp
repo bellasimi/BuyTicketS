@@ -19,13 +19,14 @@
 
 <head>
 <style>
+
 #layer {
 	z-index: 2;
 	position: absolute;
 	top: 0px;
 	left: 0px;
 	width: 100%;
-	/* background-color:rgba(0,0,0,0.8); */
+	/*background-color:rgba(0,0,0,0.8); */
 }
 
 #popup_order_detail {
@@ -44,6 +45,32 @@
 	z-index: 4;
 	float: right;
 }
+
+
+input {
+  width: 100%;
+ /* margin-bottom: 20px;*/
+ margin:15px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+
+table.list_view tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+/*요기 작업하다보면 css에러남 태그자체를 내가 만든건데...*/
+
+table.total_view {
+	background-color: #f2f2f2;
+	 /*border: 2px solid #c7c7c7;*/
+	 padding: 30px 120px 30px 30px;
+	 font-size: 20px;
+	 border-radius: 10px;
+}
+
 </style>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -325,13 +352,14 @@ order_total_price=parseInt(order_total_price);
 			var i_pay_hp_com=document.getElementById("pay_hp_com");
 			var i_pay_hp1=document.getElementById("pay_hp1");
 			var i_pay_hp2=document.getElementById("pay_hp2");
-			var i_pay_hp2=document.getElementById("pay_hp3");
+			var i_pay_hp3=document.getElementById("pay_hp3");
 			pay_hp1=i_pay_hp1.value;
 			pay_hp2=i_pay_hp2.value;
 			pay_hp3=i_pay_hp3.value;
 			
 			pay_hp_com=i_pay_hp_com.value;
-			pay_hp_num=i_pay_hp1+"-"+i_pay_hp2+"-"+i_pay_hp3;
+			pay_hp_num=pay_hp1+"-"+pay_hp2+"-"+pay_hp3;
+			console.log("pay_hp_num");
 			
 		  } else if(pay_method=="무통장입금") {
 			  var i_random_account=document.getElementById("random_account");
@@ -456,13 +484,14 @@ order_total_price=parseInt(order_total_price);
 <br>
 	<H1>주문확인</H1>
 <form  name="form_order">	
-<div >
+<div>
 	  <br><br>
-	   <h2>주문고객</h2>
-		 <table>
+	   
+		 <table class="member_view">
 		   <tbody>
+		   <tr><td colspan="2"><h1>주문한 사람</h1></td></tr>
 			 <tr class="dot_line">
-				<td ><h2>이름</h2></td>
+				<td><h2>이름</h2></td>
 				<td>
 				 <input  type="text" value="${orderer.member_name}" id="h_orderer_name" size="15" />
 				</td>
@@ -493,13 +522,13 @@ order_total_price=parseInt(order_total_price);
 
 	<table class="list_view">
 		<tbody align=center>
-			<tr style="background: #33ff00">
+			<tr style="background: #c4c2c2">
 				<td colspan=2 class="fixed">주문상품명</td>
 				<td>예약일</td>
 				<td>수량</td>
 				<td>주문금액</td>
 				<td>예상적립금</td>
-				<td>주문금액합계</td>
+			<!-- 	<td>주문금액합계</td> -->
 			</tr>
 			
 			<c:forEach var="item" items="${myOrderList}">
@@ -536,12 +565,19 @@ order_total_price=parseInt(order_total_price);
 						<fmt:formatNumber value="${item.goods_point}" var="point" pattern="#,###"/>
 						<h2>${point}p</h2>
 					</td>
-			<!-- 총주문금액 -->
+			<!-- 총주문금액
 					<td>
 					<fmt:formatNumber value="${item.goods_sales_price*item.order_goods_qty}" var="sales_qty_price" pattern="#,###"/>
 					  <h2>${sales_qty_price}원</h2>
 					  <input  type="hidden" id="h_each_goods_price"  name="h_each_goods_price" value="${item.goods_sales_price*item.order_goods_qty}" />
-					</td>
+					</td> -->
+			</tr>
+			<tr align="right">
+				<td colspan="6">
+				<fmt:formatNumber value="${item.goods_sales_price*item.order_goods_qty}" var="sales_qty_price" pattern="#,###"/>
+				  <h2>총 주문금액 : ${sales_qty_price}원</h2>
+				  <input  type="hidden" id="h_each_goods_price"  name="h_each_goods_price" value="${item.goods_sales_price*item.order_goods_qty}" />
+			</td>
 			</tr>
 			<c:set var="final_total_order_price"
 				value="${final_total_order_price+ item.goods_sales_price*item.order_goods_qty}"/>
@@ -576,8 +612,9 @@ order_total_price=parseInt(order_total_price);
 					<td><input id="point_used" type="number" size="10" min="0" max="${orderer.member_point}" value="0"/>원/${orderer.member_point}원
 						&nbsp;&nbsp;&nbsp; <input type="checkbox" id="ch_point_used" class="discountBox" onclick=""/> 사용하기</td>
 						<!-- 모두사용하기 누르면 자동으로 값이 전체돈으로 입력되도록해야한다  -->
-						
+					
 				</tr>
+				
 				<!--  
 				<tr class="dot_line">
 					<td>예치금</td>
@@ -609,8 +646,54 @@ order_total_price=parseInt(order_total_price);
 		</table>
 	</div>
 	<div class="clear"></div>
-
 	<br>
+	
+	
+	
+	<table class="total_view">
+	<tbody>
+		<tr><td colspan="2">총계</td></tr>
+		<tr>
+			<td>총 상품수 : </td>
+			 <td align="right">
+        			<p id="p_totalNum">${total_order_goods_qty}개</p> 
+					<input id="h_total_order_goods_qty" type="hidden" value="${total_order_goods_qty}" />
+         	</td>
+         </tr>
+         <tr>
+         	 <td>총 상품금액</td>
+          	<td align="right">
+             <fmt:formatNumber value="${total_order_price}" var="totalorder_price" pattern="#,###"/>
+					<p id="p_totalPrice">${totalorder_price}원</p> 
+					<input id="h_totalPrice" type="hidden" value="${total_order_price}" />
+          	</td>
+         <tr>
+         	<td>총 할인 금액 </td>
+         	<td align="right">  
+           <p id="p_totalDiscount">0
+					<!--<fmt:formatNumber value="${total_discount_price}" var="tdiscountprice" pattern="#,000"/>
+					${tdiscountprice}원--> 
+					<div id="p_result"></div>
+					
+					</p>
+					<input id="h_total_sales_price" type="hidden" value="${total_discount_price}" />
+          </td>
+         </tr>
+         <tr>
+         	<td>최종 결제금액</td>
+         	<td align="right">
+            <font size="15"><p id="p_final_totalPrice">
+					${totalorder_price}원 
+					</p></font> <input id="h_final_total_Price" type="hidden" value="${total_order_price}"/>
+          </td>
+         </tr>
+	</tbody>
+</table> 
+	<div class="clear"></div>
+	<br>
+	
+	
+	<!-- 
 	<table width=80% class="list_view" style="background: #ccffff">
 		<tbody>
 			<tr align=center class="fixed">
@@ -627,7 +710,7 @@ order_total_price=parseInt(order_total_price);
 					<input id="h_total_order_goods_qty" type="hidden" value="${total_order_goods_qty}" />
 				</td>
 				
-		<!-- 총상품금액 -->		
+		<!-- 총상품금액 		
 				<td>
 					<fmt:formatNumber value="${total_order_price}" var="totalorder_price" pattern="#,###"/>
 					<p id="p_totalPrice">${totalorder_price}원</p> 
@@ -636,15 +719,15 @@ order_total_price=parseInt(order_total_price);
 				<!--  플러스버튼 
 				<td><IMG width="25" alt=""
 					src="${pageContext.request.contextPath}/resources/image/plus.jpg"></td>
-			-->
+			
 				<td>
 			
 				<img width="25" alt="" 	src="${pageContext.request.contextPath}/resources/image/minus.jpg"></td>
-		<!-- 총할인액 -->
+		<!-- 총할인액 
 				<td>
 					<p id="p_totalDiscount">0
 					<!--<fmt:formatNumber value="${total_discount_price}" var="tdiscountprice" pattern="#,000"/>
-					${tdiscountprice}원--> 
+					${tdiscountprice}원 
 					<div id="p_result"></div>
 					
 					</p>
@@ -652,15 +735,15 @@ order_total_price=parseInt(order_total_price);
 				</td>
 				
 				<td><img width="25" alt="" src="${pageContext.request.contextPath}/resources/image/equal.jpg"></td>
-		<!--최종 결제액 -->	
-				<td><!-- 여기 다시좀 챙겨봐야함  -->
+		<!--최종 결제액 	
+				<td><!-- 여기 다시좀 챙겨봐야함  
 					<font size="15"><p id="p_final_totalPrice">
 					${totalorder_price}원 
 					</p></font> <input id="h_final_total_Price" type="hidden" value="${total_order_price}"/>
 				</td>
 			</tr>
 		</tbody>
-	</table>
+	</table>   -->
    <div class="clear"></div>
 	<br>
 	<br>
@@ -669,7 +752,7 @@ order_total_price=parseInt(order_total_price);
 	<div class="detail_table">
 		<table>
 			<tbody>
-				<tr >
+				<tr>
 					<td>
 					   <input type="radio" id="pay_method" name="pay_method" value="신용카드"   onclick="fn_pay_card()" checked>신용카드 &nbsp;&nbsp;&nbsp; 
 					<input type="radio" id="pay_method" name="pay_method" value="휴대폰결제" onclick="fn_pay_phone()">휴대폰 결제 &nbsp;&nbsp;&nbsp;

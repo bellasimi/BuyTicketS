@@ -16,9 +16,39 @@
 <head>
 <style> 
 
-tr:nth-child(odd) {
+
+table.list_view tr:nth-child(odd) {
   background-color: #f2f2f2;
 }
+.plusminus {
+  background-color: #c9c1af; 
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+input {
+	font-size:25px;
+}
+
+table.total_view {
+	background-color: #f2f2f2;
+	float:right;
+	 border: 5px solid #444444;
+	 padding: 30px;
+	 font-size: 35px;
+}
+
+table.total_view td{
+ 	padding:10px;
+}
+
 
 </style>
 
@@ -553,14 +583,14 @@ function fn_order_all_cart_goods() {
 				<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">
 				${item.goods_title}	 </a>
 			</h2>
-					${item.goods_id }
+				
 		</td>
-		<!-- /////////////////////////예매날짜 input 필요한지 생각해보기  -->		
-		<td>   <!-- 이거 hidden으로 받는데 없을거같은데  -->
+		
+		<td>   <!-- 예약일  -->
 			<input type="hidden" id="goods_ticket_date" value="${goods_ticket_date }">
 				 ${goods_ticket_date}	
 		</td>
-		<td class="price">
+		<td class="price"><!-- 정가 -->  <!-- article table#list_view td.price css에 있음 -->
 				<input type="hidden" id="h_goods_price" value="${item.goods_price}">
 				<fmt:formatNumber value="${item.goods_price}" var="goodsprice" pattern="#,###"/>
 				<span>${goodsprice}원</span><br>(${item.goods_discount}% 할인)
@@ -574,9 +604,9 @@ function fn_order_all_cart_goods() {
 				</strong>
 		</td>
  		<td>
- 			<input type="button" value=" - " name="minus" onclick="javascript:minusone(${item.goods_id},${item.goods_price},${item.goods_sales_price},${idx.index});">
+ 			<input type="button" value=" - " class="plusminus" name="minus" onclick="javascript:minusone(${item.goods_id},${item.goods_price},${item.goods_sales_price},${idx.index});">
  			<input type="text" name="cart_goods_qty" id="cart_goods_qty" readonly size="1" value="${cart_goods_qty}" >
- 			<input type="button" value=" + " name="plus" onclick="javascript:plusone(${item.goods_id},${item.goods_price},${item.goods_sales_price},${idx.index});">
+ 			<input type="button" value=" + " class="plusminus" name="plus" onclick="javascript:plusone(${item.goods_id},${item.goods_price},${item.goods_sales_price},${idx.index});">
  		</td>
 				
 	<!-- <td>
@@ -597,6 +627,12 @@ function fn_order_all_cart_goods() {
 			 </a>
 		</td>
 	</tr>
+	<tr>
+		<td colspan="8" align="right">
+			합계 : <input type="text" name="priceXqty" size=5 value="${priceXqty}" readonly style="border:0px none;background-color:transparent;"><br>
+		</td>
+	
+	</tr>
 		
 				<c:set var="totalGoodsPrice" value="${totalGoodsPrice+item.goods_price*cart_goods_qty }" />
 				<c:set var="totalGoodsNum" value="${totalGoodsNum+1}" />
@@ -611,13 +647,55 @@ function fn_order_all_cart_goods() {
    
      	
 	<div class="clear"></div>
+	<br>
+	<br>
+	<br>
+	<!-- 
+<table class="total_view">
+	<tbody>
+		<tr><td colspan="2">총계</td></tr>
+		<tr>
+			<td>총 상품수 : </td>
+			 <td align="right">
+         <p id="checkedGoods">${totalGoodsNum}</p>
+         	</td>
+         </tr>
+         <tr>
+         	 <td>총 상품금액</td>
+          	<td align="right">
+               	<fmt:formatNumber  value="${totalGoodsPrice}" type="number" var="fmttotal_goods_price" pattern="#,###"/>
+            <input id="h_totalGoodsPrice" type="hidden" value="${totalGoodsPrice}" />  
+               <p id="p_totalGoodsPrice">${fmttotal_goods_price}원</p> 
+          	</td>
+         <tr>
+         	<td>총 할인 금액 </td>
+         	<td align="right">  
+            <p id="p_totalDiscount"> 
+            <fmt:formatNumber value="${totalDiscount}" var="tDiscountPrice" pattern="#,###"/>
+                     ${tDiscountPrice}원
+            </p>
+            <input id="h_totalDiscount"type="hidden" value="${totalDiscount}" />
+          </td>
+         </tr>
+         <tr>
+         	<td>최종 결제금액</td>
+         	<td align="right">
+             <p id="p_totalSalesPrice">
+             <fmt:formatNumber  value="${totalGoodsPrice-totalDiscount}" type="number" var="total_price" pattern="#,###"/>
+               ${total_price}원
+             </p>
+             <input id="h_totalSalesPrice" type="hidden" value="${totalGoodsPrice-totalDiscount}" />
+          </td>
+         </tr>
+	</tbody>
+</table> -->	
+<div class="clear"></div>
 	
 	<br>
 	<br>
-	
-   <table  width=80%   class="list_view" style="background:#cacaff">
+   <table  width=80%   class="list_view" style="background:#fadb93">
    <tbody>
-        <tr  align=center  class="fixed" >
+        <tr align=center  class="fixed">
           <td class="fixed">총 상품수 </td>
           <td>총 상품금액</td>
           <td>  </td>
@@ -637,26 +715,11 @@ function fn_order_all_cart_goods() {
            -->
      <!--총상품금액 -->     
           <td>
-             
-          <fmt:formatNumber  value="${totalGoodsPrice}" type="number" var="fmttotal_goods_price" pattern="#,###"/>
+               	<fmt:formatNumber  value="${totalGoodsPrice}" type="number" var="fmttotal_goods_price" pattern="#,###"/>
             <input id="h_totalGoodsPrice" type="hidden" value="${totalGoodsPrice}" />  
                <p id="p_totalGoodsPrice">${fmttotal_goods_price}원</p> <!-- 이거 숨기고 밑에거가 나오게 하는 방법도있다  -->
-          <!--  <div id="p_totalGoodsPrice"></div>-->  <!-- 계산을 따로 해줘야함  -->
-                      
-           
           </td>
-       <!--     총배송금액
-          <td> 
-             <img width="25" alt="" src="${contextPath}/resources/image/plus.jpg">  
-          </td>
- 
-          <td>
-            <p id="p_totalDeliveryPrice">
-            <fmt:formatNumber  value="${totalDeliveryPrice}" var="tDeliveryPrice" pattern="#,###"/> 
-            ${tDeliveryPrice}원  </p>
-            <input id="h_totalDeliveryPrice"type="hidden" value="${totalDeliveryPrice}" />
-          </td>  -->
-         
+      
           <td> 
             <img width="25" alt="" src="${contextPath}/resources/image/minus.jpg"> 
           </td>
