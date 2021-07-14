@@ -9,7 +9,7 @@
 <title>리뷰</title>
 </head>
 <body>
-<form action="${contextPath}/mypage/myPageMain.do" method="post">
+<form action="${contextPath}/mypage/myPageMain.do" method="post"> <!-- 페이지이동하면서 자연스럽게 보낼 수 있는 방법...-->
 <table border=0 width=100% cellpadding=10 cellspacing=10 bgcolor="white">
 <tr>
 <td colspan="2">주문번호 :  ${order_id}</td>
