@@ -116,6 +116,12 @@
 	 	  set delivery_state='cancel_order'
 	   where order_id=#{order_id}
 	</update>
+	
+	<update id="updateMyReview" parameterType="String">
+       update ticket_order
+	   	  set review_state='review_confirm'
+	   where order_id=#{order_id}
+	</update>
 		
 		
 </mapper>

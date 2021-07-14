@@ -69,20 +69,35 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 //리뷰	
 	@Override
 	@RequestMapping(value="/review.do",method=RequestMethod.GET)
-	public ModelAndView review(@RequestParam("order_id") String order_id,HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView review(@RequestParam("order_id") String order_id,
+			@RequestParam("goods_title") String goods_title,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session=request.getSession();
 		MemberVO orderer=(MemberVO)session.getAttribute("memberInfo");
-		GoodsVO goodsi=(GoodsVO)session.getAttribute("goodsInfo");
+
 		List<OrderVO> myOrderList=myPageService.findMyOrderInfo(order_id);
-		
+
 		mav.addObject("orderer", orderer);
 		mav.addObject("order_id",order_id);
-		mav.addObject("goodsi",goodsi);
+		mav.addObject("goods_title",goods_title);
 		mav.addObject("myOrderList",myOrderList);
 		return mav;
 	}
+	
+	//리뷰	
+		@Override
+		@RequestMapping(value="/review.do",method=RequestMethod.POST)
+		public void updateReview(@RequestParam("order_id") String order_id,
+				@RequestParam("goods_title") String goods_title,
+				HttpServletRequest request, HttpServletResponse response) throws Exception {
+			String viewName=(String)request.getAttribute("viewName");
+			ModelAndView mav = new ModelAndView(viewName);
+			HttpSession session=request.getSession();
+				// order_id로 관련 order를 하나 가져와서 리뷰 내용을 넣고 수정하세요.
+			return;
+		}
 	
 	@Override
 	@RequestMapping(value="/myOrderDetail.do" ,method = RequestMethod.GET)

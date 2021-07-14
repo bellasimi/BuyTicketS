@@ -9,7 +9,7 @@
 <title>리뷰</title>
 </head>
 <body>
-<form action="" method="get">
+<form action="update" method="get">
 <table border=0 width=100% cellpadding=10 cellspacing=10 bgcolor="white">
 <tr>
 <td colspan="2">주문번호 :  ${order_id}</td>

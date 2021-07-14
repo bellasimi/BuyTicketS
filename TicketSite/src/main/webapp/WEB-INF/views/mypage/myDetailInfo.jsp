@@ -63,7 +63,6 @@ function fn_modify_member_info(attribute){
 			var member_birth_y=frm_mod_member.member_birth_y;
 			var member_birth_m=frm_mod_member.member_birth_m;
 			var member_birth_d=frm_mod_member.member_birth_d;
-			var member_birth_gn=frm_mod_member.member_birth_gn;
 			
 			for(var i=0; member_birth_y.length;i++){
 			 	if(member_birth_y[i].selected){
@@ -84,16 +83,9 @@ function fn_modify_member_info(attribute){
 					break;
 				} 
 			}
-			
-			//alert("수정 년:"+value_y+","+value_m+","+value_d);
-			for(var i=0; member_birth_gn.length;i++){
-			 	if(member_birth_gn[i].checked){
-					value_gn=member_birth_gn[i].value;
-					break;
-				} 
 			}
 			//alert("생년 양음년 "+value_gn);
-			value=+value_y+","+value_m+","+value_d+","+value_gn;
+			value=+value_y+","+value_m+","+value_d;
 		}else if(attribute=='hp'){
 			var hp1=frm_mod_member.hp1;
 			var hp2=frm_mod_member.hp2;
