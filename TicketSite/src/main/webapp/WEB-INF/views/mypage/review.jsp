@@ -9,7 +9,7 @@
 <title>리뷰</title>
 </head>
 <body>
-<form action="update" method="get">
+<form action="${contextPath}/mypage/myPageMain.do" method="post">
 <table border=0 width=100% cellpadding=10 cellspacing=10 bgcolor="white">
 <tr>
 <td colspan="2">주문번호 :  ${order_id}</td>
@@ -42,5 +42,6 @@
 <input type="submit" value="작성완료입니당">
 <input type="reset" value="다지워버릴거야">
 </form>
+
 </body>
 </html>

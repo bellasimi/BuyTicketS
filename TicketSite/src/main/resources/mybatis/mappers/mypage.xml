@@ -120,7 +120,7 @@
 	<update id="updateMyReview" parameterType="String">
        update ticket_order
 	   	  set review_state='review_confirm'
-	   where order_id=#{order_id}
+	   where order_id=#{order_id} AND goods_title=#{goods_title}
 	</update>
 		
 		
