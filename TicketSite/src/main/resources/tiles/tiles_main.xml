@@ -28,11 +28,15 @@
 		<put-attribute name="body" value="/WEB-INF/views/main/about.jsp" />
 	</definition>
 	<definition name="/main/customer" extends="baseLayout"><!-- name=.do앞부분 -->
-		<put-attribute name="title" value="문의사항" />
-		<put-attribute name="body" value="/WEB-INF/views/main/faq.jsp" />
+		<put-attribute name="title" value="고객센터" />
+		<put-attribute name="body" value="/WEB-INF/views/main/customer.jsp" />
 	</definition>
 	<definition name="/main/terms" extends="baseLayout"><!-- name=.do앞부분 -->
 		<put-attribute name="title" value="이용약관" />
 		<put-attribute name="body" value="/WEB-INF/views/main/terms.jsp" />
+	</definition>
+	<definition name="/main/privacy" extends="baseLayout"><!-- name=.do앞부분 -->
+		<put-attribute name="title" value="개인정보취급방침" />
+		<put-attribute name="body" value="/WEB-INF/views/main/privacy.jsp" />
 	</definition>
 </tiles-definitions>

@@ -136,9 +136,7 @@ top:-14;
  width: 90;
 }
 /* 배경사진 */
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
+
 * {box-sizing: border-box}
 body {font-family: Verdana, sans-serif; margin:0}
 .mySlides {display: none}
@@ -146,33 +144,41 @@ img {vertical-align: middle;}
 
 
 /* sns 아이콘 스타일 */
-.sns { list-style-type: none; float: right; position: absolute; 
-  padding: 15px;
-  font-size: 30px;
-  width: 30px;
-  text-align: center;
-  text-decoration: none;
-}
 
 /* sns 아이콘 임펙트 */
-.sns:hover {
+.fa-fa:hover {
   opacity: 0.7;
 }
 
 /* Facebook */
 .fa-facebook {
+	position:relative; right:-250;
+  padding: 14px;
+  width: 48px;
+  text-align: center;
+  text-decoration: none;
   background: #3B5998;
   color: white;
 }
 
 /* Twitter */
 .fa-twitter {
+	position:relative; right:-250;
+  padding: 14px;
+  width: 48px;
+  text-align: center;
+  text-decoration: none;
   background: #55ACEE;
   color: white;
 }
 
 /* instagram */
 .fa-instagram {
+	position:relative; right:-250;
+  padding: 14px;
+  width: 48px;
+  text-align: center;
+  text-decoration: none;
   background: #125688;
   color: white;
 }
@@ -302,7 +308,6 @@ header #search .btn1 {
 @media only screen and (max-width: 300px) {
   .prev, .next,.text {font-size: 11px}
 }
-</style>
 /* 배경사진 */
 
 /* 검색창 */
