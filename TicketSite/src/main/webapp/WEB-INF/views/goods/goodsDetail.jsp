@@ -313,7 +313,8 @@ $(document).ready(function(){
 	</c:choose>
 	<hgroup>
 		<h1>${sort}</h1>
-		<h2>티켓구매 &gt;${place}  &gt;${sort}</h2>
+		<h2>티켓구매&gt; <a href="${contextPath}/goods/place.do?goods_place=${goodsMap.goodsVO.goods_place}">${place}</a>&gt;		
+		<a href="${contextPath}/goods/sort.do?goods_sort=${goodsMap.goodsVO.goods_sort}">${sort}</a></h2>
 		<h3>${goods.goods_title}</h3>
 		<h4>${goods.goods_publisher}</h4>
 	</hgroup>
