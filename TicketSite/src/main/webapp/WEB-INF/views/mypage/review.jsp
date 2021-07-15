@@ -9,10 +9,10 @@
 <title>리뷰</title>
 </head>
 <body>
-<form action="${contextPath}/mypage/myPageMain.do" method="post"> <!-- 페이지이동하면서 자연스럽게 보낼 수 있는 방법...-->
+<form action="updateMyReview" method="post"> <!-- 페이지이동하면서 자연스럽게 보낼 수 있는 방법...-->
 <table border=0 width=100% cellpadding=10 cellspacing=10 bgcolor="white">
 <tr>
-<td colspan="2">주문번호 :  ${order_id}</td>
+<td colspan="2">주문번호 :  ${order_id}, ${order_seq_num}</td>
 <td colspan="4">상품명 :  ${goods_title}</td>
 </tr>
 
@@ -26,11 +26,11 @@
 </tr>
 
 <tr>
-<td><input type="radio" name="score" value="5"></td>
-<td><input type="radio" name="score" value="4"></td>
-<td><input type="radio" name="score" value="3"></td>
-<td><input type="radio" name="score" value="2"></td>
-<td><input type="radio" name="score" value="1"></td>
+<td><input type="radio" name="review_star" value="5"></td>
+<td><input type="radio" name="review_star" value="4"></td>
+<td><input type="radio" name="review_star" value="3"></td>
+<td><input type="radio" name="review_star" value="2"></td>
+<td><input type="radio" name="review_star" value="1"></td>
 </tr>
 
 <tr>
@@ -42,6 +42,7 @@
 <input type="submit" value="작성완료입니당">
 <input type="reset" value="다지워버릴거야">
 </form>
+<a href="${contextPath}/mypage/myPageMain.do">마이페이지</a>
 
 </body>
 </html>

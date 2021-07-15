@@ -138,7 +138,7 @@ body, html {
 								<td>리뷰 작성 완료</td>
 								</c:when>
 								<c:otherwise>
-								<td><a href="${contextPath}/mypage/review.do?order_id=${item.order_id}&goods_title=${item.goods_title}">리뷰 미작성</a></td>
+								<td><a href="${contextPath}/mypage/review.do?order_id=${item.order_id}&goods_title=${item.goods_title}&order_seq_num=${item.order_seq_num}">리뷰 미작성</a></td>
 								</c:otherwise>
 								</c:choose>
 								<td>${item.goods_ticket_date }</td>

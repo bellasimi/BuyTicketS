@@ -71,6 +71,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 	@RequestMapping(value="/review.do",method=RequestMethod.GET)
 	public ModelAndView review(@RequestParam("order_id") String order_id,
 			@RequestParam("goods_title") String goods_title,
+			@RequestParam("order_seq_num") String order_seq_num,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
@@ -81,6 +82,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 
 		mav.addObject("orderer", orderer);
 		mav.addObject("order_id",order_id);
+		mav.addObject("order_seq_num",order_seq_num);
 		mav.addObject("goods_title",goods_title);
 		mav.addObject("myOrderList",myOrderList);
 		return mav;
@@ -95,6 +97,10 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 			String viewName=(String)request.getAttribute("viewName");
 			ModelAndView mav = new ModelAndView(viewName);
 			HttpSession session=request.getSession();
+			MemberVO orderer=(MemberVO)session.getAttribute("memberInfo");
+			String member_id = orderer.getMember_id();
+			
+			
 				// order_id로 관련 order를 하나 가져와서 리뷰 내용을 넣고 수정하세요.
 			return;
 		}

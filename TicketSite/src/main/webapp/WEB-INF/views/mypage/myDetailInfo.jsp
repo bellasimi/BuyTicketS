@@ -83,7 +83,7 @@ function fn_modify_member_info(attribute){
 					break;
 				} 
 			}
-			}
+			
 			//alert("생년 양음년 "+value_gn);
 			value=+value_y+","+value_m+","+value_d;
 		}else if(attribute=='hp'){
