@@ -336,8 +336,8 @@ $(document).ready(function(){
 				<c:set var="discount_price" value="${goods.goods_sales_price-discounted_price}"/>
 			<tbody>
 				<tr>
-					<td class="fixed">정가</td>
-					<td class="active"><span >
+					<td class="fixed"  >정가</td>
+					<td style="background-color: #e6f2ff"><span >
 					   <fmt:formatNumber  value="${goods.goods_price}" type="number" pattern="#,###" var="goods_price" />
 				         <span style="text-decoration: line-through;color:black; ">${goods_price}원</span> 
 					</span></td>
@@ -351,8 +351,8 @@ $(document).ready(function(){
 				        <span style="color:red;"> ${goods_sales_price}원(${goods.goods_discount}% 할인)</span></td>
 				</tr>
 				<tr>
-					<td class="fixed">포인트적립</td>
-					<td class="active" style="color:black;">${goods.goods_point}P</td>
+					<td class="fixed" >포인트적립</td>
+					<td style="color:black; background-color: #e6f2ff;">${goods.goods_point}P</td>
 				</tr>
 				<tr>
 					<td class="fixed">판매 종료일</td>
@@ -400,7 +400,7 @@ $(document).ready(function(){
 		</table>
 		<ul>
 			<li><a class="buy" href="javascript:fn_order_each_goods('${goods.goods_id }','${goods.goods_title}','${goods.goods_sales_price}','${goods.goods_fileName}');">구매하기 </a></li>
-			<li><a class="cart" href="javascript:add_cart('${goods.goods_id }')">장바구니</a></li>
+			<li><a href="javascript:add_cart('${goods.goods_id }')">장바구니</a></li>
 			<li><a href="javascript:add_wish('${goods.goods_id}')">위시리스트</a></li>
 			<%--1.ajax 
 			2.매핑주소 get방식으로 값 넘기기
@@ -409,11 +409,11 @@ $(document).ready(function(){
 		</ul>
 	</div>
 	<div class="clear"></div>
-	<button class="tablink" onclick="openPage('이름1', this, 'gray')" id="defaultOpen">상세설명</button>
-	<button class="tablink" onclick="openPage('이름2', this, 'gray')">이용약관</button>
-	<button class="tablink" onclick="openPage('이름3', this, 'gray')">사용방법</button>
-	<button class="tablink" onclick="openPage('이름4', this, 'gray')">위치</button>
-	<button class="tablink" onclick="openPage('이름5', this, 'gray')">리뷰</button>
+	<button class="tablink" onclick="openPage('이름1', this, '#2196F3')" id="defaultOpen">상세설명</button>
+	<button class="tablink" onclick="openPage('이름2', this, '#2196F3')">이용약관</button>
+	<button class="tablink" onclick="openPage('이름3', this, '#2196F3')">사용방법</button>
+	<button class="tablink" onclick="openPage('이름4', this, '#2196F3')">위치</button>
+	<button class="tablink" onclick="openPage('이름5', this, '#2196F3')">리뷰</button>
 	
 	<div id="이름1" class="tabcontent" >
 	
