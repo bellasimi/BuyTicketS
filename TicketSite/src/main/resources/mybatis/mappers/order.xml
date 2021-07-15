@@ -16,10 +16,7 @@
 		
 		<result property="goods_title" column="goods_title" />
 		<result property="order_goods_qty" column="order_goods_qty" />		
-		<!--  -->
 		<result property="goods_sales_price" column="goods_sales_price" />
-		
-		<!--  -->
 		<result property="goods_fileName" column="goods_fileName" />
 
 		<result property="pay_method" column="pay_method" />
@@ -32,15 +29,13 @@
 		
 		<result property="pay_hp_num" column="pay_hp_num" />
 		<result property="pay_order_time" column="pay_order_time" />
+		
 		<result property="goods_ticket_date" column="goods_ticket_date" />
 		<result property="goods_point" column="goods_point" />
 		
 		<result property="order_total_price" column="order_total_price" />
 		<result property="point_used" column="point_used" />
 
-<!-- 얘 왜 있는지 알아내야함 vo에는 cart_goods_qty  있음 - 안쓸듯
-		<result property="goods_qty" column="goods_qty" />
--->
 
 	</resultMap>
 	
@@ -105,7 +100,7 @@
 				                       
     	]]>
 	</insert>
-<!--여기 다시 봐야함 seq 이름이 다른데 ticket_order_id_seq 로 시퀀스 하나더 만들어서 --> 
+
    <select id="selectOrderID" resultType="int"  >
 	    <![CDATA[  
 		    select ticket_order_id_seq.nextval from dual
