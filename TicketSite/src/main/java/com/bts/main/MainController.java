@@ -75,6 +75,32 @@ public class MainController extends BaseController {
 		return mav;
 	}
 	
-	
+//이용약관 
+	@RequestMapping(value= "/main/privacy.do" ,method={RequestMethod.POST,RequestMethod.GET})
+	public ModelAndView mainprivacy(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		HttpSession session;
+		ModelAndView mav=new ModelAndView();
+		String viewName=(String)request.getAttribute("viewName");
+		mav.setViewName(viewName);
+			
+		
+		return mav;
+	}	
+
+//이용약관 	
+@RequestMapping(value= "/main/customer.do" ,method={RequestMethod.POST,RequestMethod.GET})
+public ModelAndView maincustomer(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	HttpSession session;
+	ModelAndView mav=new ModelAndView();
+	String viewName=(String)request.getAttribute("viewName");
+	mav.setViewName(viewName);
+		
+	session=request.getSession();
+	session.setAttribute("side_menu", "user");
+	Map<String,List<GoodsVO>> goodsMap=goodsService.StatusList();
+	System.out.println(goodsMap);
+	mav.addObject("goodsMap", goodsMap);
+	return mav;
+ }
 	
 }

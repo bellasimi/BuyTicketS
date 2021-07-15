@@ -16,7 +16,6 @@
 			return;
 	 var value=document.frmSearch.searchWord.value;
 		$.ajax({
-			type : "get",
 			async : true, //false인 경우 동기식으로 처리한다.
 			url : "${contextPath}/goods/keywordSearch.do",
 			data : {keyword:value},

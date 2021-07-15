@@ -2,6 +2,7 @@
     pageEncoding="utf-8"
     isELIgnored="false"    
     %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
@@ -9,24 +10,24 @@
 <ul>
 	<li><a href="/bts/main/about.do">회사소개</a></li>
 	<li><a href="/bts/main/terms.do">이용약관</a></li>
-	<li><a href="#">개인정보취급방침</a></li>
+	<li><a href="/bts/main/privacy.do">개인정보취급방침</a></li>
 	<li class="no_line"><a href="/bts/main/address.do">찾아오시는길</a></li>
 </ul>
 </div>
 
 <!-- sns아이콘 -->
-<div id="sns">
 
-<a href="#" class="fa fa-facebook"></a>
-<a href="#" class="fa fa-twitter"></a>
-<a href="#" class="fa fa-instagram"></a>
-
+<div class= "sns" style="font-size: 20;">
+<a href="https://www.facebook.com/" class="fa fa-facebook" ></a>
+<a href="https://twitter.com/" class="fa fa-twitter"></a>
+<a href="https://instagram.com/" class="fa fa-instagram"></a>
 </div>
+
 
 
 <div class="clear"></div>
 
-<a href="#"><img alt="Booktopia" src="${contextPath}/resources/image/img/backmain.png" width="147px" height="62px" /></a>
+<a href="${contextPath}/main/main.do"><img  src="${contextPath}/resources/image/img/backmain.png" width="147px" height="62px" /></a>
 
 
 
