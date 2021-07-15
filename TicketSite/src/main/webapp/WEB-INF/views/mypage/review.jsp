@@ -12,7 +12,7 @@
 <form action="updateMyReview" method="post"> <!-- 페이지이동하면서 자연스럽게 보낼 수 있는 방법...-->
 <table border=0 width=100% cellpadding=10 cellspacing=10 bgcolor="white">
 <tr>
-<td colspan="2">주문번호 :  ${order_id}, ${order_seq_num}</td>
+<td colspan="2">주문번호 :  ${order_id}, 오더시퀀스 ${order_seq_num}</td>
 <td colspan="4">상품명 :  ${goods_title}</td>
 </tr>
 
