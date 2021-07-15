@@ -73,11 +73,11 @@
 	<div class="slideshow-container">
 
 <div class="mySlides fade">
-  <img src="${contextPath}/resources/image/img/img_nature_wide.jpg" style="width:1105px">
+  <img src="${contextPath}/resources/image/img/img_snow_wide.jpg" style="width:1105px">
 </div>
 
 <div class="mySlides fade">
-  <img src="${contextPath}/resources/image/img/img_snow_wide.jpg" style="width:1105px">
+  <img src="${contextPath}/resources/image/img/img_nature_wide.jpg" style="width:1105px">
 </div>
 
 <div class="mySlides fade">
@@ -136,7 +136,7 @@ function showSlides(n) {
 }
 </script>
 
-	<div id="head_link">
+	<div id="head_link" style="font-family: 'NanumBarunGothic', sans-serif; font-size: 12">
 		<ul>
 		   <c:choose>
 		     <c:when test="${isLogOn==true and not empty memberInfo }">

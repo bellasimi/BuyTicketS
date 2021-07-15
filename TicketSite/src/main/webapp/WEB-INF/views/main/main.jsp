@@ -18,7 +18,7 @@
 </div> --%>
 <div class="main_book">
    <c:set  var="goods_count" value="0" />
-	<h3>베스트셀러</h3><!-- bestseller,bigsale,new,kids,freecancel -->
+	<h3 style="font-size: 25;" >베스트셀러</h3><!-- bestseller,bigsale,new,kids,freecancel -->
 	<c:forEach var="item" items="${goodsMap.bestseller }">
 	   <c:set  var="goods_count" value="${goods_count+1 }" />
 		<div class="book">
@@ -63,7 +63,7 @@
 </div> --%>
 <div class="main_book" >
 <c:set  var="goods_count" value="0" />
-	<h3>초특가 세일</h3><!--bigsale-->
+	<h3 style="font-size: 25;">초특가 세일</h3><!--bigsale-->
 	<c:forEach var="item" items="${goodsMap.bigsale }" >
 	   <c:set  var="goods_count" value="${goods_count+1 }" />
 		<div class="book">
@@ -109,7 +109,7 @@
 </div> --%>
 <div class="main_book" >
 <c:set  var="goods_count" value="0" />
-	<h3>신규 액티비티</h3><!-- new -->
+	<h3 style="font-size: 25;">신규 액티비티</h3><!-- new -->
 	<c:forEach var="item" items="${goodsMap.newsale }" >
 	   <c:set  var="goods_count" value="${goods_count+1 }" />
 		<div class="book">
