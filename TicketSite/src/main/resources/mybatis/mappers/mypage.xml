@@ -120,7 +120,13 @@
 	<update id="updateMyReview" parameterType="String">
        update ticket_order
 	   	  set review_state='review_confirm'
-	   where order_id=#{order_id} AND goods_title=#{goods_title}
+	   	  	<if test="review_star!='' review_star!=null">
+			        review_star=#{review_star},
+			</if>
+			<if test="review_content!='' review_content!=null"> 
+					review_content=#{review_content},
+			</if>
+	   where order_seq_num=#{order_seq_num}
 	</update>
 		
 		

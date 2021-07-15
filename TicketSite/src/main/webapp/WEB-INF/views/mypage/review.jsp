@@ -4,25 +4,51 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
+<style>
+table,tr,td {
+	border : 1px solid black;
+	border-collapse: collapse;
+	bordercolor="black" ;
+	cellpadding=10 ;
+	cellspacing=10 ;
+	bgcolor="white";
+	text-align : center;
+};
+
+title{
+	text-align : center;
+
+};
+
+</style>
+
+<style type="text/css">
+textarea{resize:none;}
+</style>
+
 <head>
 <meta charset="UTF-8">
 <title>리뷰</title>
+<!-- 그러면 시퀀스 번호를 가져왔으니까... 흠.... 개별로 진행이 가능...? 그럼 보내기는 편해질 것 같다... -->
 </head>
+
 <body>
+<h1 class=title>리뷰페이지입니다.</h1>
+<hr>
 <form action="updateMyReview" method="post"> <!-- 페이지이동하면서 자연스럽게 보낼 수 있는 방법...-->
-<table border=0 width=100% cellpadding=10 cellspacing=10 bgcolor="white">
+<table>
 <tr>
-<td colspan="2">주문번호 :  ${order_id}, 오더시퀀스 ${order_seq_num}</td>
-<td colspan="4">상품명 :  ${goods_title}</td>
+<td colspan="2" bgcolor="gray">주문번호 :  ${order_id}</td>
+<td colspan="4" bgcolor="gray">상품명 :  ${goods_title}</td>
 </tr>
 
-<tr>
-<td rowspan="2">별점</td>
-<td>5점</td>
-<td>4점</td>
-<td>3점</td>
-<td>2점</td>
-<td>1점</td>
+<tr >
+<td id=star rowspan="2" width="100">별점</td>
+<td id=star width="100">5점</td>
+<td id=star width="100">4점</td>
+<td id=star width="100">3점</td>
+<td id=star width="100">2점</td>
+<td id=star width="100">1점</td>
 </tr>
 
 <tr>
@@ -35,7 +61,7 @@
 
 <tr>
 <td>리뷰 내용</td>
-<td width="800" colspan="5"><textarea name="review_context"></textarea></td>
+<td colspan="5"><textarea name="review_content" rows="12" cols="69"></textarea></td>
 </tr>
 
 </table>
@@ -43,6 +69,6 @@
 <input type="reset" value="다지워버릴거야">
 </form>
 <a href="${contextPath}/mypage/myPageMain.do">마이페이지</a>
-
+<input  type="hidden" name="order_seq_num" value="${order_seq_num}" />
 </body>
 </html>

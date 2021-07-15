@@ -51,7 +51,7 @@ body, html {
 
 /* Style tab links */
 .tablink {
-	background-color: #555;
+	background-color: #2196F3;
 	color: white;
 	float: left;
 	border: none;
@@ -93,11 +93,11 @@ body, html {
 </head>
 <body>
 
-	<button class="tablink" onclick="openPage('OrderList', this, 'gray')"
+	<button class="tablink" onclick="openPage('OrderList', this, '#2196F3')"
 		id="defaultOpen">주문내역</button>
-	<button class="tablink" onclick="openPage('Point', this, 'gray')">포인트</button>
-	<button class="tablink" onclick="openPage('MyInform', this, 'gray')">내정보</button>
-	<button class="tablink" onclick="openPage('WishList', this, 'gray')">위시리스트</button>
+	<button class="tablink" onclick="openPage('Point', this, '#2196F3')">포인트</button>
+	<button class="tablink" onclick="openPage('MyInform', this, '#2196F3')">내정보</button>
+	<button class="tablink" onclick="openPage('WishList', this, '#2196F3')">위시리스트</button>
 
 	<div id="OrderList" class="tabcontent">
 		<h1>
