@@ -47,8 +47,8 @@
 }
 
 
-input {
-  width: 100%;
+input.in_order {
+ /* width: 100%;*/
  /* margin-bottom: 20px;*/
  margin:15px;
   padding: 10px 12px;
@@ -70,7 +70,11 @@ table.total_view {
 	 font-size: 20px;
 	 border-radius: 10px;
 }
-
+/*
+.detail_table{
+width:80%;
+}
+*/
 </style>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -166,79 +170,6 @@ $(document).ready(function(){
 	
    
 
-/*
-	function reset_all() {
-		var e_receiver_name = document.getElementById("receiver_name");
-		var e_hp1 = document.getElementById("hp1");
-		var e_hp2 = document.getElementById("hp2");
-		var e_hp3 = document.getElementById("hp3");
-
-		var e_tel1 = document.getElementById("tel1");
-		var e_tel2 = document.getElementById("tel2");
-		var e_tel3 = document.getElementById("tel3");
-
-		var e_zipcode = document.getElementById("zipcode");
-		var e_roadAddress = document.getElementById("roadAddress");
-		var e_jibunAddress = document.getElementById("jibunAddress");
-		var e_namujiAddress = document.getElementById("namujiAddress");
-
-		e_receiver_name.value = "";
-		e_hp1.value = 0;
-		e_hp2.value = "";
-		e_hp3.value = "";
-		e_tel1.value = "";
-		e_tel2.value = "";
-		e_tel3.value = "";
-		e_zipcode.value = "";
-		e_roadAddress.value = "";
-		e_jibunAddress.value = "";
-		e_namujiAddress.value = "";
-	}
-
-	function restore_all() {
-		var e_receiver_name = document.getElementById("receiver_name");
-		var e_hp1 = document.getElementById("hp1");
-		var e_hp2 = document.getElementById("hp2");
-		var e_hp3 = document.getElementById("hp3");
-
-		var e_tel1 = document.getElementById("tel1");
-		var e_tel2 = document.getElementById("tel2");
-		var e_tel3 = document.getElementById("tel3");
-
-		var e_zipcode = document.getElementById("zipcode");
-		var e_roadAddress = document.getElementById("roadAddress");
-		var e_jibunAddress = document.getElementById("jibunAddress");
-		var e_namujiAddress = document.getElementById("namujiAddress");
-
-		var h_receiver_name = document.getElementById("h_receiver_name");
-		var h_hp1 = document.getElementById("h_hp1");
-		var h_hp2 = document.getElementById("h_hp2");
-		var h_hp3 = document.getElementById("h_hp3");
-
-		var h_tel1 = document.getElementById("h_tel1");
-		var h_tel2 = document.getElementById("h_tel2");
-		var h_tel3 = document.getElementById("h_tel3");
-
-		var h_zipcode = document.getElementById("h_zipcode");
-		var h_roadAddress = document.getElementById("h_roadAddress");
-		var h_jibunAddress = document.getElementById("h_jibunAddress");
-		var h_namujiAddress = document.getElementById("h_namujiAddress");
-		//alert(e_receiver_name.value);
-		e_receiver_name.value = h_receiver_name.value;
-		e_hp1.value = h_hp1.value;
-		e_hp2.value = h_hp2.value;
-		e_hp3.value = h_hp3.value;
-
-		e_tel1.value = h_tel1.value;
-		e_tel2.value = h_tel2.value;
-		e_tel3.value = h_tel3.value;
-		e_zipcode.value = h_zipcode.value;
-		e_roadAddress.value = h_roadAddress.value;
-		e_jibunAddress.value = h_jibunAddress.value;
-		e_namujiAddress.value = h_namujiAddress.value;
-
-	}
-	*/
 function fn_pay_phone(){
 	
 	
@@ -336,7 +267,6 @@ order_total_price=parseInt(order_total_price);
 			var i_card_num1=document.getElementById("card_num1");
 			var i_card_num2=document.getElementById("card_num2");
 			var i_card_num3=document.getElementById("card_num3");
-			//var i_card_number=document.getElementById("card_number");
 			var i_card_expired_m=document.getElementById("card_expired_m");
 			var i_card_expired_y=document.getElementById("card_expired_y");
 			
@@ -478,6 +408,28 @@ order_total_price=parseInt(order_total_price);
 
 
 
+function imagePopup(type) {
+	if (type == 'open') {
+		// 팝업창을 연다.
+		jQuery('#layer').attr('style', 'visibility:visible');
+
+		// 페이지를 가리기위한 레이어 영역의 높이를 페이지 전체의 높이와 같게 한다.
+		jQuery('#layer').height(jQuery(document).height());
+	}
+
+	else if (type == 'close') {
+
+		// 팝업창을 닫는다.
+		jQuery('#layer').attr('style', 'visibility:hidden');
+	}
+}
+/*
+function popup_order_window(){
+	var total_order_goods_qty=document.getElementById("h_total_order_goods_qty").value;
+	var p_totalNum=document.getElementById("p_totalNum");
+	imagePopup('open');
+}*/
+
 </script>
 </head>
 <body>
@@ -493,19 +445,19 @@ order_total_price=parseInt(order_total_price);
 			 <tr class="dot_line">
 				<td><h2>이름</h2></td>
 				<td>
-				 <input  type="text" value="${orderer.member_name}" id="h_orderer_name" size="15" />
+				 <input class="in_order" type="text" value="${orderer.member_name}" id="h_orderer_name" size="15" />
 				</td>
 			  </tr>
 			  <tr class="dot_line">
 				<td ><h2>핸드폰</h2></td>
 				<td>
-				 <input  type="text" value="${orderer.hp1}-${orderer.hp2}-${orderer.hp3}" size="15" />
+				 <input class="in_order" type="text" value="${orderer.hp1}-${orderer.hp2}-${orderer.hp3}" size="15" />
 				</td>
 			  </tr>
 			  <tr class="dot_line">
 				<td ><h2>이메일</h2></td>
 				<td>
-				 <input  type="text" value="${orderer.email1}@${orderer.email2}" size="15" />
+				 <input class="in_order" type="text" value="${orderer.email1}@${orderer.email2}" size="15" />
 				</td>
 			  </tr>
 			 
@@ -609,7 +561,7 @@ order_total_price=parseInt(order_total_price);
 						적립금
 						<button type="button" id="use_point_all">모두사용</button>					
 					</td> 
-					<td><input id="point_used" type="number" size="10" min="0" max="${orderer.member_point}" value="0"/>원/${orderer.member_point}원
+					<td><input id="point_used" class="in_order" type="text" size="10" min="0" max="${orderer.member_point}" value="0"/>원/${orderer.member_point}원
 						&nbsp;&nbsp;&nbsp; <input type="checkbox" id="ch_point_used" class="discountBox" onclick=""/> 사용하기</td>
 						<!-- 모두사용하기 누르면 자동으로 값이 전체돈으로 입력되도록해야한다  -->
 					
@@ -624,19 +576,19 @@ order_total_price=parseInt(order_total_price);
 				-->
 				<tr class="dot_line">
 					<td>상품권 전환금</td>
-					<td cellpadding="5"><input id="discount_sangpum" type="text" size="10" value="0"/>원 &nbsp;&nbsp;&nbsp; 
+					<td cellpadding="5"><input id="discount_sangpum" class="in_order" type="text" size="10" value="0"/>원 &nbsp;&nbsp;&nbsp; 
 						<input type="checkbox" id="ch_discount_sangpum" class="discountBox" onclick=""/> 
 						사용하기</td>
 				</tr>
 				<tr class="dot_line">
 					<td>OK 캐쉬백 포인트</td>
-					<td cellpadding="5"><input id="discount_okcashbag" type="text" size="10" value="0"/>원 &nbsp;&nbsp;&nbsp; 
+					<td cellpadding="5"><input id="discount_okcashbag" class="in_order" type="text" size="10" value="0"/>원 &nbsp;&nbsp;&nbsp; 
 						<input type="checkbox" id="ch_discount_okcashbag" class="discountBox" onclick=""/> 
 						사용하기</td>
 				</tr>
 				<tr class="dot_line">
 					<td>쿠폰할인</td>
-					<td cellpadding="5"><input id="discount_coupon" type="text"	size="10" value="0"/>원 &nbsp;&nbsp;&nbsp; 
+					<td cellpadding="5"><input id="discount_coupon" class="in_order" type="text"	size="10" value="0"/>원 &nbsp;&nbsp;&nbsp; 
 						<input type="checkbox"  id="ch_discount_coupon" class="discountBox" onclick=""/> 
 						사용하기</td>
 				</tr>
@@ -867,99 +819,37 @@ var pay_hp_com;
 	<br>
 	<center>
 		<br>
-		<br> <!--  <a href="javascript:fn_show_order_detail();">--> 
-		<img width="125" alt="" src="${contextPath}/resources/image/btn_gulje.jpg">
-		<br> <input name="btn_process_pay_order" type="button" onclick="fn_process_pay_order()" value="최종결제하기">
-		</a> <a href="${contextPath}/main/main.do"> 
+		<br> 
+		<a href="javascript:imagePopup('open')">결제하기</a>
+		<br> 
+		<!-- <input name="btn_process_pay_order" type="button" onclick="fn_process_pay_order()" value="최종결제하기"> -->
+	
+		 <a href="${contextPath}/main/main.do"> 
 		   <img width="75" alt="" src="${contextPath}/resources/image/btn_shoping_continue.jpg">
 		</a>
+	</center>
 	
-<div class="clear"></div>		
-<!-- visibility:hidden 으로 설정하여 해당 div안의 모든것들을 가려둔다.-->
-<!--  	<div id="layer" style="visibility:hidden">
-		 
-		<div id="popup_order_detail">
-			 팝업창 닫기 버튼 
-			<a href="javascript:" onClick="javascript:imagePopup('close', '.layer01');">
-			 <img  src="${contextPath}/resources/image/close.png" id="close" />
-			</a> 
-			<br/> 
-			  <div class="detail_table">
-			  <h1>최종 주문 사항</h1>
-			<table>
-				<tbody align=left>
-				 	<tr>
-					  <td width=200px>
-					      주문상품번호:
-					 </td>
-					 <td>
-						 <p id="p_order_goods_id"> 주문번호 </p>    
-					 </td>
-				   </tr>
-				   <tr>
-					  <td width=200px>
-					      주문상품명:
-					 </td>
-					 <td>
-						  <p id="p_order_goods_title"> 주문 상품명 </p>    
-					 </td>
-				   </tr>
-				   <tr>
-					  <td width=200px>
-					      주문상품개수:
-					 </td>
-					 <td>
-						  <p id="p_total_order_goods_qty"> 주문 상품개수 </p>    
-					 </td>
-				   </tr>
-				   <tr>
-					  <td width=200px>
-					     주문금액합계:
-					 </td>
-					 <td >
-					      <p id="p_total_order_goods_price">주문금액합계</p>
-					 </td>
-				   </tr>
-					<tr>
-					  <td width=200px>
-					     주문자:
-					 </td>
-					 <td>
-					      <p id="p_orderer_name"> 주문자 이름</p>
-					 </td>
-				   </tr>
-				   <tr>
-					  <td width=200px>
-					     받는사람:
-					 </td>
-					 <td>
-					      <p id="p_receiver_name">받는사람이름</p>
-					 </td>
-				   </tr>
-				   <tr>
-					 
-				   </tr>
-				  
-				   <tr>
-					  <td width=200px>
-					     결제방법:
-					 </td>
-					 <td align=left>
-					      <p id="p_pay_method">결제방법</p>
-					 </td>
-				   </tr>
-				   <tr>
-				    <td colspan=2 align=center>
-				    <input  name="btn_process_pay_order" type="button" onClick="fn_process_pay_order()" value="최종결제하기">
-				    </td>
-				   </tr>
-				</tbody>
-				</table>
-			</div>
-			<div class="clear"></div>	
-			<br> 
-			-->
+	
+	<div id="layer" style="visibility: hidden" name="layer" class="layer">
+		<!-- visibility:hidden 으로 설정하여 해당 div안의 모든것들을 가려둔다. -->
+		<div id="popup">
+				 
+			<br /> 
 			
+			<font size="12" id="contents" style="font-size: 20pt;text-align: center;">
+			 티켓 ${total_order_goods_qty}장 <br>결제 하시겠습니까?
+			</font><br><br>
+				
+				<input  type="button" value="최종결제하기" onclick="fn_process_pay_order()"/>
+				<a href="javascript:" onClick="javascript:imagePopup('close');">취소</a>
+				
+		</div>
+	</div>	
+	
+	
+
+
+
 			
 			
 			
