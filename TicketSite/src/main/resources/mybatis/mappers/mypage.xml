@@ -117,14 +117,14 @@
 	   where order_id=#{order_id}
 	</update>
 	
-	<update id="updateMyReview" parameterType="String">
+	<update id="updateMyReview" parameterType="reviewVO">
        update ticket_order
-	   	  set review_state='review_confirm'
-	   	  	<if test="review_star!='' review_star!=null">
+	   	  set review_state='review_confirm',
+	   	  	<if test="review_star!='' and review_star!=null">
 			        review_star=#{review_star},
 			</if>
-			<if test="review_content!='' review_content!=null"> 
-					review_content=#{review_content},
+			<if test="review_content!='' and review_content!=null"> 
+					review_content=#{review_content}
 			</if>
 	   where order_seq_num=#{order_seq_num}
 	</update>

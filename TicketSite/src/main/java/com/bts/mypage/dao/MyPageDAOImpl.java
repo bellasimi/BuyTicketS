@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bts.member.vo.MemberVO;
 import com.bts.order.vo.OrderVO;
+import com.bts.mypage.vo.ReviewVO;
 
 @Repository("myPageDAO")
 public class MyPageDAOImpl implements MyPageDAO{
@@ -46,5 +47,8 @@ public class MyPageDAOImpl implements MyPageDAO{
 		sqlSession.update("mapper.mypage.updateMyOrderCancel",order_id);
 	}
 	
+	public void updateMyReview(ReviewVO reviewVO) throws DataAccessException{
+		sqlSession.update("mapper.mypage.updateMyReview",reviewVO);
+	}
 	
 }

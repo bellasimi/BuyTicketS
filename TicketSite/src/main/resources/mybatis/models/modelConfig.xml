@@ -10,7 +10,7 @@
     <typeAlias type="com.bts.cart.vo.CartVO" alias="cartVO" />
     <typeAlias type="com.bts.order.vo.OrderVO" alias="orderVO" />
     <typeAlias type="com.bts.mypage.vo.MyPageVO" alias="mypageVO" />
-    
+    <typeAlias type="com.bts.mypage.vo.ReviewVO" alias="reviewVO" />
   </typeAliases>
 </configuration>
 

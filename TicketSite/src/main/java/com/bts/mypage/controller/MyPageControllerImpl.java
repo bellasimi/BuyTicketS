@@ -14,9 +14,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bts.common.base.BaseController;
@@ -25,6 +27,7 @@ import com.bts.goods.vo.GoodsVO;
 import com.bts.member.vo.MemberVO;
 import com.bts.mypage.service.MyPageDummyService;
 import com.bts.mypage.service.MyPageService;
+import com.bts.mypage.vo.ReviewVO;
 import com.bts.order.vo.OrderVO;
 
 @Controller("myPageController")
@@ -66,6 +69,20 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 
 		return mav;
 	}
+	
+	@RequestMapping(value="/updateMyReview.do", method=RequestMethod.POST)
+	public ModelAndView createReview (ReviewVO reviewVO,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		myPageService.updateMyReview(reviewVO);
+		HttpSession session=request.getSession();
+		session=request.getSession();
+		memberVO=(MemberVO)session.getAttribute("memberInfo");
+		String member_id=memberVO.getMember_id();
+		String viewName=(String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		List<OrderVO> myOrderList=myPageService.listMyOrderGoods(member_id);
+		return mav;
+	}
+	
 //리뷰	
 	@Override
 	@RequestMapping(value="/review.do",method=RequestMethod.GET)
@@ -79,7 +96,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		MemberVO orderer=(MemberVO)session.getAttribute("memberInfo");
 
 		List<OrderVO> myOrderList=myPageService.findMyOrderInfo(order_id);
-
+		String member_id=memberVO.getMember_id();
 		mav.addObject("orderer", orderer);
 		mav.addObject("order_id",order_id);
 		mav.addObject("order_seq_num",order_seq_num);

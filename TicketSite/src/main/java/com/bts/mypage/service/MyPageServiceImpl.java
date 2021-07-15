@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.bts.member.vo.MemberVO;
 import com.bts.mypage.dao.MyPageDAO;
 import com.bts.mypage.vo.MyPageVO;
+import com.bts.mypage.vo.ReviewVO;
 import com.bts.order.vo.OrderVO;
 
 @Service("myPageService")
@@ -47,5 +48,8 @@ public class MyPageServiceImpl  implements MyPageService{
 		return myPageDAO.selectMyDetailInfo(member_id);
 	}
 	
+	public void updateMyReview(ReviewVO reviewVO) throws Exception {
+		myPageDAO.updateMyReview(reviewVO);
+	}
 	
 }

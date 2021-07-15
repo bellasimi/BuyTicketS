@@ -35,7 +35,7 @@ textarea{resize:none;}
 <body>
 <h1 class=title>리뷰페이지입니다.</h1>
 <hr>
-<form action="updateMyReview" method="post"> <!-- 페이지이동하면서 자연스럽게 보낼 수 있는 방법...-->
+<form action="/bts/mypage/updateMyReview.do" method="post"> <!-- 페이지이동하면서 자연스럽게 보낼 수 있는 방법...-->
 <table>
 <tr>
 <td colspan="2" bgcolor="gray">주문번호 :  ${order_id}</td>
@@ -65,10 +65,11 @@ textarea{resize:none;}
 </tr>
 
 </table>
+<input type="hidden" name="order_seq_num" value="${order_seq_num}" />
+<input type="hidden" name="member_id" value="${member_id}" />
 <input type="submit" value="작성완료입니당">
 <input type="reset" value="다지워버릴거야">
 </form>
 <a href="${contextPath}/mypage/myPageMain.do">마이페이지</a>
-<input  type="hidden" name="order_seq_num" value="${order_seq_num}" />
 </body>
 </html>

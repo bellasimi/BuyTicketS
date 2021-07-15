@@ -52,7 +52,7 @@ body, html {
 /* Style tab links */
 .tablink {
 	background-color: #2196F3;
-	color: white;
+	color: black;
 	float: left;
 	border: none;
 	outline: none;
@@ -63,12 +63,13 @@ body, html {
 }
 
 .tablink:hover {
-	background-color: #777;
+	background-color: white;
+	color:black;
 }
 
 /* Style the tab content (and add height:100% for full page content) */
 .tabcontent {
-	color: white;
+	color: black;
 	display: none;
 	padding: 100px 20px;
 	height: 100%;
@@ -93,11 +94,11 @@ body, html {
 </head>
 <body>
 
-	<button class="tablink" onclick="openPage('OrderList', this, '#2196F3')"
+	<button class="tablink" onclick="openPage('OrderList', this, 'white')"
 		id="defaultOpen">주문내역</button>
-	<button class="tablink" onclick="openPage('Point', this, '#2196F3')">포인트</button>
-	<button class="tablink" onclick="openPage('MyInform', this, '#2196F3')">내정보</button>
-	<button class="tablink" onclick="openPage('WishList', this, '#2196F3')">위시리스트</button>
+	<button class="tablink" onclick="openPage('Point', this, 'white')">포인트</button>
+	<button class="tablink" onclick="openPage('MyInform', this, 'white')">내정보</button>
+	<button class="tablink" onclick="openPage('WishList', this, 'white')">위시리스트</button>
 
 	<div id="OrderList" class="tabcontent">
 		<h1>
