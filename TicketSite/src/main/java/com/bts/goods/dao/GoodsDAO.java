@@ -7,6 +7,7 @@ import org.springframework.dao.DataAccessException;
 
 import com.bts.goods.vo.GoodsVO;
 import com.bts.goods.vo.ImageFileVO;
+import com.bts.goods.vo.WishVO;
 
 public interface GoodsDAO {
 	public List<GoodsVO> selectSortList(String goods_sort) throws DataAccessException;
@@ -28,5 +29,8 @@ public interface GoodsDAO {
 	public void deleteWishListAll(String member_id) throws DataAccessException;
 	public boolean existwish(Map wish)throws DataAccessException;
 	public void deletecheckedwish(Map wish)throws DataAccessException;
+	public void addcheckwish(List<WishVO> checkwish)throws DataAccessException;
+	public boolean existcheckwish(List<WishVO> checkwish)throws DataAccessException;
+	public String showexist(List<WishVO> checkwish)throws DataAccessException;
 
 }

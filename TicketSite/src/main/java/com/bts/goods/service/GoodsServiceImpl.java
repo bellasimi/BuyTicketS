@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bts.goods.dao.GoodsDAO;
 import com.bts.goods.vo.GoodsVO;
 import com.bts.goods.vo.ImageFileVO;
+import com.bts.goods.vo.WishVO;
 
 @Service("goodsService")
 @Transactional(propagation=Propagation.REQUIRED)
@@ -59,6 +60,28 @@ public class GoodsServiceImpl implements GoodsService{
 		List goodsList=goodsDAO.selectGoodsBySearchWord(searchWord);
 		return goodsList;
 	}
+	
+	//검색 후 체크된 놈들 위시리스트로 등록
+	@Override
+	public void addcheckwish(List<WishVO> checkwish) {
+		
+		goodsDAO.addcheckwish(checkwish);
+	
+	
+	}
+	//체크된 놈들 위시리스트에 존재하는 지 확인
+	@Override
+	public boolean existcheckwish(List<WishVO> checkwish) throws Exception {
+		boolean result =goodsDAO.existcheckwish(checkwish);
+		return result;
+	}
+	//존재하는놈 제목	
+	@Override
+	public String showexist(List<WishVO> checkwish) throws Exception {
+		
+		return goodsDAO.showexist(checkwish);
+	}
+
 	//키워드 자동완성 
 	public List<String> keywordSearch(String keyword) throws Exception {
 		List<String> list=goodsDAO.selectKeywordSearch(keyword);
@@ -124,4 +147,7 @@ public class GoodsServiceImpl implements GoodsService{
 		goodsDAO.deletecheckedwish(wish);
 		
 	}
+
+	
+
 }

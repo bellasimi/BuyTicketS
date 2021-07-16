@@ -150,9 +150,16 @@ function add_checkwish(){
 				},
 				
 				success : function(data, textStatus) {
-					console.log(data.trim());
+					if(data.trim()=='add_success'){
+						imgpopup('#layer','open');
+					}else{
+						imgpopup('#layer2','open');
+						var exist_title = data.trim();
+						document.getElementById('exist_title').innerHTML= exist_title+'등..';
 					
-					 
+					}
+					
+					
 				},
 				error : function(data, textStatus) {
 					alert("에러가 발생했습니다."+data);
@@ -168,7 +175,7 @@ function add_checkwish(){
 }//function add_checkwish
 </script>
 <style>
-#layer{
+#layer,#layer2{
 	z-index: 2;
 	position: absolute;
 	top: 0px;
@@ -267,11 +274,11 @@ function add_checkwish(){
 		</ul>
 	</div>
 	<table id="list_view">
-	<tr><td><input type="checkbox" id="checkall" ></td><td>상품명</td><td>원가</td><td>할인율</td><td>할인가</td><td></td></td>
+	<tr style="background-color: #2196F3; color: white;"><td>&emsp;<input type="checkbox" id="checkall" ></td><td></td><td>&emsp;상품명</td><td>&emsp;원가</td><td>&emsp;&emsp;할인율</td><td>&emsp;할인가</td><td></td></td>
 		<tbody>
 		  <c:forEach var="item" items="${goodsList}"> 
 			<tr>
-					<td><input type="checkbox" id="checked_goods" name="checked_goods"  value="${item.goods_id}" ></td>
+					<td>&emsp;<input type="checkbox" id="checked_goods" name="checked_goods"  value="${item.goods_id}" ></td>
 					<td class="goods_image">
 						<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">
 							   <img width="75" alt="" src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"/>
@@ -332,7 +339,7 @@ function add_checkwish(){
 						
 							<li><a href="javascript:add_wish('${item.goods_id}')">위시리스트</a></li> --%>
 						
-					<td class="buy_btns">
+					<td class="buy_btns"style="width:82px">
 						<UL>
 						<li><a href="javascript:add_wish(${item.goods_id})">위시리스트</a></li>
 						
@@ -343,9 +350,9 @@ function add_checkwish(){
 			</c:forEach>
 		</tbody>
 		<tr>
-		<td class="buy_btns">
+		<td class="buy_btns" style="width:100px">
 						<UL>
-						<li><a href="javascript:add_checkwish()">선택한 것만 위시리스트</a></li>
+						<li><a href="javascript:add_checkwish()">선택한 것<br>위시리스트</a></li>
 						
 							
 						</UL>
@@ -371,12 +378,24 @@ function add_checkwish(){
 		</ul>
 	</div>
 	
-	<div id="layer" style="visibility: hidden" name="layer">
+	<div id="layer" style="visibility: hidden" >
 		<div id="popup">
 			<a href="javascript:" onClick="javascript:imgpopup('#layer','close');">
 			<img
 				src="${contextPath}/resources/image/close.png" id="close" />
 			</a> <br /> <font size="12" id="contents" style="font-size:30pt; text-align: center;">위시리스트에<br> 담았습니다.</font><br><br>
+			<form   action='${contextPath}/goods/WishList.do'  >				
+				<input  type="submit" value="위시리스트 보기">
+			</form>			
+			
+		</div>
+	</div>
+	<div id="layer2" style="visibility: hidden" >
+		<div id="popup">
+			<a href="javascript:" onClick="javascript:imgpopup('#layer2','close');">
+			<img
+				src="${contextPath}/resources/image/close.png" id="close" />
+			</a>  <font size="12" id="contents" style="font-size:20pt; text-align: center;"><br> 이미 등록된 상품이 <br> 있습니다!!</font><br><div id="exist_title"></div><br>
 			<form   action='${contextPath}/goods/WishList.do'  >				
 				<input  type="submit" value="위시리스트 보기">
 			</form>			

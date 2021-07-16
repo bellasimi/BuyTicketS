@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.bts.goods.vo.GoodsVO;
+import com.bts.goods.vo.WishVO;
 
 public interface GoodsService {
 	
@@ -24,5 +25,8 @@ public interface GoodsService {
 	public boolean deleteWishListAll(String member_id)throws Exception;
 	public boolean existwish(Map wish)throws Exception;
 	public void deletecheckedwish(Map wish) throws Exception;
+	public void addcheckwish(List<WishVO> checkwish) throws Exception;
+	public boolean existcheckwish(List<WishVO> checkwish) throws Exception;
+	public String showexist(List<WishVO> checkwish) throws Exception;
 
 }

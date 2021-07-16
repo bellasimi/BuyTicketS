@@ -142,11 +142,11 @@ function deletechecked(){
 	</div>
 	<form id="wishform">
 	<table id="list_view">
-	<tr><td colspan="2"><input type="checkbox" id="checkall" ></td><td>상품명</td><td>원가</td><td>할인율</td><td>할인가</td><td></td></td>
+	<tr style="background-color: #2196F3; color: white;"><td>&emsp;<input type="checkbox" id="checkall" ></td><td></td><td>&emsp;상품명</td><td>&emsp;원가</td><td>&emsp;&emsp;할인율</td><td>&emsp;할인가</td><td></td></td>
 		<tbody>
 		  <c:forEach var="item" items="${goodsList}"> 
 			<tr>
-					<td><input type="checkbox" id="checked_goods" name="checked_goods"  value="${item.goods_id}" ></td>
+					<td>&emsp;<input type="checkbox" id="checked_goods" name="checked_goods"  value="${item.goods_id}" ></td>
 					<td class="goods_image">
 						<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">
 							   <img width="75" alt="" src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"/>

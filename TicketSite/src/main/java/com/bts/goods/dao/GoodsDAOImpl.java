@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bts.goods.vo.GoodsVO;
 import com.bts.goods.vo.ImageFileVO;
+import com.bts.goods.vo.WishVO;
 
 @Repository("goodsDAO")
 public class GoodsDAOImpl  implements GoodsDAO{
@@ -45,6 +46,26 @@ public class GoodsDAOImpl  implements GoodsDAO{
 		ArrayList list=(ArrayList)sqlSession.selectList("mapper.goods.selectGoodsBySearchWord",searchWord);
 		 return list;
 	}
+//검색된 내용 체크한 놈들 위시리스트로 
+	@Override
+	public void addcheckwish(List<WishVO> checkwish) {
+		sqlSession.update("mapper.goods.addcheckwish", checkwish);
+		
+	}
+//체크한 놈들 위시리스트에 존재하는지 boolean
+
+	@Override
+	public boolean existcheckwish(List<WishVO> checkwish) {
+		String result = sqlSession.selectOne("mapper.goods.existcheckwish",checkwish);
+		return Boolean.parseBoolean(result);
+	}
+//존재한다면 제목이 뭔지
+	@Override
+	public String showexist(List<WishVO> checkwish) throws DataAccessException {
+		List<GoodsVO> exist =sqlSession.selectList("mapper.goods.showexist",checkwish);
+		return  exist.get(0).getGoods_title();
+	}
+
 //goods_id가 일치하는 데이터 goodsVO형태로 출력 	
 	@Override
 	public GoodsVO selectGoodsDetail(String goods_id) throws DataAccessException{
@@ -115,6 +136,8 @@ public class GoodsDAOImpl  implements GoodsDAO{
 		System.out.println("dao값: "+wish);
 		sqlSession.delete("mapper.goods.deletecheckedwish",wish);
 	}
+
+	
 
 	
 }

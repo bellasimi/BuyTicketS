@@ -107,17 +107,32 @@
 		    order by g.goods_lastsale_date
 		]]>
 </select>	
-<!-- 검색한 놈 중 체크해서 위시리스트 추가 
-<insert id="addcheckwish">
-	 <![CDATA[
-	 insert into ticket_wish()
-	]]>
-</insert>
-위시리스트에 배열값 존재하는지?
-<select id="existcheckwish" resultType="String">
+<!-- 검색한 놈 중 체크해서 위시리스트 추가  -->
+<update id="addcheckwish" parameterType="java.util.List">
+	<foreach item="wish" collection="list" open="insert all" separator=" " close="select * from dual">
+	 
+	 into ticket_wish(goods_id,member_id) 
+	 values(#{wish.goods_id},#{wish.member_id})	
 
-
-</select> -->
+ 
+	</foreach>
+</update>
+<!-- List의 collection은 변수명이 아니라 그냥 list야!!! -->
+<!-- 위시리스트에 배열값 존재하는지? -->
+<select id="existcheckwish" resultType="String"  parameterType="java.util.List"	>
+	select decode(count(*),0,'false','true') from ticket_wish where
+	<foreach item="wish" collection="list" open="(" separator="or" close=")">
+		 (goods_id =#{wish.goods_id} and member_id = #{wish.member_id})
+	</foreach>
+	
+</select> 
+<!-- 존재한다면 그놈의 goods_id는 뭔지 -->
+<select id="showexist"  resultMap="goodsResult">
+	select * from ticket_goods g,ticket_wish w where g.goods_id =w.goods_id and
+	<foreach  item="wish" collection="list" open="(" separator="or" close=")">
+		(w.member_id =#{wish.member_id} and w.goods_id=#{wish.goods_id})
+	</foreach>
+</select>
 <!-- 키워드로 검색 자동완성-->
  <select id="selectKeywordSearch" resultType="String"  parameterType="String"  >
      <![CDATA[

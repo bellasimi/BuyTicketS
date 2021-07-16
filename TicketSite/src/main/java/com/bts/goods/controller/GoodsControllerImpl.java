@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +26,7 @@ import com.bts.common.base.BaseController;
 import com.bts.goods.service.GoodsService;
 import com.bts.goods.vo.GoodsVO;
 import com.bts.goods.vo.ImageFileVO;
+import com.bts.goods.vo.WishVO;
 import com.bts.member.vo.MemberVO;
 
 import net.sf.json.JSONObject;
@@ -263,12 +265,33 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 	}
 //검색어로 찾은 것 위시리스트 체크
 	@RequestMapping(value="/addcheckwish.do", method = RequestMethod.POST, produces ="application/text; charset=utf8")
-	@ResponseBody public String addcheckwish(@RequestParam("idlist")List<String> idlist, HttpSession session, HttpServletRequest request,HttpServletResponse response) {
-		System.out.println(idlist);
+	@ResponseBody public String addcheckwish(@RequestParam("idlist")List<String> idlist, Model model,HttpSession session, HttpServletRequest request,HttpServletResponse response) throws Exception {
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		String member_id = memberVO.getMember_id();
+		List<WishVO> checkwish = new ArrayList<WishVO>();
 		
+		for(int i=0;i<idlist.size();i++) {
+			WishVO wish = new WishVO();//for문 안에 생성자를 만들어야 계속 비우고 새값 넣어짐
+			wish.setGoods_id(idlist.get(i));
+			//System.out.println("i번째 goods_id: "+idlist.get(i));
+			//System.out.println("member_id: "+member_id);
+			wish.setMember_id(member_id);
+			//System.out.println("wishVO: "+wish.toString());
+			checkwish.add(wish);//wish가 그 담에 비워지고 다시 채워져서 계속 새값 추가됨, for문에 생성자 없으면 마지막 값으로 전부 덮어씌워짐!!
+			
+		}
+
+		//System.out.println("checkwish: "+checkwish.toString()); 
 		
-		
-		return null;
+		boolean exist = goodsService.existcheckwish(checkwish);
+		//System.out.println("값 존재함? "+exist);
+		if(exist==false) {
+			goodsService.addcheckwish(checkwish);			
+			return "add_success";
+		}else{			
+			String goods_title =goodsService.showexist(checkwish);			
+			return goods_title;
+		}
 		
 		
 	}
