@@ -424,9 +424,9 @@ order_total_price=parseInt(order_total_price);
     
 
     document.body.appendChild(formObj);  //orderController에서 receiverMap으로 받아간다
-//    formObj.method="post";
-//    formObj.action="${contextPath}/order/payToOrderGoods.do";
-//    formObj.submit();
+    formObj.method="post";
+    formObj.action="${contextPath}/order/payToOrderGoods.do";
+    formObj.submit();
 
 	}
 }

@@ -619,7 +619,7 @@ function fn_order_all_cart_goods() {
 		<!-- 상품명 이미지 -->			
 		<td class="goods_image">
 			<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">
-				<img width="75" alt="" src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"  />
+				<img width="140" alt="" src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"  />
 			</a>
 		</td>
 			<!-- 상품명 -->		
