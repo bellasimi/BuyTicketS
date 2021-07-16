@@ -17,11 +17,13 @@
 <style> 
 
 
+
+
 table.list_view tr:nth-child(odd) {
   background-color: #f2f2f2;
 }
 .plusminus {
-  background-color: #c9c1af; 
+  background-color: #a1d5ff; 
   border: none;
   color: white;
   padding: 5px 10px;
@@ -49,6 +51,36 @@ table.total_view td{
  	padding:10px;
 }
 
+/*이부분은 나중에 main.css에 붙여달라고 하기 버튼부분 다 */
+button.cart_btn {
+	border-radius: 3px;
+	border: 1px solid rgb(153, 153, 153);
+	width: 80px;
+	height: 30px;
+    text-align: center;
+	padding: 3px;
+	color: rgb(153, 153, 153);
+	font-family: 'NanumBarunGothic', 'sans-serif';
+	font-size: 1.2em; 
+	font-weight: bold;
+	
+}
+button.buy_btn{
+	border-radius: 3px;
+	border: 1px solid rgb(255, 0, 0);
+	width: 80px;
+	height: 30px;
+    text-align: center;
+	padding: 3px;
+	color: rgb(255, 0, 0);
+	font-family: 'NanumBarunGothic', 'sans-serif';
+	font-size: 1.2em; 
+	font-weight: bold;
+}
+button[name=total]{
+	width : 150px;
+	height : 40px;
+}
 
 </style>
 
@@ -59,6 +91,11 @@ table.total_view td{
 
 //체크박스 관련 처리부분-하단 금액테이블 계산 + 전체선택/해제 +부분선택/해제 + 여기도 하나만일때랑 나눠져야 한다 
 //1개일때랑 나눠서 처리 
+
+
+
+
+
 $(document).ready(function(){
 $("input[type=checkbox]").change(function() {
 	var checked_goods=document.frm_order_all_cart.checked_goods; //체크박스 받아옴
@@ -413,6 +450,13 @@ function delete_cart_goods(cart_id) {
 //fn_order_each_goods('${item.goods_id}','${item.goods_title}','${item.goods_sales_price}','${item.goods_fileName}'
 function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName,goods_point,goods_ticket_date,index) {
 	console.log("개별주문 함수 ");
+	//로그인확인
+	var isLogOn = document.getElementById("isLogOn").value;
+	if(isLogOn == 'false'||isLogOn == ''){
+		alert("로그인 후 이용가능합니다.")
+		location.href="${contextPath}/member/loginForm.do"
+	}else{
+	
 	
 	var length=document.frm_order_all_cart.cart_goods_qty.length;
 	var cart_goods_qty;
@@ -473,31 +517,31 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName,goo
     formObj.method="post";
     formObj.action="${contextPath}/order/orderEachGoods.do";
     formObj.submit();    
-
+	}
 }	 
 
 function fn_order_all_cart_goods() {
 	console.log("모두주문하기");
 	
-//	alert("모두 주문하기");
-//전부 객체로 폼에서 받아와서 상품이 2개이상일때 배열/ 1개일때 .value처리로 나눠서 처리
+	//로그인확인
+	var isLogOn = document.getElementById("isLogOn").value;
+	if(isLogOn == 'false'||isLogOn == ''){
+		alert("로그인 후 이용가능합니다.")
+		location.href="${contextPath}/member/loginForm.do"
+	}else{
+		
 	var order_goods_qty;
 	var order_goods_id;
 	var objForm=document.frm_order_all_cart;
 	var cart_goods_qty=objForm.cart_goods_qty; //cart_goods_qty는 객체 -배열
-	//var h_order_each_goods_qty=objForm.h_order_each_goods_qty;
+
 	var checked_goods=objForm.checked_goods;
 	var length=checked_goods.length;
 	
 	var _goods_ticket_date=objForm.goods_ticket_date; //이거자체가 배열 그냥 두면 알아서 넘어가려나?????
 	var goods_point=objForm.goods_point;
 	
-	
-    //i_goods_ticket_date.name="goods_ticket_date";
-    //i_goods_point.name="goods_point";
-	
-	
-	//alert(length);
+
 	if(length>1){
 		for(var i=0; i<length;i++){ //상품개수만큼 반복 
 			if(checked_goods[i].checked==true){
@@ -528,6 +572,7 @@ function fn_order_all_cart_goods() {
 	objForm.method="post";
  	objForm.action="${contextPath}/order/orderAllCartGoods.do";
 	objForm.submit();
+	}
 }
 
 
@@ -541,7 +586,7 @@ function fn_order_all_cart_goods() {
 <form name="frm_order_all_cart">
 <table class="list_view">
 <tbody align=center >
-	<tr style="background:#edb818" >
+	<tr style="background:#2196F3; color:white;" >
 		<td class="fixed" ><input type="checkbox" id="checkall" checked></td>
 		<td colspan=2 class="fixed">상품명</td>
 		<td>예약일</td>
@@ -549,7 +594,7 @@ function fn_order_all_cart_goods() {
 		<td>판매가</td>
 		<td>수량</td>
 	<!-- 	<td>합계</td> -->
-		<td>주문</td>
+	<!--  	<td>주문</td>-->
 	</tr>
 		<c:choose>
 	    <c:when test="${ empty myCartList }">
@@ -613,7 +658,7 @@ function fn_order_all_cart_goods() {
 		<!-- 	<fmt:formatNumber  value="${item.goods_sales_price*cart_goods_qty}" var="priceXqty" pattern="#,###"/> 
 			<input type="text" name="priceXqty" size=5 value="${priceXqty}" readonly style="border:0px none;background-color:transparent;"><br>
 		</td>	 -->		
-		<td><!-- 각각구매 -->
+		<!--<td> 각각구매 
 			 <a href="javascript:fn_order_each_goods('${item.goods_id}','${item.goods_title}','${item.goods_sales_price}','${item.goods_fileName}','${item.goods_point}','${goods_ticket_date }','${idx.index}');">
 			<img width="75" alt=""  src="${contextPath}/resources/image/btn_order.jpg">
 			</a><br>
@@ -625,10 +670,19 @@ function fn_order_all_cart_goods() {
 			   <img width="75" alt=""
 					   src="${contextPath}/resources/image/btn_delete.jpg">
 			 </a>
-		</td>
+		</td>-->
 	</tr>
 	<tr>
-		<td colspan="8" align="right">
+	<td></td>
+	<td colspan="2" align="left">
+		 
+			<button type="button" class="buy_btn" onclick="javascript:fn_order_each_goods('${item.goods_id}','${item.goods_title}','${item.goods_sales_price}','${item.goods_fileName}','${item.goods_point}','${goods_ticket_date }','${idx.index}');">주문하기</button>
+			 <button type="button" class="cart_btn" onclick="">위시리스트</button>
+			 <button type="button" class="cart_btn" onclick="javascript:delete_cart_goods('${cart_id}');">삭제</button>
+			
+		
+		</td>
+		<td colspan="4" align="right">
 			합계 : <input type="text" name="priceXqty" size=5 value="${priceXqty}" readonly style="border:0px none;background-color:transparent;"><br>
 		</td>
 	
@@ -690,10 +744,8 @@ function fn_order_all_cart_goods() {
 	</tbody>
 </table> -->	
 <div class="clear"></div>
-	
 	<br>
-	<br>
-   <table  width=80%   class="list_view" style="background:#fadb93">
+   <table  width=80%   class="list_view" style="background:#E6F2FF">
    <tbody>
         <tr align=center  class="fixed">
           <td class="fixed">총 상품수 </td>
@@ -707,13 +759,7 @@ function fn_order_all_cart_goods() {
          <td>
          <p id="checkedGoods">${totalGoodsNum}</p>
          </td>
-         <!--
-         <td id="">
-           <p id="p_totalGoodsNum">${totalGoodsNum}개 </p>
-           <input id="h_totalGoodsNum"type="hidden" value="${totalGoodsNum}"  />
-         </td>
-           -->
-     <!--총상품금액 -->     
+   
           <td>
                	<fmt:formatNumber  value="${totalGoodsPrice}" type="number" var="fmttotal_goods_price" pattern="#,###"/>
             <input id="h_totalGoodsPrice" type="hidden" value="${totalGoodsPrice}" />  
@@ -721,7 +767,8 @@ function fn_order_all_cart_goods() {
           </td>
       
           <td> 
-            <img width="25" alt="" src="${contextPath}/resources/image/minus.jpg"> 
+           <font size="10px"><strong>-</strong></font>
+            <!-- <img width="25" alt="" src="${contextPath}/resources/image/minus.jpg">  -->
           </td>
 <!--총 할인금액 -->  
           <td>  
@@ -732,28 +779,32 @@ function fn_order_all_cart_goods() {
             <input id="h_totalDiscount"type="hidden" value="${totalDiscount}" />
           </td>
           <td>  
-            <img width="25" alt="" src="${contextPath}/resources/image/equal.jpg">
+          <font size="10px"><strong>=</strong></font>
+          <!--  <img width="25" alt="" src="${contextPath}/resources/image/equal.jpg"> --> 
           </td>
           <td>
 
   		<!--총판매가- 총할인금액 -->
-             <p id="p_totalSalesPrice">
+            <font size="7px"><p id="p_totalSalesPrice">
              <fmt:formatNumber  value="${totalGoodsPrice-totalDiscount}" type="number" var="total_price" pattern="#,###"/>
                ${total_price}원
 
-             </p>
+             </p></font>
              <input id="h_totalSalesPrice" type="hidden" value="${totalGoodsPrice-totalDiscount}" />
           </td>
       </tr>
       </tbody>
    </table>
-   <center>
-    <br><br>   
-       <a href="javascript:fn_order_all_cart_goods()">
-          <img width="75" alt="" src="${contextPath}/resources/image/btn_order_final.jpg">
-       </a>
-       <a href="javascript:history.back()"> <!-- 쇼핑계속하기 goodsDetail로 돌아가면 되겠는데 아니면.메인페이지??.....  -->
-          <img width="75" alt="" src="${contextPath}/resources/image/btn_shoping_continue.jpg">
-       </a>
-   <center>
+   <div class="clear"></div>
+	
+	<br><br><br>
+	<br><br><br>
+   <div align="center">
+ 
+    <button type="button" class="buy_btn" name="total" onclick="javascript:fn_order_all_cart_goods()">주문하기</button>
+    <button type="button" class="cart_btn" name="total" onclick="javascript:history.back();">쇼핑계속하기</button>
+   </div>   
+       
+  
 </form>   
+<input type="hidden" name="isLogOn" id="isLogOn" value="${isLogOn}"/>

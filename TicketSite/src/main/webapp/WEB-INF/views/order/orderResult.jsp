@@ -2,17 +2,20 @@
 	pageEncoding="utf-8"
 	isELIgnored="false"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <c:set var="total_order_goods_qty" value="0"/>
 <c:set var="total_goods_point" value="0"/>
 <head>
 <style>
 .pay_info {
-	background-color: #f2f2f2;
-	float:right;
-	 border: 5px solid #444444;
-	 padding: 30px;
-	 font-size: 35px;
+	background-color: #E6F2FF;
+	 padding: 50px 170px 50px 50px;
+	 float:left;
+	 font-size: 20px;
+	 border-radius: 10px;
+	 font-family: 'NanumBarunGothic', 'sans-serif';
+
 }
 
 
@@ -62,13 +65,12 @@ function init_pay_method(){
 	<H1>주문완료</H1>
 	<TABLE class="list_view">
 		<TBODY align=center>
-			<tr style="background: #33ff00">
-			<!--   <td>주문번호 </td> -->   
+			<tr style="background: #2196F3; color:white; font-weight:bold; font-size:15px;">
 				<td colspan=2 class="fixed">주문상품명</td>
-				<td>수량</td>
 				<td>예약일</td>
 				<td>주문금액</td>
-				<td>적립금</td>
+				<td>수량</td>
+				<td>적립금 합계</td>
 				<td>주문금액합계</td>
 			</tr>
 			<tr>
@@ -84,33 +86,42 @@ function init_pay_method(){
 					     <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">${item.goods_title }</a>
 					  </h2>
 					</td>
-					<td><!-- 수량 -->
-					  <h2>${item.order_goods_qty}개<h2>
-					</td>
+					
 					<td>
 					${item.goods_ticket_date }
 					</td>
 				<!--  주문금액 -->
-					<!-- 여기는 그냥 가격ㅁ나 나오면 될거같은데  -->
-					<td><h2>${item.order_goods_qty *item.goods_sales_price}원</h2></td>
-							
-				<!-- 적립금 -->
-					<td><h2>${item.goods_point }원</h2></td>
+					
+					<td>
+					<fmt:formatNumber var="goods_sales_price" value="${item.goods_sales_price}" pattern="#,###"/>
+					${goods_sales_price}원
+					</td>
+					<td><!-- 수량 -->
+					
+					  ${item.order_goods_qty}개
+					</td>		
+				<!-- 적립금 합계-->
+					<td>
+					<fmt:formatNumber var="goodsPointXqty" value="${item.goods_point*item.order_goods_qty}" pattern="#,###"/>
+					<h2>${goodsPointXqty}원</h2></td>
 					<td>
 				<!--  주문금액 합계 -->
-					  <h2>${item.order_goods_qty *item.goods_sales_price}원</h2>
+				<fmt:formatNumber var="priceXqty" value="${item.order_goods_qty *item.goods_sales_price}" pattern="#,###"/>
+					  <h2>${priceXqty}원</h2>
 					</td>
 			</TR>
 			<c:set var="total_order_goods_qty" value="${total_order_goods_qty+item.order_goods_qty}"/>
-			<c:set var="total_goods_point" value="${total_goods_point+item.goods_point }"/>			
+			<c:set var="total_goods_point" value="${total_goods_point+(item.goods_point*item.order_goods_qty)}"/>			
 			</c:forEach>
-			<tr>
-			<td colspan="2"></td>
-			<td>${total_order_goods_qty}</td>
-			<td></td>
-			<td></td>
-			<td>${total_goods_point}</td>
-			<td>총 주문금액:${myOrderInfo.order_total_price }</td>
+			<tr style="background: #E6F2FF; font-size:20px;">
+			<td colspan="4"></td>
+			<td>${total_order_goods_qty}개</td>
+			<td>
+			<fmt:formatNumber var="totalGoodsPoint" value="${total_goods_point}" pattern="#,###"/>
+			${totalGoodsPoint}</td>
+			<td>
+			<fmt:formatNumber var="orderTotalPrice" value="${myOrderInfo.order_total_price}" pattern="#,###"/>
+			총 주문금액:${orderTotalPrice} 원</td>
 			</tr> 
 		</TBODY>
 	</TABLE>
@@ -126,11 +137,11 @@ function init_pay_method(){
 	<H1>결제정보</H1>
 	<input type="hidden" name="pay_method" value="${myOrderInfo.pay_method }">
 	<DIV id="pay_card" class="pay_info" style="visibility:hidden"><!-- 여기도 구분해서 나오게 해야됨 -->
-		<ul>
-			<li>결제방법 : ${myOrderInfo.pay_method }</li>
-			<li>결제카드 : ${myOrderInfo.card_com_name}</li>
-			<li>결제카드번호 : ${myOrderInfo.card_number}</li>
-		</ul>
+		<dl>
+			<dd>결제방법 : ${myOrderInfo.pay_method }</dd>
+			<dd>결제카드 : ${myOrderInfo.card_com_name}</dd>
+			<dd>결제카드번호 : ${myOrderInfo.card_number}</dd>
+		</dl>
 		<!-- <table>
 			<TBODY>
 				<TR class="dot_line">
@@ -174,14 +185,11 @@ function init_pay_method(){
 </form><!-- 이거 앞으로 가도 될것같은데  -->
     <DIV class="clear"></DIV>
 	<br>
-	<br>
-	<br>
-	<center>
+	<div align="center">
 		<br>
 		<br> 
-		<a href="${contextPath}/main/main.do"> 
-		   <IMG width="75" alt="" src="${contextPath}/resources/image/btn_shoping_continue.jpg">
-		</a>
+		    <button type="button" class="cart_btn" name="total" onclick="${contextPath}/main/main.do">쇼핑계속하기</button>
+		</div>
 <DIV class="clear"></DIV>		
 	
 			

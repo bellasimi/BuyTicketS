@@ -20,6 +20,7 @@
 <head>
 <style>
 
+/*main.css에서 확인해야함*/
 #layer {
 	z-index: 2;
 	position: absolute;
@@ -29,6 +30,7 @@
 	/*background-color:rgba(0,0,0,0.8); */
 }
 
+/*적용안해둠*/
 #popup_order_detail {
 	z-index: 3;
 	position: fixed;
@@ -64,11 +66,16 @@ table.list_view tr:nth-child(odd) {
 /*요기 작업하다보면 css에러남 태그자체를 내가 만든건데...*/
 
 table.total_view {
-	background-color: #f2f2f2;
+	background-color: #E6F2FF;
+
 	 /*border: 2px solid #c7c7c7;*/
-	 padding: 30px 120px 30px 30px;
+	 padding: 70px 230px 70px 90px;
 	 font-size: 20px;
 	 border-radius: 10px;
+}
+
+table.total_view.td{
+	padding: 100px;
 }
 /*
 .detail_table{
@@ -253,6 +260,14 @@ var point_used=0;
 //가장 마지막 최종결제하기  결제정보를 넘기는 곳 
 function fn_process_pay_order(){
 console.log("최종결제하기");
+
+var isLogOn = document.getElementById("isLogOn").value;
+if(isLogOn == 'false'||isLogOn == ''){
+	alert("로그인 후 이용가능합니다.")
+	location.href="${contextPath}/member/loginForm.do"
+}else{
+
+
 var r_pay_method  =  document.form_order.pay_method;
 
 //최종액 넘겨주기 위한곳
@@ -278,6 +293,13 @@ order_total_price=parseInt(order_total_price);
 			card_number=card_num1+"-"+card_num2+"-"+card_num3;
 			card_expired_m=i_card_expired_m.value;
 			card_expired_y=i_card_expired_y.value;
+			
+			if(card_num1=="" || card_num2=="" || card_num3=="") {
+				alert("결제정보를 입력해주세요!");
+				console.log("카드입력안됨");
+				return false;
+			}
+			
 		  }else if(pay_method=="휴대폰결제"){
 			var i_pay_hp_com=document.getElementById("pay_hp_com");
 			var i_pay_hp1=document.getElementById("pay_hp1");
@@ -290,6 +312,12 @@ order_total_price=parseInt(order_total_price);
 			pay_hp_com=i_pay_hp_com.value;
 			pay_hp_num=pay_hp1+"-"+pay_hp2+"-"+pay_hp3;
 			console.log("pay_hp_num");
+			
+			if(pay_hp1=="" || pay_hp2=="" || pay_hp3=="") {
+				alert("결제정보를 입력해주세요!");
+				console.log("핸드폰결제안됨");
+				return false;
+			}
 			
 		  } else if(pay_method=="무통장입금") {
 			  var i_random_account=document.getElementById("random_account");
@@ -307,7 +335,7 @@ order_total_price=parseInt(order_total_price);
 	
 	
 	
-	alert("최종 결제하기"); //이 부분을 먼저 처리해줘야함 
+	//alert("최종 결제하기");
 	var formObj=document.createElement("form");
 
     var i_pay_method=document.createElement("input");
@@ -341,10 +369,6 @@ order_total_price=parseInt(order_total_price);
     console.log("pay_hp_num"+pay_hp_num);
     console.log("point_used"+point_used+typeof point_used );
     console.log("order_total_price"+order_total_price+typeof order_total_price);
-    //console.log(""+);
-    //console.log(""+);
-    //console.log(""+);
-    ///console.log(""+);
     
     
   i_pay_method.value=pay_method;
@@ -400,10 +424,11 @@ order_total_price=parseInt(order_total_price);
     
 
     document.body.appendChild(formObj);  //orderController에서 receiverMap으로 받아간다
-    formObj.method="post";
-    formObj.action="${contextPath}/order/payToOrderGoods.do";
-    formObj.submit();
-//	imagePopup('close');
+//    formObj.method="post";
+//    formObj.action="${contextPath}/order/payToOrderGoods.do";
+//    formObj.submit();
+
+	}
 }
 
 
@@ -423,12 +448,7 @@ function imagePopup(type) {
 		jQuery('#layer').attr('style', 'visibility:hidden');
 	}
 }
-/*
-function popup_order_window(){
-	var total_order_goods_qty=document.getElementById("h_total_order_goods_qty").value;
-	var p_totalNum=document.getElementById("p_totalNum");
-	imagePopup('open');
-}*/
+
 
 </script>
 </head>
@@ -471,10 +491,10 @@ function popup_order_window(){
 	<br>
 
 
-
+	<H1>주문 상품</H1>
 	<table class="list_view">
 		<tbody align=center>
-			<tr style="background: #c4c2c2">
+			<tr style="background: #2196F3; color:white; font-weight:bold; font-size:15px;">
 				<td colspan=2 class="fixed">주문상품명</td>
 				<td>예약일</td>
 				<td>수량</td>
@@ -551,7 +571,7 @@ function popup_order_window(){
 	<br>
 
 
-	<H1>3.할인 정보</H1>
+	<H1>할인 정보</H1>
 	<div class="detail_table">
 		<table>
 		
@@ -606,7 +626,7 @@ function popup_order_window(){
 	<tbody>
 		<tr><td colspan="2">총계</td></tr>
 		<tr>
-			<td>총 상품수 : </td>
+			<td>총 상품수 </td>
 			 <td align="right">
         			<p id="p_totalNum">${total_order_goods_qty}개</p> 
 					<input id="h_total_order_goods_qty" type="hidden" value="${total_order_goods_qty}" />
@@ -631,6 +651,7 @@ function popup_order_window(){
 					<input id="h_total_sales_price" type="hidden" value="${total_discount_price}" />
           </td>
          </tr>
+         <tr><td colspan="2"><br></td></tr>
          <tr>
          	<td>최종 결제금액</td>
          	<td align="right">
@@ -700,7 +721,7 @@ function popup_order_window(){
 	<br>
 	<br>
 	<br>
-	<h1>4.결제정보</h1>
+	<h1>결제정보</h1>
 	<div class="detail_table">
 		<table>
 			<tbody>
@@ -803,31 +824,18 @@ function popup_order_window(){
 		</table>
 	</div>
 </form>
-					<!-- 
-					var pay_method;
-var random_account;
-var card_com_name;
-var card_number;
-var card_expired_m;
-var card_expired_y;
-var pay_hp_num;
-var pay_hp_com;
-					 -->
+
     <div class="clear"></div>
 	<br>
 	<br>
 	<br>
-	<center>
+	<div align="center">
 		<br>
 		<br> 
-		<a href="javascript:imagePopup('open')">결제하기</a>
-		<br> 
-		<!-- <input name="btn_process_pay_order" type="button" onclick="fn_process_pay_order()" value="최종결제하기"> -->
-	
-		 <a href="${contextPath}/main/main.do"> 
-		   <img width="75" alt="" src="${contextPath}/resources/image/btn_shoping_continue.jpg">
-		</a>
-	</center>
+	<button type="button" class="buy_btn" name="total" onclick="javascript:imagePopup('open')">결제하기</button>
+    <button type="button" class="cart_btn" name="total" onclick="${contextPath}/main/main.do">쇼핑계속하기</button>
+
+	</div>
 	
 	
 	<div id="layer" style="visibility: hidden" name="layer" class="layer">
@@ -839,14 +847,13 @@ var pay_hp_com;
 			<font size="12" id="contents" style="font-size: 20pt;text-align: center;">
 			 티켓 ${total_order_goods_qty}장 <br>결제 하시겠습니까?
 			</font><br><br>
-				
-				<input  type="button" value="최종결제하기" onclick="fn_process_pay_order()"/>
-				<a href="javascript:" onClick="javascript:imagePopup('close');">취소</a>
-				
+				<button type="button" class="buy_btn" name="total" onclick="javascript:fn_process_pay_order()">최종결제하기</button>
+   				 <button type="button" class="cart_btn" name="total" onclick="javascript:imagePopup('close');">취소</button>
+						
 		</div>
 	</div>	
 	
-	
+<input type="hidden" name="isLogOn" id="isLogOn" value="${isLogOn}"/>	
 
 
 
