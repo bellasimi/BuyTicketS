@@ -584,7 +584,7 @@ $(document).ready(function(){
 	
 	<div class="clear"></div>
 				 <p><div class="cont">
-				 
+<!-- 리뷰 내용 -->			 
  <div class="container-fluid px-1 py-5 mx-auto">
     <div class="row justify-content-center">
         <div class="col-xl-7 col-lg-8 col-md-10 col-12 text-center mb-5">
