@@ -23,7 +23,8 @@
 		<result property="goods_usage" column="goods_usage"/>
 		<result property="goods_location" column="goods_location" />
 		<result property="goods_lastsale_date" column="goods_lastsale_date"/>		
-	   <result property="goods_fileName" column="fileName" />
+	   <result property="goods_fileName" column="fileName" />		
+	   <result property="goods_rate_avg" column="goods_rate_avg" />
 	</resultMap>	
 	<resultMap id="imageResult" type="ImageFileVO">
 	   <result property="goods_id" column="goods_id" />
@@ -32,6 +33,44 @@
 	   <result property="image_id" column="image_id" />
 	   <result property="fileType" column="fileType" />
 	</resultMap>
+	<resultMap id="orderGoodsResult" type="OrderVO">
+	    <result property="order_seq_num" column="order_seq_num" />
+	    <result property="order_id" column="order_id" />
+		<result property="member_id" column="member_id" />
+		<result property="goods_id" column="goods_id" />
+		
+		<result property="orderer_name" column="orderer_name" />
+		<result property="orderer_hp" column="orderer_hp" />				
+		
+		<result property="goods_title" column="goods_title" />
+		<result property="order_goods_qty" column="order_goods_qty" />		
+		<result property="goods_sales_price" column="goods_sales_price" />
+		<result property="goods_fileName" column="goods_fileName" />
+
+		<result property="pay_method" column="pay_method" />
+		<result property="random_account" column="random_account" />
+		
+		<result property="card_com_name" column="card_com_name" />
+		<result property="card_number" column="card_number" />
+		<result property="card_expired_m" column="card_expired_m" />
+		<result property="card_expired_y" column="card_expired_y" />
+		
+		<result property="pay_hp_num" column="pay_hp_num" />
+		<result property="pay_order_time" column="pay_order_time" />
+		
+		<result property="goods_ticket_date" column="goods_ticket_date" />
+		<result property="goods_point" column="goods_point" />
+		
+		<result property="order_total_price" column="order_total_price" />
+		<result property="point_used" column="point_used" />
+		<result property="review_state" column="review_state" />
+		<result property="review_content" column="review_content" />
+		<result property="review_star" column="review_star" />
+
+
+	</resultMap>
+	
+
 	
 <!-- 티켓 sort별 출력
 	 어트랙션, 박물관...-->
@@ -215,5 +254,16 @@
 <select id="existwish" resultType="String">
 	select decode(count(*), 0, 'false', 'true') from ticket_wish where goods_id=#{goods_id} and member_id=#{member_id}
 </select>
-
+<!-- 리뷰가 존재하는지 확인 -->
+<select id="existreview" resultType="String">
+	select decode(count(*),0,'false','true') from ticket_order where goods_id=#{goods_id}
+</select>
+<!-- 리뷰들 출력 -->
+<select id="selectreview" resultMap="orderGoodsResult">
+	select * from ticket_order where goods_id=#{goods_id}
+</select>
+<!-- 리뷰평균 입력 -->
+<update id="avgrate">
+	update ticket_goods set goods_rate_avg = #{goods_rate_avg} where goods_id=#{goods_id}
+</update>
 </mapper>

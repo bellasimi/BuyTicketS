@@ -28,6 +28,7 @@ import com.bts.goods.vo.GoodsVO;
 import com.bts.goods.vo.ImageFileVO;
 import com.bts.goods.vo.WishVO;
 import com.bts.member.vo.MemberVO;
+import com.bts.order.vo.OrderVO;
 
 import net.sf.json.JSONObject;
 
@@ -57,7 +58,11 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 			mav.addObject("SortList", SortList);
 						
 			return mav;
-		}//가격 오름차순
+		
+		}
+
+	//정렬
+		//가격 오름차순
 		@RequestMapping(value="/slistcheap.do",method= {RequestMethod.POST, RequestMethod.GET})
 		public ModelAndView slistcheap(@RequestParam("goods_sort")String goods_sort) throws Exception {
 			ModelAndView mav = new ModelAndView();
@@ -88,7 +93,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 			mav.setViewName("/goods/sort");
 			return mav;
 		}
-		/*//평점순
+		//평점순
 		@RequestMapping(value="/slistrate.do",method= {RequestMethod.POST, RequestMethod.GET})
 		public ModelAndView slistrate(@RequestParam("goods_sort")String goods_sort) throws Exception {
 			ModelAndView mav = new ModelAndView();
@@ -104,7 +109,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 			mav.addObject("SortList", SortList);
 			mav.setViewName("/goods/sort");
 			return mav;
-		}*/
+		}
 //place별로 
 		//서울,경기,강원도,충청도,전라도,경상도,제주도 
 		//seoul,ggi,gang,chung,jeolla,sang,jeju
@@ -120,6 +125,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 			mav.setViewName(viewName);
 			return mav;
 		}
+	//정렬
 		//가격 오름차순
 		@RequestMapping(value="/plistcheap.do",method= {RequestMethod.POST, RequestMethod.GET})
 		public ModelAndView plistcheap(@RequestParam("goods_place")String goods_place) throws Exception {
@@ -151,7 +157,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 			mav.setViewName("/goods/place");
 			return mav;
 		}
-		/*//평점순
+		//평점순
 		@RequestMapping(value="/plistrate.do",method= {RequestMethod.POST, RequestMethod.GET})
 		public ModelAndView plistrate(@RequestParam("goods_place")String goods_place) throws Exception {
 			ModelAndView mav = new ModelAndView();
@@ -166,7 +172,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 			mav.addObject("PlaceList",PlaceList);
 			mav.setViewName("/goods/place");
 			return mav;
-		}*/
+		}
 	
 	//상품 상세페이지 
 	@RequestMapping(value="/goodsDetail.do" ,method = RequestMethod.GET)
@@ -182,6 +188,21 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		GoodsVO goodsVO=(GoodsVO)goodsMap.get("goodsVO");
 		mav.addObject("goods", goodsVO);
 		addGoodsInQuick(goods_id,goodsVO,session); //이걸 모르겠네 아마 이게 커맨드 방식으로 goodsvo 보내주는 걸까?
+		//리뷰존재 여부
+			boolean existreview = goodsService.existreview(goods_id);
+			
+			if(existreview==false) {
+				mav.addObject("existreview", existreview);
+			}else {//존재하면
+				
+				mav.addObject("existreview", existreview);			
+				//해당 상품리뷰
+				List<OrderVO> review = goodsService.selectreview(goods_id);
+				mav.addObject("reviewlist", review);
+				mav.addObject("count",review.size()); //리뷰한 총 사람수
+				
+			}	
+		
 		return mav;
 	}
 	
@@ -252,14 +273,12 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 	@RequestMapping(value="/searchrate.do", method=RequestMethod.GET)
 	public ModelAndView searchrate(@RequestParam("searchWord")String searchWord,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		List<GoodsVO> goodsList = goodsService.searchGoods(searchWord);
-		/*
-		 * goodsList =
-		 * goodsList.stream().sorted(Comparator.comparing(GoodsVO::getGoods_rate_avg).
-		 * reversed()).collect(Collectors.toList());
-		 * mav.addObject("goodsList",goodsList); mav.addObject("searchWord",searchWord);
-		 */
-		  mav.addObject("listmenu","list4"); mav.setViewName("/goods/searchGoods");
+		List<GoodsVO> goodsList = goodsService.searchGoods(searchWord);		
+		  goodsList =goodsList.stream().sorted(Comparator.comparing(GoodsVO::getGoods_rate_avg). reversed()).collect(Collectors.toList());
+		  mav.addObject("goodsList",goodsList); 
+		  mav.addObject("searchWord",searchWord);		 
+		  mav.addObject("listmenu","list4");
+		  mav.setViewName("/goods/searchGoods");
 		 
 		return mav;
 	}
@@ -370,7 +389,21 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 			mav.setViewName("/goods/WishList");
 			return mav;
 		}
-		//평점순
+		//평점평균 내림차순 
+		@RequestMapping(value="wishrate.do", method={RequestMethod.POST,RequestMethod.GET})
+		public ModelAndView wishrate(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+			ModelAndView mav = new ModelAndView();
+			session = request.getSession();
+			memberVO = (MemberVO) session.getAttribute("memberInfo");
+			String member_id = memberVO.getMember_id();			
+			List<GoodsVO> list = goodsService.WishList(member_id); 
+			list = list.stream().sorted(Comparator.comparing(GoodsVO::getGoods_rate_avg).reversed()).collect(Collectors.toList());
+			mav.addObject("goodsList",list);
+			mav.addObject("listmenu","list4");
+			mav.setViewName("/goods/WishList");
+			return mav;
+		}
+		
 
 //위시리스트에 추가 
 	@RequestMapping(value="/addwish.do", method= {RequestMethod.POST,RequestMethod.GET})
@@ -479,7 +512,6 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		
 	}
 	
-
 	//키워드: goods_status 값: 해당 goodsVO 인 MAP 구현 함수 
 	//현재 사용하고 있지 않음 -> 이기능을 admingoodsControl의 매핑주소:/admin/goods/adminGoodsMain.do  adminGoodsMain() 함수가 구현하고 있음 
 	@RequestMapping(value="/goodsList.do" ,method={RequestMethod.POST,RequestMethod.GET})
@@ -531,5 +563,21 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		
 	}
 
-	
+// 평균 평점 insert
+	@RequestMapping(value="/avgrate.do" ,method={RequestMethod.POST,RequestMethod.GET})
+	@ResponseBody public String avgrate(@RequestParam("goods_rate_avg") int goods_rate_avg,
+			@RequestParam("goods_id") String goods_id,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Map review = new HashMap();
+		System.out.println("리뷰값");
+		review.put("goods_id", goods_id);
+		review.put("goods_rate_avg", goods_rate_avg);
+		System.out.println(review);
+		System.out.println("나오나");
+		goodsService.avgrate(review);
+		System.out.println("입력?");
+		
+		return "완료";
+		
+	}
+
 }

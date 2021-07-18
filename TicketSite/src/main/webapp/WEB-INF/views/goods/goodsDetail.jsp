@@ -8,7 +8,12 @@
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <c:set var="goods"  value="${goodsMap.goodsVO}"  />
 <c:set var="imageList"  value="${goodsMap.imageList }"  />
-
+<c:set var="review_avg" value="0"/>
+<c:set var="rate1" value="0"/>
+<c:set var="rate2" value="0"/>
+<c:set var="rate3" value="0"/>
+<c:set var="rate4" value="0"/>
+<c:set var="rate5" value="0"/>
  <%
      //치환 변수 선언합니다.
       //pageContext.setAttribute("crcn", "\r\n"); //개행문자
@@ -40,10 +45,8 @@ a:hover {
     background-color: #fff;
     padding-left: 60px;
     padding-right: 60px;
-    margin-top: 30px;
     padding-top: 30px;
     padding-bottom: 30px;
-    border-bottom: #E6F2FF;
 }
 
 .rating-box {
@@ -157,6 +160,132 @@ td {
 }
 </style>
 <script type="text/javascript">
+$(document).ready(function(){
+
+	document.getElementById("defaultOpen").click();
+//별 5칸 class 배열 각각 평균별점과 개별별점	
+	var goods_id = $('#goods_id').val();
+	var astarclass =[]; 
+
+// 전체 평균 평점 별 
+	var avgstar = $('#avgstar').val(); 
+	console.log("평균: " +avgstar+" id: "+goods_id);
+	document.getElementById("avgrate").innerHTML ="<br><br>&emsp;"+avgstar+" / 5점";
+	if(avgstar==1){
+		astarclass =["fa fa-star star-active mx-1","fa fa-star star-inactive mx-1","fa fa-star star-inactive mx-1", "fa fa-star star-inactive mx-1","fa fa-star star-inactive mx-1"];
+	}
+	else if(avgstar== 2){
+		astarclass =["fa fa-star star-active mx-1","fa fa-star star-active mx-1","fa fa-star star-inactive mx-1", "fa fa-star star-inactive mx-1","fa fa-star star-inactive mx-1"];			
+	}
+	else if(avgstar== 3){
+		astarclass =["fa fa-star star-active mx-1","fa fa-star star-active mx-1","fa fa-star star-active mx-1", "fa fa-star star-inactive mx-1","fa fa-star star-inactive mx-1"];			
+	}
+	else if(avgstar== 4){
+		astarclass =["fa fa-star star-active mx-1","fa fa-star star-active mx-1",
+			"fa fa-star star-active mx-1", "fa fa-star star-active mx-1","fa fa-star star-inactive mx-1"];			
+	}
+	else if(avgstar== 5){astarclass =["fa fa-star star-active mx-1","fa fa-star star-active mx-1",
+		"fa fa-star star-active mx-1", "fa fa-star star-active mx-1","fa fa-star star-active mx-1"];	}
+	else{
+		astarclass =["fa fa-star star-inactive mx-1","fa fa-star star-inactive mx-1","fa fa-star star-inactive mx-1", "fa fa-star star-inactive mx-1","fa fa-star star-inactive mx-1"];
+	}
+	console.log(astarclass);
+	$('#astar1').attr("class",astarclass[0]);
+	$('#astar2').attr("class",astarclass[1]);
+	$('#astar3').attr("class",astarclass[2]);
+	$('#astar4').attr("class",astarclass[3]);
+	$('#astar5').attr("class",astarclass[4]);
+//평균 평점 insert
+	$.ajax({
+			type : "post",
+			async : false, //false인 경우 동기식으로 처리한다. 순서대로 처리
+			url : "${contextPath}/goods/avgrate.do",
+			data : {
+				goods_rate_avg:avgstar,
+				goods_id:goods_id
+			},
+			success : function(data, textStatus) {
+			
+			},
+			error : function(data, textStatus) {
+				alert("작업 실패");
+			},
+			complete : function(data, textStatus) {
+				
+			}
+		}); //end ajax	
+// 막대기 class
+	var barclass= []; 
+	var ratearr= []; 
+	var rate1 = $('#rate1').val();
+	var rate2 = $('#rate2').val();
+	var rate3 = $('#rate3').val();
+	var rate4 = $('#rate4').val();
+	var rate5 = $('#rate5').val();
+	ratearr= [rate1,rate2,rate3,rate4,rate5];
+	var order =[];
+	document.getElementById("bar1").innerHTML =rate1;
+	document.getElementById("bar2").innerHTML =rate2;
+	document.getElementById("bar3").innerHTML =rate3;
+	document.getElementById("bar4").innerHTML =rate4;
+	document.getElementById("bar5").innerHTML =rate5;
+	//console.log(rate1+" , "+rate2+" , "+rate3+" , "+rate4+" , "+rate5+" bar: "+barclass);
+	var set = new Set(ratearr);
+	console.log("set: "+set.size);//중복되는 것들을 삭제하고 남은 개수
+		if(set.size ==1){
+			if(rate1>2){
+				barclass =["bar-2","bar-2","bar-2","bar-2","bar-2"];
+			}
+			else if(rate1>5){
+				barclass =["bar-3","bar-3","bar-3","bar-3","bar-3"];
+			}
+			else if(rate1>10){
+				barclass =["bar-4","bar-4","bar-4","bar-4","bar-4"];
+			}
+			else{
+				barclass =["bar-5","bar-5","bar-5","bar-5","bar-5"];
+			}
+		}
+		else{
+			var min =Math.min(rate1,rate2,rate3,rate4,rate5);
+			var max = Math.max(rate1,rate2,rate3,rate4,rate5);
+			ratearr.indexOf(min);
+			console.log("최소 인덱스 : "+ratearr.indexOf(min));
+			order = ratearr.sort();
+			var order1=order[0].name;// 제일 작은값을 가진 rate의 인덱스 0이면 rate1, 1이면 rate2
+			var order2=order[1].name;
+			var order3=order[2].name;
+			var order4=order[3].name;
+			var order5=order[4].name;
+			
+			console.log("최소, 최대 : "+min+", "+max);
+			console.log("순서 : "+order);
+			console.log("순서인덱스 : "+order1);
+			console.log("순서인덱스 : "+order2);
+			console.log("순서인덱스 : "+order3);
+			console.log("순서인덱스 : "+order4);
+			console.log("순서인덱스 : "+order5);
+			if(rate1>rate2 &&rate1>rate3 &&rate1>rate4 &&rate1>rate5
+				&&rate1>rate2>rate3>rate4>rate5){
+
+				barclass =["bar-5","bar-4","bar-3","bar-2","bar-1"];
+			}
+			else if(rate5>rate4>rate3>rate2>rate1){
+				barclass =["bar-1","bar-2","bar-3","bar-4","bar-5"];
+			}
+			else{
+				barclass =["bar-2","bar-2","bar-2","bar-2","bar-2"];
+			}
+	
+	$('#barsize1').attr("class",barclass[0]);
+	$('#barsize2').attr("class",barclass[1]);
+	$('#barsize3').attr("class",barclass[2]);
+	$('#barsize4').attr("class",barclass[3]);
+	$('#barsize5').attr("class",barclass[4]);
+	
+		}
+}); // 자동실행 함수들
+
 
 	function add_cart(goods_id) {
 		var goods_ticket_date=document.getElementById("goods_ticket_date").value;
@@ -373,11 +502,6 @@ function openPage(pageName, elmnt, color) {
 }
 
 // Get the element with id="defaultOpen" and click on it
-$(document).ready(function(){
-
-	document.getElementById("defaultOpen").click();
-	
-});
 
 </script>
 
@@ -443,11 +567,11 @@ $(document).ready(function(){
 		
 	</c:choose>
 	<hgroup>
-		<h1>${sort}</h1>
+		<h1 style="color:#2196F3">${goods.goods_title}</h1>
 		<h2>티켓구매&gt; <a href="${contextPath}/goods/place.do?goods_place=${goodsMap.goodsVO.goods_place}">${place}</a>&gt;		
 		<a href="${contextPath}/goods/sort.do?goods_sort=${goodsMap.goodsVO.goods_sort}">${sort}</a></h2>
-		<h3>${goods.goods_title}</h3>
-		<h4>${goods.goods_publisher}</h4>
+		<h3 style="color:rgb(153, 153, 153)">주최: ${goods.goods_publisher}</h3>
+		<h4></h4>
 	</hgroup>
 	<div id="goods_image">
 		<figure>
@@ -529,7 +653,9 @@ $(document).ready(function(){
 					<td class="fixed">문자,QR코드</td>
 				</tr>
 			</tbody>
+			
 		</table>
+			<input type="hidden" id="goods_id" value="${goods.goods_id}">
 		<ul>
 			<li><a class="buy" href="javascript:fn_order_each_goods('${goods.goods_id }','${goods.goods_title}','${goods.goods_sales_price}','${goods.goods_fileName}');">구매하기 </a></li>
 			<li><a href="javascript:add_cart('${goods.goods_id }')">장바구니</a></li>
@@ -583,114 +709,185 @@ $(document).ready(function(){
 	<div id="이름5" class="tabcontent">
 	
 	<div class="clear"></div>
-				 <p><div class="cont">
-<!-- 리뷰 내용 -->			 
- <div class="container-fluid px-1 py-5 mx-auto">
-    <div class="row justify-content-center">
-        <div class="col-xl-7 col-lg-8 col-md-10 col-12 text-center mb-5">
-            <div class="card">
-                <div class="row justify-content-left d-flex">
-           		   <!--<div class="col-md-4 d-flex flex-column"> -->
-                        <div class="rating-box">
-                            <h1 class="pt-4">4.0</h1>
-                            <p class="">out of 5</p>
+			<p><div class="cont">
+				 
+			<c:if test="${existreview eq false}">
+				 	<div style="color:rgb(153, 153, 153); text-align: center; margin: 100px auto auto auto; height:500px;">
+				 	리뷰가 존재하지 않습니다!</div>
+			</c:if>
+			 <c:if test="${existreview eq true}"><!-- 리뷰가 존재한다면 -->
+				 						 
+				<!-- 리뷰 내용 전체 평균 통계-->		 
+ 					<div class="container-fluid px-1 py-5 mx-auto"> 
+ 					
+   				 		<div class="row justify-content-center">
+       				 		<div class="col-xl-7 col-lg-8 col-md-10 col-12 text-center mb-5" style="margin-top: 10px;">
+       				 		
+           				 		<div class="card">
+				<strong>평균 평점	</strong>	    <!-- 평균 별점 이미지-->
+                         <div style="width: 130px;"> 
+                         		<span id="astar1" class=""></span>
+                        		<span id="astar2" class=""></span>
+                        		<span id="astar3" class=""></span> 
+                        		<span id="astar4" class=""></span> 
+                        		<span id="astar5" class=""></span> 
                         </div>
+          
+                        					<div class="rating-box">
+                            					<h1 class="pt-4" id="avgrate"></h1>
+                            					
+                        			</div>
                    
-                    <!-- </div> -->
                     <div class="col-md-8" style="display: inline-block; margin-top: 40px;" >
                         <div class="rating-bar0 justify-content-center">
                             <table class="text-left mx-auto">
                            
                                 <tr>
-                                    <td class="rating-label">Excellent</td>
+                                    <td class="rating-label">5점</td>
                                     <td class="rating-bar">
                                         <div class="bar-container">
-                                            <div class="bar-5"></div>
+                                            <div id="barsize5" class=""></div>
                                         </div>
                                     </td>
-                                    <td class="text-right">123</td>
+                                    <td class="text-right" id="bar5"></td>
                                 </tr>
                                 <tr>
-                                    <td class="rating-label">Good</td>
+                                    <td class="rating-label">4점</td>
                                     <td class="rating-bar">
                                         <div class="bar-container">
-                                            <div class="bar-4"></div>
+                                            <div id="barsize4" class=""></div>
                                         </div>
                                     </td>
-                                    <td class="text-right">23</td>
+                                    <td class="text-right"  id="bar4"></td>
                                 </tr>
                                 <tr>
-                                    <td class="rating-label">Average</td>
+                                    <td class="rating-label">3점</td>
                                     <td class="rating-bar">
                                         <div class="bar-container">
-                                            <div class="bar-3"></div>
+                                            <div id="barsize3" class=""></div>
                                         </div>
                                     </td>
-                                    <td class="text-right">10</td>
+                                    <td class="text-right"  id="bar3"></td>
                                 </tr>
                                 <tr>
-                                    <td class="rating-label">Poor</td>
+                                    <td class="rating-label">2점</td>
                                     <td class="rating-bar">
                                         <div class="bar-container">
-                                            <div class="bar-2"></div>
+                                            <div  id="barsize2"class=""></div>
                                         </div>
                                     </td>
-                                    <td class="text-right">3</td>
+                                    <td class="text-right"  id="bar2"></td>
                                 </tr>
                                 <tr>
-                                    <td class="rating-label">Terrible</td>
+                                    <td class="rating-label">1점</td>
                                     <td class="rating-bar">
                                         <div class="bar-container">
-                                            <div class="bar-1"></div>
+                                            <div id="barsize1" class=""></div>
                                         </div>
                                     </td>
-                                    <td class="text-right">0</td>
+                                    <td class="text-right"  id="bar1"></td>
                                 </tr>
                             </table>
                         </div>
                     </div>
-                    <!-- 별점 이미지-->
-                         <div style="width: 130px; "> <span class="fa fa-star star-active mx-1"></span>
-                        		<span class="fa fa-star star-active mx-1"></span>
-                        		<span class="fa fa-star star-active mx-1"></span> 
-                        		<span class="fa fa-star star-active mx-1"></span> 
-                        		<span class="fa fa-star star-inactive mx-1"></span> 
-                        </div>
-                </div>
+   
             </div>
-            <div class="card">
+            
+  <!-- 개인의견 -->    
+        
+		<c:forEach items="${reviewlist}" var="r">
+            <div class="card" >
                 <div class="row d-flex">
-                    <div class=""> <img class="profile-pic" src="https://i.imgur.com/V3ICjlm.jpg"> </div>
+                    <div> <img class="profile-pic" src="${contextPath}/resources/icon/userdefault.png"></div>
                     <div class="d-flex flex-column">
-                        <h3 class="mt-2 mb-0">Vikram jit Singh</h3>
+                   
+       <!-- 작성자이름 --><h3 class="mt-2 mb-0">${r.orderer_name}</h3>
                         <div>
-                            <p class="text-left"><span class="text-muted">4.0</span> 
-                            <span class="fa fa-star star-active ml-3"></span> 
-                            <span class="fa fa-star star-active"></span> 
-                            <span class="fa fa-star star-active"></span> 
-                            <span class="fa fa-star star-active"></span> 
-                            <span class="fa fa-star star-inactive"></span></p>
+       <!-- 별점 -->    		<p class="text-left">      						
+       						<fmt:parseNumber value="${r.review_star}" var="review_star" ></fmt:parseNumber>
+       						<c:if test="${review_star eq 1 }">
+       							<span id="star1" class="fa fa-star star-active ml-3"></span> 
+                            	<span id="star2" class="fa fa-star star-inactive"></span> 
+                            	<span id="star3" class="fa fa-star star-inactive"></span> 
+                            	<span id="star4" class="fa fa-star star-inactive"></span> 
+                            	<span id="star5" class="fa fa-star star-inactive"></span>
+                            	<c:set var="rate1" value="${rate1+1}"/>
+       						</c:if>
+       						<c:if test="${review_star eq 2 }">
+       							<span id="star1" class="fa fa-star star-active ml-3"></span> 
+                            	<span id="star2" class="fa fa-star star-active"></span> 
+                            	<span id="star3" class="fa fa-star star-inactive"></span> 
+                            	<span id="star4" class="fa fa-star star-inactive"></span> 
+                            	<span id="star5" class="fa fa-star star-inactive"></span>
+                            	<c:set var="rate2" value="${rate2+1}"/>
+       						</c:if>
+       						<c:if test="${review_star eq 3 }">
+       							<span id="star1" class="fa fa-star star-active ml-3"></span> 
+                            	<span id="star2" class="fa fa-star star-active"></span> 
+                            	<span id="star3" class="fa fa-star star-active"></span> 
+                            	<span id="star4" class="fa fa-star star-inactive"></span> 
+                            	<span id="star5" class="fa fa-star star-inactive"></span>
+                            	<c:set var="rate3" value="${rate3+1}"/>
+       						</c:if>
+       						<c:if test="${review_star eq 4 }">
+       							<span id="star1" class="fa fa-star star-active ml-3"></span> 
+                            	<span id="star2" class="fa fa-star star-active"></span> 
+                            	<span id="star3" class="fa fa-star star-active"></span> 
+                            	<span id="star4" class="fa fa-star star-active"></span> 
+                            	<span id="star5" class="fa fa-star star-inactive"></span>
+                            	<c:set var="rate4" value="${rate4+1}"/>
+       						</c:if>
+       						<c:if test="${review_star eq 5 }">
+       							<span id="star1" class="fa fa-star star-active ml-3"></span> 
+                            	<span id="star2" class="fa fa-star star-active"></span> 
+                            	<span id="star3" class="fa fa-star star-active"></span> 
+                            	<span id="star4" class="fa fa-star star-active"></span> 
+                            	<span id="star5" class="fa fa-star star-active"></span>
+                            	<c:set var="rate5" value="${rate5+1}"/>
+       						</c:if>
+       						<span class="text-muted">&emsp;${r.review_star}점</span> 
+                            </p>
                         </div>
+                        <input type="hidden" id="review_star" value="${review_star}"/>
                     </div>
                     <div class="ml-auto">
-                        <p class="text-muted pt-5 pt-sm-3">10 Sept</p>
+      	<!-- 구매일 --> <fmt:parseDate value="${r.pay_order_time}" var="pay_order_time" pattern="yyyy-MM-dd HH:mm:ss.S"></fmt:parseDate>
+                    	<fmt:formatDate value="${pay_order_time}" var="pay_order_time" pattern="yy-MM-dd"/>     
+      	<!-- 사용일 -->	<fmt:parseDate value="${r.goods_ticket_date}" var="goods_ticket_date" pattern="yyyy-MM-dd HH:mm:ss.S"></fmt:parseDate>
+          				<fmt:formatDate value="${goods_ticket_date}" var="goods_ticket_date" pattern="yy-MM-dd"/>
+      					<h4 class="blue-text mt-3">구매일 : ${pay_order_time} | 사용일 : ${goods_ticket_date}</h4>
                     </div>
                 </div>
+                <p class="text-muted pt-5 pt-sm-3"></p>
                 <div class="row text-left">
-                    <h4 class="blue-text mt-3">"An awesome activity to experience"</h4>
-                    <p class="content">If you really enjoy spending your vacation 'on water' or would like to try something new and exciting for the first time.</p>
+      <!-- 리뷰내용 --><p class="content">${r.review_content}</p>
                 </div>
-                <div class="row text-left mt-4">
+                <!-- 좋아요 싫어요는 나중에 구현 
+                <div class="row text-left mt-4" >
                     <div class="like mr-3 vote"> <img src="https://i.imgur.com/mHSQOaX.png"><span class="blue-text pl-2">20</span> </div>
                     <div class="unlike vote"> <img src="https://i.imgur.com/bFBO3J7.png"><span class="text-muted pl-2">4</span> </div>
-                </div>
+                </div> -->
+                
+          		<c:set var ="review_avg" value="${review_avg+review_star}"/> 
             </div>
-        </div>
-    </div>
-</div>
+  <!-- 반복문 끝! --></c:forEach>
+  				<fmt:formatNumber value="${review_avg/count}" var="avgstar" pattern="#,##0"/>
+  				<input type="hidden" id="avgstar" value="${avgstar}"/>
+  				<input type="hidden" id="rate1" value="${rate1}"/>
+  				<input type="hidden" id="rate2" value="${rate2}"/>
+  				<input type="hidden" id="rate3" value="${rate3}"/>
+  				<input type="hidden" id="rate4" value="${rate4}"/>
+  				<input type="hidden" id="rate5" value="${rate5}"/>
+        <!-- 개인리뷰 card 끝 -->
+        		</div><!--col-xl-7 --> 
+    		</div><!-- row justify-content-center -->
+		</div><!-- 리뷰 container 끝 -->
+	</c:if><!-- 리뷰가 존재하는 지 조건 끝 -->			 
+</div><!-- 리뷰내용 -->		
 				 
-</div><!-- 리뷰내용 -->			
-	</div>
+				 
+				
+	</div><!-- cont div 끝 -->
 	
 	
 	<div class="clear"></div>
@@ -724,45 +921,5 @@ $(document).ready(function(){
 	
 </body>
 </html>
-<input type="hidden" name="isLogOn" id="isLogOn" value="${isLogOn}"/>
-<%-- 	<!-- 내용 들어 가는 곳 -->
-	<div id="container">
-		<ul class="tabs">
-			<li><a href="#tab1">상세설명</a></li>
-			<li><a href="#tab2">이용약관</a></li>
-			<li><a href="#tab3">사용방법</a></li>
-			<li><a href="#tab4">위치</a></li>
-			<li><a href="#tab5">리뷰</a></li>
-			<li><a href="#tab6">기타</a></li>
-		</ul>
-		<div class="tab_container">
-			<div class="tab_content" id="tab1" >
-				<h4>상세설명</h4>
-				<p>${fn:replace(goods.goods_description,crcn,br)}</p>
-				<c:forEach var="image" items="${imageList}">
-					<img src="${contextPath}/resources/shopping/file_repo/${goods.goods_id}/${image.fileName}">
-				</c:forEach>
-			</div>
-			<div class="tab_content" id="tab2">
-				<h4>이용약관</h4>
-				<p>
-				<div class="writer">주최: ${goods.goods_publisher}</div>
-				 <p>${fn:replace(goods.goods_terms,crcn,br) }</p> 
-				
-			</div>
-			<div class="tab_content" id="tab3">
-				<h4>사용방법</h4>
-				<p>${fn:replace(goods.goods_usage,crcn,br)}</p> 
-			</div>
-			<div class="tab_content" id="tab4">
-				<h4>위치</h4>
-				 <p>${fn:replace(goods.goods_location,crcn,br)}</p> 
-			</div>
-			<div class="tab_content" id="tab5">
-				<h4>추천</h4>
-			</div>
-			<div class="tab_content" id="tab6">
-				<h4>리뷰</h4>
-			</div>
-		</div>
-	</div> --%>
+<input type="hidden" name="isLogOn" id="isLogOn" value="${isLogOn}"/><!-- 
+<div>아이콘 제작자 <a href="https://smashicons.com/" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/kr/" title="Flaticon">www.flaticon.com</a></div> -->

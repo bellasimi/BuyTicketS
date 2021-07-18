@@ -207,63 +207,7 @@ function add_checkwish(){
 	<hgroup>
 		<h1>검색된 티켓 상품</h1>
 	</hgroup>
-	
-	<%-- <section id="new_book">
-		<h3>새로나온 책</h3>
-		<div id="left_scroll">
-			<a href='javascript:slide("left");'><img src="${contextPath}/resources/image/left.gif"></a>
-		</div>
-		<div id="carousel_inner">
-			<ul id="carousel_ul">
-			<c:choose>
-			   <c:when test="${ empty goodsList  }" >
-			        <li>
-					<div id="book">
-						<a><h1>제품이없습니다.</h1></a>
-					  </div>
-				</li> 
-			   </c:when>
-			   <c:otherwise>
-			    <c:forEach var="item" items="${goodsList }" >
-			     <li>
-					<div id="book">
-						<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">
-						<img width="75" alt="" src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
-						</a>
-						<div class="sort">티켓 상품</div>
-						<div class="title">
-							<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
-							  ${item.goods_title}
-							</a>
-						</div><div class="writer">${item.goods_publisher}</div>
-						<div class="writer">판매종료일: ${item.goods_lastsale_date} | 유효기간: ${item.goods_expired_date}까지</div>
-						<div class="price">
-							<span>
-							  <fmt:formatNumber  value="${item.goods_price}" type="number" var="goods_price" />
-		                         ${goods_price}원
-							</span> <br>
-							
-							  <fmt:formatNumber  value="${item.goods_sales_price}" type="number" var="goods_sales_price" />
-				               ${goods_sales_price}원 (${item.goods_discount}% 할인)
-						</div>
-					</div>
-				</li>
-				</c:forEach> 
-				<li>
-				</li> 
-			   </c:otherwise>
-			 </c:choose>
-			 
-			</ul>
-		</div>
-		<div id="right_scroll">
-			<a href='javascript:slide("right");'><img  src="${contextPath}/resources/image/right.gif"></a>
-		</div>
-		<input id="hidden_auto_slide_seconds" type="hidden" value="0">
 
-		<div class="clear"></div>
-	</section>
-	<div class="clear"></div> --%>
 	<input type="hidden" id="listmenu" value="${listmenu}"/>
 	<div id="sorting">
 		<ul>
@@ -308,36 +252,7 @@ function add_checkwish(){
 						</strong>			
 					</td>
 					
-<%-- <script type="text/javascript">
-	function add_wish(goods_id){
-		$.ajax({
-			type:"post",
-			url:"${contextPath}/goods/addwish.do",
-			data:{
-				goods_id:goods_id
-			},
-			success:function(data, textStatus){
-				if(data.trim()=='add_success'){
-					imagePopup('open','.layer02');
-				}else if(data.trim()=='already_existed'){
-					alert("이미 위시리스트에 등록된 상품입니다.");
-				}
-				
-			},
-			error: function(data,textStatus){
-				alert("오류가 발생했습니다!")
-			},
-			complete: function(data,textStatus){
-				
-			}
-		});
-		
-		
-	}
 
-</script>
-						
-							<li><a href="javascript:add_wish('${item.goods_id}')">위시리스트</a></li> --%>
 						
 					<td class="buy_btns"style="width:82px">
 						<UL>

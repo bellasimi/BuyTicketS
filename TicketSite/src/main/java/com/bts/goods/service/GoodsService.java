@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.bts.goods.vo.GoodsVO;
 import com.bts.goods.vo.WishVO;
+import com.bts.order.vo.OrderVO;
 
 public interface GoodsService {
 	
@@ -28,5 +29,7 @@ public interface GoodsService {
 	public void addcheckwish(List<WishVO> checkwish) throws Exception;
 	public boolean existcheckwish(List<WishVO> checkwish) throws Exception;
 	public String showexist(List<WishVO> checkwish) throws Exception;
-
+	public List<OrderVO> selectreview(String goods_id)throws Exception;
+	public boolean existreview(String goods_id)throws Exception;
+	public void avgrate(Map review)throws Exception;
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.bts.goods.vo.GoodsVO;
 import com.bts.goods.vo.ImageFileVO;
 import com.bts.goods.vo.WishVO;
+import com.bts.order.vo.OrderVO;
 
 @Repository("goodsDAO")
 public class GoodsDAOImpl  implements GoodsDAO{
@@ -133,8 +134,26 @@ public class GoodsDAOImpl  implements GoodsDAO{
 
 	@Override
 	public void deletecheckedwish(Map wish) throws DataAccessException {
-		System.out.println("dao값: "+wish);
+	
 		sqlSession.delete("mapper.goods.deletecheckedwish",wish);
+	}
+
+	@Override
+	public List<OrderVO> selectreview(String goods_id) throws DataAccessException {
+		
+		return sqlSession.selectList("mapper.goods.selectreview",goods_id);
+	}
+
+	@Override
+	public boolean existreview(String goods_id) throws DataAccessException {
+		String result = sqlSession.selectOne("mapper.goods.existreview",goods_id);
+		return Boolean.parseBoolean(result);
+	}
+
+	@Override
+	public void avgsrate(Map review) {
+		sqlSession.insert("mapper.goods.avgrate",review);
+		
 	}
 
 	

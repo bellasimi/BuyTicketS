@@ -13,6 +13,7 @@ import com.bts.goods.dao.GoodsDAO;
 import com.bts.goods.vo.GoodsVO;
 import com.bts.goods.vo.ImageFileVO;
 import com.bts.goods.vo.WishVO;
+import com.bts.order.vo.OrderVO;
 
 @Service("goodsService")
 @Transactional(propagation=Propagation.REQUIRED)
@@ -142,9 +143,25 @@ public class GoodsServiceImpl implements GoodsService{
 	}
 
 	@Override
-	public void deletecheckedwish(Map wish) throws Exception {
-		System.out.println("서비스값: "+wish);
+	public void deletecheckedwish(Map wish) throws Exception {		
 		goodsDAO.deletecheckedwish(wish);
+		
+	}
+
+	@Override
+	public List<OrderVO> selectreview(String goods_id) throws Exception {		
+		return goodsDAO.selectreview(goods_id);
+	}
+
+	@Override
+	public boolean existreview(String goods_id) throws Exception {
+		
+		return goodsDAO.existreview(goods_id);
+	}
+
+	@Override
+	public void avgrate(Map review) {
+		goodsDAO.avgsrate(review);
 		
 	}
 
