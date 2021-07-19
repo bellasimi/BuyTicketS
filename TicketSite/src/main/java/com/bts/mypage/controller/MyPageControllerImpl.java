@@ -66,6 +66,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		
 		mav.addObject("message", message);
 		mav.addObject("myOrderList", myOrderList);
+		mav.addObject("member_point",member_point);
 
 		return mav;
 	}
