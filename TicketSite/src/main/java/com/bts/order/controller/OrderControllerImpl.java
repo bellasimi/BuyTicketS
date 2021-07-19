@@ -91,8 +91,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	@RequestMapping(value="/orderAllCartGoods.do" ,method = RequestMethod.POST)
 	public ModelAndView orderAllCartGoods( @RequestParam("cart_goods_qty")  String[] cart_goods_qty,
 									HttpServletRequest request, HttpServletResponse response)  throws Exception{
-		//수량은 배열로 받는다, 아마도 point?는 모르겠고(goodsVO에 있을거라) ticket_date를 받아와야할듯 
-		//Date 배열이 통하려나....ㅠㅠ
+		
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session=request.getSession();
@@ -103,13 +102,19 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		//cartMap안의 goodsList꺼냄 / 멤버정보는 세션에서 값가져옴 
 		List<GoodsVO> myGoodsList=(List<GoodsVO>)cartMap.get("myGoodsList"); 
 		MemberVO memberVO=(MemberVO)session.getAttribute("memberInfo");
-		//SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");//String ->date로 변환하기위함인데 안쓸듯 
+ 
 		//상품개수를 알아낼 수 있는게 cart_goods_qty.length 
+		
+		//System.out.println("cart_goods_qty.length"+cart_goods_qty.length); 
+		//System.out.println("myGoodsList.size()"+myGoodsList.size());
+		
+		
 		for(int i=0; i<cart_goods_qty.length;i++){ //주문 상품개수만큼 반복 
+			//System.out.println("넘어온 배열 자르기전"+cart_goods_qty[i]);
+			
 			String[] cart_goods=cart_goods_qty[i].split(":");  //cart_id: qty 형태로 넘어온거라서 앞의 카트id를 분리함
 			
-			System.out.println("cart_goods"+"i"+cart_goods[i]);
-			
+						
 			System.out.println("cart_goods_qty.length"+cart_goods_qty.length);
 			
 			for(int j = 0; j< myGoodsList.size();j++) { //카트에 있던 상품목록 크기만큼 반복 
@@ -130,12 +135,15 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 					_orderVO.setGoods_point(goods_point);
 					_orderVO.setGoods_ticket_date(cart_goods[2]);
 
-		
+					System.out.println(cart_goods[0]);
+					System.out.println(cart_goods[1]);
+					System.out.println(cart_goods[2]);
+					
 					//여기서 예약일도 넣어주는게 좋을듯 
 					myOrderList.add(_orderVO);   //위에서 만든 orderList에 넣어준다 , 
 					break;  //같은거 찾으면 바로 계산하고 for문 하나 나가서 다음 상품 처리, myOrderList에 하나씩 쌓이게됨 
 				}//if
-			}//j
+			}//j  
 		}//i
 		System.out.println("전부결제");
 		session.setAttribute("myOrderList", myOrderList); //session으로 넘겨줌 

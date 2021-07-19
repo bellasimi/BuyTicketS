@@ -615,12 +615,10 @@ function fn_order_all_cart_goods() {
 				cart_goods_qty[i].value=""; //이거는 왜 이렇게 지정해줘야할까 ??
 				cart_goods_qty[i].value=order_goods_id+":"+order_goods_qty+":"+goods_ticket_date;
 				//상품ID 랑 수량이랑 예약일을 합쳐서 배열로 만들어서 넘겨준다 
-				//alert(select_goods_qty[i].value);
-								
-				//goods_ticket_date=_goods_ticket_date[i].value;
-				//배열을 어떻게 만들지 생각을 좀 해보자 일단 qty에 붙여볼까 
+
+				
 				console.log("수량"+cart_goods_qty[i].value);
-				//console.log(goods_ticket_date[i].value);
+				console.log(goods_ticket_date[i].value);
 				//console.log(goods_ticket_date[i]);
 				
 			}

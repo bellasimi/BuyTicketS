@@ -57,7 +57,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		ModelAndView mav = new ModelAndView(viewName);
 		memberVO=(MemberVO)session.getAttribute("memberInfo");
 		String member_id=memberVO.getMember_id();
-		
+		int member_point=memberVO.getMember_point();
 		List<OrderVO> myOrderList=myPageService.listMyOrderGoods(member_id);
 		
 		// 아래는 test를 위한 dummy data 입니다
@@ -66,6 +66,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		
 		mav.addObject("message", message);
 		mav.addObject("myOrderList", myOrderList);
+		mav.addObject("member_point",member_point);
 
 		return mav;
 	}
@@ -158,7 +159,6 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		dateMap.put("endDate", endDate);
 		dateMap.put("member_id", member_id);
 		List<OrderVO> myOrderHistList=myPageService.listMyOrderHistory(dateMap);
-		
 		String beginDate1[]=beginDate.split("-");
 		String endDate1[]=endDate.split("-");
 		mav.addObject("beginYear",beginDate1[0]);

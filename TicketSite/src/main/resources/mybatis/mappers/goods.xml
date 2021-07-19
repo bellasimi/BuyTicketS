@@ -145,32 +145,6 @@
 		    and g.goods_title like '%'|| #{searchWord} || '%'
 		    order by g.goods_lastsale_date
 		]]>
-</select>	
-<!-- 검색한 놈 중 체크해서 위시리스트 추가  -->
-<update id="addcheckwish" parameterType="java.util.List">
-	<foreach item="wish" collection="list" open="insert all" separator=" " close="select * from dual">
-	 
-	 into ticket_wish(goods_id,member_id) 
-	 values(#{wish.goods_id},#{wish.member_id})	
-
- 
-	</foreach>
-</update>
-<!-- List의 collection은 변수명이 아니라 그냥 list야!!! -->
-<!-- 위시리스트에 배열값 존재하는지? -->
-<select id="existcheckwish" resultType="String"  parameterType="java.util.List"	>
-	select decode(count(*),0,'false','true') from ticket_wish where
-	<foreach item="wish" collection="list" open="(" separator="or" close=")">
-		 (goods_id =#{wish.goods_id} and member_id = #{wish.member_id})
-	</foreach>
-	
-</select> 
-<!-- 존재한다면 그놈의 goods_id는 뭔지 -->
-<select id="showexist"  resultMap="goodsResult">
-	select * from ticket_goods g,ticket_wish w where g.goods_id =w.goods_id and
-	<foreach  item="wish" collection="list" open="(" separator="or" close=")">
-		(w.member_id =#{wish.member_id} and w.goods_id=#{wish.goods_id})
-	</foreach>
 </select>
 <!-- 키워드로 검색 자동완성-->
  <select id="selectKeywordSearch" resultType="String"  parameterType="String"  >
@@ -181,75 +155,9 @@
 		]]>
 </select>	
 
-<!-- 위시리스트 입력 -->
-<!-- select문 insert할 땐 update사용! -->
-<insert id="insertWishList" >
-   <![CDATA[
-   		   insert into ticket_wish(goods_id,member_id) values(#{goods_id},#{member_id})
-     
-		]]>
-			
-</insert>
-
-
-<!-- 위시리스트 출력 기본 만기일 오름차순-->
-<select id="selectWishList" resultMap="goodsResult">
- <![CDATA[	
-	select t.*,i.fileName from ticket_goods t, ticket_image i,ticket_wish w  where t.goods_id = w.goods_id  and i.goods_id = w.goods_id and i.filetype='main_image' and w.member_id=#{member_id}
-	order by t.goods_expired_date
- ]]>
-</select>
-<!-- 위시리스트 출력 판매종료 오름차순-->
-<select id="wishlastsale" resultMap="goodsResult">
- <![CDATA[	
-	select t.*,i.fileName from ticket_goods t, ticket_image i,ticket_wish w  where t.goods_id = w.goods_id  and i.goods_id = w.goods_id and i.filetype='main_image' and w.member_id=#{member_id}
-	order by t.goods_lastsale_date
- ]]>
-</select>
-<!-- 위시리스트 출력 가격 오름차순-->
-<select id="wishcheap" resultMap="goodsResult">
- <![CDATA[	
-	select t.*,i.fileName from ticket_goods t, ticket_image i,ticket_wish w  where t.goods_id = w.goods_id  and i.goods_id = w.goods_id and i.filetype='main_image' and w.member_id=#{member_id}
-	order by t.goods_sales_price
- ]]>
-</select>
-<!-- 위시리스트 출력 할인률 내림차순 후 가격 오름차순-->
-<select id="wishdiscount" resultMap="goodsResult">
- <![CDATA[	
-	select t.*,i.fileName from ticket_goods t, ticket_image i,ticket_wish w  where t.goods_id = w.goods_id  and i.goods_id = w.goods_id and i.filetype='main_image' and w.member_id=#{member_id}
-	order by t.goods_discount desc, t.goods_sales_price
- ]]>
-</select>
-
-<!-- 위시리스트 각각 삭제 -->
-
-<delete id="deleteWishList">
-	delete from ticket_wish where goods_id=#{goods_id} and member_id=#{member_id}
-</delete>
-<!--  위시리스트 선택 삭제 -->
-<delete id="deletecheckedwish" >
- <![CDATA[
-	delete from ticket_wish where member_id=#{member_id} and goods_id in 
-	]]>
-	<foreach item="item" collection="idlist" index="i" open="(" separator="," close=")">
-		#{item}
-	</foreach>
-	<!-- collection ="키값" 난 맵으로 보낸거라. 그냥 리스트 바로 보냈으면 변수값
-		item은 그냥 여기서 쓰는 alias 값  c taglib 의 var같은거임
- 		#{item[i]} 이런식으로 i행값 출력할 수 있는데 이건 String [] array 즉 배열인 경우, 난 지금 List<String>이라서 안먹힘 -->
-</delete>
-
-<!-- 위시리스트 전체삭제 -->
-<delete id="deleteWishListAll">
-	delete from ticket_wish where member_id=#{member_id}
-</delete>
-<!-- 위시리스트 존재하는지 확인 -->
-<select id="existwish" resultType="String">
-	select decode(count(*), 0, 'false', 'true') from ticket_wish where goods_id=#{goods_id} and member_id=#{member_id}
-</select>
 <!-- 리뷰가 존재하는지 확인 -->
 <select id="existreview" resultType="String">
-	select decode(count(*),0,'false','true') from ticket_order where goods_id=#{goods_id}
+	 <![CDATA[select decode(count(*),0,'false','true') from ticket_order where goods_id=#{goods_id} and review_star is not null ]]>
 </select>
 <!-- 리뷰들 출력 -->
 <select id="selectreview" resultMap="orderGoodsResult">

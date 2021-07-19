@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import com.bts.goods.vo.GoodsVO;
 import com.bts.goods.vo.ImageFileVO;
-import com.bts.goods.vo.WishVO;
 import com.bts.order.vo.OrderVO;
+import com.bts.wish.vo.WishVO;
 
 @Repository("goodsDAO")
 public class GoodsDAOImpl  implements GoodsDAO{
@@ -47,25 +47,6 @@ public class GoodsDAOImpl  implements GoodsDAO{
 		ArrayList list=(ArrayList)sqlSession.selectList("mapper.goods.selectGoodsBySearchWord",searchWord);
 		 return list;
 	}
-//검색된 내용 체크한 놈들 위시리스트로 
-	@Override
-	public void addcheckwish(List<WishVO> checkwish) {
-		sqlSession.update("mapper.goods.addcheckwish", checkwish);
-		
-	}
-//체크한 놈들 위시리스트에 존재하는지 boolean
-
-	@Override
-	public boolean existcheckwish(List<WishVO> checkwish) {
-		String result = sqlSession.selectOne("mapper.goods.existcheckwish",checkwish);
-		return Boolean.parseBoolean(result);
-	}
-//존재한다면 제목이 뭔지
-	@Override
-	public String showexist(List<WishVO> checkwish) throws DataAccessException {
-		List<GoodsVO> exist =sqlSession.selectList("mapper.goods.showexist",checkwish);
-		return  exist.get(0).getGoods_title();
-	}
 
 //goods_id가 일치하는 데이터 goodsVO형태로 출력 	
 	@Override
@@ -86,57 +67,6 @@ public class GoodsDAOImpl  implements GoodsDAO{
 	   return list;
 	}
 	
-	@Override
-	public void insertWishList(Map wish) throws DataAccessException{
-		sqlSession.insert("mapper.goods.insertWishList", wish);
-		
-	}
-	@Override
-	public List<GoodsVO> selectWishList(String member_id) {
-		List<GoodsVO> list = sqlSession.selectList("mapper.goods.selectWishList",member_id);
-		return list;
-	}
-
-	@Override
-	public void deleteWishList(Map wish) throws DataAccessException {
-		sqlSession.delete("mapper.goods.deleteWishList", wish);
-		
-	}
-
-	@Override
-	public void deleteWishListAll(String member_id) throws DataAccessException {
-		sqlSession.delete("mapper.goods.deleteWishListAll",member_id);
-		
-	}
-
-	@Override
-	public boolean existwish(Map wish) throws DataAccessException {
-		String goods_id = sqlSession.selectOne("mapper.goods.existwish",wish);
-		
-		return Boolean.parseBoolean(goods_id);//결과물이 존재하는지 Boolean형식으로 parsing 있으면 true, 없으면 false
-	}
-
-	@Override
-	public List<GoodsVO> wishlastsale(String member_id) throws DataAccessException {
-		
-		return sqlSession.selectList("mapper.goods.wishlastsale", member_id);
-	}
-
-	@Override
-	public List<GoodsVO> wishcheap(String member_id) throws DataAccessException {
-		return sqlSession.selectList("mapper.goods.wishcheap", member_id);
-	}
-
-	@Override
-	public List<GoodsVO> wishdiscount(String member_id) throws DataAccessException {
-		return sqlSession.selectList("mapper.goods.wishdiscount", member_id);
-	}
-
-	@Override
-	public void deletecheckedwish(Map wish) throws DataAccessException {
-	
-		sqlSession.delete("mapper.goods.deletecheckedwish",wish);
-	}
 
 	@Override
 	public List<OrderVO> selectreview(String goods_id) throws DataAccessException {

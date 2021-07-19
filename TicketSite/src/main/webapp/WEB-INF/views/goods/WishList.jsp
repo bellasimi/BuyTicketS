@@ -16,7 +16,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	var listmenu = $('#listmenu').val();
-	console.log(listmenu);
+	//console.log(listmenu);
 	if(listmenu == 'list1'){
 	 	 $('#list1').attr('class','active');}
 	else if (listmenu == 'list2'){
@@ -52,8 +52,8 @@ $(document).ready(function(){
 	});
 	//부분선택/전체해제 
 	$("#checked_goods").change(function() {  //prop으로 썼었다 change로 해도 일단 선택은 똑같이 됨 
-		console.log($("input[id=checked_goods]:checked").length);
-	console.log($("input[id=checked_goods]").length);
+		//console.log($("input[id=checked_goods]:checked").length);
+	//console.log($("input[id=checked_goods]").length);
 		if($("input[id=checked_goods]:checked").length==$("input[id=checked_goods]").length) {
 			
 			$("#checkall").prop("checked",true);
@@ -81,13 +81,13 @@ function deletechecked(){
 			checked_goods_id = $(this).val();
 			idlist.push(checked_goods_id);
 		});
-	console.log("체크된 상품:"+checked_goods);
-	console.log("길이:"+length);
+	//console.log("체크된 상품:"+checked_goods);
+	//console.log("길이:"+length);
 
-	console.log("체크된 상품 id 리스트:"+idlist);
+	//console.log("체크된 상품 id 리스트:"+idlist);
 	for(var i=0;i<length;i++){
 
-		console.log("아이디 : "+idlist[i]);
+		//console.log("아이디 : "+idlist[i]);
 	}
 	
 	if(length=0){
@@ -106,7 +106,7 @@ function deletechecked(){
 			},
 			
 			success : function(data, textStatus) {
-				console.log(data.trim());
+				//console.log(data.trim());
 				alert(data.trim());
 				location.href="${contextPath}/goods/WishList.do";
 			},

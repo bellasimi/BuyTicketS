@@ -18,7 +18,7 @@ $(document).ready(function(){
 	
 	var listmenu = $('input[id=listmenu]').val();
 	
-	console.log(listmenu);
+	//console.log(listmenu);
 	if(listmenu == "list1"){//판매종료
 		$('#list1').attr('class','active');}
 	else if(listmenu == "list2"){//가격
@@ -45,9 +45,9 @@ $(document).ready(function(){
 	//개별 체크박스 전체 체크박스 비교
 	$('#checked_goods').change(function(){
 		var length = $('input[id=checked_goods]').length;
-		console.log(length);
+		//console.log(length);
 		var clength = $('input[id=checked_goods]:checked').length;
-		console.log(clength);
+		//console.log(clength);
 		if(length == clength){
 			$('#checkall').prop("checked",true);
 		}else{
@@ -63,7 +63,7 @@ $(document).ready(function(){
 
 function add_wish(goods_id){
 	var isLogOn = $('#isLogOn').val();
-	console.log(isLogOn);
+	//console.log(isLogOn);
 	if(isLogOn =='false'|| isLogOn ==''){
 		alert("로그인 후 이용해주세요!");
 		location.href="${contextPath}/member/loginForm.do"
@@ -109,12 +109,12 @@ function imgpopup(layer,style){
 
 function add_checkwish(){
 	var isLogOn = $('#isLogOn').val();
-	console.log(isLogOn);
+	//console.log(isLogOn);
 
 
 	var checked_goods = $('input[id=checked_goods]:checked');
 	var length = checked_goods.length;
-	console.log("체크된 길이: "+length);
+	//console.log("체크된 길이: "+length);
 	
 	//상품 체크  확인
 	if(length==0){
@@ -131,7 +131,7 @@ function add_checkwish(){
 				
 		});//체크박스 각각의 값 배열로 전달	
 	
-		console.log("idlist: "+idlist);
+		//console.log("idlist: "+idlist);
 
 		//로그인 확인
 

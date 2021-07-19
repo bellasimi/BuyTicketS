@@ -1,4 +1,4 @@
-package com.bts.goods.vo;
+package com.bts.wish.vo;
 
 public class WishVO {
 	private String member_id;
