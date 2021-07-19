@@ -654,7 +654,7 @@ article h4 {
 	margin: 10px 0px 0px;
 }
 #detail_table {
-	margin: 10px 0px 0px 60px; 
+	margin: 10px 250px 0px 60px; 
 }
 #goods_image {
 	float: left;
@@ -674,7 +674,7 @@ article h4 {
 .detail_table {
 	width: 590px; font-size: 0.75em; float: left;
 }
-.detail_table table {
+.detail_table table {background-color:red;
 	width: 95%; border-top-color: rgb(51, 51, 51); border-bottom-color: rgb(51, 51, 51); border-top-width: 2px; border-bottom-width: 1px; border-top-style: solid; border-bottom-style: solid; border-collapse: collapse;
 }
 .detail_table table td {
@@ -697,7 +697,7 @@ article h4 {
 
 
 .detail_table table td.fixed_join {
-	width: 110px; font-weight: bold; color: #0000cc;background:  #e1e1ff;
+	width: 110px; font-weight: bold; color: #E6F2FF;background:  #2196F3;
 }
 
 .detail_table ul {
@@ -758,7 +758,7 @@ article h4 {
 }
 
 #detail_table table td.fixed_join {
-	width: 110px; font-weight: bold; color: #0000cc;background:  #e1e1ff;
+	width: 110px; font-weight: bold; color: #E6F2FF;background:  #2196F3;
 }
 
 #detail_table ul {
