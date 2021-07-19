@@ -1063,3 +1063,33 @@ font-size: 12pt; font-style:normal;width: 492px; height: auto; padding: 2px 0px 
 	margin: 10px 0px; padding-top: 10px;color: black;
   font-size: 15pt;
 }
+
+button.cart_btn {
+	border-radius: 3px;
+	border: 1px solid rgb(153, 153, 153);
+	width: 80px;
+	height: 30px;
+    text-align: center;
+	padding: 3px;
+	color: rgb(153, 153, 153);
+	font-family: 'NanumBarunGothic', 'sans-serif';
+	font-size: 1.2em;
+	font-weight: bold;
+	
+}
+button.buy_btn{
+	border-radius: 3px;
+	border: 1px solid rgb(255, 0, 0);
+	width: 80px;
+	height: 30px;
+    text-align: center;
+	padding: 3px;
+	color: rgb(255, 0, 0);
+	font-family: 'NanumBarunGothic', 'sans-serif';
+	font-size: 1.2em;
+	font-weight: bold;
+}
+button[name=total]{
+	width : 150px;
+	height : 40px;
+}
