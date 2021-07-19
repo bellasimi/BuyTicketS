@@ -220,14 +220,7 @@
 	order by t.goods_discount desc, t.goods_sales_price
  ]]>
 </select>
-<!-- 위시리스트 출력 평점 내림차순
-<select id="wishrate" resultMap="goodsResult">
- <![CDATA[	
-	select t.*,i.fileName from ticket_goods t, ticket_image i,ticket_wish w,ticket_review r  where t.goods_id = w.goods_id  and i.goods_id = w.goods_id and i.filetype='main_image' and w.member_id=#{member_id}
-	order by t.goods_rate_avg desc
- ]]>
-</select>
--->
+
 <!-- 위시리스트 각각 삭제 -->
 
 <delete id="deleteWishList">

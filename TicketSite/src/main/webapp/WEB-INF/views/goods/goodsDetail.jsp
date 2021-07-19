@@ -169,8 +169,14 @@ $(document).ready(function(){
 
 // 전체 평균 평점 별 
 	var avgstar = $('#avgstar').val(); 
-	console.log("평균: " +avgstar+" id: "+goods_id);
-	document.getElementById("avgrate").innerHTML ="<br><br>&emsp;"+avgstar+" / 5점";
+	console.log("평균: " + avgstar+" id: "+goods_id);
+	var avgcheck =document.getElementById("avgrate");
+	
+	if(avgcheck != null){
+	
+
+		document.getElementById("avgrate").innerHTML ="<br><br>&emsp;"+avgstar+" / 5점";
+	
 	if(avgstar==1){
 		astarclass =["fa fa-star star-active mx-1","fa fa-star star-inactive mx-1","fa fa-star star-inactive mx-1", "fa fa-star star-inactive mx-1","fa fa-star star-inactive mx-1"];
 	}
@@ -359,7 +365,7 @@ $(document).ready(function(){
 	$('#barsize3').attr("class",barclass[2]);
 	$('#barsize4').attr("class",barclass[3]);
 	$('#barsize5').attr("class",barclass[4]);
-	
+	}//리뷰가 존재하는 경우
 }); // 자동실행 함수들
 
 
