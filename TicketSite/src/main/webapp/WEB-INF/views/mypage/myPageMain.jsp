@@ -129,18 +129,17 @@ body, html {
 								<a href="${contextPath}/mypage/myOrderDetail.do?order_id=${item.order_id }"><span>${item.order_id }</span></a>
 								</td>
 								<td><span>${item.pay_order_time }</span></td>
-								<td><strong> 
-												<a
-													href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">${item.goods_title }/${item.order_goods_qty }개</a>
-												<br>
+								<td><strong>
+								<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">${item.goods_title }/${item.order_goods_qty }개</a><br>
 								</strong></td>
 								<c:choose>
-								<c:when test = "${review_state != review_confirm}">
-								<td>리뷰 작성 완료</td>
-								</c:when>
-								<c:otherwise>
-								<td><a href="${contextPath}/mypage/review.do?order_id=${item.order_id}&goods_title=${item.goods_title}&order_seq_num=${item.order_seq_num}">리뷰 미작성</a></td>
-								</c:otherwise>
+									<c:when test = "${! empty item.review_state}">
+										<td>리뷰 작성 완료</td>
+									</c:when>
+									
+									<c:otherwise>
+										<td><a href="${contextPath}/mypage/review.do?order_id=${item.order_id}&goods_title=${item.goods_title}&order_seq_num=${item.order_seq_num}">리뷰 미작성</a></td>
+									</c:otherwise>
 								</c:choose>
 								<td>${item.goods_ticket_date }</td>
 							</tr>
@@ -153,11 +152,11 @@ body, html {
 
 	<div id="Point" class="tabcontent">
 		포인트 : <c:choose>
-		<c:when test="${empty myOrderList}">
-		0
+		<c:when test="${not empty myOrderList}">
+		${member_point}
 		</c:when>
 		<c:otherwise>
-		${member_point}
+		0
 		</c:otherwise>
 		</c:choose>
 		<table border=0 width=100% cellpadding=10 cellspacing=10>

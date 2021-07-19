@@ -57,7 +57,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		ModelAndView mav = new ModelAndView(viewName);
 		memberVO=(MemberVO)session.getAttribute("memberInfo");
 		String member_id=memberVO.getMember_id();
-		
+		int member_point=memberVO.getMember_point();
 		List<OrderVO> myOrderList=myPageService.listMyOrderGoods(member_id);
 		
 		// 아래는 test를 위한 dummy data 입니다
