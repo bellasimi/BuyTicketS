@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,9 +27,10 @@ import com.bts.common.base.BaseController;
 import com.bts.goods.service.GoodsService;
 import com.bts.goods.vo.GoodsVO;
 import com.bts.goods.vo.ImageFileVO;
-import com.bts.goods.vo.WishVO;
 import com.bts.member.vo.MemberVO;
 import com.bts.order.vo.OrderVO;
+import com.bts.wish.service.WishService;
+import com.bts.wish.vo.WishVO;
 
 import net.sf.json.JSONObject;
 
@@ -37,6 +39,8 @@ import net.sf.json.JSONObject;
 public class GoodsControllerImpl extends BaseController   implements GoodsController {
 	@Autowired
 	private GoodsService goodsService;
+	@Autowired
+	private WishService wishService;
 
 	@Autowired
 	private MemberVO memberVO;
@@ -195,7 +199,8 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 				mav.addObject("existreview", existreview);
 			}else {//존재하면
 				
-				mav.addObject("existreview", existreview);			
+				mav.addObject("existreview", existreview);	
+				System.out.println("리뷰 존재?"+existreview);
 				//해당 상품리뷰
 				List<OrderVO> review = goodsService.selectreview(goods_id);
 				int star1 = (int) review.stream().filter(s->s.getReview_star().equals("1")).count();
@@ -318,13 +323,13 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 
 		//System.out.println("checkwish: "+checkwish.toString()); 
 		
-		boolean exist = goodsService.existcheckwish(checkwish);
+		boolean exist = wishService.existcheckwish(checkwish);
 		//System.out.println("값 존재함? "+exist);
 		if(exist==false) {
-			goodsService.addcheckwish(checkwish);			
+			wishService.addcheckwish(checkwish);			
 			return "add_success";
 		}else{			
-			String goods_title =goodsService.showexist(checkwish);			
+			String goods_title =wishService.showexist(checkwish);			
 			return goods_title;
 		}
 		
@@ -363,7 +368,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 	String member_id = memberVO.getMember_id();
 	String viewName = (String) request.getAttribute("viewName");
 	mav.setViewName(viewName);
-	List<GoodsVO> list = goodsService.WishList(member_id); 
+	List<GoodsVO> list = wishService.WishList(member_id); 
 	mav.addObject("goodsList",list);
 	return mav;
 	}
@@ -375,7 +380,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 			ModelAndView mav =new ModelAndView();
 			memberVO = (MemberVO) session.getAttribute("memberInfo");
 			String member_id = memberVO.getMember_id();
-			List<GoodsVO> list = goodsService.wishlastsale(member_id);
+			List<GoodsVO> list = wishService.wishlastsale(member_id);
 			mav.addObject("goodsList",list);
 			mav.addObject("listmenu","list1");
 			mav.setViewName("/goods/WishList");
@@ -387,7 +392,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 			ModelAndView mav =new ModelAndView();
 			memberVO = (MemberVO) session.getAttribute("memberInfo");
 			String member_id = memberVO.getMember_id();
-			List<GoodsVO> list = goodsService.wishcheap(member_id);
+			List<GoodsVO> list = wishService.wishcheap(member_id);
 			mav.addObject("goodsList",list);
 			mav.addObject("listmenu","list2");
 			mav.setViewName("/goods/WishList");
@@ -399,7 +404,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 			ModelAndView mav =new ModelAndView();
 			memberVO = (MemberVO) session.getAttribute("memberInfo");
 			String member_id = memberVO.getMember_id();
-			List<GoodsVO> list = goodsService.wishdiscount(member_id);
+			List<GoodsVO> list = wishService.wishdiscount(member_id);
 			mav.addObject("goodsList",list);
 			mav.addObject("listmenu","list3");
 			mav.setViewName("/goods/WishList");
@@ -412,7 +417,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 			session = request.getSession();
 			memberVO = (MemberVO) session.getAttribute("memberInfo");
 			String member_id = memberVO.getMember_id();			
-			List<GoodsVO> list = goodsService.WishList(member_id); 
+			List<GoodsVO> list = wishService.WishList(member_id); 
 			list = list.stream().sorted(Comparator.comparing(GoodsVO::getGoods_rate_avg).reversed()).collect(Collectors.toList());
 			mav.addObject("goodsList",list);
 			mav.addObject("listmenu","list4");
@@ -433,13 +438,13 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		wish.put("goods_id",goods_id);
 		wish.put("member_id", member_id);
 		
-		boolean exist = goodsService.existwish(wish);
+		boolean exist = wishService.existwish(wish);
 	
 		if(exist==true) {
 			return "isAlreadyExisted";
 		}
 		else {
-		goodsService.addWishList(wish);
+			wishService.addWishList(wish);
 		return "null";
 		}
 		/*
@@ -466,7 +471,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		Map wish = new HashMap();
 		wish.put("goods_id", goods_id);
 		wish.put("member_id", member_id);
-		boolean result = goodsService.deleteWishList(wish);
+		boolean result = wishService.deleteWishList(wish);
 
 		mav.setViewName("redirect:/goods/WishList.do");
 		return mav;
@@ -480,7 +485,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		HttpSession session = request.getSession();
 		memberVO = (MemberVO) session.getAttribute("memberInfo");
 		String member_id = memberVO.getMember_id();
-		boolean result = goodsService.deleteWishListAll(member_id);
+		boolean result = wishService.deleteWishListAll(member_id);
 		mav.setViewName("redirect:/goods/WishList.do");
 		return mav;
 		
@@ -522,7 +527,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		wish.put("member_id",member_id);
 		wish.put("idlist",idlist);
 		System.out.println(wish);
-		goodsService.deletecheckedwish(wish);
+		wishService.deletecheckedwish(wish);
 		String result="삭제완료!";
 		return result;
 		

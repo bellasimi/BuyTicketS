@@ -169,7 +169,7 @@ $(document).ready(function(){
 
 // 전체 평균 평점 별 
 	var avgstar = $('#avgstar').val(); 
-	console.log("평균: " + avgstar+" id: "+goods_id);
+	//console.log("평균: " + avgstar+" id: "+goods_id);
 	var avgcheck =document.getElementById("avgrate");
 	
 	if(avgcheck != null){
@@ -195,7 +195,7 @@ $(document).ready(function(){
 	else{
 		astarclass =["fa fa-star star-inactive mx-1","fa fa-star star-inactive mx-1","fa fa-star star-inactive mx-1", "fa fa-star star-inactive mx-1","fa fa-star star-inactive mx-1"];
 	}
-	console.log(astarclass);
+	//console.log(astarclass);
 	$('#astar1').attr("class",astarclass[0]);
 	$('#astar2').attr("class",astarclass[1]);
 	$('#astar3').attr("class",astarclass[2]);
@@ -233,11 +233,11 @@ $(document).ready(function(){
 	ratearr= [{name:0,value:rate1},{name:1,value:rate2},{name:2,value:rate3},{name:3,value:rate4},{name:4,value:rate5}];
 	//ratearr= [{name:1,value:rate1},{name:2,value:rate2},{name:3,value:rate3},{name:4,value:rate4},{name:5,value:rate5}];
 	ratearr2=[rate1,rate2,rate3,rate4,rate5];
-	console.log("rate1 : "+rate1);
-	console.log("rate2 : "+rate2);	
-	//console.log(rate1+" , "+rate2+" , "+rate3+" , "+rate4+" , "+rate5+" bar: "+barclass);
+	//console.log("rate1 : "+rate1);
+	//console.log("rate2 : "+rate2);	
+	////console.log(rate1+" , "+rate2+" , "+rate3+" , "+rate4+" , "+rate5+" bar: "+barclass);
 	var set = new Set(ratearr); // 중복되는거 찾는 함수
-	console.log("set: "+set.size);//중복되는 것들을 삭제하고 남은 개수
+	//console.log("set: "+set.size);//중복되는 것들을 삭제하고 남은 개수
 	//전부 중복일 때	
 	if(set.size ==1){ 
 			
@@ -260,7 +260,7 @@ $(document).ready(function(){
 			order = ratearr.sort(function(a,b){
 				return b.value - a.value;
 			}); //VALUE 내림차순
-			console.log("순서 : "+order);
+			//console.log("순서 : "+order);
 			var order1=order[0].name;// 제일 큰값을 가진 rate이름 1,2,3,4
 			var order2=order[1].name;
 			var order3=order[2].name;
@@ -270,8 +270,8 @@ $(document).ready(function(){
 			var same= []; //중복값 행번호
 			var min = Math.min(rate1,rate2,rate3,rate4,rate5);
 			var max = Math.max(rate1,rate2,rate3,rate4,rate5);
-			console.log("최소 : "+min);
-			console.log("최대 : "+max);
+			//console.log("최소 : "+min);
+			//console.log("최대 : "+max);
 
 		
 			for(var i=0;i< order.length;i++){
@@ -280,7 +280,7 @@ $(document).ready(function(){
 				}
 			}
 		
-			console.log("0명 평점: "+zero);
+			//console.log("0명 평점: "+zero);
 		//0이 없는 경우 
 			if(zero==null){ 
 			barclass[order1]="bar-5";// 제일큰값이 들어가는 인덱스, 0행 부터 시작
@@ -349,14 +349,14 @@ $(document).ready(function(){
 					barclass[zero[j]]="bar-1";
 				}
 			}//0이 있는 경우
-			console.log("중복행 : "+same);
-			console.log("순서 : "+order);
-			console.log("순서인덱스 : "+order1);
-			console.log("순서인덱스 : "+order2);
-			console.log("순서인덱스 : "+order3);
-			console.log("순서인덱스 : "+order4);
-			console.log("순서인덱스 : "+order5);
-			console.log("barclass : "+barclass);
+			//console.log("중복행 : "+same);
+			//console.log("순서 : "+order);
+			//console.log("순서인덱스 : "+order1);
+			//console.log("순서인덱스 : "+order2);
+			//console.log("순서인덱스 : "+order3);
+			//console.log("순서인덱스 : "+order4);
+			//console.log("순서인덱스 : "+order5);
+			//console.log("barclass : "+barclass);
 
 		}//전부 중복은 아닐 때
 
@@ -373,7 +373,7 @@ $(document).ready(function(){
 		var goods_ticket_date=document.getElementById("goods_ticket_date").value;
 		var order_goods_qty =document.getElementById("order_goods_qty").value;//구매 수량
 		var isLogOn = document.getElementById("isLogOn").value;
-		console.log("로그인?"+isLogOn);
+		//console.log("로그인?"+isLogOn);
 		var layer = $('#layer').attr('name');
 		if(isLogOn == 'false'||isLogOn == ''){
 			alert("로그인 후 이용가능합니다.")
@@ -416,7 +416,7 @@ $(document).ready(function(){
 	
 			
 	function imagePopup(type,layer) {
-		console.log(type,layer)
+		//console.log(type,layer)
 		if (type == 'open') {
 			if(layer == 'layer'){
 				// 팝업창을 연다.
@@ -443,12 +443,12 @@ $(document).ready(function(){
 	}//function
 	
 	/* function imagePopup(type) {
-		console.log(type)
+		//console.log(type)
 	
 		
 	}//function */
 	function add_wish(goods_id){
-		console.log(goods_id)
+		//console.log(goods_id)
 		var isLogOn = document.getElementById("isLogOn").value;//id가 isLogOn인 input 태그의 value값을 가져와라!
 		//var layer = document.getElementById("layer").getAttribute("name");//id가 layer인 태그의 name값을 가져와라!
 		var layer = $('#layer2').attr('name');//id가 layer인 태그의 name값을 가져와라! 제이쿼리!!

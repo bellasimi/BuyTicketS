@@ -7,7 +7,6 @@ import org.springframework.dao.DataAccessException;
 
 import com.bts.goods.vo.GoodsVO;
 import com.bts.goods.vo.ImageFileVO;
-import com.bts.goods.vo.WishVO;
 import com.bts.order.vo.OrderVO;
 
 public interface GoodsDAO {
@@ -20,19 +19,7 @@ public interface GoodsDAO {
 	public List<ImageFileVO> selectGoodsDetailImage(String goods_id) throws DataAccessException;
 	public List<GoodsVO> selectGoodsBySearchWord(String searchWord) throws DataAccessException;
 	// ticket_goods에서 searchWord와 like한 goods_title을 가진 데이터들 select
-	public void insertWishList(Map wish) throws DataAccessException;//위시리스트에 추가
-	public List<GoodsVO> selectWishList(String member_id)throws DataAccessException;//위시리스트출력
-	public List<GoodsVO> wishlastsale(String member_id)throws DataAccessException;//판매종료임박순
-	public List<GoodsVO> wishcheap(String member_id)throws DataAccessException;//가격 오름차순
-	public List<GoodsVO> wishdiscount(String member_id)throws DataAccessException;//할인율순
-	//public List<GoodsVO> wishlastsale(String member_id)throws DataAccessException; //평점순
-	public void deleteWishList(Map wish)throws DataAccessException;
-	public void deleteWishListAll(String member_id) throws DataAccessException;
-	public boolean existwish(Map wish)throws DataAccessException;
-	public void deletecheckedwish(Map wish)throws DataAccessException;
-	public void addcheckwish(List<WishVO> checkwish)throws DataAccessException;
-	public boolean existcheckwish(List<WishVO> checkwish)throws DataAccessException;
-	public String showexist(List<WishVO> checkwish)throws DataAccessException;
+	
 	public List<OrderVO> selectreview(String goods_id)throws DataAccessException;
 	public boolean existreview(String goods_id)throws DataAccessException;
 	public void avgsrate(Map review) throws DataAccessException;
