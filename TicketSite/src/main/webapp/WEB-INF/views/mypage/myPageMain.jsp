@@ -153,11 +153,11 @@ body, html {
 
 	<div id="Point" class="tabcontent">
 		포인트 : <c:choose>
-		<c:when test="${member_point =! 'null'}">
-		${member_point}
+		<c:when test="${empty myOrderList}">
+		0
 		</c:when>
 		<c:otherwise>
-		0
+		${member_point}
 		</c:otherwise>
 		</c:choose>
 		<table border=0 width=100% cellpadding=10 cellspacing=10>
