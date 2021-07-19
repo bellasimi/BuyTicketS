@@ -739,7 +739,7 @@ function imagePopup(type) {
 		<br>
 		<br> 
 	<button type="button" class="buy_btn" name="total" onclick="javascript:imagePopup('open')">결제하기</button>
-    <button type="button" class="cart_btn" name="total" onclick="${contextPath}/main/main.do">쇼핑계속하기</button>
+    <button type="button" class="cart_btn" name="total" onclick="location.href='${contextPath}/main/main.do'">쇼핑계속하기</button>
 
 	</div>
 	

@@ -169,7 +169,7 @@ function init_pay_method(){
 	<div align="center">
 		<br>
 		<br> 
-		    <button type="button" class="cart_btn" name="total" onclick="${contextPath}/main/main.do">쇼핑계속하기</button>
+		    <button type="button" class="cart_btn" name="total" onclick="location.href='${contextPath}/main/main.do'">쇼핑계속하기</button>
 		</div>
 <DIV class="clear"></DIV>		
 	
