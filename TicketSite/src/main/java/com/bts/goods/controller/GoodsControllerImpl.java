@@ -198,7 +198,23 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 				mav.addObject("existreview", existreview);			
 				//해당 상품리뷰
 				List<OrderVO> review = goodsService.selectreview(goods_id);
-				mav.addObject("reviewlist", review);
+				int star1 = (int) review.stream().filter(s->s.getReview_star().equals("1")).count();
+				int star2 = (int) review.stream().filter(s->s.getReview_star().equals("2")).count();
+				int star3 = (int) review.stream().filter(s->s.getReview_star().equals("3")).count();
+				int star4 = (int) review.stream().filter(s->s.getReview_star().equals("4")).count();
+				int star5 = (int) review.stream().filter(s->s.getReview_star().equals("5")).count();
+				System.out.println("1점준 사람: "+star1);
+				System.out.println("2점준 사람: "+star2);
+				System.out.println("3점준 사람: "+star3);
+				System.out.println("4점준 사람: "+star4);
+				System.out.println("5점준 사람: "+star5);
+
+				mav.addObject("star1", star1);//1점준 사람수
+				mav.addObject("star2", star2);
+				mav.addObject("star3", star3);
+				mav.addObject("star4", star4);
+				mav.addObject("star5", star5);
+				mav.addObject("reviewlist", review);//리뷰리스트
 				mav.addObject("count",review.size()); //리뷰한 총 사람수
 				
 			}	

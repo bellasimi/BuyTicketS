@@ -215,24 +215,26 @@ $(document).ready(function(){
 			}
 		}); //end ajax	
 // 막대기 class
-	var barclass= []; 
-	var ratearr= []; 
+	var barclass= []; //막대기 모양 class 배열
+	var ratearr= []; //json형식 name: 평점 value: 사람수
+	var ratearr2 =[]; // 그냥 평점 당 사람수 배열
+	var order =[]; // 순서비교 배열
 	var rate1 = $('#rate1').val();
 	var rate2 = $('#rate2').val();
 	var rate3 = $('#rate3').val();
 	var rate4 = $('#rate4').val();
 	var rate5 = $('#rate5').val();
-	ratearr= [rate1,rate2,rate3,rate4,rate5];
-	var order =[];
-	document.getElementById("bar1").innerHTML =rate1;
-	document.getElementById("bar2").innerHTML =rate2;
-	document.getElementById("bar3").innerHTML =rate3;
-	document.getElementById("bar4").innerHTML =rate4;
-	document.getElementById("bar5").innerHTML =rate5;
+	ratearr= [{name:0,value:rate1},{name:1,value:rate2},{name:2,value:rate3},{name:3,value:rate4},{name:4,value:rate5}];
+	//ratearr= [{name:1,value:rate1},{name:2,value:rate2},{name:3,value:rate3},{name:4,value:rate4},{name:5,value:rate5}];
+	ratearr2=[rate1,rate2,rate3,rate4,rate5];
+	console.log("rate1 : "+rate1);
+	console.log("rate2 : "+rate2);	
 	//console.log(rate1+" , "+rate2+" , "+rate3+" , "+rate4+" , "+rate5+" bar: "+barclass);
-	var set = new Set(ratearr);
+	var set = new Set(ratearr); // 중복되는거 찾는 함수
 	console.log("set: "+set.size);//중복되는 것들을 삭제하고 남은 개수
-		if(set.size ==1){
+	//전부 중복일 때	
+	if(set.size ==1){ 
+			
 			if(rate1>2){
 				barclass =["bar-2","bar-2","bar-2","bar-2","bar-2"];
 			}
@@ -246,44 +248,118 @@ $(document).ready(function(){
 				barclass =["bar-5","bar-5","bar-5","bar-5","bar-5"];
 			}
 		}
+	//전부 중복은 아닌 경우
 		else{
-			var min =Math.min(rate1,rate2,rate3,rate4,rate5);
-			var max = Math.max(rate1,rate2,rate3,rate4,rate5);
-			ratearr.indexOf(min);
-			console.log("최소 인덱스 : "+ratearr.indexOf(min));
-			order = ratearr.sort();
-			var order1=order[0].name;// 제일 작은값을 가진 rate의 인덱스 0이면 rate1, 1이면 rate2
+			
+			order = ratearr.sort(function(a,b){
+				return b.value - a.value;
+			}); //VALUE 내림차순
+			console.log("순서 : "+order);
+			var order1=order[0].name;// 제일 큰값을 가진 rate이름 1,2,3,4
 			var order2=order[1].name;
 			var order3=order[2].name;
 			var order4=order[3].name;
 			var order5=order[4].name;
+			var zero= []; //0값있는 행번호
+			var same= []; //중복값 행번호
+			var min = Math.min(rate1,rate2,rate3,rate4,rate5);
+			var max = Math.max(rate1,rate2,rate3,rate4,rate5);
+			console.log("최소 : "+min);
+			console.log("최대 : "+max);
+
+		
+			for(var i=0;i< order.length;i++){
+				if(order[i].value == 0){
+					zero.push(order[i].name);
+				}
+			}
+		
+			console.log("0명 평점: "+zero);
+		//0이 없는 경우 
+			if(zero==null){ 
+			barclass[order1]="bar-5";// 제일큰값이 들어가는 인덱스, 0행 부터 시작
+			barclass[order2]="bar-4";
+			barclass[order3]="bar-3";
+			barclass[order4]="bar-2";
+			barclass[order5]="bar-2";
+				//중복인 경우 값을 같게
+				var k;// 중복행을 담을 변수
+				for(var i=0;i< order.length;i++){
+					for(var j=0;j< order.length;j++){
+						if(i!=j && order[i].value == order[j].value){
+							 k=order[i].name;
+						} 
+					}//j
+					same.push(k);//중복이 있다면 same에 행번호 넣어라
+				}//i
+				same = same.filter(Boolean); //empty,null,undefined 전부 삭제
+				//중복행은 같은 막대로
+				for(var j=0;j<same.length;j++){
+					if(ratearr[same[j]]==max){
+						barclass[same[j]]="bar-5";
+					}else if(ratearr[same[j]]==min){
+						barclass[same[j]]="bar-2";
+					}else{
+						barclass[same[j]]="bar-3";
+					}
+				}
+				
+			}//0이 없는 경우
 			
-			console.log("최소, 최대 : "+min+", "+max);
+		//0이 있는 경우
+			else{
+				barclass[order1]="bar-5";
+				barclass[order2]="bar-4";
+				barclass[order3]="bar-3";
+				barclass[order4]="bar-2";
+				barclass[order5]="bar-2";
+				
+				//중복인 경우 값을 같게
+				var k;// 중복행을 담을 변수
+				for(var i=0;i< order.length;i++){
+					for(var j=0;j< order.length;j++){
+						if(i!=j && order[i].value == order[j].value){
+							 k=order[i].name;
+						} 
+					}//j
+					same.push(k);//중복이 있다면 same에 행번호 넣어라
+				}//i
+				//same = same.filter(Boolean); //empty,null,undefined,0값까지 전부 삭제
+				same = same.filter(function(e){
+					return e != null;
+				} ); //null값 삭제
+				//중복행은 같은 막대로
+				for(var j=0;j<same.length;j++){
+					if(ratearr[same[j]]==max){
+						barclass[same[j]]="bar-5";
+					}else if(ratearr[same[j]]==min){
+						barclass[same[j]]="bar-2";
+					}else{
+						barclass[same[j]]="bar-3";
+					}
+				}
+				//0인행은 0으로
+				for(var j=0;j<zero.length;j++){
+					barclass[zero[j]]="bar-1";
+				}
+			}//0이 있는 경우
+			console.log("중복행 : "+same);
 			console.log("순서 : "+order);
 			console.log("순서인덱스 : "+order1);
 			console.log("순서인덱스 : "+order2);
 			console.log("순서인덱스 : "+order3);
 			console.log("순서인덱스 : "+order4);
 			console.log("순서인덱스 : "+order5);
-			if(rate1>rate2 &&rate1>rate3 &&rate1>rate4 &&rate1>rate5
-				&&rate1>rate2>rate3>rate4>rate5){
+			console.log("barclass : "+barclass);
 
-				barclass =["bar-5","bar-4","bar-3","bar-2","bar-1"];
-			}
-			else if(rate5>rate4>rate3>rate2>rate1){
-				barclass =["bar-1","bar-2","bar-3","bar-4","bar-5"];
-			}
-			else{
-				barclass =["bar-2","bar-2","bar-2","bar-2","bar-2"];
-			}
-	
-	$('#barsize1').attr("class",barclass[0]);
+		}//전부 중복은 아닐 때
+
+	$('#barsize1').attr("class",barclass[0]);//1점 평점
 	$('#barsize2').attr("class",barclass[1]);
 	$('#barsize3').attr("class",barclass[2]);
 	$('#barsize4').attr("class",barclass[3]);
 	$('#barsize5').attr("class",barclass[4]);
 	
-		}
 }); // 자동실행 함수들
 
 
@@ -687,7 +763,7 @@ function openPage(pageName, elmnt, color) {
 	<div id="이름2" class="tabcontent">
 	
 	<div class="clear"></div>	
-				<p><div class="title">주최: ${goods.goods_publisher}</div>
+				
 				 <p><div class="cont">${fn:replace(goods.goods_terms,crcn,br)}</div>
 			
 	</div>
@@ -749,7 +825,7 @@ function openPage(pageName, elmnt, color) {
                                             <div id="barsize5" class=""></div>
                                         </div>
                                     </td>
-                                    <td class="text-right" id="bar5"></td>
+                                    <td class="text-right" id="bar5">${star5}</td>
                                 </tr>
                                 <tr>
                                     <td class="rating-label">4점</td>
@@ -758,7 +834,7 @@ function openPage(pageName, elmnt, color) {
                                             <div id="barsize4" class=""></div>
                                         </div>
                                     </td>
-                                    <td class="text-right"  id="bar4"></td>
+                                    <td class="text-right"  id="bar4">${star4}</td>
                                 </tr>
                                 <tr>
                                     <td class="rating-label">3점</td>
@@ -767,7 +843,7 @@ function openPage(pageName, elmnt, color) {
                                             <div id="barsize3" class=""></div>
                                         </div>
                                     </td>
-                                    <td class="text-right"  id="bar3"></td>
+                                    <td class="text-right"  id="bar3">${star3}</td>
                                 </tr>
                                 <tr>
                                     <td class="rating-label">2점</td>
@@ -776,7 +852,7 @@ function openPage(pageName, elmnt, color) {
                                             <div  id="barsize2"class=""></div>
                                         </div>
                                     </td>
-                                    <td class="text-right"  id="bar2"></td>
+                                    <td class="text-right"  id="bar2">${star2}</td>
                                 </tr>
                                 <tr>
                                     <td class="rating-label">1점</td>
@@ -785,7 +861,7 @@ function openPage(pageName, elmnt, color) {
                                             <div id="barsize1" class=""></div>
                                         </div>
                                     </td>
-                                    <td class="text-right"  id="bar1"></td>
+                                    <td class="text-right"  id="bar1">${star1}</td>
                                 </tr>
                             </table>
                         </div>
@@ -811,7 +887,7 @@ function openPage(pageName, elmnt, color) {
                             	<span id="star3" class="fa fa-star star-inactive"></span> 
                             	<span id="star4" class="fa fa-star star-inactive"></span> 
                             	<span id="star5" class="fa fa-star star-inactive"></span>
-                            	<c:set var="rate1" value="${rate1+1}"/>
+                            	
        						</c:if>
        						<c:if test="${review_star eq 2 }">
        							<span id="star1" class="fa fa-star star-active ml-3"></span> 
@@ -819,7 +895,7 @@ function openPage(pageName, elmnt, color) {
                             	<span id="star3" class="fa fa-star star-inactive"></span> 
                             	<span id="star4" class="fa fa-star star-inactive"></span> 
                             	<span id="star5" class="fa fa-star star-inactive"></span>
-                            	<c:set var="rate2" value="${rate2+1}"/>
+                            	
        						</c:if>
        						<c:if test="${review_star eq 3 }">
        							<span id="star1" class="fa fa-star star-active ml-3"></span> 
@@ -827,7 +903,7 @@ function openPage(pageName, elmnt, color) {
                             	<span id="star3" class="fa fa-star star-active"></span> 
                             	<span id="star4" class="fa fa-star star-inactive"></span> 
                             	<span id="star5" class="fa fa-star star-inactive"></span>
-                            	<c:set var="rate3" value="${rate3+1}"/>
+                            	
        						</c:if>
        						<c:if test="${review_star eq 4 }">
        							<span id="star1" class="fa fa-star star-active ml-3"></span> 
@@ -835,7 +911,7 @@ function openPage(pageName, elmnt, color) {
                             	<span id="star3" class="fa fa-star star-active"></span> 
                             	<span id="star4" class="fa fa-star star-active"></span> 
                             	<span id="star5" class="fa fa-star star-inactive"></span>
-                            	<c:set var="rate4" value="${rate4+1}"/>
+                            	
        						</c:if>
        						<c:if test="${review_star eq 5 }">
        							<span id="star1" class="fa fa-star star-active ml-3"></span> 
@@ -843,7 +919,7 @@ function openPage(pageName, elmnt, color) {
                             	<span id="star3" class="fa fa-star star-active"></span> 
                             	<span id="star4" class="fa fa-star star-active"></span> 
                             	<span id="star5" class="fa fa-star star-active"></span>
-                            	<c:set var="rate5" value="${rate5+1}"/>
+                            	
        						</c:if>
        						<span class="text-muted">&emsp;${r.review_star}점</span> 
                             </p>
@@ -871,13 +947,13 @@ function openPage(pageName, elmnt, color) {
           		<c:set var ="review_avg" value="${review_avg+review_star}"/> 
             </div>
   <!-- 반복문 끝! --></c:forEach>
-  				<fmt:formatNumber value="${review_avg/count}" var="avgstar" pattern="#,##0"/>
+  				<fmt:parseNumber value="${review_avg/count}" var="avgstar" integerOnly="true"/>
   				<input type="hidden" id="avgstar" value="${avgstar}"/>
-  				<input type="hidden" id="rate1" value="${rate1}"/>
-  				<input type="hidden" id="rate2" value="${rate2}"/>
-  				<input type="hidden" id="rate3" value="${rate3}"/>
-  				<input type="hidden" id="rate4" value="${rate4}"/>
-  				<input type="hidden" id="rate5" value="${rate5}"/>
+  				<input type="hidden" id="rate1" value="${star1}"/>
+  				<input type="hidden" id="rate2" value="${star2}"/>
+  				<input type="hidden" id="rate3" value="${star3}"/>
+  				<input type="hidden" id="rate4" value="${star4}"/>
+  				<input type="hidden" id="rate5" value="${star5}"/>
         <!-- 개인리뷰 card 끝 -->
         		</div><!--col-xl-7 --> 
     		</div><!-- row justify-content-center -->
