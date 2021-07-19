@@ -152,21 +152,39 @@ body, html {
 	</div>
 
 	<div id="Point" class="tabcontent">
-		포인트 : member_point
+		포인트 : <c:choose>
+		<c:when test="${member_point =! 'null'}">
+		${member_point}
+		</c:when>
+		<c:otherwise>
+		0
+		</c:otherwise>
+		</c:choose>
 		<table border=0 width=100% cellpadding=10 cellspacing=10>
 			<tr>
-				<td><strong>사용일자</strong></td>
-				<td><strong>사용내역</strong></td>
-				<td><strong>증감액</strong></td>
-				<td><strong>잔여액</strong></td>
+				<td><strong>주문번호</strong></td>
+				<td><strong>변경날짜</strong></td>
+				<td><strong>증가포인트</strong></td>
+				<td><strong>사용포인트</strong></td>
 			</tr>
-
-			<tr>
-				<td>pay_order_time</td>
-				<td>goods_title</td>
-				<td>point_used</td>
-				<td>member_point</td>
-			</tr>
+		<c:choose>
+			<c:when test="${ empty myOrderList  }">
+					<tr>
+						<td colspan=4 class="fixed"><strong>포인트 내역이 없습니다.</strong></td>
+					</tr>
+			</c:when>
+			
+			<c:otherwise>
+				<c:forEach var="item" items="${myOrderList }" varStatus="i">
+					<tr>
+						<td><a href="${contextPath}/mypage/myOrderDetail.do?order_id=${item.order_id }"><span>${item.order_id }</span></a></td>
+						<td><span>${item.pay_order_time }</span></td>
+						<td>${item.goods_point }</td>
+						<td>${item.point_used}</td>
+					</tr>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
 		</table>
 	</div>
 

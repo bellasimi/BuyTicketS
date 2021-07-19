@@ -165,7 +165,6 @@ function fn_cancel_order(order_id){
 	 <c:otherwise> 
      <c:forEach var="item" items="${myOrderHistList }" varStatus="i">
         <c:choose>
-          <c:when test="${item.order_id != pre_order_id }">   
             <tr>       
 				<td>
 				  <a href="${contextPath}/mypage/myOrderDetail.do?order_id=${item.order_id }"><strong>${item.order_id }</strong>  </a>
@@ -197,17 +196,17 @@ function fn_cancel_order(order_id){
 					    <c:when test="${item.review_state=='review_confirm' }">
 					       리뷰등록
 					    </c:when>
-					    <c:when test="${item.review_state=='review_unconfirm' }">
-					       리뷰미등록
-					    </c:when>
-				  </c:choose>
+					    <c:otherwise>
+					       <a href="${contextPath}/mypage/review.do?order_id=${item.order_id}&goods_title=${item.goods_title}&order_seq_num=${item.order_seq_num}">리뷰 미작성</a>
+					    </c:otherwise>
+				  	</c:choose>
 				  </strong>
 				</td>
 				<td>
 				 <strong>${item.orderer_name }</strong> 
 				</td>
 				<td>
-					<strong>${item.receiver_name }</strong>
+				 <strong>${item.receiver_name }</strong>
 				</td>
 				<td>
 			     <c:choose>
@@ -220,8 +219,6 @@ function fn_cancel_order(order_id){
 			  </c:choose>
 			    </td>
 			</tr>
-			<c:set  var="pre_order_id" value="${item.order_id }" />
-		   </c:when>	
 	  </c:choose>		
 	</c:forEach>
 	</c:otherwise>
