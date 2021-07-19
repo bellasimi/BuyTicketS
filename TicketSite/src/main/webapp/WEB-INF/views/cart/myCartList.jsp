@@ -593,8 +593,6 @@ function fn_order_all_cart_goods() {
 		<td>정가</td>
 		<td>판매가</td>
 		<td>수량</td>
-	<!-- 	<td>합계</td> -->
-	<!--  	<td>주문</td>-->
 	</tr>
 		<c:choose>
 	    <c:when test="${ empty myCartList }">
@@ -653,45 +651,22 @@ function fn_order_all_cart_goods() {
  			<input type="text" name="cart_goods_qty" id="cart_goods_qty" readonly size="1" value="${cart_goods_qty}" >
  			<input type="button" value=" + " class="plusminus" name="plus" onclick="javascript:plusone(${item.goods_id},${item.goods_price},${item.goods_sales_price},${idx.index});">
  		</td>
-				
-	<!-- <td>
-		<!-- 	<fmt:formatNumber  value="${item.goods_sales_price*cart_goods_qty}" var="priceXqty" pattern="#,###"/> 
-			<input type="text" name="priceXqty" size=5 value="${priceXqty}" readonly style="border:0px none;background-color:transparent;"><br>
-		</td>	 -->		
-		<!--<td> 각각구매 
-			 <a href="javascript:fn_order_each_goods('${item.goods_id}','${item.goods_title}','${item.goods_sales_price}','${item.goods_fileName}','${item.goods_point}','${goods_ticket_date }','${idx.index}');">
-			<img width="75" alt=""  src="${contextPath}/resources/image/btn_order.jpg">
-			</a><br>
-			<a href="#"> 
-			 <img width="75" alt=""
-					src="${contextPath}/resources/image/btn_add_list.jpg">
-			</a><br> 
-				<a href="javascript:delete_cart_goods('${cart_id}');"> 
-			   <img width="75" alt=""
-					   src="${contextPath}/resources/image/btn_delete.jpg">
-			 </a>
-		</td>-->
 	</tr>
 	<tr>
-	<td></td>
-	<td colspan="2" align="left">
-		 
-			<button type="button" class="buy_btn" onclick="javascript:fn_order_each_goods('${item.goods_id}','${item.goods_title}','${item.goods_sales_price}','${item.goods_fileName}','${item.goods_point}','${goods_ticket_date }','${idx.index}');">주문하기</button>
+		<td></td>
+		<td colspan="2" align="left">
+		   	 <button type="button" class="buy_btn" onclick="javascript:fn_order_each_goods('${item.goods_id}','${item.goods_title}','${item.goods_sales_price}','${item.goods_fileName}','${item.goods_point}','${goods_ticket_date }','${idx.index}');">주문하기</button>
 			 <button type="button" class="cart_btn" onclick="">위시리스트</button>
 			 <button type="button" class="cart_btn" onclick="javascript:delete_cart_goods('${cart_id}');">삭제</button>
-			
-		
 		</td>
 		<td colspan="4" align="right">
-			합계 : <input type="text" name="priceXqty" size=5 value="${priceXqty}" readonly style="border:0px none;background-color:transparent;"><br>
+			합계 : <input type="text" name="priceXqty" size=5 value="${item.goods_sales_price*cart_goods_qty}" readonly style="border:0px none;background-color:transparent;"><br>
 		</td>
-	
 	</tr>
-		
-				<c:set var="totalGoodsPrice" value="${totalGoodsPrice+item.goods_price*cart_goods_qty }" />
-				<c:set var="totalGoodsNum" value="${totalGoodsNum+1}" />
-				<c:set var="totalSalesPrice" value="${totalSalesPrice+item.goods_sales_price*cart_goods_qty}" />
-				<c:set var="totalDiscount" value="${totalDiscount+discount_price*cart_goods_qty}" />
+	<c:set var="totalGoodsPrice" value="${totalGoodsPrice+item.goods_price*cart_goods_qty }" />
+	<c:set var="totalGoodsNum" value="${totalGoodsNum+1}" />
+	<c:set var="totalSalesPrice" value="${totalSalesPrice+item.goods_sales_price*cart_goods_qty}" />
+	<c:set var="totalDiscount" value="${totalDiscount+discount_price*cart_goods_qty}" />
 </c:forEach>
  </c:otherwise>
 	</c:choose> 
@@ -704,71 +679,30 @@ function fn_order_all_cart_goods() {
 	<br>
 	<br>
 	<br>
-	<!-- 
-<table class="total_view">
-	<tbody>
-		<tr><td colspan="2">총계</td></tr>
-		<tr>
-			<td>총 상품수 : </td>
-			 <td align="right">
-         <p id="checkedGoods">${totalGoodsNum}</p>
-         	</td>
-         </tr>
-         <tr>
-         	 <td>총 상품금액</td>
-          	<td align="right">
-               	<fmt:formatNumber  value="${totalGoodsPrice}" type="number" var="fmttotal_goods_price" pattern="#,###"/>
-            <input id="h_totalGoodsPrice" type="hidden" value="${totalGoodsPrice}" />  
-               <p id="p_totalGoodsPrice">${fmttotal_goods_price}원</p> 
-          	</td>
-         <tr>
-         	<td>총 할인 금액 </td>
-         	<td align="right">  
-            <p id="p_totalDiscount"> 
-            <fmt:formatNumber value="${totalDiscount}" var="tDiscountPrice" pattern="#,###"/>
-                     ${tDiscountPrice}원
-            </p>
-            <input id="h_totalDiscount"type="hidden" value="${totalDiscount}" />
-          </td>
-         </tr>
-         <tr>
-         	<td>최종 결제금액</td>
-         	<td align="right">
-             <p id="p_totalSalesPrice">
-             <fmt:formatNumber  value="${totalGoodsPrice-totalDiscount}" type="number" var="total_price" pattern="#,###"/>
-               ${total_price}원
-             </p>
-             <input id="h_totalSalesPrice" type="hidden" value="${totalGoodsPrice-totalDiscount}" />
-          </td>
-         </tr>
-	</tbody>
-</table> -->	
+
 <div class="clear"></div>
 	<br>
-   <table  width=80%   class="list_view" style="background:#E6F2FF">
+<table  width=80%   class="list_view" style="background:#E6F2FF">
    <tbody>
-        <tr align=center  class="fixed">
-          <td class="fixed">총 상품수 </td>
-          <td>총 상품금액</td>
-          <td>  </td>
-          <td>총 할인 금액 </td>
-          <td>  </td>
-          <td>최종 결제금액</td>
-        </tr>
-      <tr cellpadding=40  align=center >
+   <tr align=center  class="fixed">
+   		<td class="fixed">총 상품수 </td>
+        <td>총 상품금액</td>
+        <td>  </td>
+        <td>총 할인 금액 </td>
+        <td>  </td>
+        <td>최종 결제금액</td>
+    </tr>
+    <tr cellpadding=40  align=center >
          <td>
          <p id="checkedGoods">${totalGoodsNum}</p>
          </td>
-   
-          <td>
-               	<fmt:formatNumber  value="${totalGoodsPrice}" type="number" var="fmttotal_goods_price" pattern="#,###"/>
+         <td>
+           	<fmt:formatNumber  value="${totalGoodsPrice}" type="number" var="fmttotal_goods_price" pattern="#,###"/>
             <input id="h_totalGoodsPrice" type="hidden" value="${totalGoodsPrice}" />  
-               <p id="p_totalGoodsPrice">${fmttotal_goods_price}원</p> <!-- 이거 숨기고 밑에거가 나오게 하는 방법도있다  -->
+            <p id="p_totalGoodsPrice">${fmttotal_goods_price}원</p> <!-- 이거 숨기고 밑에거가 나오게 하는 방법도있다  -->
           </td>
-      
           <td> 
-           <font size="10px"><strong>-</strong></font>
-            <!-- <img width="25" alt="" src="${contextPath}/resources/image/minus.jpg">  -->
+    	       <font size="10px"><strong>-</strong></font>
           </td>
 <!--총 할인금액 -->  
           <td>  
@@ -779,32 +713,27 @@ function fn_order_all_cart_goods() {
             <input id="h_totalDiscount"type="hidden" value="${totalDiscount}" />
           </td>
           <td>  
-          <font size="10px"><strong>=</strong></font>
-          <!--  <img width="25" alt="" src="${contextPath}/resources/image/equal.jpg"> --> 
+   	      	 <font size="10px"><strong>=</strong></font>
           </td>
-          <td>
-
-  		<!--총판매가- 총할인금액 -->
-            <font size="7px"><p id="p_totalSalesPrice">
-             <fmt:formatNumber  value="${totalGoodsPrice-totalDiscount}" type="number" var="total_price" pattern="#,###"/>
+          <td><!--총판매가- 총할인금액 -->
+	          <font size="7px"><p id="p_totalSalesPrice">
+              <fmt:formatNumber  value="${totalGoodsPrice-totalDiscount}" type="number" var="total_price" pattern="#,###"/>
                ${total_price}원
-
-             </p></font>
-             <input id="h_totalSalesPrice" type="hidden" value="${totalGoodsPrice-totalDiscount}" />
+              </p></font>
+              <input id="h_totalSalesPrice" type="hidden" value="${totalGoodsPrice-totalDiscount}" />
           </td>
       </tr>
       </tbody>
-   </table>
+</table>
+
    <div class="clear"></div>
-	
 	<br><br><br>
 	<br><br><br>
    <div align="center">
- 
     <button type="button" class="buy_btn" name="total" onclick="javascript:fn_order_all_cart_goods()">주문하기</button>
     <button type="button" class="cart_btn" name="total" onclick="javascript:history.back();">쇼핑계속하기</button>
    </div>   
-       
+   
   
 </form>   
 <input type="hidden" name="isLogOn" id="isLogOn" value="${isLogOn}"/>
