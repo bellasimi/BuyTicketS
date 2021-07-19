@@ -221,7 +221,7 @@ function fn_detail_search(){
 </script>
 </head>
 <body>
-	<H3>회원 조회</H3>
+	<H3>ԼƠƔЄ 회원 조회</H3>
 	<form name="frm_delivery_list" >	
 		<table style="cellpadding:10; cellspacing:10"  >
 			<tbody>
@@ -294,7 +294,7 @@ function fn_detail_search(){
 					</td>
 				</tr>
 				
-				<tr>
+				<tr style="background:#2196F3; color: white;">
 				  <td>
 					조회 기간:
 					<select name="beginYear" disabled>
@@ -423,7 +423,7 @@ function fn_detail_search(){
 ※ 상세정보를 확인하려면 <mem style="color:red"><strong>아이디</strong></mem>를 클릭하세요
 <table class="list_view">
 		<tbody align=center >
-			<tr align=center bgcolor="#ffcc00">
+			<tr style="background:#2196F3; color: white;">
 				<td class="fixed" >회원아이디</td>
 				<td class="fixed">회원이름</td>
 				<td>휴대폰번호</td>

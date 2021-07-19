@@ -4,7 +4,7 @@
  
 
 <body>
-	<h1>새제품 이미지 등록창</h1>
+	<h1>ԼƠƔЄ 새제품 이미지 등록창</h1>
 	<br>
 	<form action="${pageContext.request.contextPath}/admin/goods/addNewGoods.do" method="post"	enctype="multipart/form-data">
 	<table  cellspacing="0" cellpadding="0">

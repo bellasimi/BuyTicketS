@@ -254,7 +254,7 @@ function fn_detail_order(order_id){
 </script>
 </head>
 <body>
-	<H3>주문 조회</H3> <!-- name="frm_delivery_list" -->
+	<H3>ԼƠƔЄ 주문 조회</H3> <!-- name="frm_delivery_list" -->
 	<form  action="${contextPath }/admin/admin.do" method="post">	
 		<table   >
 			<tbody>
@@ -453,9 +453,10 @@ function fn_detail_order(order_id){
 	</div>
 	
 <div class="clear"></div>
+※ 상세정보를 확인하려면 <sang style="color:red"><strong>주문번호</strong></sang>를 클릭하세요
 <table class="list_view">
 		<tbody align=center >
-			<tr style="background:#33ff00" >
+			<tr style="background:#2196F3; color: white;" >
 				<td class="fixed" >주문번호</td>
 				<td class="fixed">주문일자</td>
 				<td colspan="4">주문내역</td>
@@ -470,17 +471,17 @@ function fn_detail_order(order_id){
 		     </tr>
 	 </c:when>
 	 <c:otherwise>
-     <c:forEach var="item" items="${newOrderList}" varStatus="i">
+     <c:forEach var="item" items="${newOrderList}" varStatus="item_num">
         <c:choose>
           <c:when test="${item.order_id != pre_order_id }">
-
+				<tr>
 				 <td width=10%>
 				   <a href="javascript:fn_detail_order('${item.order_id}')">
 				     <strong>${item.order_id}</strong>
 				   </a>
 				</td>
 				<td width=20%>
-				 <strong>${item.pay_order_time }</strong> 
+				 <strong>${item.pay_order_time }</strong>
 				</td>
 				<td></td>
 				<td width=30% align=left >
@@ -498,7 +499,7 @@ function fn_detail_order(order_id){
 				       </c:if>
 				    </c:forEach> 
 				</td>
-
+			</tr>
 
 		</c:when>
 		</c:choose>	

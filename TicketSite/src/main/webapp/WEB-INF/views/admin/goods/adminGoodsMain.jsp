@@ -89,7 +89,7 @@ function  calcPeriod(search_period){
 </script>
 </head>
 <body>
-	<H3>상품 조회</H3>
+	<H3>ԼƠƔЄ 상품 조회</H3>
 	<form  method="post">	
 		<TABLE style="cellpadding:10; cellspacing:10"  >
 			<TBODY>
@@ -173,7 +173,7 @@ function  calcPeriod(search_period){
 					<input   type="button"  value="조회" disabled/>
 				  </td>
 				</tr>
-				<tr>
+				<tr style="background:#2196F3; color: white;" >
 				  <td>
 					조회한 기간:<input  type="text"  size="4" value="${beginYear}" />년
 							<input  type="text"  size="4" value="${beginMonth}"/>월	
@@ -193,7 +193,7 @@ function  calcPeriod(search_period){
 ※ 상세정보를 확인하려면 <sang style="color:red"><strong>상품명</strong></sang>을 클릭하세요
 <TABLE class="list_view">
 		<TBODY align=center >
-			<tr style="background:#33ff00;" >
+			<tr style="background:#2196F3; color: white;" >
 				<td>상품번호</td>
 				<td>분류</td>
 				<td>지역</td>

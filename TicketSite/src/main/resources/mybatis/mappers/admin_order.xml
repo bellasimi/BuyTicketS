@@ -17,7 +17,7 @@
 		<result column="receiver_hp1" property="receiver_hp1"/>
 		<result column="receiver_hp2" property="receiver_hp2"/>
 		<result column="receiver_hp3" property="receiver_hp3"/>
-		<result column="delivery_method" property="delivery_method"/>
+<!-- 		<result column="delivery_method" property="delivery_method"/> -->
 		<result column="gift_wrapping" property="gift_wrapping"/>
 		<result column="pay_method" property="pay_method"/>
 		<result column="card_com_name" property="card_com_name"/>
