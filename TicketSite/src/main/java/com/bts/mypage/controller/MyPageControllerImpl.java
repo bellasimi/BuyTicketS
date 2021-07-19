@@ -159,7 +159,6 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		dateMap.put("endDate", endDate);
 		dateMap.put("member_id", member_id);
 		List<OrderVO> myOrderHistList=myPageService.listMyOrderHistory(dateMap);
-		
 		String beginDate1[]=beginDate.split("-");
 		String endDate1[]=endDate.split("-");
 		mav.addObject("beginYear",beginDate1[0]);

@@ -151,7 +151,6 @@ function fn_cancel_order(order_id){
 				<td>주문금액/수량</td>
 				<td>리뷰등록</td>
 				<td>주문자</td>
-				<td>수령자</td>
 				<td>예매마감일</td>
 			</tr>
    <c:choose>
@@ -164,7 +163,7 @@ function fn_cancel_order(order_id){
 	 </c:when>
 	 <c:otherwise> 
      <c:forEach var="item" items="${myOrderHistList }" varStatus="i">
-        <c:choose>
+       <%--  <c:choose> --%>
             <tr>       
 				<td>
 				  <a href="${contextPath}/mypage/myOrderDetail.do?order_id=${item.order_id }"><strong>${item.order_id }</strong>  </a>
@@ -205,9 +204,7 @@ function fn_cancel_order(order_id){
 				<td>
 				 <strong>${item.orderer_name }</strong> 
 				</td>
-				<td>
-				 <strong>${item.receiver_name }</strong>
-				</td>
+				
 				<td>
 			     <c:choose>
 			   <c:when test="${item.review_state=='review_confirm'}">
@@ -219,10 +216,10 @@ function fn_cancel_order(order_id){
 			  </c:choose>
 			    </td>
 			</tr>
-	  </c:choose>		
+	<%--   </c:choose>		 --%>
 	</c:forEach>
 	</c:otherwise>
-  </c:choose>			   
+  </c:choose>	 	   
 		</tbody>
 	</table>
      	
