@@ -31,6 +31,10 @@
 		<result property="delivery_state" column="delivery_state" />
 		<result property="final_total_price" column="final_total_price" />
 		<result property="goods_qty" column="goods_qty" />
+		<result property="review_state" column="review_state" />
+		<result property="review_content" column="review_content" />
+		<result property="review_star" column="review_star" />
+		
 		
 		<result property="goods_fileName" column="goods_fileName" />
 	</resultMap> 

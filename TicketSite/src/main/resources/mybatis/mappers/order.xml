@@ -35,6 +35,10 @@
 		
 		<result property="order_total_price" column="order_total_price" />
 		<result property="point_used" column="point_used" />
+		<result property="review_state" column="review_state" />
+		<result property="review_content" column="review_content" />
+		<result property="review_star" column="review_star" />
+		
 
 
 	</resultMap>
