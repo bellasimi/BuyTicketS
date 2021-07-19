@@ -74,54 +74,56 @@ function init_pay_method(){
 				<td>주문금액합계</td>
 			</tr>
 			<tr>
-				<c:forEach var="item" items="${myOrderList}">
+			<c:forEach var="item" items="${myOrderList}">
 				<!--   <td> ${item.order_id }</td>-->   
 				<td class="goods_image">
 					  <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">
 					    <IMG width="75" alt=""  src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
 					  </a>
-					</td>
-					<td>
+				</td>
+				<td>
 					  <h2>
 					     <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">${item.goods_title }</a>
 					  </h2>
-					</td>
+				</td>
 					
-					<td>
+				<td>
 					${item.goods_ticket_date }
-					</td>
+				</td>
 				<!--  주문금액 -->
 					
-					<td>
+				<td>
 					<fmt:formatNumber var="goods_sales_price" value="${item.goods_sales_price}" pattern="#,###"/>
 					${goods_sales_price}원
-					</td>
-					<td><!-- 수량 -->
-					
-					  ${item.order_goods_qty}개
-					</td>		
+				</td>
+				<td><!-- 수량 -->
+				    ${item.order_goods_qty}개
+				</td>		
 				<!-- 적립금 합계-->
-					<td>
+				<td>
 					<fmt:formatNumber var="goodsPointXqty" value="${item.goods_point*item.order_goods_qty}" pattern="#,###"/>
-					<h2>${goodsPointXqty}원</h2></td>
-					<td>
+					<h2>${goodsPointXqty}원</h2>
+				</td>
+				<td>
 				<!--  주문금액 합계 -->
 				<fmt:formatNumber var="priceXqty" value="${item.order_goods_qty *item.goods_sales_price}" pattern="#,###"/>
 					  <h2>${priceXqty}원</h2>
-					</td>
-			</TR>
-			<c:set var="total_order_goods_qty" value="${total_order_goods_qty+item.order_goods_qty}"/>
-			<c:set var="total_goods_point" value="${total_goods_point+(item.goods_point*item.order_goods_qty)}"/>			
+				</td>
+			</tr>
+				<c:set var="total_order_goods_qty" value="${total_order_goods_qty+item.order_goods_qty}"/>
+				<c:set var="total_goods_point" value="${total_goods_point+(item.goods_point*item.order_goods_qty)}"/>			
 			</c:forEach>
 			<tr style="background: #E6F2FF; font-size:20px;">
-			<td colspan="4"></td>
-			<td>${total_order_goods_qty}개</td>
-			<td>
-			<fmt:formatNumber var="totalGoodsPoint" value="${total_goods_point}" pattern="#,###"/>
-			${totalGoodsPoint}</td>
-			<td>
-			<fmt:formatNumber var="orderTotalPrice" value="${myOrderInfo.order_total_price}" pattern="#,###"/>
-			총 주문금액:${orderTotalPrice} 원</td>
+				<td colspan="4"></td>
+				<td>${total_order_goods_qty}개</td>
+				<td>
+					<fmt:formatNumber var="totalGoodsPoint" value="${total_goods_point}" pattern="#,###"/>
+					${totalGoodsPoint}
+				</td>
+				<td>
+					<fmt:formatNumber var="orderTotalPrice" value="${myOrderInfo.order_total_price}" pattern="#,###"/>
+					총 주문금액:${orderTotalPrice} 원
+				</td>
 			</tr> 
 		</TBODY>
 	</TABLE>
@@ -142,47 +144,26 @@ function init_pay_method(){
 			<dd>결제카드 : ${myOrderInfo.card_com_name}</dd>
 			<dd>결제카드번호 : ${myOrderInfo.card_number}</dd>
 		</dl>
-		<!-- <table>
-			<TBODY>
-				<TR class="dot_line">
-					<TD class="fixed_join">결제방법</TD>
-					<TD>
-					   ${myOrderInfo.pay_method }
-				    </TD>
-				</TR>
-				<TR class="dot_line">
-					<TD class="fixed_join">결제카드</TD>
-					<TD>
-					   ${myOrderInfo.card_com_name}
-				    </TD>
-				</TR>
-				<TR class="dot_line">
-					<TD class="fixed_join">카드번호</TD>
-					<TD>
-					   ${myOrderInfo.card_number}
-				    </TD>
-				</TR>
-			</TBODY>
-		</table> -->
+	
 	</DIV>
 	
 	
 	<div id="pay_phone" class="pay_info" style="visibility:hidden">
-		<ul>
-			<li>결제방법 : ${myOrderInfo.pay_method }</li>
-			<li>통신사 : ${myOrderInfo.pay_hp_com}</li>
-			<li>결제 전화번호 : ${myOrderInfo.pay_hp_num}</li>
-		</ul>
+		<dl>
+			<dd>결제방법 : ${myOrderInfo.pay_method }</dd>
+			<dd>통신사 : ${myOrderInfo.pay_hp_com}</dd>
+			<dd>결제 전화번호 : ${myOrderInfo.pay_hp_num}</dd>
+		</dl>
 	</div>
 	
 	<div id="pay_random_account" class="pay_info" style="visibility:hidden">
-		<ul>
-			<li>결제방법 : ${myOrderInfo.pay_method }</li>
-			<li>계좌번호 : ${myOrderInfo.random_account}</li>
-		</ul>
+		<dl>
+			<dd>결제방법 : ${myOrderInfo.pay_method }</dd>
+			<dd>계좌번호 : ${myOrderInfo.random_account}</dd>
+		</dl>
 	</div>
 	
-</form><!-- 이거 앞으로 가도 될것같은데  -->
+</form>
     <DIV class="clear"></DIV>
 	<br>
 	<div align="center">

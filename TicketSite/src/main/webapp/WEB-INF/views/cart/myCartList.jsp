@@ -428,7 +428,71 @@ $(document).ready(function(){
  
 }); */
 
+//위시리스트
+function add_wish(goods_id){
+	console.log(goods_id);
+	var isLogOn = document.getElementById("isLogOn").value;//id가 isLogOn인 input 태그의 value값을 가져와라!
+	//var layer = document.getElementById("layer").getAttribute("name");//id가 layer인 태그의 name값을 가져와라!
+	var layer = $('#layer2').attr('name');//id가 layer인 태그의 name값을 가져와라! 제이쿼리!!
+	if(isLogOn == 'false' || isLogOn ==''){
+		alert("로그인 후 이용가능합니다.")
+		location.href="${contextPath}/member/loginForm.do"
+	}else{
+	$.ajax({
+		type : "post",
+		async : false, //false인 경우 동기식으로 처리한다. 순서대로 처리
+		url : "${contextPath}/goods/addwish.do",
+		data : {
+			
+			goods_id:goods_id
 
+		},
+		success : function(data, textStatus) {
+		
+			if(data.trim()=='null'){
+				imagePopup('open', layer);	//.layer02은 null이다. 
+			}else if(data.trim()=='isAlreadyExisted'){
+				alert("이미 위시리스트에 등록된 상품입니다.");	
+			}
+			
+		},
+		error : function(data, textStatus) {
+			alert("작업 실패");
+		},
+		complete : function(data, textStatus) {
+			
+		}
+	}); //end ajax	 
+	}//else
+	
+} 
+
+function imagePopup(type,layer) {
+	console.log(type,layer)
+	if (type == 'open') {
+		if(layer == 'layer'){
+			// 팝업창을 연다.
+			$('#layer').attr('style', 'visibility:visible');
+			// 페이지를 가리기위한 레이어 영역의 높이를 페이지 전체의 높이와 같게 한다.
+			$('#layer').height(jQuery(document).height());
+		}
+		else if(layer == 'layer2'){
+			jQuery('#layer2').attr('style', 'visibility:visible');
+			// 페이지를 가리기위한 레이어 영역의 높이를 페이지 전체의 높이와 같게 한다.
+			jQuery('#layer2').height(jQuery(document).height());
+		}
+	}//type if
+
+	else if (type == 'close') {
+		if(layer == 'layer'){
+		// 팝업창을 닫는다.
+			jQuery('#layer').attr('style', 'visibility:hidden');
+		}
+		else if(layer== 'layer2'){
+			jQuery('#layer2').attr('style', 'visibility:hidden');
+		}
+	}//type elseif
+}//function
 
  
 function delete_cart_goods(cart_id) {
@@ -598,7 +662,7 @@ function fn_order_all_cart_goods() {
 	    <c:when test="${ empty myCartList }">
 	<tr>
 		<td colspan=8 class="fixed">
-			<strong>장바구니에 상품이 없습니다.</strong>
+			<font size="5"><strong>장바구니에 상품이 없습니다.</strong></font>
 		</td>
     </tr>
 	    </c:when>
@@ -656,7 +720,7 @@ function fn_order_all_cart_goods() {
 		<td></td>
 		<td colspan="2" align="left">
 		   	 <button type="button" class="buy_btn" onclick="javascript:fn_order_each_goods('${item.goods_id}','${item.goods_title}','${item.goods_sales_price}','${item.goods_fileName}','${item.goods_point}','${goods_ticket_date }','${idx.index}');">주문하기</button>
-			 <button type="button" class="cart_btn" onclick="">위시리스트</button>
+			 <button type="button" class="cart_btn" onclick="javascript:add_wish('${item.goods_id}')">위시리스트</button>
 			 <button type="button" class="cart_btn" onclick="javascript:delete_cart_goods('${cart_id}');">삭제</button>
 		</td>
 		<td colspan="4" align="right">
@@ -736,4 +800,18 @@ function fn_order_all_cart_goods() {
    
   
 </form>   
+
+<div id="layer2" style="visibility: hidden" name="layer2">
+		<div id="popup">
+			<a href="javascript:" onClick="javascript:imagePopup('close','layer2');">
+			<img
+				src="${contextPath}/resources/image/close.png" id="close" />
+			</a> <br /> <font size="12" id="contents" style="font-size:30pt; text-align: center;">위시리스트에<br> 담았습니다.</font><br><br>
+			<form   action='${contextPath}/goods/WishList.do'  >				
+				<input  type="submit" value="위시리스트 보기">
+			</form>			
+			
+		</div>
+	</div>
+
 <input type="hidden" name="isLogOn" id="isLogOn" value="${isLogOn}"/>

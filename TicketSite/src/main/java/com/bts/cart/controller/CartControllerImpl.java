@@ -34,7 +34,6 @@ public class CartControllerImpl extends BaseController implements CartController
 	@Autowired
 	private MemberVO memberVO;
 	
-	//다른 애들은 mapping이랑 컨트롤러 함수명이랑 일치함 일치시켜서 돌아가나 확인할것 
 	
 	@RequestMapping(value="/myCartList.do" ,method = RequestMethod.GET)
 	public ModelAndView myCartMain(HttpServletRequest request, HttpServletResponse response)  throws Exception {
@@ -51,21 +50,16 @@ public class CartControllerImpl extends BaseController implements CartController
 		Map<String ,List> cartMap=cartService.myCartList(cartVO);
 		//여기서 cartlist랑 goodslist랑 같이 넘어옴 
 		session.setAttribute("cartMap", cartMap); 
-		////////////////세션 자리에 cartMap 설정해줌   -> 왜 객체로 안넘기는지 밑의 방식과 차이가 뭔지 
-		//mav.addObject("cartMap", cartMap);
 		return mav;
 	}
 	
-	//goodsdetail에서 장바구니 버튼 누르면 이어지는거 하나의상품을 장바구니에 추가
-	//ajax 로 goods_id랑 goods_ticket_date 넘어옴 
-	//sql 의 DATE 를 가져왔는데 이게 나중에 혹시 오류나나 확인할것 
+
 	@Override
 	@RequestMapping(value="/addGoodsInCart.do" ,method = RequestMethod.POST,produces = "application/text; charset=utf8")
 	public  @ResponseBody String addGoodsInCart(@RequestParam("goods_id") int goods_id, 
 								@RequestParam("goods_ticket_date") Date goods_ticket_date,
 								@RequestParam("cart_goods_qty") int cart_goods_qty,
 			                    HttpServletRequest request, HttpServletResponse response)  throws Exception{
-		//수량 배열로 받지않아도 되겠지 하나씩 저장되니까??????
 		System.out.println("카트컨트롤러 접근");
 		System.out.println(goods_ticket_date);
 		HttpSession session=request.getSession();
