@@ -39,7 +39,10 @@ public class OrderVO implements Serializable{
 	//이 밑에 있는 것들이 주문 한번당 생성되는 값들... 
 	private int point_used; //차감된 포인트 
 	private int order_total_price;// 총 주문금액  
-	
+	//리뷰관련
+		private String review_state;
+		private String review_content;
+		private String review_star;
 	
 //여기까지가 db에 입력되는 값 
 		
@@ -249,6 +252,30 @@ public class OrderVO implements Serializable{
 
 	public void setPay_hp_com(String pay_hp_com) {
 		this.pay_hp_com = pay_hp_com;
+	}
+
+	public String getReview_state() {
+		return review_state;
+	}
+
+	public void setReview_state(String review_state) {
+		this.review_state = review_state;
+	}
+
+	public String getReview_content() {
+		return review_content;
+	}
+
+	public void setReview_content(String review_content) {
+		this.review_content = review_content;
+	}
+
+	public String getReview_star() {
+		return review_star;
+	}
+
+	public void setReview_star(String review_star) {
+		this.review_star = review_star;
 	}
 	
 	
