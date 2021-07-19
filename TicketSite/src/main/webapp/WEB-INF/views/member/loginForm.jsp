@@ -186,6 +186,7 @@ footer{
 .other{
 	padding-left: 185px;
 }
+
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <c:if test='${not empty message}'>
