@@ -14,7 +14,6 @@
 <meta name="viewport" content="width=device-width">
 <link href="${contextPath}/resources/css/main.css" rel="stylesheet" type="text/css" media="screen">
 <link href="${contextPath}/resources/css/basic-jquery-slider.css" rel="stylesheet" type="text/css" media="screen">
-<link href="${contextPath}/resources/css/mobile.css" rel="stylesheet" type="text/css">
 <script src="${contextPath}/resources/jquery/jquery-1.6.2.min.js" type="text/javascript"></script>
 <script src="${contextPath}/resources/jquery/jquery.easing.1.3.js" type="text/javascript"></script>
 <script src="${contextPath}/resources/jquery/stickysidebar.jquery.js" type="text/javascript"></script>
