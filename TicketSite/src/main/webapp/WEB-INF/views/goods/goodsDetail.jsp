@@ -663,7 +663,7 @@ function openPage(pageName, elmnt, color) {
 	</div>
 	
 
-	<div id="detail_table">
+	<div id="detail_table" style="margin: 10 0 0 0;">
 		<table>
 		<!-- 할인율 -->
 				<c:set var="discount" value="10"/>
