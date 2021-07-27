@@ -1,40 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<c:if test="${message=='cancel_order'}">
-	<script>
-		window.onload = function() {
-			init();
-		}
-
-		function init() {
-			alert("주문을 취소했습니다.");
-		}
-	</script>
-</c:if>
-<script>
-	function fn_cancel_order(order_id) {
-		var answer = confirm("주문을 취소하시겠습니까?");
-		if (answer == true) {
-			var formObj = document.createElement("form");
-			var i_order_id = document.createElement("input");
-
-			i_order_id.name = "order_id";
-			i_order_id.value = order_id;
-
-			formObj.appendChild(i_order_id);
-			document.body.appendChild(formObj);
-			formObj.method = "post";
-			formObj.action = "${contextPath}/mypage/cancelMyOrder.do";
-			formObj.submit();
-		}
-	}
-</script>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -52,7 +24,7 @@ body, html {
 /* Style tab links */
 .tablink {
 	background-color: #2196F3;
-	color: black;
+	color: white;
 	float: left;
 	border: none;
 	outline: none;
@@ -63,52 +35,62 @@ body, html {
 }
 
 .tablink:hover {
+	color: black;
 	background-color: white;
-	color:black;
 }
 
 /* Style the tab content (and add height:100% for full page content) */
 .tabcontent {
 	color: black;
+	background-color:white;
 	display: none;
 	padding: 100px 20px;
 	height: 100%;
 }
+  
+.another{
+	color : white;
+	background-color: #2196F3;
+}
+
+.tex{
+	text-align : center;
+}
 
 #OrderList {
-	background-color: #cccccc;
+	background-color: #E6F2FF;
 }
 
 #Point {
-	background-color: #cccccc;
+	background-color: #E6F2FF;
 }
 
 #MyInform {
-	background-color: #cccccc;
+	background-color: #E6F2FF;
 }
 
 #WishList {
-	background-color: #cccccc;
+	background-color: #E6F2FF;
 }
 </style>
 </head>
 <body>
 
-	<button class="tablink" onclick="openPage('OrderList', this, 'white')"
+	<button class="tablink" onclick="openPage('OrderList', this, '#2196F3')"
 		id="defaultOpen">주문내역</button>
-	<button class="tablink" onclick="openPage('Point', this, 'white')">포인트</button>
-	<button class="tablink" onclick="openPage('MyInform', this, 'white')">내정보</button>
-	<button class="tablink" onclick="openPage('WishList', this, 'white')">위시리스트</button>
+	<button class="tablink" onclick="openPage('Point', this, '#2196F3')">포인트</button>
+	<button class="tablink" onclick="openPage('MyInform', this, '#2196F3')">내정보</button>
+	<button class="tablink" onclick="openPage('WishList', this, '#2196F3')">위시리스트</button>
 
 	<div id="OrderList" class="tabcontent">
 		<h1>
-			최근주문내역 <A href="listMyOrderHistory.do"> <IMG
-				src="${contextPath}/resources/image/btn_more_see.jpg">
+			최근주문내역 <A href="listMyOrderHistory.do"> 
+			<IMG src="${contextPath}/resources/image/btn_more_see.jpg">
 			</A>
 		</h1>
 		<table class="list_view">
 			<tbody align=center>
-				<tr style="background: gray">
+				<tr class="another">
 					<td>주문번호</td>
 					<td>주문일자</td>
 					<td>주문상품</td>
@@ -133,12 +115,14 @@ body, html {
 								<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">${item.goods_title }/${item.order_goods_qty }개</a><br>
 								</strong></td>
 								<c:choose>
-									<c:when test = "${! empty item.review_state}">
-										<td>리뷰 작성 완료</td>
+									<c:when test = "${item.review_state != 'review_confirm'}">
+										<td><a href="${contextPath}/mypage/review.do?order_id=${item.order_id}&goods_title=${item.goods_title}&order_seq_num=${item.order_seq_num}">리뷰 미작성</a></td>
 									</c:when>
 									
 									<c:otherwise>
-										<td><a href="${contextPath}/mypage/review.do?order_id=${item.order_id}&goods_title=${item.goods_title}&order_seq_num=${item.order_seq_num}">리뷰 미작성</a></td>
+									<td>
+									리뷰 작성 완료
+									</td>
 									</c:otherwise>
 								</c:choose>
 								<td>${item.goods_ticket_date }</td>
@@ -208,9 +192,66 @@ body, html {
 	</div>
 
 	<div id="WishList" class="tabcontent">
-	위시리스트 입니당!
-	</div>
+	<table id="list_view">
+	<tr style="background-color: #2196F3; color: white;"><td>&emsp;<input type="checkbox" id="checkall" ></td><td></td><td>&emsp;상품명</td><td>&emsp;원가</td><td>&emsp;&emsp;할인율</td><td>&emsp;할인가</td><td></td></td>
+		<tbody>
+		 <c:choose>
+		 <c:when test="${empty goodsList}">
+		 <tr><td class="tex" colspan=8>위시리스트에 등록된 상품이 없습니다.</td></tr>
+		 </c:when>
+		 <c:otherwise>
+		  <c:forEach var="item" items="${goodsList}"> 
+			<tr>
+					<td>&emsp;<input type="checkbox" id="checked_goods" name="checked_goods"  value="${item.goods_id}" ></td>
+					<td class="goods_image">
+						<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">
+							   <img width="75" alt="" src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"/>
+						</a>
+					</td>
+					<td class="goods_description">
+						<h2>
+							<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">${item.goods_title }</a>
+						</h2>
+						
+						<div class="writer_press" >
+						판매종료일: ${item.goods_lastsale_date} | 유효기간: ${item.goods_expired_date}까지|
+						<c:out value="${arr[0]}" />
+						</div>
+					</td>
+					<td class="price">
+						<fmt:formatNumber  value="${item.goods_price}" type="number" var="goods_price" />		        
+						<span>${goods_price}원</span>						
+					</td>
+					<td class="price">
+						<strong>${item.goods_discount}% 할인</strong>					
+					</td>
+					<td class="price">
+						<strong>
+						<fmt:formatNumber  value="${item.goods_sales_price}" type="number" var="goods_sales_price" />
+				               ${goods_sales_price}원 
+						</strong>			
+					</td>
+					
+				<!-- 
+	<td class="buy_btns2">  main.css 702,705 a끼리 줄바꿈 안되게 수정 display: block;삭제 -->
+	
+	<td class="buy_btns">
+						<UL>
+						<li><a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">예매</a></li>
+						<li><a href="${contextPath}/goods/deletewish.do?goods_id=${item.goods_id}">삭제</a></li>
+						
+							
+						</UL>
+					</td>
 
+			</tr>
+			</c:forEach>
+			</c:otherwise>
+			</c:choose>
+	</tbody>
+		
+	</table>
+	</div>
 	<script>
 		function openPage(pageName, elmnt, color) {
 			var i, tabcontent, tablinks;

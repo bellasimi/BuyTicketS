@@ -5,15 +5,24 @@
 <!DOCTYPE html>
 <html>
 <style>
-table,tr,td {
-	border : 1px solid black;
-	border-collapse: collapse;
-	bordercolor="black" ;
-	cellpadding=10 ;
-	cellspacing=10 ;
-	bgcolor="white";
+table{
+	padding:5%;
+	bgcolor:white;
+	margin-left: auto;
+    margin-right: auto;
+}
+
+tr,td{
+	padding : 10px;
 	text-align : center;
-};
+}
+.hide{
+	text-align : left;
+}
+.order{
+	background-color : #2196F3;
+	color : #E6F2FF;
+}
 
 title{
 	text-align : center;
@@ -33,17 +42,15 @@ textarea{resize:none;}
 </head>
 
 <body>
-<h1 class=title>리뷰페이지입니다.</h1>
-<hr>
-<form action="/bts/mypage/updateMyReview.do" method="post"> <!-- 페이지이동하면서 자연스럽게 보낼 수 있는 방법...-->
+<form action="/bts/mypage/updateMyReview.do" method="post"> 
 <table>
 <tr>
-<td colspan="2" bgcolor="gray">주문번호 :  ${order_id}</td>
-<td colspan="4" bgcolor="gray">상품명 :  ${goods_title}</td>
+<td class="order" colspan="2"><h1>주문번호 :  ${order_id}</h1></td>
+<td class="order" colspan="4"><h1>상품명 :  ${goods_title}</h1></td>
 </tr>
 
-<tr >
-<td id=star rowspan="2" width="100">별점</td>
+<tr>
+<td class="order" id=star rowspan="2" width="100"><h1>별점</h1></td>
 <td id=star width="100">5점</td>
 <td id=star width="100">4점</td>
 <td id=star width="100">3점</td>
@@ -60,16 +67,20 @@ textarea{resize:none;}
 </tr>
 
 <tr>
-<td>리뷰 내용</td>
+<td class="order"><h1>리뷰 내용</h1></td>
 <td colspan="5"><textarea name="review_content" rows="12" cols="69"></textarea></td>
 </tr>
+
+<tr>
+<td  class="hide"><input type="submit" value="작성완료입니당"></td>
+<td  class="hide" colspan="5"><input type="reset" value="다지워버릴거야"></td>
+</tr>
+
+<tr><td class="hide" colspan="6"><a href="${contextPath}/mypage/myPageMain.do"><h1>되돌아가기</h1></a></td></tr>
 
 </table>
 <input type="hidden" name="order_seq_num" value="${order_seq_num}" />
 <input type="hidden" name="member_id" value="${member_id}" />
-<input type="submit" value="작성완료입니당">
-<input type="reset" value="다지워버릴거야">
 </form>
-<a href="${contextPath}/mypage/myPageMain.do">마이페이지</a>
 </body>
 </html>

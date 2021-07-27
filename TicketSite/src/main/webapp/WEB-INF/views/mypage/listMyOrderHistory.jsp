@@ -122,7 +122,7 @@ function fn_cancel_order(order_id){
 						<option value="2012">주문번호</option>
 					</select>
 					<input  type="text"  size="30" />  
-					<input   type="button"  value="조회"/>
+					<input  type="button"  value="조회"/>
 				  </td>
 				</tr>
 				<tr>
@@ -163,7 +163,6 @@ function fn_cancel_order(order_id){
 	 </c:when>
 	 <c:otherwise> 
      <c:forEach var="item" items="${myOrderHistList }" varStatus="i">
-       <%--  <c:choose> --%>
             <tr>       
 				<td>
 				  <a href="${contextPath}/mypage/myOrderDetail.do?order_id=${item.order_id }"><strong>${item.order_id }</strong>  </a>
@@ -189,34 +188,26 @@ function fn_cancel_order(order_id){
 					 </c:forEach>
 				   </strong>
 				</td>
-				<td>
-				  <strong>
-				    <c:choose>
-					    <c:when test="${item.review_state=='review_confirm' }">
-					       리뷰등록
-					    </c:when>
-					    <c:otherwise>
-					       <a href="${contextPath}/mypage/review.do?order_id=${item.order_id}&goods_title=${item.goods_title}&order_seq_num=${item.order_seq_num}">리뷰 미작성</a>
-					    </c:otherwise>
-				  	</c:choose>
-				  </strong>
+				  <c:choose>
+									<c:when test = "${item.review_state != 'review_confirm'}">
+										<td><a href="${contextPath}/mypage/review.do?order_id=${item.order_id}&goods_title=${item.goods_title}&order_seq_num=${item.order_seq_num}">리뷰 미작성</a></td>
+									</c:when>
+									
+									<c:otherwise>
+									<td>
+									리뷰 작성 완료
+									</td>
+									</c:otherwise>
+								</c:choose>
 				</td>
 				<td>
-				 <strong>${item.orderer_name }</strong> 
+				  <strong>${item.orderer_name }</strong>
 				</td>
 				
 				<td>
-			     <c:choose>
-			   <c:when test="${item.review_state=='review_confirm'}">
-			       <input  type="button" onClick="fn_cancel_order('${item.order_id}')" value="주문취소"  />
-			   </c:when>
-			   <c:otherwise>
-			      <input  type="button" onClick="fn_cancel_order('${item.order_id}')" value="주문취소" disabled />
-			   </c:otherwise>
-			  </c:choose>
+			      <strong>${item.goods_ticket_date }</strong>
 			    </td>
 			</tr>
-	<%--   </c:choose>		 --%>
 	</c:forEach>
 	</c:otherwise>
   </c:choose>	 	   

@@ -29,6 +29,7 @@ import com.bts.mypage.service.MyPageDummyService;
 import com.bts.mypage.service.MyPageService;
 import com.bts.mypage.vo.ReviewVO;
 import com.bts.order.vo.OrderVO;
+import com.bts.wish.vo.*;
 
 @Controller("myPageController")
 @RequestMapping(value="/mypage")
