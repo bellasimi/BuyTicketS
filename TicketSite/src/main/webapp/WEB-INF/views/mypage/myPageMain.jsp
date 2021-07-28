@@ -108,7 +108,7 @@ body, html {
 						<c:forEach var="item" items="${myOrderList }" varStatus="i">
 							<tr>
 								<td>
-								<a href="${contextPath}/mypage/myOrderDetail.do?order_id=${item.order_id }"><span>${item.order_id }</span></a>
+								${item.order_id }
 								</td>
 								<td><span>${item.pay_order_time }</span></td>
 								<td><strong>
