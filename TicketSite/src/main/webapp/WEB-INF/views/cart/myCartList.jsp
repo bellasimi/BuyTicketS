@@ -121,7 +121,6 @@ $("input[type=checkbox]").change(function() {
 	var plusButton = document.getElementsByName("plus");
 	var minusButton = document.getElementsByName("minus");
 if(checked_goods.length>1){	
-//장바구니안에 상품이 여러개일때고 하나일때랑 나눠야 한다ㅠㅠ 근데 어케해 
 	for(var i=0; i<checked_goods.length;i++){ //한개만 체크됐을때랑 나눠서 해줘야함 		
 		if(checked_goods[i].checked==true){
 			goodsPrice=goods_price[i].value;
@@ -160,9 +159,8 @@ else{
 	}
 }
 
-		//hidden값도 다시 설정해준다 -> 포맷팅하기전에 넣어야 다른곳에서 불러다가 계산가능
 	h_totalGoodsPrice.value=totalGoodsPrice //총상품금액 (정가)
-	h_totalSalesPrice.value=totalSalesPrice //이게 통할까 내 의도는 hidden값 바꾸는건데 
+	h_totalSalesPrice.value=totalSalesPrice 
 	
 	//숫자 #,### 포맷팅
 	totalGoodsPrice=Intl.NumberFormat().format(totalGoodsPrice);
@@ -195,9 +193,6 @@ else{
         checkedGoods = $("input[class=checked_goods]:checked").length;
         document.getElementById("checkedGoods").innerHTML=checkedGoods;
         //체크박스 개수 넘겨줌 
-        
-        
-        
 	});
 	//부분선택/전체해제 
 	$(".checked_goods").change(function() {  //prop으로 썼었다 change로 해도 일단 선택은 똑같이 됨 
@@ -206,10 +201,7 @@ else{
 			
 		} else {			
 			$("#checkall").prop("checked",false);
-		
-			
 		}
-
 		
 		//체크박스중에 checked된 것들 개수
 		checkedGoods = $("input[class=checked_goods]:checked").length;
@@ -261,8 +253,7 @@ function plusone(goods_id,goods_price,goods_sales_price,index) {
 	totalSalesPrice.value=parseInt(totalSalesPrice.value)+goods_sales_price;
 	var totalDiscount=totalGoodsPrice.value-totalSalesPrice.value;
 	
-	console.log("총 상품금액"+totalGoodsPrice.value);  //10040
-	//document.getElementById("p_priceXqty").innerHTML=priceXqty;
+	console.log("총 상품금액"+totalGoodsPrice.value);  
 	priceXqty.value=Intl.NumberFormat().format(goods_sales_price*cart_goods_qty); //합계는 판매가*수량
 	
 	totalGoodsPrice=Intl.NumberFormat().format(totalGoodsPrice.value);
@@ -345,8 +336,7 @@ function minusone(goods_id,goods_price,goods_sales_price,index) {
 	totalSalesPrice.value=parseInt(totalSalesPrice.value)-goods_sales_price*base;
 	var totalDiscount=totalGoodsPrice.value-totalSalesPrice.value;
 	
-	console.log("총 상품금액"+totalGoodsPrice.value);  //10040
-	//document.getElementById("p_priceXqty").innerHTML=priceXqty;
+	console.log("총 상품금액"+totalGoodsPrice.value); 
 	priceXqty.value=Intl.NumberFormat().format(goods_sales_price*cart_goods_qty); //합계는 판매가*수량
 	
 	totalGoodsPrice=Intl.NumberFormat().format(totalGoodsPrice.value);
@@ -396,38 +386,6 @@ function minusone(goods_id,goods_price,goods_sales_price,index) {
 
 	
 
-/*되는 코드 -> 개수 넘겨주는 거까지 
-var checkedGoods;
-$(document).ready(function(){
-	//전체선택/전체해제
-	$("#checkall").click(function(){
-        //클릭되었으면
-        if($("#checkall").prop("checked")){
-            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
-            $("input[type=checkbox]").prop("checked",true);
-            //클릭이 안되있으면
-        }else{
-            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
-        	 $("input[type=checkbox]").prop("checked",false);
-        }
-        checkedGoods = $("input[class=checked_goods]:checked").length;
-        document.getElementById("checkedGoods").innerHTML=checkedGoods;
-        //체크박스 개수 넘겨줌 
-        
-	});
-	//부분선택/전체해제 
-	$(".checked_goods").click(function() {
-		if($("input[class=checked_goods]:checked").length==$("input[class=checked_goods]").length) {
-			$("#checkall").prop("checked",true);
-		} else {
-			$("#checkall").prop("checked",false);
-		}
-		checkedGoods = $("input[class=checked_goods]:checked").length;
-		document.getElementById("checkedGoods").innerHTML=checkedGoods;
-	});
- 
-}); */
-
 //위시리스트
 function add_wish(goods_id){
 	console.log(goods_id);
@@ -450,7 +408,7 @@ function add_wish(goods_id){
 		success : function(data, textStatus) {
 		
 			if(data.trim()=='null'){
-				imagePopup('open', layer);	//.layer02은 null이다. 
+				imagePopup('open', layer);	
 			}else if(data.trim()=='isAlreadyExisted'){
 				alert("이미 위시리스트에 등록된 상품입니다.");	
 			}
@@ -471,21 +429,17 @@ function imagePopup(type,layer) {
 	console.log(type,layer)
 	if (type == 'open') {
 		if(layer == 'layer'){
-			// 팝업창을 연다.
 			$('#layer').attr('style', 'visibility:visible');
-			// 페이지를 가리기위한 레이어 영역의 높이를 페이지 전체의 높이와 같게 한다.
 			$('#layer').height(jQuery(document).height());
 		}
 		else if(layer == 'layer2'){
 			jQuery('#layer2').attr('style', 'visibility:visible');
-			// 페이지를 가리기위한 레이어 영역의 높이를 페이지 전체의 높이와 같게 한다.
 			jQuery('#layer2').height(jQuery(document).height());
 		}
 	}//type if
 
 	else if (type == 'close') {
 		if(layer == 'layer'){
-		// 팝업창을 닫는다.
 			jQuery('#layer').attr('style', 'visibility:hidden');
 		}
 		else if(layer== 'layer2'){
@@ -510,8 +464,6 @@ function delete_cart_goods(cart_id) {
 }
 
 
-//페이지에서 계속 수정되는 cart_goods_qty는 폼에서 직접 넘겨받는다 
-//fn_order_each_goods('${item.goods_id}','${item.goods_title}','${item.goods_sales_price}','${item.goods_fileName}'
 function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName,goods_point,goods_ticket_date,index) {
 	console.log("개별주문 함수 ");
 	//로그인확인
@@ -583,6 +535,8 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName,goo
     formObj.submit();    
 	}
 }	 
+
+
 
 function fn_order_all_cart_goods() {
 	console.log("모두주문하기");
@@ -722,7 +676,8 @@ function fn_order_all_cart_goods() {
 			 <button type="button" class="cart_btn" onclick="javascript:delete_cart_goods('${cart_id}');">삭제</button>
 		</td>
 		<td colspan="4" align="right">
-			합계 : <input type="text" name="priceXqty" size=5 value="${item.goods_sales_price*cart_goods_qty}" readonly style="border:0px none;background-color:transparent;"><br>
+			<fmt:formatNumber var="priceXqty" value="${item.goods_sales_price*cart_goods_qty}"/>
+			합계 : <input type="text" name="priceXqty" size=5 value="${priceXqty}" readonly style="border:0px none;background-color:transparent;"><br>
 		</td>
 	</tr>
 	<c:set var="totalGoodsPrice" value="${totalGoodsPrice+item.goods_price*cart_goods_qty }" />

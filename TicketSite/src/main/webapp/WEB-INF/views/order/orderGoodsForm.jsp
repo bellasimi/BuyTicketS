@@ -98,7 +98,7 @@ button.buy_btn{
 	height: 30px;
     text-align: center;
 	padding: 3px;
-	color: rgb(255, 0, 0);
+	font-color: rgb(255, 0, 0);
 	font-family: 'NanumBarunGothic', 'sans-serif';
 	font-size: 1.2em; 
 	font-weight: bold;
@@ -111,8 +111,9 @@ button[name=total]{
 /*
 .detail_table{
 width:80%;
-}
-*/
+bgcolor : white;
+}*/
+
 </style>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -126,9 +127,7 @@ width:80%;
 		console.log("적립금 모두사용");
 		var point_used=document.form_order.point_used;
 		point_used.value=point_used.max;
-		//$("#ch_point_used").prop("checked",true);
 	});
-
   });
 
 //할인 정보입력
@@ -139,53 +138,37 @@ $(document).ready(function(){
 		var discount_okcashbag=0;
 		var discount_coupon=0;
 		var totalDiscount=0;
-		
-		
-		console.log("함수2");
 		if($("#ch_point_used").prop("checked")){
 			console.log("point");
 			point_used=document.form_order.point_used.value;
 			point_used=parseInt(point_used);
-			console.log("if문point_used"+point_used+typeof point_used);
 		}
 		if($("#ch_discount_sangpum").prop("checked")){
 			discount_sangpum=document.form_order.discount_sangpum.value;
 			discount_sangpum=parseInt(discount_sangpum);
-			console.log("discount_sangpum"+discount_sangpum);
 		}
 		if($("#ch_discount_okcashbag").prop("checked")){
 			discount_okcashbag=document.form_order.discount_okcashbag.value;
 			discount_okcashbag=parseInt(discount_okcashbag);
-			console.log("discount_okcashbag"+discount_okcashbag);
 		}
 		if($("#ch_discount_coupon").prop("checked")){
 			discount_coupon=document.form_order.discount_coupon.value;
 			discount_coupon=parseInt(discount_coupon);
-			console.log("discount_coupon"+discount_coupon);
 		}
 		totalDiscount=point_used+discount_sangpum+discount_okcashbag+discount_coupon;
 		var totalPrice=document.form_order.h_totalPrice.value;
 		totalPrice=parseInt(totalPrice);
 		document.getElementById("p_totalDiscount").innerHTML=totalDiscount;
 		document.getElementById("p_final_totalPrice").innerHTML=totalPrice-totalDiscount;
-		//나중에 최종값을 넘겨주기 위한것 
+
 		var h_final_total_Price=document.form_order.h_final_total_Price;
 		h_final_total_Price.value=totalPrice-totalDiscount;
-		//
-		console.log("point_used"+point_used+typeof point_used);
-		console.log("discount_sangpum"+discount_sangpum+typeof discount_sangpum);
-		console.log("discount_okcashbag"+discount_okcashbag+typeof discount_okcashbag);
-		console.log("discount_coupon"+discount_coupon+typeof discount_coupon);
-		
-	
 	});	
 });
 	
    
 //결제창 띄우기
 function fn_pay_phone(){
-	
-	
 	var e_card=document.getElementById("tr_pay_card");
 	var e_phone=document.getElementById("tr_pay_phone");
 	var e_account=document.getElementById("tr_random_account");
@@ -555,12 +538,12 @@ function imagePopup(type) {
 		<tbody>
 			<tr class="dot_line">
 				<td width=100>
-					적립금
+					포인트
 					<button type="button" id="use_point_all">모두사용</button>					
 				</td> 
 				<td><input id="point_used" class="in_order" type="text" size="10" min="0" max="${orderer.member_point}" value="0"/>원/${orderer.member_point}원
 						&nbsp;&nbsp;&nbsp; <input type="checkbox" id="ch_point_used" class="discountBox" onclick=""/> 사용하기</td>
-						<!-- 모두사용하기 누르면 자동으로 값이 전체돈으로 입력되도록해야한다  -->
+						
 					
 			</tr>
 				
@@ -591,6 +574,7 @@ function imagePopup(type) {
 <table class="total_view">
  <tbody>
 	<tr><td colspan="2">총계</td></tr>
+	<tr><td colspan="2"><hr></td></tr>
 	<tr>
 		<td>총 상품수 </td>
 		<td align="right">

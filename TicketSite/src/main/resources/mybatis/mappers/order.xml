@@ -125,13 +125,12 @@
 	  where goods_id=#{goods_id}
 	</delete>
 	
+	
 	<update id="usePoint" parameterType="orderVO">
 	  update ticket_member
 	  set member_point=member_point-#{point_used}
 	  where member_id=#{member_id}
 	</update>
-
-	
 
 	<update id="getPoint" parameterType="orderVO">
   	  update ticket_member

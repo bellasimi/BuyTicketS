@@ -52,7 +52,6 @@ public class CartControllerImpl extends BaseController implements CartController
 		session.setAttribute("cartMap", cartMap); 
 		return mav;
 	}
-	
 
 	@Override
 	@RequestMapping(value="/addGoodsInCart.do" ,method = RequestMethod.POST,produces = "application/text; charset=utf8")
@@ -76,8 +75,7 @@ public class CartControllerImpl extends BaseController implements CartController
 		boolean isAreadyExisted=cartService.findCartGoods(cartVO); //장바구니에 이미 상품이 존재하는지 확인 
 		System.out.println("isAreadyExisted:"+isAreadyExisted);
 		if(isAreadyExisted==true){
-			return "already_existed";       ///String 넘긴다 goodsdetail.jsp에서 경고메시지 띄워줌 
-			//ata.trim()=='already_existed' 이런식으로 처리됨 자바스크립트에서 
+			return "already_existed";      
 		}else{ //장바구니에 없으면 추가시킨다 
 			cartService.addGoodsInCart(cartVO);
 			return "add_success";

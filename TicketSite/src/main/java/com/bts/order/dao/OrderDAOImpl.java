@@ -50,7 +50,7 @@ public class OrderDAOImpl implements OrderDAO {
 		return sqlSession.selectOne("mapper.order.selectOrderID");
 		
 	}
-	//그냥 포인트만 넘길지 VO전체로 넘길지 생각좀... 
+
 	public void getPoint(List<OrderVO> myOrderList) throws DataAccessException{
 		for(int i=0; i<myOrderList.size();i++){
 			OrderVO orderVO =(OrderVO)myOrderList.get(i);
@@ -58,12 +58,7 @@ public class OrderDAOImpl implements OrderDAO {
 		}
 		
 	}
-	/* 포인트사용료만 넘기는거 
-	public void usePoint(int point_used) throws DataAccessException {
-		sqlSession.update("mapper.order.usePoint",point_used);
-	}
-	*/
-	
+
 	public void usePoint(List<OrderVO> myOrderList) throws DataAccessException{
 		OrderVO orderVO =(OrderVO)myOrderList.get(0);
 		System.out.println("DAO쓴포인트값"+orderVO.getPoint_used());
