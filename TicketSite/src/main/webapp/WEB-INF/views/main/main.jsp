@@ -50,11 +50,12 @@
 			</div>
 			</div>
 		</div>
-	   <c:if test="${goods_count==15   }">
+	  <!--  <c:if test="${goods_count==15   }">
          <div class="book">
            <font size=20> <a href="#">more</a></font>
-         </div>
+         </div> 
      </c:if>
+     -->
   </c:forEach>
 </div>
 <div class="clear"></div>
@@ -95,11 +96,7 @@
 			</div>
 			</div>
 	</div>
-	 <c:if test="${goods_count==15   }">
-     <div class="book">
-       <font size=20> <a href="#">more</a></font>
-     </div>
-   </c:if>
+	 
 	</c:forEach>
 </div>
 
@@ -141,11 +138,7 @@
 			</div>
 			</div>
 	</div>
-	 <c:if test="${goods_count==15   }">
-     <div class="book">
-       <font size=20> <a href="#">more</a></font>
-     </div>
-   </c:if>
+	
 	</c:forEach>
 </div>
 
