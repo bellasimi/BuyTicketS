@@ -1,4 +1,4 @@
-# BuyTickets
+# BuyTicketS
   여행관련 티켓을 구매하는 사이트입니다. 
 # 개발 환경
   * Spring framework 4.1.1 
