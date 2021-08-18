@@ -71,7 +71,7 @@ $(document).ready(function(){
 
 <BODY>
 	<form action="${contextPath}/admin/goods/addNewGoods.do" name="ANG" method="post"  enctype="multipart/form-data">
-			<h1>ԼƠƔЄ 새상품 등록창</h1>
+			<h1>새상품 등록창</h1>
 		<div class="tab_container">
 <!-- 내용 들어 가는 곳 -->
 			<div class="tab_container" id="container">

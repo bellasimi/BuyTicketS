@@ -72,8 +72,9 @@ textarea{resize:none;}
 </tr>
 
 <tr>
-<td  class="hide"><input type="submit" value="작성완료입니당"></td>
-<td  class="hide" colspan="5"><input type="reset" value="다지워버릴거야"></td>
+<td class="hide"  colspan="4">
+<td  class="hide"><input type="submit" style="padding-right:0px; float:right;" value="작성완료"></td>
+<td  class="hide"  style="padding-left:15px;float:left;"><input type="reset" value="초기화"></td>
 </tr>
 
 <tr><td class="hide" colspan="6"><a href="${contextPath}/mypage/myPageMain.do"><h1>되돌아가기</h1></a></td></tr>

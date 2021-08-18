@@ -127,11 +127,13 @@
       </dependency>
      
       
-      <dependency>
-          <groupId>mysql</groupId>
-          <artifactId>mysql-connector-java</artifactId>
-          <version>5.1.29</version>
-      </dependency>
+     <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.20</version>
+</dependency>
+
          <!-- myBatis 설정관련 라이브러리 -->
         <dependency>
             <groupId>commons-beanutils</groupId>
@@ -192,7 +194,7 @@
       </dependency>   
       
 	    
-	    <!-- 썸내일 기능 -->
+	    <!-- 썸네일 기능 -->
         <dependency>
          <groupId>net.coobird</groupId> 
          <artifactId>thumbnailator</artifactId> 
