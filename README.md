@@ -18,6 +18,6 @@
   
 # 라이센스
 
-# 메인페이지
-![image](https://user-images.githubusercontent.com/79133602/129889645-276c0337-08bd-4035-9d46-282c8ba2a70d.png)
+# 사이트 예시
 
+![image](https://user-images.githubusercontent.com/79133602/129894447-4bae4eb7-4c29-4e07-8f16-cfa26b232baf.png)
