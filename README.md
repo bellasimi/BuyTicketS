@@ -5,6 +5,7 @@
   * Java 1.8
   * Tomcat 9
   * Oracle database 11g
+  * Eclipse IDE 4.15.0
   
 # 데이터베이스 ERD
 ![image](https://user-images.githubusercontent.com/79133602/129891728-41b928eb-3c26-424c-814e-843eab83657a.png)
