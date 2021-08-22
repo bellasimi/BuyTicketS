@@ -50,7 +50,7 @@
 	
 	<select id="selectNewOrderList" parameterType="java.util.HashMap" resultMap="orderResult">
 		select * from ( 
-			select t.* from ( 
+			select rowNum as recNum,t.* from ( 
 				select * from TICKET_ORDER where to_char(pay_order_time,'yyyy-mm-dd') between #{beginDate} and #{endDate} 
 					<if test="search_type=='orderer_id'"> AND orderer_id=#{search_word} </if>
 					<if test="search_type=='orderer_name'"> AND orderer_name=#{search_word} </if>

@@ -43,7 +43,7 @@ function fn_modify_order_state(order_id){
 </script>
 </head>
 <body>
-	<H1>ԼƠƔЄ 주문 상세정보</H1>
+	<H1> 주문 상세정보</H1>
 	<table class="list_view">
 		<tbody align=center>
 			<tr style="background:#2196F3; color: white;">
@@ -133,7 +133,7 @@ function fn_modify_order_state(order_id){
 <!-- 	</div> -->
 	<div >
 
-	   <h1>ԼƠƔЄ 주문고객</h1>
+	   <h1> 주문고객</h1>
 		 <table >
 		   <TBODY>
 			 <tr class="dot_line">
@@ -161,7 +161,7 @@ function fn_modify_order_state(order_id){
 	<br>
 <!-- 	<br> -->
 <!-- 	<br> -->
-	<h1>ԼƠƔЄ 결제정보</h1>
+	<h1> 결제정보</h1>
 	<div class="detail_table">
 		<table>
 			<tbody>

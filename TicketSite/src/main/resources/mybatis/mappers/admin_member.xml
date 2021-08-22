@@ -30,7 +30,7 @@
 
 <select id="listMember" parameterType="java.util.HashMap" resultMap="memberResult">
 	select * from (
-		select t.* from ( 
+		select rowNum as recNum,t.* from ( 
 			select * from TICKET_MEMBER 
 				<if test="search_type=='member_id'"> AND member_id=#{search_word} </if>
 				<if test="search_type=='member_name'"> AND member_name=#{search_word} </if>

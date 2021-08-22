@@ -36,7 +36,8 @@
 	    <![CDATA[
 			select * from ticket_member 
 			 where member_id=#{member_id}
-			 and member_pw=#{member_pw}			
+			 and member_pw=#{member_pw}		
+			 and DEL_YN ='N'	
 			 
 		]]>
 	</select>

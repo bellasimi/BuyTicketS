@@ -190,13 +190,14 @@ footer{
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <c:if test='${not empty message}'>
-
+	
 <script>
-
+	alert('${message}');
 </script>
 </c:if>
 </head>
 <body>
+
 <div class="main-container">
 		<div class="main-wrap">
 		<form action="${contextPath}/member/login.do" method="post">

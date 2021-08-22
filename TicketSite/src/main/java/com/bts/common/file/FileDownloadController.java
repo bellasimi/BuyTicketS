@@ -20,8 +20,8 @@ public class FileDownloadController {
 	//학원 컴퓨터 git 위치 
 	//private static String CURR_IMAGE_REPO_PATH = "C:\\Users\\311\\git\\Ticket\\TicketSite\\src\\main\\webapp\\resources\\shopping\\file_repo";
     //본인 컴퓨터 git 위치 
-	//private static final String CURR_IMAGE_REPO_PATH = "C:\\Users\\82107\\git\\Ticket\\TicketSite\\src\\main\\webapp\\resources\\shopping\\file_repo";
-	private static String CURR_IMAGE_REPO_PATH = "C:\\bts\\TicketSite\\src\\main\\webapp\\resources\\shopping\\file_repo";
+	private static final String CURR_IMAGE_REPO_PATH = "C:\\Users\\82107\\git\\Ticket\\TicketSite\\src\\main\\webapp\\resources\\shopping\\file_repo";
+	//private static String CURR_IMAGE_REPO_PATH = "C:\\bts\\TicketSite\\src\\main\\webapp\\resources\\shopping\\file_repo";
 	@RequestMapping("/download")
 	protected void download(@RequestParam("fileName") String fileName,
 		                 	@RequestParam("goods_id") String goods_id,

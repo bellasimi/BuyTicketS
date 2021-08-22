@@ -221,7 +221,7 @@ function fn_detail_search(){
 </script>
 </head>
 <body>
-	<H3>ԼƠƔЄ 회원 조회</H3>
+	<H3> 회원 조회</H3>
 	<form name="frm_delivery_list" >	
 		<table style="cellpadding:10; cellspacing:10"  >
 			<tbody>

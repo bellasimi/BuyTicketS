@@ -47,11 +47,9 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 			}else{
 				mav.setViewName("redirect:/main/main.do");	
 			}
-			
-			
-			
+
 		}else{
-			String message="���̵�  ��й�ȣ�� Ʋ���ϴ�. �ٽ� �α������ּ���";
+			String message="잘못된 회원 정보입니다!";
 			mav.addObject("message", message);
 			mav.setViewName("/member/loginForm");
 		}
@@ -127,7 +125,6 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		mv.setViewName(view);
 		return mv;
 	}
-	//�̸����� IDã�� ��
 	@RequestMapping(value="/nisearchv.do",method = RequestMethod.POST)
 		public ModelAndView isnv(HttpServletRequest rq,HttpServletResponse rs) {
 			ModelAndView mv = new ModelAndView();
@@ -135,7 +132,6 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 			mv.setViewName(viewName);
 			return mv;
 		}
-	//�̸����� IDã��
 	@RequestMapping(value="/nisearch.do",method = RequestMethod.POST)
 	public ModelAndView isn(String name,HttpServletRequest rq,HttpServletResponse rs) throws Exception {
 		 String viewName = (String)rq.getAttribute("viewName");
@@ -145,7 +141,6 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		 mv.addObject("member",member);
 		 return mv;
 	}
-	//ID�� ���ã�� ��
 	@RequestMapping(value="/psearchv.do" ,method = RequestMethod.POST)
 	public ModelAndView psv(HttpServletRequest hs){
 		ModelAndView mv = new ModelAndView();
@@ -153,7 +148,6 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		mv.setViewName(view);
 		return mv;
 	}
-	//id�� ���ã��
 	@RequestMapping(value="/psearch.do" ,method = RequestMethod.POST)
 	public ModelAndView ps(@RequestParam("id")String id,HttpServletRequest hs) throws Exception{
 

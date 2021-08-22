@@ -33,7 +33,8 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 	//private static String CURR_IMAGE_REPO_PATH = "C:\\Users\\311\\git\\Ticket\\TicketSite\\src\\main\\webapp\\resources\\shopping\\file_repo";
     //본인 컴퓨터 git 위치  
 	//private static final String CURR_IMAGE_REPO_PATH = "/home/k1/images/";
-	private static String CURR_IMAGE_REPO_PATH = "C:\\bts\\TicketSite\\src\\main\\webapp\\resources\\shopping\\file_repo";
+	private static final String CURR_IMAGE_REPO_PATH = "C:\\Users\\82107\\git\\Ticket\\TicketSite\\src\\main\\webapp\\resources\\shopping\\file_repo";
+	//private static String CURR_IMAGE_REPO_PATH = "C:\\bts\\TicketSite\\src\\main\\webapp\\resources\\shopping\\file_repo";
     @Autowired
     private AdminGoodsService adminGoodsService;
     @RequestMapping(value="/adminGoodsMain.do" ,method={RequestMethod.POST,RequestMethod.GET})

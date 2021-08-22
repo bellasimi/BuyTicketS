@@ -254,7 +254,7 @@ function fn_detail_order(order_id){
 </script>
 </head>
 <body>
-	<H3>ԼƠƔЄ 주문 조회</H3> <!-- name="frm_delivery_list" -->
+	<H3> 주문 조회</H3> <!-- name="frm_delivery_list" -->
 	<form  action="${contextPath }/admin/admin.do" method="post">	
 		<table   >
 			<tbody>

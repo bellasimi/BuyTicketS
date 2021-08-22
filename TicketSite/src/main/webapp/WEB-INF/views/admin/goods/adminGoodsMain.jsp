@@ -89,7 +89,7 @@ function  calcPeriod(search_period){
 </script>
 </head>
 <body>
-	<H3>ԼƠƔЄ 상품 조회</H3>
+	<H3>상품 조회</H3>
 	<form  method="post">	
 		<TABLE style="cellpadding:10; cellspacing:10"  >
 			<TBODY>
