@@ -22,5 +22,11 @@
 
 ![image](https://user-images.githubusercontent.com/79133602/129894447-4bae4eb7-4c29-4e07-8f16-cfa26b232baf.png)
 
+# 사이트 시연 영상
+
+[![📽 사용자 시연 영상](https://img.youtube.com/vi/A9YvcZrhci0/0.jpg)](https://www.youtube.com/watch?v=A9YvcZrhci0)
+
+[![📽 관리자 시연 영상](https://img.youtube.com/vi/5yKkRQyKAZQ/0.jpg)](https://www.youtube.com/watch?v=5yKkRQyKAZQ)
+
 # 라이센스
 Copyright (c) 2021 BuyTicketS
